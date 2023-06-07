@@ -8,9 +8,8 @@ session_start();
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Home</title>
-    <link rel = "icon" href = 
-        "https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" 
-        type = "image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
@@ -18,7 +17,7 @@ session_start();
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@700&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@700&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -55,7 +54,10 @@ session_start();
                 <a href="appointment.php" class="nav-item nav-link">Appointments</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
                 <a href="logout.php" class="nav-item nav-link">Logout</a>
-                <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN US
+                <a href="logout.php" class="nav-item nav-link">Done</a>
+
+                <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
+                    US
                     <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
@@ -158,10 +160,14 @@ session_start();
             <div class="owl-carousel team-carousel position-relative" style="padding-right: 25px;">
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden" src="https://media.discordapp.net/attachments/1112075552669581332/1113440500536582234/1.png" alt="">
+                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden"
+                            src="https://media.discordapp.net/attachments/1112075552669581332/1113440500536582234/1.png"
+                            alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
-                                <a class="btn btn-light btn-square mx-1" href="https://www.linkedin.com/in/gilbert-coquilla-63529a210" target=”_blank” ><i class="bi bi-linkedin"></i></a>
+                                <a class="btn btn-light btn-square mx-1"
+                                    href="https://www.linkedin.com/in/gilbert-coquilla-63529a210" target=”_blank”><i
+                                        class="bi bi-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
@@ -172,10 +178,14 @@ session_start();
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100 h-100" style="width:200px;height:200px;overflow:hidden" src="https://media.discordapp.net/attachments/1112075552669581332/1113440500796620810/2.png" alt="">
+                        <img class="img-fluid w-100 h-100" style="width:200px;height:200px;overflow:hidden"
+                            src="https://media.discordapp.net/attachments/1112075552669581332/1113440500796620810/2.png"
+                            alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
-                                <a class="btn btn-light btn-square mx-1" href="https://www.linkedin.com/in/bianca-ongkingco-557727262" target=”_blank” ><i class="bi bi-linkedin"></i></a>
+                                <a class="btn btn-light btn-square mx-1"
+                                    href="https://www.linkedin.com/in/bianca-ongkingco-557727262" target=”_blank”><i
+                                        class="bi bi-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
@@ -186,10 +196,14 @@ session_start();
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden" src="https://media.discordapp.net/attachments/1112075552669581332/1113440501060878397/3.png" alt="">
+                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden"
+                            src="https://media.discordapp.net/attachments/1112075552669581332/1113440501060878397/3.png"
+                            alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
-                                <a class="btn btn-light btn-square mx-1" href="https://guillemanzano.my.canva.site/gm-portfolio" target=”_blank” ><i class="bi bi-globe"></i></a>
+                                <a class="btn btn-light btn-square mx-1"
+                                    href="https://guillemanzano.my.canva.site/gm-portfolio" target=”_blank”><i
+                                        class="bi bi-globe"></i></a>
                             </div>
                         </div>
                     </div>
@@ -200,11 +214,16 @@ session_start();
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden" src="https://media.discordapp.net/attachments/1112075552669581332/1113440501308334110/4.png" alt="">
+                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden"
+                            src="https://media.discordapp.net/attachments/1112075552669581332/1113440501308334110/4.png"
+                            alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
-                                <a class="btn btn-light btn-square mx-1" href="https://shirpaz.xyz"><i class="bi bi-globe" target=”_blank” ></i></a>
-                                <a class="btn btn-light btn-square mx-1" href="https://www.linkedin.com/in/shirley-paz-9069b91aa/" target=”_blank” ><i class="bi bi-linkedin"></i></a>
+                                <a class="btn btn-light btn-square mx-1" href="https://shirpaz.xyz"><i
+                                        class="bi bi-globe" target=”_blank”></i></a>
+                                <a class="btn btn-light btn-square mx-1"
+                                    href="https://www.linkedin.com/in/shirley-paz-9069b91aa/" target=”_blank”><i
+                                        class="bi bi-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
@@ -213,7 +232,7 @@ session_start();
                         <p class="m-0">Front-end Developer</p>
                     </div>
                 </div>
-            
+
             </div>
         </div>
     </div>
@@ -226,21 +245,28 @@ session_start();
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
-                    <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961 762 6162</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
+                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
+                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
+                        762 6162</a>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="#services"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="#founders"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6">
                     <h6 class="text-uppercase mt-4 mb-3">Follow Us</h6>
                     <div class="d-flex">
