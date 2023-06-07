@@ -14,7 +14,7 @@ if (count($_POST) > 0) {
     }
 }
 if (isset($_SESSION["id"])) {
-    header("Location:index.php");
+    header("Location:index.html");
 }
 
 ?>
