@@ -128,7 +128,7 @@ if (isset($_GET['delid'])) {
                                         </h5>
                                         <h5 class="text-uppercase mb-3" name="cname"><?php echo $row['ClinicName'] ?></h5>
                                         <p name="caddress"><?php echo $row['House_LotNo'] . ' ' . $row['Street'] . ' ' . $row['Barangay'] . ' ' . $row['City'] ?> </p>
-                                        <br /><br /><a class="text-primary text-uppercase" href="blessed-vet.php">View Clinic<i class="bi bi-chevron-right"></i></a>
+                                        <br /><br /><a class="text-primary text-uppercase" href="clinic_profile.php">View Clinic<i class="bi bi-chevron-right"></i></a>
                                     </div>
                                 </div>
                             </div>
