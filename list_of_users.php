@@ -193,7 +193,8 @@ if (isset($_GET['delid'])) {
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
                 <a href="index.php" class="nav-item nav-link">Home</a>
-                <a href="list_of_pets.php" class="nav-item nav-link active">Pets</a>
+                <a href="list_of_users.php" class="nav-item nav-link active">Users</a>
+                <a href="list_of_pets.php" class="nav-item nav-link">Pets</a>
                 <a href="clinics.php" class="nav-item nav-link">Clinics</a>
                 <a href="inventory_management.php" class="nav-item nav-link">Inventory</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
@@ -210,7 +211,7 @@ if (isset($_GET['delid'])) {
             <div class="table-container">
                 <div class="student">
                     <h1>
-                        Paws N Pages Pet Records
+                        Paws N Pages User Records
                     </h1>
                 </div>
                 <div>
@@ -225,19 +226,19 @@ if (isset($_GET['delid'])) {
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr class="table100-head">
-                            <th class="column1">Pet ID</th>
-                            <th class="column1">Pet Name</th>
-                            <th class="column1">Species</th>
-                            <th class="column1">Breed</th>
+                            <th class="column1">User ID</th>
+                            <th class="column1">Full Name</th>
+                            <th class="column1">ContactNo</th>
                             <th class="column1">Age</th>
-                            <th class="column1">Color</th>
-                            <th class="column1">Owner</th>
+                            <th class="column1">UserType</th>
+                            <th class="column1">Username</th>
+                            <th class="column1">Email</th>
                             <th class="column1">Edit/Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $ret = mysqli_query($con, "SELECT pets.PetID, pets.PetName, pets.Species, pets.Breed, pets.Age, pets.Color, users.FirstName, users.MiddleName, users.LastName FROM pets INNER JOIN users ON pets.UserID = users.UserID");
+                        $ret = mysqli_query($con, "SELECT UserID, FirstName, MiddleName, LastName, ContactNo, Age, UserType, Username, Email FROM users");
                         $cnt = 1;
                         $row = mysqli_num_rows($ret);
                         if ($row > 0) {
@@ -247,15 +248,15 @@ if (isset($_GET['delid'])) {
                                 <!--Fetch the Records -->
                                 <tr>
                                     <td style="text-align: center;"><?php echo $cnt; ?></td>
-                                    <td><?php echo $row['PetName'] ?></td>
-                                    <td><?php echo $row['Species']; ?></td>
-                                    <td><?php echo $row['Breed']; ?></td>
-                                    <td><?php echo $row['Age']; ?></td>
-                                    <td><?php echo $row['Color']; ?></td>
                                     <td><?php echo $row['FirstName'] . " " . $row['MiddleName'] . " " . $row['LastName']; ?></td>
+                                    <td><?php echo $row['ContactNo']; ?></td>
+                                    <td><?php echo $row['Age']; ?></td>
+                                    <td><?php echo $row['UserType']; ?></td>
+                                    <td><?php echo $row['Username']; ?></td>
+                                    <td><?php echo $row['Email']; ?></td>
                                     <td style="text-align: center;">
-                                        <a href="list_of_pets_edit.php?editid=<?php echo htmlentities($row['PetID']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
-                                        <a href="list_of_pets.php?delid=<?php echo ($row['PetID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete record?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a>
+                                        <a href="list_of_users_edit.php?editid=<?php echo htmlentities($row['UserID']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
+                                        <a href="list_of_users.php?delid=<?php echo ($row['UserID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete record?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a>
                                     </td>
                                 </tr>
                             <?php

@@ -48,6 +48,7 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
                 <a href="index.php" class="nav-item nav-link active">Home</a>
+                <a href="list_of_users.php" class="nav-item nav-link">Users</a>
                 <a href="list_of_pets.php" class="nav-item nav-link">Pets</a>
                 <a href="clinics.php" class="nav-item nav-link">Clinics</a>
                 <a href="inventory_management.php" class="nav-item nav-link">Inventory</a>
