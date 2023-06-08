@@ -3,11 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Paws N Pages | Appointments</title>
+    <title>Paws N Pages | Pending Order</title>
     <link rel = "icon" href = 
         "https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" 
         type = "image/x-icon">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -56,45 +55,59 @@
     </nav>
     <!-- Navbar End -->
 
-    <!-- Appointment Start -->
-    <br>
-    <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
-        <h1 class="text-primary text-uppercase">Appointments</h1>
-    </div>
-        <div class="card mb-4 container">
-            <div class="card-body">
-                <table>
-                    <tr>
-                      <th>Booking No</th>
-                      <th>Service</th>
-                      <th>Clinic</th>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Remarks</th>
-                      <th>Status</th>
-                    </tr>
-                    <tr>
-                      <td>1001</td>
-                      <td>Checking up microchipping</td>
-                      <td>Blessed Veterinary</td>
-                      <td>August 1, 2023</td>
-                      <td>3:00 PM</td>
-                      <td>I will bring my pet abroad.</td>
-                      <td>Approved</td>
-                    </tr>
-                     <tr>
-                      <td>1002</td>
-                      <td>Pet check-up</td>
-                      <td>Blessed Veterinary</td>
-                      <td>August 1, 2023</td>
-                      <td>5:00 PM</td>
-                      <td>I'll be leaving my pet for 3 days.</td>
-                      <td>Pending</td>
-                    </tr>
-                  </table>
+    <!-- Orders Start -->
+        <br>
+        <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
+            <h1 class="text-primary text-uppercase">Order Summary</h1>
+        </div>
+        <div class="container-xl px-4 mt-4">
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="card mb-4 mb-xl-0 container">
+                        <h3 class="card-header"><b>Kindly wait for the clinic to approve your order</b></h3>
+                        <div class="card-body text-center">
+                            <div class="userProfile">
+                                <div>Status:&nbsp;&nbsp; <b class="userProfile-font"> Pending </b> </div>
+                                <div>Order No:&nbsp;&nbsp;<b class="userProfile-font">#112</b> </div>
+                                <div>Total:&nbsp;&nbsp; <b class="userProfile-font">₱129.00</b> </div>
+                                <div>Delivery Address:&nbsp;&nbsp; <b class="userProfile-font"> Mendoza Building, 102-D Kamuning Rd, Quezon City </b> </div>
+                                <br>
+                                <!-- Profile picture upload button-->
+                                <button class="btn btn-primary" type="button">Back to Home</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <!-- Profile picture card-->
+                    <div class="card mb-4 mb-xl-0 container">
+                        <div class="card-body text-center">
+                            <div class="userProfile">
+                                <table>
+                                    <tr>
+                                      <th>Product</th>
+                                      <th>Price</th>
+                                      <th>Quantity</th>
+                                      <th>Total</th>
+                                      <th>Prescription</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Shampoo</td>
+                                        <td>₱129.00</td>
+                                        <td>1</td>
+                                        <td>₱129.00</td>
+                                        <td><img class="img-account-profile" src="img/team-2.jpg" alt=""></td>
+                                      </tr>
+                                </table>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    <!-- Appointment End -->
+    <!-- Orders End -->
 
      <!-- Footer Start -->
      <div class="container-fluid bg-light mt-5 py-5">
