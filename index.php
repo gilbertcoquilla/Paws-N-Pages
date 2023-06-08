@@ -55,7 +55,6 @@ session_start();
                 <a href="appointment.php" class="nav-item nav-link">Appointments</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
                 <a href="logout.php" class="nav-item nav-link">Logout</a>
-                <a href="logout.php" class="nav-item nav-link">Done</a>
 
                 <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
                     US
