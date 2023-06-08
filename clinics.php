@@ -1,3 +1,16 @@
+<?php
+
+//database connection  file
+include('connection.php');
+//Code for deletion
+if (isset($_GET['delid'])) {
+    $rid = intval($_GET['delid']);
+    $sql = mysqli_query($con, "DELETE FROM petsupplies WHERE SupplyID=$rid");
+    echo "<script>alert('Item is deleted successfully');</script>";
+    echo "<script>window.location.href = 'inventory_management.php'</script>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -88,25 +101,43 @@
             </div>
             <!-- Sidebar End -->
             <!-- Blog list Start -->
+
             <div class="col-lg-8">
-                <div class="blog-item mb-5">
-                    <div class="row g-0 bg-light overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1" style="object-fit: cover; width: 100%; height: 100%;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
-                            <div class="p-4">
-                                <h5 class="text-uppercase mb-3">Blessed Veterinary Clinic</h5>
-                                <p>281-C Roosevelt Ave, Quezon City</p>
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Vaccination </span>&nbsp;
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Surgery </span> &nbsp;
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> 24/7 </span>
-                                <br /><br /><a class="text-primary text-uppercase" href="blessed-vet.php">View Clinic<i class="bi bi-chevron-right"></i></a>
+                <?php
+                $ret = mysqli_query($con, "SELECT clinics.ClinicID, clinics.ClinicName, address.House_LotNo, address.Street, address.Barangay, address.City FROM clinics INNER JOIN address ON clinics.AddressID = address.AddressID");
+                $cnt = 1;
+                $row = mysqli_num_rows($ret);
+                if ($row > 0) {
+                    while ($row = mysqli_fetch_array($ret)) {
+
+                ?>
+                        <div class="blog-item mb-5">
+                            <div class="row g-0 bg-light overflow-hidden">
+
+                                <div class="col-12 col-sm-5 h-100">
+                                    <img class="img-fluid h-100" src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1" style="object-fit: cover; width: 100%; height: 100%;">
+                                </div>
+                                <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
+
+                                    <div class="p-4">
+                                        <h5 style="display: none;" class="text-uppercase mb-3" name="cname">
+                                            <?php
+                                            $clinic_id = $row['ClinicID'];
+                                            $_SESSION['clinic_id'] = $clinic_id; // already stores clinic id into session, still thinking about how to point which clinic the user clicked into for the next page to view the correct set of supplies and services
+                                            ?>
+                                        </h5>
+                                        <h5 class="text-uppercase mb-3" name="cname"><?php echo $row['ClinicName'] ?></h5>
+                                        <p name="caddress"><?php echo $row['House_LotNo'] . ' ' . $row['Street'] . ' ' . $row['Barangay'] . ' ' . $row['City'] ?> </p>
+                                        <br /><br /><a class="text-primary text-uppercase" href="blessed-vet.php">View Clinic<i class="bi bi-chevron-right"></i></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="blog-item mb-5">
+                <?php
+                        $cnt = $cnt + 1;
+                    }
+                } ?>
+                <!-- <div class="blog-item mb-5">
                     <div class="row g-0 bg-light overflow-hidden">
                         <div class="col-12 col-sm-5 h-100">
                             <img class="img-fluid h-100" src="https://www.businesslist.ph/img/ph/e/1317541690_61200.jpg" style="object-fit: cover; width: 100%; height: 100%;">
@@ -185,7 +216,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-12">
                     <nav aria-label="Page navigation">
                         <ul class="pagination pagination-lg m-0">
