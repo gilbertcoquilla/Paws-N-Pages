@@ -10,18 +10,16 @@ include('connection.php');
 if (isset($_POST['submit'])) {
 
     // For Address
-    $house_lotno = $_POST['house_lotno'];
-    $street = $_POST['street'];
+    $lotno_street = $_POST['lotno_street'];
     $barangay = $_POST['barangay'];
     $city = $_POST['city'];
     $province = $_POST['province'];
     $zipcode = $_POST['zipcode'];
-    $country = $_POST['country'];
 
     $userID = $_POST['userID'];
 
     // Query for data insertion
-    $query = mysqli_query($con, "INSERT INTO address (House_LotNo, Street, Barangay, City, Province, ZIPCode, Country, UserID) VALUES ('$house_lotno', '$street', '$barangay', '$city', '$province', '$zipcode', '$country', '$userID')");
+    $query = mysqli_query($con, "INSERT INTO address (LotNo_Street, Barangay, City, Province, ZIPCode, UserID) VALUES ('$lotno_street', '$barangay', '$city', '$province', '$zipcode', '$userID')");
 
     if ($query) {
         echo "<script>alert('You have successfully added an address');</script>";
@@ -96,23 +94,17 @@ if (isset($_POST['submit'])) {
 
                     <!--2-->
                     <div class="wrap-input100 validate-input m-b-23">
-                        <p>House & Lot No.</p>
-                        <input type="text" id="house_lotno" name="house_lotno" required />
+                        <p>House/Lot No. & Street</p>
+                        <input type="text" id="lotno_street" name="lotno_street" required />
                         <br>
                     </div>
-
-                    <!--3-->
-                    <div class="wrap-input100 validate-input m-b-23">
-                        <p>Street</p>
-                        <input type="text" id="street" name="street" />
-                        <br>
-                    </div>
-
-                    <br>
 
                     <!--4-->
                     <div class="wrap-input100 validate-input m-b-23">
                         <p>Barangay</p>
+
+                        <!-- dropdown list is yet to be added -->
+
                         <input type="text" id="barangay" name="barangay" required />
                         <br>
                     </div>
@@ -120,14 +112,14 @@ if (isset($_POST['submit'])) {
                     <!--5-->
                     <div class="wrap-input100 validate-input m-b-23">
                         <p>City</p>
-                        <input type="text" id="city" name="city" required />
+                        <input type="text" id="city" name="city" value="Quezon City" required />
                         <br>
                     </div>
 
                     <!--6-->
                     <div class="wrap-input100 validate-input m-b-23">
                         <p>Province</p>
-                        <input type="text" id="province" name="province" required />
+                        <input type="text" id="province" name="province" value="NCR" required />
                         <br>
                     </div>
 
@@ -135,13 +127,6 @@ if (isset($_POST['submit'])) {
                     <div class="wrap-input100 validate-input m-b-23">
                         <p>ZIP Code</p>
                         <input type="text" id="zipcode" name="zipcode" required />
-                        <br>
-                    </div>
-
-                    <!--8-->
-                    <div class="wrap-input100 validate-input m-b-23">
-                        <p>Country</p>
-                        <input type="text" id="country" name="country" required />
                         <br>
                     </div>
 
@@ -160,7 +145,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </form>
                 <div>
-                    <form action="inventory_management.php">
+                    <form action="index.php">
                         <div class="btncancel">
                             <button class="btn btn-danger">
                                 Cancel
