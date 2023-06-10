@@ -131,7 +131,7 @@
                 <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Surgery </span>&nbsp;
                 <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> 24/7 </span><br />
                 <a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank"><i class="bi-facebook"></i>View Facebook</a> <br />
-                <a class="btn btn-primary m-1" href="">Leave a review<i class="bi bi-chevron-right"></i></a>
+                <a class="btn btn-primary m-1" href="feedback.php">Leave a review<i class="bi bi-chevron-right"></i></a>
             </div>
         </div>
     </div>
