@@ -104,7 +104,7 @@ if (isset($_GET['delid'])) {
 
             <div class="col-lg-8">
                 <?php
-                $ret = mysqli_query($con, "SELECT clinics.ClinicID, clinics.ClinicName, address.House_LotNo, address.Street, address.Barangay, address.City FROM clinics INNER JOIN address ON clinics.AddressID = address.AddressID");
+                $ret = mysqli_query($con, "SELECT clinics.ClinicID, clinics.ClinicName, address.LotNo_Street, address.Barangay, address.City FROM clinics INNER JOIN address ON clinics.AddressID = address.AddressID");
                 $cnt = 1;
                 $row = mysqli_num_rows($ret);
                 if ($row > 0) {
@@ -127,7 +127,7 @@ if (isset($_GET['delid'])) {
                                             ?>
                                         </h5>
                                         <h5 class="text-uppercase mb-3" name="cname"><?php echo $row['ClinicName'] ?></h5>
-                                        <p name="caddress"><?php echo $row['House_LotNo'] . ' ' . $row['Street'] . ' ' . $row['Barangay'] . ' ' . $row['City'] ?> </p>
+                                        <p name="caddress"><?php echo $row['LotNo_Street'] . ' ' . $row['Barangay'] . ' ' . $row['City'] ?> </p>
                                         <br /><br /><a class="text-primary text-uppercase" href="clinic_profile.php">View Clinic<i class="bi bi-chevron-right"></i></a>
                                     </div>
                                 </div>
