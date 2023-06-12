@@ -62,7 +62,8 @@ if (isset($_GET['delid'])) {
     <!-- Blog Start -->
     <div class="container py-5">
         <!-- Loc Test Start -->
-        <h1>Veterinary Clinics Nearby</h1>
+        <h1>Nearby Veterinary Clinics</h1>
+        <br>
         <script src="script.js"></script>
         <div class="row g-5">
             <!-- Sidebar Start -->
@@ -122,13 +123,13 @@ if (isset($_GET['delid'])) {
                                     <div class="p-4">
                                         <h5 style="display: none;" class="text-uppercase mb-3" name="cname">
                                             <?php
-                                            $clinic_id = $row['ClinicID'];
-                                            $_SESSION['clinic_id'] = $clinic_id; // already stores clinic id into session, still thinking about how to point which clinic the user clicked into for the next page to view the correct set of supplies and services
+                                            // $clinic_id = $row['ClinicID'];
+                                            // $_SESSION['clinic_id'] = $clinic_id; // already stores clinic id into session, still thinking about how to point which clinic the user clicked into for the next page to view the correct set of supplies and services
                                             ?>
                                         </h5>
                                         <h5 class="text-uppercase mb-3" name="cname"><?php echo $row['ClinicName'] ?></h5>
                                         <p name="caddress"><?php echo $row['LotNo_Street'] . ' ' . $row['Barangay'] . ' ' . $row['City'] ?> </p>
-                                        <br /><br /><a class="text-primary text-uppercase" href="clinic_profile.php">View Clinic<i class="bi bi-chevron-right"></i></a>
+                                        <br /><br /><a class="text-primary text-uppercase" href="clinic_profile.php?clinicid=<?php echo htmlentities($row['ClinicID']); ?>">View Clinic<i class="bi bi-chevron-right"></i></a>
                                     </div>
                                 </div>
                             </div>

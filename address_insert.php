@@ -73,6 +73,68 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!--===============================================================================================-->
+
+    <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
+
+    <script>
+        var my_handlers = {
+
+            fill_cities: function() {
+
+                var province_code = $(this).val();
+                $('#city').ph_locations('fetch_list', [{
+                    "province_code": province_code
+                }]);
+            },
+
+
+            fill_barangays: function() {
+
+                var city_code = $(this).val();
+                $('#barangay').ph_locations('fetch_list', [{
+                    "city_code": city_code
+                }]);
+            }
+        };
+
+        $(function() {
+            // $('#region').on('change', my_handlers.fill_provinces);
+            $('#province').on('change', my_handlers.fill_cities);
+            $('#city').on('change', my_handlers.fill_barangays);
+
+            $('#region').ph_locations({
+                'location_type': 'regions'
+            });
+            $('#province').ph_locations({
+                'location_type': 'provinces'
+            });
+            $('#city').ph_locations({
+                'location_type': 'cities'
+            });
+            $('#barangay').ph_locations({
+                'location_type': 'barangays'
+            });
+
+            //$('#region').ph_locations('fetch_list');
+
+            // $('#province').ph_locations('fetch_list', [{
+            //     "region_code": "13"
+            // }]);
+            // $('#city').ph_locations('fetch_list', [{
+            //     "province_code": "1374"
+            // }]);
+
+            var city = $('#city').val();
+
+            if (city == "Quezon City") {
+
+                $('#barangay').ph_locations('fetch_list', [{
+                    "city_code": "137404"
+                }]);
+            }
+        });
+    </script>
+
     <style>
         .btn-success {
             background-color: #006400;
@@ -99,27 +161,35 @@ if (isset($_POST['submit'])) {
                         <br>
                     </div>
 
-                    <!--4-->
+                    <!--5-->
                     <div class="wrap-input100 validate-input m-b-23">
-                        <p>Barangay</p>
+                        <p>Province</p>
 
-                        <!-- dropdown list is yet to be added -->
+                        <!-- <select id="province" name="province"></select> -->
 
-                        <input type="text" id="barangay" name="barangay" required />
+                        <input type="text" id="province" name="province" value="NCR" readonly />
                         <br>
                     </div>
 
                     <!--5-->
                     <div class="wrap-input100 validate-input m-b-23">
                         <p>City</p>
-                        <input type="text" id="city" name="city" value="Quezon City" required />
+
+                        <!-- <select id="city" name="city"></select> -->
+
+                        <input type="text" id="city" name="city" value="Quezon City" readonly />
                         <br>
                     </div>
 
-                    <!--6-->
+                    <!--4-->
                     <div class="wrap-input100 validate-input m-b-23">
-                        <p>Province</p>
-                        <input type="text" id="province" name="province" value="NCR" required />
+                        <p>Barangay</p>
+
+                        <!-- dropdown list is yet to be added -->
+
+                        <select id="barangay" name="barangay"></select>
+
+                        <!-- <input type="text" id="barangay" name="barangay" required /> -->
                         <br>
                     </div>
 
