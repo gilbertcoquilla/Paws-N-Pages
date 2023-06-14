@@ -1,56 +1,28 @@
 <?php
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
+        include('connection.php');
 
-    require 'src/Exception.php';
-    require 'src/PHPMailer.php';
-    require 'src/SMTP.php';
+if (isset($_POST['submit'])) {
 
-    if(isset($_POST['reset'])) {
-        $email = $_POST['email'];
-    
-    // Instantiation and passing `true` enables exceptions
-    $mail = new PHPMailer(true);
-    
-    try {
-        //Server settings
-        $mail->isSMTP();                                            // Send using SMTP
-        $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = 'pawsnpages.site@gmail.com';                     // SMTP username
-        $mail->Password   = 'zbytxxyfahbtjojr';                               // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;        // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-    
-        //Recipients
-        $mail->setFrom('pawsnpages.site@gmail.com', 'Admin');
-        $mail->addAddress($email);     // Add a recipient
-        $dateupdated = date_create('now')->format('Y-m-d H:i:s');
-        // Content
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Password Reset';
-        $mail->Body    = 'To reset your password click <a href="http://localhost:1234/PawsNPages/change_password.php"> here </a> . ';
-        $conn = mysqli_connect("localhost", "root", "", "pawsnpages_db") or die('Unable to connect');
-        $verifyQuery = $conn->query("SELECT * FROM users WHERE email = '$email'");
-        if($verifyQuery->num_rows) {
-            $codeQuery = $conn->query("UPDATE users SET date_updated = '$dateupdated' WHERE email = '$email'");
-                
-            $mail->send();
-            echo "<script>alert('Message has been sent, check your email');</script>";
-            echo "<script>window.location.href = 'login.php'</script>";
-        }else{
-            echo "<script>alert('Message has been sent, check your email');</script>";
+    $username = $_POST['username'];
+    $password = $_POST['newpass'];
+
+    // Query for updating data
+    $query = mysqli_query($con, "UPDATE users SET Password='$password' WHERE Username='$username'");
+
+        if ($query) {
+            echo "<script>alert('You have successfully updated your password');</script>";
+            echo "<script> document.location ='login.php'; </script>";
+        } else {
+            echo "<script>alert('Something Went Wrong. Please try again');</script>";
         }
-        $conn->close();
-    
-    } catch (Exception $e) {
-        echo "<script>alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}');</script>";
-    }    
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
+<!--- NO BACKGROUND YET
+ PHP NOT YET WORKING
+ --->
 
 <head>
     <meta charset="utf-8">
@@ -118,19 +90,42 @@
                                 <input type="button" class="btn btn-outline-light w-100 py-3" onclick="window.location='login.php'" value="LOG IN">
                             </div>
                             <div class="col-12">
-                                <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Password Reset</h5>
+                                <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Change Password</h5>
                             </div>
-                            <div class="col-6">
-                                <input type="text" name="email" id="email" class="form-control  bg-light border-0 px-4 py-3" placeholder="Email Address" required>
+                            <div class="col-12">
+                                <input type="text" name="username" id="username" class="form-control  bg-light border-0 px-4 py-3" placeholder="Username" required>
                             </div>
-                            <div class="col-6">
-                                <button type="submit" name="reset" class="btn btn-primary w-100 py-3">Reset</button>                            
+                            <div class="col-12">
+                                <input type="password" name="newpass" id="newpass" class="form-control  bg-light border-0 px-4 py-3" placeholder="New Password" required>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Submit</button>                            
                             </div>
                             <div class="col-12"></div>
                         </div>
                     </form>
                 </div>
 
+                <!-- validation for empty field -->
+                <script>
+                    function validation() {
+                        var id = document.f1.username.value;
+                        var ps = document.f1.password.value;
+                        if (id.length == "" && ps.length == "") {
+                            alert("Username and Password fields are empty");
+                            return false;
+                        } else {
+                            if (id.length == "") {
+                                alert("Username is empty");
+                                return false;
+                            }
+                            if (ps.length == "") {
+                                alert("Password field is empty");
+                                return false;
+                            }
+                        }
+                    }
+                </script>
 
                 <div class="col-lg-3">
                 </div>

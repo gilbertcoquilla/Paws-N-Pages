@@ -1,23 +1,101 @@
+<?php
+
+session_start();
+include('config.php');
+
+$userID = $_SESSION["id"];
+
+include('connection.php');
+
+///////////////////// FOR UPDATING PET OWNER PROFILE ////////////////////////////
+
+if (isset($_POST['update'])) {
+
+    $userID = $_POST['userID'];
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+    $cnum = $_POST['cnum'];
+    $username = $_POST['username'];
+
+    $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Username='$username' WHERE UserID='$userID'");
+
+    if ($query) {
+        echo "<script>alert('You have successfully your information.');</script>";
+        echo "<script> document.location ='userprofile.php'; </script>";
+    } else {
+        echo "<script>alert('Something Went Wrong. Please try again');</script>";
+    }
+
+
+}
+
+///////////////////// FOR ADDING NEW PET ////////////////////////////  
+
+if (isset($_POST['save'])) {
+
+    $file = $_FILES['image']['name'];
+    $tempfile = $_FILES['image']['tmp_name'];
+    $folder = "image_upload/" . $file;
+
+    move_uploaded_file($tempfile, $folder);
+
+    $userID = $_POST['userID'];
+    $petname = $_POST['petname'];
+    $species = $_POST['species'];
+    $breed = $_POST['breed'];
+    $age = $_POST['age'];
+    $color = $_POST['color'];
+
+    $query = mysqli_query($con, "INSERT INTO pets (PetImage, PetName, Species, Breed, Age, Color, UserID) VALUES ('$file', '$petname', '$species', '$breed', '$age', '$color', '$userID')");
+
+    if ($query) {
+        echo "<script>alert('You have successfully added a new Pet');</script>";
+        echo "<script> document.location ='userprofile.php'; </script>";
+    } else {
+        echo "<script>alert('Error adding new pet.');</script>";
+    }
+}
+
+///////////////////// FOR ADDING NEW PET ////////////////////////////  
+if (isset($_GET['delid'])) {
+    $rid = intval($_GET['delid']);
+    $sql = mysqli_query($con, "DELETE FROM pets WHERE PetID=$rid");
+    echo "<script>alert('You have successfully deleted a record.');</script>";
+    echo "<script>window.location.href = 'userprofile.php'</script>";
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | User Profile</title>
-    <link rel = "icon" href = 
-        "https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" 
-        type = "image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@700&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@700&display=swap" rel="stylesheet">
+
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -31,6 +109,32 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+
+    <script type="text/javascript">
+        function preview() {
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        function previewFile(input) {
+            var file = $("input[type=file]").get(0).files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function () {
+                    $("#image").attr("src", reader.result);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -49,7 +153,8 @@
                 <a href="inventory_management.php" class="nav-item nav-link">Inventory</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
                 <a href="logout.php" class="nav-item nav-link">Logout</a>
-                <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN US
+                <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
+                    US
                     <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
@@ -63,199 +168,411 @@
     </div>
     <div class="container-xl px-4 mt-4">
         <div class="row">
-            <div class="col-xl-4">
+            <div class="col-xl-5">
                 <!-- Profile picture card-->
                 <div class="card mb-4 mb-xl-0">
-                    <div class="card-header userProfile-font">Pet Owner Profile</div>
+                    <div class="card-header userProfile-font">👤 Pet Owner Profile &nbsp; <a href="" data-toggle="modal"
+                            title="Delete" style="float:right;"
+                            data-target="#update_modal<?php echo $row['userID'] ?>"><i class="material-icons"
+                                style="color:dodgerblue;">&#xE254;</i></a></div>
                     <div class="card-body text-center">
-                        <!-- Profile picture image-->
-                        <img class="img-account-profile rounded-circle mb-2" src="img/team-1.jpg" alt="">
                         <!-- Profile picture help block-->
-                        <br><br>
                         <div class="userProfile">
-                            <div>Name:&nbsp;&nbsp; <b class="userProfile-font"> Shante Cruz </b> </div>
-                            <div>Address:&nbsp;&nbsp; <b class="userProfile-font"> Mendoza Building, 102-D Kamuning Rd, Quezon City</b> </div>
-                            <div>Contact No:&nbsp;&nbsp; <b class="userProfile-font"> 09217545152 </b> </div>
-                            <br>
-                            <!-- Profile picture upload button-->
-                            <a href="editUserProfile.php">
-                                <button class="btn btn-primary" type="button">Edit Profile</button>
-                            </a>    
+                            <center>
+                                <table class="table">
+                                    <tbody>
+                                        <?php
+                                        $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
+                                        while ($row = mysqli_fetch_array($ret)) {
+                                            ?>
+                                            <tr>
+                                                <td><b>Name: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Contact No: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['ContactNo'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Age: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['Age'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Username: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['Username'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Email: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['Email'] ?>
+                                                </td>
+                                            </tr>
+
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </center>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-8">
-                <!-- Pet Profile 1-->
-                <div class="card mb-4">
-                    <div class="card-header userProfile-font">🐾 Pet Profile 1</div>
-                    <div class="card-body">
-                        <form>
-                            <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (first name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputUsername">Pet Name:&nbsp;&nbsp; <b class="userProfile-font"> Creamy Jo </b> </label>
-                                    <!-- <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username"> -->
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputUsername">Vaccination:&nbsp;&nbsp; <b class="userProfile-font"> 2/4 5-in-1 Vaccine </b> </label>
-                                    <!-- <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username"> -->
-                                </div>
-                            </div>
-                            <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (first name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputFirstName">Species:&nbsp;&nbsp; <b class="userProfile-font"> Dog </b> </label>
-                                    <!-- <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie"> -->
-                                </div>
-                                <!-- Form Group (last name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLastName">Rabies:&nbsp;&nbsp; <b class="userProfile-font">  N/A </b> </label>
-                                    <!-- <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna"> -->
-                                </div>
-                            </div>
-                            <!-- Form Row        -->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (organization name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputOrgName">Breed:&nbsp;&nbsp; <b class="userProfile-font"> Yorkie </b> </label>
-                                    <!-- <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap"> -->
-                                </div>
-                                <!-- Form Group (location)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLocation">Heartworm Prevention & Anti-Parasitic:&nbsp;&nbsp; <b class="userProfile-font">  N/A </b> </label>
-                                    <!-- <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA"> -->
-                                </div>
-                            </div>
-                            <div class="row gx-3 mb-3">
-                                 <!-- Form Group (email address)-->
-                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputEmailAddress">Color/Markings:&nbsp;&nbsp; <b class="userProfile-font"> Blonde & Black </b> </label>
-                                    <!-- <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com"> -->
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputEmailAddress">Medical History:&nbsp;&nbsp;  <b class="userProfile-font"> N/A </b> </label>
-                                    <!-- <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com"> -->
-                                </div>
-                            </div>
-                            <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (phone number)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Sex:&nbsp;&nbsp; <b class="userProfile-font"> Female </b> </label>
-                                    <!-- <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567"> -->
-                                </div>
-                            </div>
-                            <!-- Save changes button-->
-                            <div></div>
-                            <a href="editUserProfile.php">
-                                <button class="btn btn-primary" type="button">Edit</button>
-                            </a>
-                            <button class="btn btn-primary" type="button">Delete</button>
-                        </form>
-                    </div>
-                </div>
-                <!-- Pet Profile 2-->
-                <div class="card mb-4">
-                    <div class="card-header userProfile-font">🐾 Pet Profile 2</div>
-                    <div class="card-body">
-                        <form>
-                            <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (first name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputUsername">Pet Name:&nbsp;&nbsp; <b class="userProfile-font"> Thullah Paz</b></label>
-                                    <!-- <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username"> -->
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputUsername">Vaccination:&nbsp;&nbsp; <b class="userProfile-font"> 2/4 5-in-1 Vaccine</b></label>
-                                    <!-- <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username"> -->
-                                </div>
-                            </div>
-                            <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (first name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputFirstName">Species:&nbsp;&nbsp; <b class="userProfile-font"> Dog</b></label>
-                                    <!-- <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie"> -->
-                                </div>
-                                <!-- Form Group (last name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLastName">Rabies:&nbsp;&nbsp; <b class="userProfile-font"> N/A</b></label>
-                                    <!-- <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna"> -->
-                                </div>
-                            </div>
-                            <!-- Form Row        -->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (organization name)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputOrgName">Breed:&nbsp;&nbsp;<b class="userProfile-font">Beagle Aspin</b></label>
-                                    <!-- <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap"> -->
-                                </div>
-                                <!-- Form Group (location)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputLocation">Heartworm Prevention & Anti-Parasitic:&nbsp;&nbsp; <b class="userProfile-font"> N/A</b></label>
-                                    <!-- <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA"> -->
-                                </div>
-                            </div>
-                            <div class="row gx-3 mb-3">
-                                 <!-- Form Group (email address)-->
-                                 <div class="col-md-6">
-                                    <label class="small mb-1" for="inputEmailAddress">Color/Markings:&nbsp;&nbsp; <b class="userProfile-font"> Tan & White</b></label>
-                                    <!-- <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com"> -->
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputEmailAddress">Medical History:&nbsp;&nbsp; <b class="userProfile-font"> N/A</b></label>
-                                    <!-- <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com"> -->
-                                </div>
-                            </div>
-                            <!-- Form Row-->
-                            <div class="row gx-3 mb-3">
-                                <!-- Form Group (phone number)-->
-                                <div class="col-md-6">
-                                    <label class="small mb-1" for="inputPhone">Sex:&nbsp;&nbsp; <b class="userProfile-font"> Female</b></label>
-                                    <!-- <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567"> -->
-                                </div>
-                            </div>
-                            <!-- Save changes button-->
-                            <div></div>
-                            <a href="editUserProfile.php">
-                                <button class="btn btn-primary" type="button">Edit</button>
-                            </a>                           
-                            <button class="btn btn-primary" type="button">Delete</button>
-                        </form>
-                    </div>
-                </div>
 
+            </div>
+            <!-- END OF PET OWNER PROFILE -->
+
+            <!-- START OF PET PROFILE -->
+            <div class="col-xl-7">
+                <!-- ADD PET BUTTON -->
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal"
+                    style="float:right; width:100%;"><span class="glyphicon glyphicon-plus"></span>Add Pet</button>
+                <br>
+                <br>
+                <?php
+                $ret = mysqli_query($con, "SELECT * FROM pets WHERE UserID='$userID'");
+                while ($row = mysqli_fetch_array($ret)) {
+                    ?>
+                    <div class="card mb-4">
+                        <div class="card-header userProfile-font">🐾 Pet Profile &nbsp;<a
+                                href="userprofile.php?delid=<?php echo ($row['PetID']); ?>" style="float:right;"
+                                class="delete" title="Delete" data-toggle="tooltip"
+                                onclick="return confirm('Delete item?');"><i class="material-icons"
+                                    style="color:firebrick;">&#xE872;</i></a></div>
+                        <div class="card-body">
+                            <center>
+                                <?php if ($row['PetImage'] != "") {
+                                    echo '<img src=image_upload/' . $row['PetImage'] . ' height=100px; width=100px;';
+                                }
+                                ?>
+                            </center>
+                            <br />
+                            <br />
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td><b>Pet Name: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <?php echo $row['PetName'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Species: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <?php echo $row['Species'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Breed: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <?php echo $row['Breed'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Age: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <?php echo $row['Age'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Color: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <?php echo $row['Color'] ?>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- START OF BUTTON FOR VIEWING OF HEALTH RECORD -->
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#health_modal"
+                                style="float:left;"><span class="glyphicon glyphicon-plus"></span>VIEW HEALTH
+                                RECORD</button>
+                            <!-- END OF BUTTON FOR VIEWING OF HEALTH RECORD -->
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>
+    <!-- END OF PET PROFILE -->
+
+    <!-- START OF MODAL FOR EDIT PET OWNER PROFILE -->
+    <div class="modal fade" id="update_modal<?php echo $row['userID'] ?>" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST">
+                    <div class="modal-header modal-header-success">
+                        <h3 class="modal-title">Edit Profile</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-12">
+                            <?php
+                            $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
+                            while ($row = mysqli_fetch_array($ret)) {
+                                ?>
+                                <div class="row gx-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label>First Name</label>
+                                        <input type="hidden" name="userID" value="<?php echo $row['UserID'] ?>" />
+                                        <input type="text" name="fname" value="<?php echo $row['FirstName'] ?>"
+                                            class="form-control" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Middle Name</label>
+                                        <input type="text" name="mname" value="<?php echo $row['MiddleName'] ?>"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" name="lname" value="<?php echo $row['LastName'] ?>"
+                                        class="form-control" />
+                                </div>
+                                <div class="row gx-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label>Contact No.</label>
+                                        <input type="text" name="cnum" value="<?php echo $row['ContactNo'] ?>"
+                                            class="form-control" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Age</label>
+                                        <input type="text" name="age" value="<?php echo $row['Age'] ?>" class="form-control"
+                                            readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" name="username" value="<?php echo $row['Username'] ?>"
+                                        class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" name="email" value="<?php echo $row['Email'] ?>" class="form-control"
+                                        readonly />
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="modal-footer">
+                        <button name="update" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span>
+                            Update</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal"><span
+                                class="glyphicon glyphicon-remove"></span> Close</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- START OF MODAL FOR ADDING NEW PET -->
+    </div>
+    <!-- END OF MODAL FOR EDIT PET OWNER PROFILE -->
+
+    <!-- START OF MODAL FOR ADDING NEW PET -->
+    </div>
+    <div class="modal fade" id="form_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Add New Pet</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+
+                            <img id="image" src="" width="100px" height="100px" />
+                            <input type="file" name="image" onchange="previewFile(this);" />
+
+                            <div class="form-group">
+                                <label>Pet Name</label>
+                                <input type="text" name="petname" class="form-control" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <label>Species</label>
+                                <input type="text" name="species" class="form-control" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <label>Breed</label>
+                                <input type="text" name="breed" class="form-control" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="text" name="age" class="form-control" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <label>Color</label>
+                                <input type="text" name="color" class="form-control" required="required" />
+                                <input type="hidden" name="userID" value="<?php echo $userID ?>" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="modal-footer">
+                        <button name="save" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>
+                            Save</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal"><span
+                                class="glyphicon glyphicon-remove"></span> Close</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <!-- START OF MODAL FOR VIEWING PET HEALTH RECORD-->
+    </div>
+    <div class="modal fade" id="health_modal" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content modal-xl">
+                <form method="POST">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Health Record</h3>
+                    </div>
+                    <div class="modal-body">
+                        <?php
+                        $ret = mysqli_query($con, "SELECT * FROM pets WHERE UserID='$userID'");
+                        while ($row = mysqli_fetch_array($ret)) {
+                            ?>
+                            <table class="table table-striped">
+                                <thead style="font-size:15;">
+                                    <center><b>Vaccine Records</b></center>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>Name </b></td>
+                                        <td><b>Brand</b></td>
+                                        <td><b>Description </b></td>
+                                        <td><b>Dosage</b></td>
+                                        <td><b>Lot No.</b></td>
+                                        <td><b>Date Vaccinated</b></td>
+                                        <td><b>Expiration Date</b></td>
+                                        <td><b>Vaccinator</b></td>
+                                    </tr>
+
+                                    <?php
+                                    $petID = $row['PetID'];
+                                    $ret = mysqli_query($con, "SELECT * FROM petvaccine WHERE PetID='$petID'");
+                                    while ($row = mysqli_fetch_array($ret)) {
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $row['VaccineName'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['Brand'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['Description'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['Dosage'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['LotNo'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['DateVaccinated'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['ExpirationDate'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['Vaccinator'] ?>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        <?php } ?>
+                        <br>
+                        <?php
+                        $ret = mysqli_query($con, "SELECT * FROM pets WHERE UserID='$userID'");
+                        while ($row = mysqli_fetch_array($ret)) {
+                            ?>
+                            <table class="table table-striped">
+                                <thead style="font-size:15;">
+                                    <center><b>Health Assessment</b></center>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>Remarks</b></td>
+                                        <td><b>Date Assessed</b></td>
+                                        <td><b>Veterinarian</b></td>
+                                    </tr>
+
+                                    <?php
+                                    $petID = $row['PetID'];
+                                    $ret = mysqli_query($con, "SELECT * FROM petassessment WHERE PetID='$petID'");
+                                    while ($row = mysqli_fetch_array($ret)) {
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $row['Remarks'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['DateAssessed'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row['Veterinarian'] ?>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        <?php } ?>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="modal-footer">
+                        <button name="save" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>
+                            Save</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal"><span
+                                class="glyphicon glyphicon-remove"></span> Close</button>
+                    </div>
+            </div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+    <!-- END OF MODAL FOR ADDING NEW PET -->
+    </div>
+    <!-- END OF MODAL FOR ADDING NEW PET -->
+
     <!-- User Profile End -->
 
-     <!-- Footer Start -->
-     <div class="container-fluid bg-light mt-5 py-5">
+    <!-- Footer Start -->
+    <div class="container-fluid bg-light mt-5 py-5">
         <div class="container pt-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
-                    <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961 762 6162</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
+                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
+                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
+                        762 6162</a>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="#services"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="#founders"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6">
                     <h6 class="text-uppercase mt-4 mb-3">Follow Us</h6>
                     <div class="d-flex">
@@ -293,6 +610,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
 </body>
 
 </html>

@@ -4,17 +4,19 @@ $message = "";
 if (count($_POST) > 0) {
     $con = mysqli_connect("localhost", "root", "", "pawsnpages_db") or die('Unable to connect');
     $result = mysqli_query($con, "SELECT * FROM users WHERE Username='" . $_POST["username"] . "' and Password = '" . $_POST["password"] . "'");
-    $row  = mysqli_fetch_array($result);
+    $row = mysqli_fetch_array($result);
 
     if (is_array($row)) {
         $_SESSION["id"] = $row['UserID'];
         $_SESSION["name"] = $row['Username'];
     } else {
-        echo '<script> alert("Invalid Username or Password!")</script>';
+        // echo '<script> alert("Invalid Username or Password!")</script>';
+        echo 'echo "<p styly="color:red;">Invalid Username or Password!</p>";';
+
     }
 }
 if (isset($_SESSION["id"])) {
-    header("Location:index.html");
+    header("Location:index.php");
 }
 
 ?>
@@ -28,9 +30,8 @@ if (isset($_SESSION["id"])) {
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages</title>
-    <link rel = "icon" href = 
-        "https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" 
-        type = "image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -85,32 +86,39 @@ if (isset($_SESSION["id"])) {
                     <form method="post" action="">
                         <div class="row g-3 bg-dark">
                             <div class="col-6 ">
-                                <input type="button" class="btn btn-primary w-100 py-3" onclick="window.location='registration.php'" value="SIGN UP">                      
+                                <input type="button" class="btn btn-primary w-100 py-3"
+                                    onclick="window.location='registration.php'" value="SIGN UP">
                             </div>
                             <div class="col-6">
-                                <input type="button" class="btn btn-outline-light w-100 py-3" onclick="window.location='login.php'" value="LOG IN">
+                                <input type="button" class="btn btn-outline-light w-100 py-3"
+                                    onclick="window.location='login.php'" value="LOG IN">
                             </div>
                             <div class="col-12">
                                 <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Welcome Back! 🫶</h5>
                             </div>
                             <div class="col-12">
-                                <input type="text" name="username" id="username" class="form-control  bg-light border-0 px-4 py-3" placeholder="Username" required>
+                                <input type="text" name="username" id="username"
+                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Username">
                             </div>
                             <div class="col-12">
-                                <input type="password" name="password" id="password" class="form-control  bg-light border-0 px-4 py-3" placeholder="Password" required>
+                                <input type="password" name="password" id="password"
+                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Password">
                             </div>
-                            <h6 class="text-primary text-uppercase"><a href="forgot_password.php">Forgot Password?</h6>
+                            <div class="col-6 ">
+                                <input type="button" class="btn btn-danger w-100 py-1"
+                                    onclick="window.location='forgot_password.php'" value="FORGOT PASSWORD?">
+                            </div>
                             <div class="col-12">
                                 <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Submit</button>
-                            </div><br/>
+                            </div><br />
                             <div class="col-12"></div>
-                            
+
                         </div>
                     </form>
                 </div>
 
                 <!-- validation for empty field -->
-                <script>
+                <!-- <script>
                     function validation() {
                         var id = document.f1.username.value;
                         var ps = document.f1.password.value;
@@ -128,7 +136,7 @@ if (isset($_SESSION["id"])) {
                             }
                         }
                     }
-                </script>
+                </script> -->
 
                 <div class="col-lg-3">
                 </div>
