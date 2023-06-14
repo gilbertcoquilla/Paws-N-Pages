@@ -181,21 +181,38 @@ $clinic_id = $_GET['clinicid'];
             </div>
             <div class="owl-carousel product-carousel">
 
-                <!-- 1 -->
-                <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="img/product-1.png" alt="">
-                        <h6 class="text-uppercase">Bird Quality Pet Foods</h6>
-                        <h5 class="text-primary mb-0">₱199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
-                            <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <!-- End of 1 -->
+                <?php
+                $ret = mysqli_query($con, "SELECT * FROM petsupplies WHERE ClinicID='$clinic_id'");
+                $cnt = 1;
+                $row = mysqli_num_rows($ret);
+                if ($row > 0) {
+                    while ($row = mysqli_fetch_array($ret)) {
 
-                <div class="pb-5">
+                ?>
+
+                        <!-- 1 -->
+                        <div class="pb-5">
+                            <div class="product-item position-relative bg-light d-flex flex-column text-center">
+                                <img class="img-fluid mb-4" src="" alt=""><?php if ($row['SupplyImage'] != "") {
+                                                                                echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;';
+                                                                            }
+                                                                            ?>
+                                <h6 class="text-uppercase"><?php echo $row['SupplyName'] ?></h6>
+                                <h5 class="text-primary mb-0">₱<?php echo $row['SupplyPrice'] ?></h5>
+                                <div class="btn-action d-flex justify-content-center">
+                                    <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
+                                    <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of 1 -->
+
+                <?php
+                        $cnt = $cnt + 1;
+                    }
+                } ?>
+
+                <!-- <div class="pb-5">
                     <div class="product-item position-relative bg-light d-flex flex-column text-center">
                         <img class="img-fluid mb-4" src="img/product-2.png" alt="">
                         <h6 class="text-uppercase">Cat Pet Foods</h6>
@@ -238,7 +255,8 @@ $clinic_id = $_GET['clinicid'];
                             <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
                         </div>
                     </div>
-                </div>
+                </div> -->
+
             </div>
         </div>
     </div>
