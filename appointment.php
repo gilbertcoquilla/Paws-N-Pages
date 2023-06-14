@@ -229,18 +229,18 @@ if (isset($_GET['delid'])) {
                             <th class="column1">Date</th>
                             <th class="column1">Time</th>
                             <th class="column1">Service</th>
-                            <th class="column1">Description</th>
-                            <th class="column1">Price</th>
                             <th class="column1">Notes</th>
                             <th class="column1">Clinic</th>
                             <th class="column1">Client</th>
+                            <th class="column1">Status</th>
+                            <th class="column1">Remarks</th>
                             <th class="column1">Edit/Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
 
-                        $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, services.ServiceName, services.ServiceDescription, services.ServicePrice, clinics.ClinicName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN clinics ON services.ClinicID = clinics.ClinicID INNER JOIN users ON appointments.UserID = users.UserID");
+                        $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, appointments.AppointmentStatus, appointments.Remarks, services.ServiceName, clinics.ClinicName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN clinics ON services.ClinicID = clinics.ClinicID INNER JOIN users ON appointments.UserID = users.UserID");
 
                         $cnt = 1;
                         $row = mysqli_num_rows($ret);
@@ -254,14 +254,14 @@ if (isset($_GET['delid'])) {
                                     <td><?php echo $row['PreferredDate'] ?></td>
                                     <td><?php echo $row['PreferredTime'] ?></td>
                                     <td><?php echo $row['ServiceName']; ?></td>
-                                    <td><?php echo $row['ServiceDescription']; ?></td>
-                                    <td><?php echo $row['ServicePrice']; ?></td>
                                     <td><?php echo $row['Notes']; ?></td>
                                     <td><?php echo $row['ClinicName']; ?></td>
                                     <td><?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName']; ?></td>
+                                    <td><?php echo $row['AppointmentStatus']; ?></td>
+                                    <td><?php echo $row['Remarks']; ?></td>
                                     <td>
-                                        <a href="inventory_management_edit.php?editid=<?php echo htmlentities($row['AppointmentID']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
-                                        <a href="inventory_management.php?delid=<?php echo ($row['AppointmentID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete appointment?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a>
+                                        <a href="appointment_edit.php?editid=<?php echo htmlentities($row['AppointmentID']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
+                                        <a href="appointment.php?delid=<?php echo ($row['AppointmentID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete appointment?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a>
                                     </td>
                                 </tr>
                             <?php
