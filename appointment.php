@@ -213,14 +213,14 @@ if (isset($_GET['delid'])) {
                         Paws N Pages Appointments
                     </h1>
                 </div>
-                <div>
+                <!-- <div>
                     <form action="appointment_insert.php">
                         <button class="btn btn-success" style="background-color: green;">
                             Add Appointment
                         </button>
                     </form>
 
-                </div>
+                </div> -->
                 <br><br><br>
                 <table class="table table-striped table-hover">
                     <thead>
@@ -240,7 +240,7 @@ if (isset($_GET['delid'])) {
                     <tbody>
                         <?php
 
-                        $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, services.ServiceName, services.ServiceDescription, services.ServicePrice, clinics.ClinicName, users.Username FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN clinics ON services.ClinicID = clinics.ClinicID INNER JOIN users ON appointments.UserID = users.UserID");
+                        $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, services.ServiceName, services.ServiceDescription, services.ServicePrice, clinics.ClinicName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN clinics ON services.ClinicID = clinics.ClinicID INNER JOIN users ON appointments.UserID = users.UserID");
 
                         $cnt = 1;
                         $row = mysqli_num_rows($ret);
@@ -258,7 +258,7 @@ if (isset($_GET['delid'])) {
                                     <td><?php echo $row['ServicePrice']; ?></td>
                                     <td><?php echo $row['Notes']; ?></td>
                                     <td><?php echo $row['ClinicName']; ?></td>
-                                    <td><?php echo $row['Username']; ?></td>
+                                    <td><?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName']; ?></td>
                                     <td>
                                         <a href="inventory_management_edit.php?editid=<?php echo htmlentities($row['AppointmentID']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
                                         <a href="inventory_management.php?delid=<?php echo ($row['AppointmentID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete appointment?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a>

@@ -4,8 +4,28 @@ session_start();
 include('config.php');
 include('connection.php');
 
+$userID = $_SESSION["id"];
 $clinic_id = $_SESSION['clinic_id'];
 
+if (isset($_POST['submit'])) {
+
+    // For booking an appointment
+    $userID = $_POST['userID'];
+    $service = $_POST['service'];
+    $appointmentDate = $_POST['appointmentDate'];
+    $appointmentTime = $_POST['appointmentTime'];
+    $notes = $_POST['notes'];
+
+    // Query for data insertion
+    $query = mysqli_query($con, "INSERT INTO appointments (Notes, PreferredDate, PreferredTime, ServiceID, UserID) VALUES ('$notes', '$appointmentDate', '$appointmentTime', '$service', '$userID')");
+
+    if ($query) {
+        echo "<script>alert('You have successfully booked an appointment');</script>";
+        echo "<script> document.location ='booking_form.php'; </script>";
+    } else {
+        echo "<script>alert('Something went wrong. Please try again');</script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -179,17 +199,27 @@ $clinic_id = $_SESSION['clinic_id'];
                 <h6 class="text-primary text-uppercase">NOTE: Booking an appointment is NOT guaranteed, it is still to be accepted by the Vet Clinic</h6>
             </div>
             <div class="row g-5">
-                <form>
+                <form method="POST" action="">
                     <div class="row g-3" class="">
                         <h5>Select Services to avail</h5>
                         <div class="col-lg-4">
-                            <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Wellness Examinations </a></br></br>
-                            <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Vaccinations </a></br></br>
-                            <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Spaying and Neutering </a></br></br>
-                            <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Dental Care </a></br></br>
-                            <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Surgery </a></br></br>
+
+                            <?php
+                            $ret = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id'");
+                            $cnt = 1;
+                            $row = mysqli_num_rows($ret);
+                            if ($row > 0) {
+                                while ($row = mysqli_fetch_array($ret)) {
+
+                            ?>
+                                    <input type="checkbox" name="service" value="<?php echo $row['ServiceID'] ?>">&nbsp; <?php echo $row['ServiceName'] ?> </br></br>
+                            <?php
+                                    $cnt = $cnt + 1;
+                                }
+                            } ?>
+
                         </div>
-                        <div class="col-lg-4">
+                        <!-- <div class="col-lg-4">
                             <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Laboratory and Diagnostic Testing </a></br></br>
                             <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;24/7 Emergency and Critical Care </a></br></br>
                             <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Parasite Control </a></br></br>
@@ -201,7 +231,7 @@ $clinic_id = $_SESSION['clinic_id'];
                             <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Behavior Counseling </a></br></br>
                             <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Microchipping </a></br></br>
                             <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Hospice and Palliative Care </a></br></br>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row g-3" class="">
                         <div class="col-12">
@@ -214,8 +244,14 @@ $clinic_id = $_SESSION['clinic_id'];
                         </div>
                         <div class="col-12">
                             <h5>Notes:</h5>
-                            <input type="name" name="name" class="form-control  bg-light border-0 px-4 py-3" placeholder="Example: my pet has a fever" required>
+                            <input type="name" name="notes" class="form-control  bg-light border-0 px-4 py-3" placeholder="Example: my pet has a fever">
                         </div>
+
+                        <div class="col-12" style="display: none;">
+                            <h5>User ID:</h5>
+                            <input type="text" name="userID" class="form-control  bg-light border-0 px-4 py-3" value="<?php echo $userID ?>" required>
+                        </div>
+
                         <div class="col-12">
                             <input type="submit" name="submit" value="Submit" class="btn btn-primary w-100 py-3" />
                         </div>
