@@ -2,6 +2,7 @@
 
 session_start();
 include('config.php');
+include('connection.php');
 
 $userID = $_SESSION["id"];
 
@@ -57,7 +58,7 @@ if (isset($_POST['save'])) {
     }
 }
 
-///////////////////// FOR ADDING NEW PET ////////////////////////////  
+///////////////////// FOR DELETING PET ////////////////////////////  
 if (isset($_GET['delid'])) {
     $rid = intval($_GET['delid']);
     $sql = mysqli_query($con, "DELETE FROM pets WHERE PetID=$rid");
