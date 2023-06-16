@@ -214,7 +214,7 @@ if (isset($_GET['delid'])) {
                     </h1>
                 </div>
                 <div>
-                    <form action="inventory_management_insert.php">
+                    <form action="clinic_services_insert.php">
                         <button class="btn btn-success" style="background-color: green;">
                             Add Record
                         </button>
