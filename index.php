@@ -51,6 +51,7 @@ session_start();
                 <a href="list_of_pets.php" class="nav-item nav-link">Pets</a>
                 <a href="clinics.php" class="nav-item nav-link">Clinics</a>
                 <a href="inventory_management.php" class="nav-item nav-link">Inventory</a>
+                <a href="clinic_services.php" class="nav-item nav-link">Services</a>
                 <a href="appointment.php" class="nav-item nav-link">Appointments</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
                 <a href="userProfile.php" class="nav-item nav-link">Profile</a>
