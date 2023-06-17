@@ -268,7 +268,7 @@ if (isset($_GET['delid'])) {
                             }
                         } else { ?>
                             <tr>
-                                <th style="text-align:center; color:red;" colspan="6">No Record Found</th>
+                                <th style="text-align:center; color:red;" colspan="100">No Record Found</th>
                             </tr>
                         <?php } ?>
 
