@@ -143,7 +143,7 @@ $clinic_id = $_GET['clinicid'];
                     ?>
 
                     <?php
-                    $ret = mysqli_query($con, "SELECT clinics.ClinicName, address.LotNo_Street, address.Barangay FROM clinics INNER JOIN address ON clinics.AddressID = address.AddressID WHERE ClinicID='$clinic_id'");
+                    $ret = mysqli_query($con, "SELECT * FROM clinics WHERE ClinicID = '$clinic_id'");
                     $cnt = 1;
                     $row = mysqli_num_rows($ret);
                     if ($row > 0) {
@@ -152,8 +152,22 @@ $clinic_id = $_GET['clinicid'];
                     ?>
 
                             <h5 class="text-uppercase mb-3"><?php echo $row['ClinicName'] ?></h5>
-                            <span><?php echo $row['LotNo_Street'] . ' ' . $row['Barangay'] ?></span></br>
-                            <span>(02) 8921 9634</span> </br>
+
+                            <?php
+                            $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
+                            $cnt1 = 1;
+                            $row1 = mysqli_num_rows($ret1);
+                            if ($row1 > 0) {
+                                while ($row1 = mysqli_fetch_array($ret1)) {
+                            ?>
+                                    <span><?php echo $row1['LotNo_Street'] . ' ' . $row1['Barangay'] . ' ' . $row1['City'] ?></span></br>
+                                    <span><?php echo $row1['ContactNo'] ?></span> </br>
+                            <?php
+                                }
+                            } ?>
+
+
+
                             <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Vaccination </span>&nbsp;
                             <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Surgery </span>&nbsp;
                             <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> 24/7 </span><br />

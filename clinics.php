@@ -1,14 +1,5 @@
 <?php
-
-//database connection  file
 include('connection.php');
-//Code for deletion
-if (isset($_GET['delid'])) {
-    $rid = intval($_GET['delid']);
-    $sql = mysqli_query($con, "DELETE FROM petsupplies WHERE SupplyID=$rid");
-    echo "<script>alert('Item is deleted successfully');</script>";
-    echo "<script>window.location.href = 'inventory_management.php'</script>";
-}
 ?>
 
 <!DOCTYPE html>
@@ -105,12 +96,11 @@ if (isset($_GET['delid'])) {
 
             <div class="col-lg-8">
                 <?php
-                $ret = mysqli_query($con, "SELECT clinics.ClinicID, clinics.ClinicName, address.LotNo_Street, address.Barangay, address.City FROM clinics INNER JOIN address ON clinics.AddressID = address.AddressID");
+                $ret = mysqli_query($con, "SELECT * FROM clinics");
                 $cnt = 1;
                 $row = mysqli_num_rows($ret);
                 if ($row > 0) {
                     while ($row = mysqli_fetch_array($ret)) {
-
                 ?>
                         <div class="blog-item mb-5">
                             <div class="row g-0 bg-light overflow-hidden">
@@ -122,13 +112,28 @@ if (isset($_GET['delid'])) {
 
                                     <div class="p-4">
                                         <h5 style="display: none;" class="text-uppercase mb-3" name="cname">
-                                            <?php
-                                            // $clinic_id = $row['ClinicID'];
-                                            // $_SESSION['clinic_id'] = $clinic_id; // already stores clinic id into session, still thinking about how to point which clinic the user clicked into for the next page to view the correct set of supplies and services
-                                            ?>
                                         </h5>
                                         <h5 class="text-uppercase mb-3" name="cname"><?php echo $row['ClinicName'] ?></h5>
-                                        <p name="caddress"><?php echo $row['LotNo_Street'] . ' ' . $row['Barangay'] . ' ' . $row['City'] ?> </p>
+
+                                        <!-- For address -->
+
+                                        <?php
+                                        $clinic_id = $row['ClinicID'];
+                                        $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
+                                        $cnt1 = 1;
+                                        $row1 = mysqli_num_rows($ret1);
+                                        if ($row1 > 0) {
+                                            while ($row1 = mysqli_fetch_array($ret1)) {
+                                        ?>
+
+                                                <p name="caddress"><?php echo $row1['LotNo_Street'] . ' ' . $row1['Barangay'] . ' ' . $row1['City'] ?> </p>
+
+                                        <?php
+                                            }
+                                        } ?>
+
+                                        <!-- For address -->
+
                                         <br /><br /><a class="text-primary text-uppercase" href="clinic_profile.php?clinicid=<?php echo htmlentities($row['ClinicID']); ?>">View Clinic<i class="bi bi-chevron-right"></i></a>
                                     </div>
                                 </div>
