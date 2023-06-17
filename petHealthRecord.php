@@ -197,7 +197,7 @@ $petID = $_GET['petid'];
                                     }
                                 } else { ?>
                                     <tr>
-                                        <th style="text-align:center; color:red;" colspan="9">No Record Found</th>
+                                        <th style="text-align:center; color:red;" colspan="100">No Record Found</th>
                                     </tr>
                                 <?php } ?>
 
@@ -278,7 +278,7 @@ $petID = $_GET['petid'];
                                     }
                                 } else { ?>
                                     <tr>
-                                        <th style="text-align:center; color:red;" colspan="9">No Record Found</th>
+                                        <th style="text-align:center; color:red;" colspan="100">No Record Found</th>
                                     </tr>
                                 <?php } ?>
 
