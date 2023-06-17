@@ -13,8 +13,7 @@ $petID = $_GET['petid'];
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Pet Health Record</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -67,7 +66,7 @@ $petID = $_GET['petid'];
             if (file) {
                 var reader = new FileReader();
 
-                reader.onload = function () {
+                reader.onload = function() {
                     $("#image").attr("src", reader.result);
                 }
 
@@ -126,6 +125,7 @@ $petID = $_GET['petid'];
                                     <th class="column1">Date Vaccinated</th>
                                     <th class="column1">Expiration Date</th>
                                     <th class="column1">Vaccinator</th>
+                                    <th class="column1">Clinic</th>
                                     <!-- <th class="column1">Edit/Delete</th> -->
                                 </tr>
                             </thead>
@@ -137,7 +137,7 @@ $petID = $_GET['petid'];
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
 
-                                        ?>
+                                ?>
                                         <!--Fetch the Records -->
                                         <tr>
                                             <td style="text-align: center;">
@@ -167,12 +167,32 @@ $petID = $_GET['petid'];
                                             <td>
                                                 <?php echo $row['Vaccinator']; ?>
                                             </td>
+
+
+                                            <?php
+                                            $clinic = $row['ClinicID'];
+                                            $ret1 = mysqli_query($con, "SELECT * FROM clinics WHERE ClinicID='$clinic'");
+                                            $cnt1 = 1;
+                                            $row1 = mysqli_num_rows($ret1);
+                                            if ($row1 > 0) {
+                                                while ($row1 = mysqli_fetch_array($ret1)) {
+
+                                            ?>
+
+                                                    <td>
+                                                        <?php echo $row1['ClinicName']; ?>
+                                                    </td>
+
+
+                                            <?php }
+                                            } ?>
+
                                             <!-- <td style="text-align: center;">
                                         <a href="inventory_management_edit.php?editid=<?php echo htmlentities($row['SupplyID']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
                                         <a href="inventory_management.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a>
                                     </td> -->
                                         </tr>
-                                        <?php
+                                    <?php
                                         $cnt = $cnt + 1;
                                     }
                                 } else { ?>
@@ -198,6 +218,8 @@ $petID = $_GET['petid'];
                                     <th class="column1">Remarks</th>
                                     <th class="column1">DateAssessed</th>
                                     <th class="column1">AssessedBy</th>
+                                    <th class="column1">Prescription</th>
+                                    <th class="column1">Clinic</th>
                                     <!-- <th class="column1">Edit/Delete</th> -->
                                 </tr>
                             </thead>
@@ -209,7 +231,7 @@ $petID = $_GET['petid'];
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
 
-                                        ?>
+                                ?>
                                         <!--Fetch the Records -->
                                         <tr>
                                             <td style="text-align: center;">
@@ -224,13 +246,34 @@ $petID = $_GET['petid'];
                                             <td>
                                                 <?php echo $row['AssessedBy']; ?>
                                             </td>
+                                            <td>
+                                                <?php echo $row['Prescription']; ?>
+                                            </td>
+
+                                            <?php
+                                            $clinic = $row['ClinicID'];
+                                            $ret1 = mysqli_query($con, "SELECT * FROM clinics WHERE ClinicID='$clinic'");
+                                            $cnt1 = 1;
+                                            $row1 = mysqli_num_rows($ret1);
+                                            if ($row1 > 0) {
+                                                while ($row1 = mysqli_fetch_array($ret1)) {
+
+                                            ?>
+
+                                                    <td>
+                                                        <?php echo $row1['ClinicName']; ?>
+                                                    </td>
+
+
+                                            <?php }
+                                            } ?>
 
                                             <!-- <td style="text-align: center;">
                                         <a href="inventory_management_edit.php?editid=<?php echo htmlentities($row['SupplyID']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
                                         <a href="inventory_management.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a>
                                     </td> -->
                                         </tr>
-                                        <?php
+                                    <?php
                                         $cnt = $cnt + 1;
                                     }
                                 } else { ?>
@@ -258,10 +301,8 @@ $petID = $_GET['petid'];
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
-                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
-                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
                     <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
                         762 6162</a>
                 </div>
@@ -269,14 +310,10 @@ $petID = $_GET['petid'];
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="#services"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="#founders"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
