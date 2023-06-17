@@ -163,7 +163,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </form>
                 <div>
-                    <form action="inventory_management.php">
+                    <form action="clinic_services.php">
                         <div class="btncancel">
                             <button class="btn btn-danger">
                                 Cancel

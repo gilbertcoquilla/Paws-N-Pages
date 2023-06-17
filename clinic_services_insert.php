@@ -105,28 +105,28 @@ if (isset($_POST['submit'])) {
 
                     <?php } ?>
 
-                        <!--2-->
-                        <div class="wrap-input100 validate-input m-b-23">
-                            <p>Service Name</p>
-                            <input type="text" id="serviceName" name="serviceName" required />
-                            <br>
-                        </div>
-
-                        <!--3-->
-                        <div class="wrap-input100 validate-input m-b-23">
-                            <p>Description</p>
-                            <input type="text" id="serviceDescription" name="serviceDescription" />
-                            <br>
-                        </div>
-
+                    <!--2-->
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <p>Service Name</p>
+                        <input type="text" id="serviceName" name="serviceName" required />
                         <br>
+                    </div>
 
-                        <!--4-->
-                        <div class="wrap-input100 validate-input m-b-23">
-                            <p>Price</p>
-                            <input type="text" id="servicePrice" name="servicePrice" required />
-                            <br>
-                        </div>
+                    <!--3-->
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <p>Description</p>
+                        <input type="text" id="serviceDescription" name="serviceDescription" />
+                        <br>
+                    </div>
+
+                    <br>
+
+                    <!--4-->
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <p>Price</p>
+                        <input type="text" id="servicePrice" name="servicePrice" required />
+                        <br>
+                    </div>
                     <br>
                     <div class="btnsub">
                         <button name="submit" class="btn btn-success">
@@ -135,7 +135,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </form>
                 <div>
-                    <form action="inventory_management.php">
+                    <form action="clinic_services.php">
                         <div class="btncancel">
                             <button class="btn btn-danger">
                                 Cancel

@@ -229,7 +229,7 @@ if (isset($_GET['delid'])) {
                             <th class="column1">Pet Name</th>
                             <th class="column1">Species</th>
                             <th class="column1">Breed</th>
-                            <th class="column1">Age</th>
+                            <th class="column1">Birth Date</th>
                             <th class="column1">Color</th>
                             <th class="column1">Owner</th>
                             <th class="column1">Edit/Delete</th>
@@ -237,7 +237,7 @@ if (isset($_GET['delid'])) {
                     </thead>
                     <tbody>
                         <?php
-                        $ret = mysqli_query($con, "SELECT pets.PetID, pets.PetName, pets.Species, pets.Breed, pets.Age, pets.Color, users.FirstName, users.MiddleName, users.LastName FROM pets INNER JOIN users ON pets.UserID = users.UserID");
+                        $ret = mysqli_query($con, "SELECT pets.PetID, pets.PetName, pets.Species, pets.Breed, pets.BirthDate, pets.Color, users.FirstName, users.MiddleName, users.LastName FROM pets INNER JOIN users ON pets.UserID = users.UserID");
                         $cnt = 1;
                         $row = mysqli_num_rows($ret);
                         if ($row > 0) {
@@ -250,9 +250,9 @@ if (isset($_GET['delid'])) {
                                     <td><?php echo $row['PetName'] ?></td>
                                     <td><?php echo $row['Species']; ?></td>
                                     <td><?php echo $row['Breed']; ?></td>
-                                    <td><?php echo $row['Age']; ?></td>
+                                    <td><?php echo $row['BirthDate']; ?></td>
                                     <td><?php echo $row['Color']; ?></td>
-                                    <td><?php echo $row['FirstName'] . " " . $row['MiddleName'] . " " . $row['LastName'] ; ?></td>
+                                    <td><?php echo $row['FirstName'] . " " . $row['MiddleName'] . " " . $row['LastName']; ?></td>
                                     <td style="text-align: center;">
                                         <a href="list_of_pets_edit.php?editid=<?php echo htmlentities($row['PetID']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
                                         <a href="list_of_pets.php?delid=<?php echo ($row['PetID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete record?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a>

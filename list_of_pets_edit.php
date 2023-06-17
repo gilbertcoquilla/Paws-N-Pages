@@ -14,11 +14,11 @@ if (isset($_POST['submit'])) {
     $petName = $_POST['petName'];
     $species = $_POST['species'];
     $breed = $_POST['breed'];
-    $age = $_POST['age'];
+    $birthdate = $_POST['birthdate'];
     $color = $_POST['color'];
 
     // Query for updating data
-    $query = mysqli_query($con, "UPDATE pets SET PetName='$petName', Species='$species', Breed='$breed', Age='$age', Color='$color' WHERE PetID='$eid'");
+    $query = mysqli_query($con, "UPDATE pets SET PetName='$petName', Species='$species', Breed='$breed', BirthDate='$birthdate', Color='$color' WHERE PetID='$eid'");
 
     if ($query) {
         echo "<script>alert('You have successfully updated a record');</script>";
@@ -140,8 +140,8 @@ if (isset($_POST['submit'])) {
 
                         <!--5-->
                         <div class="wrap-input100 validate-input m-b-23">
-                            <p>Age</p>
-                            <input type="text" id="age" name="age" value="<?php echo $row['Age'] ?>" required />
+                            <p>Birth Date</p>
+                            <input type="date" class="form-control  bg-light border-0 px-4 py-3" id="datePicker" name="birthdate" value="<?php echo $row['BirthDate'] ?>">
                             <br>
                         </div>
 
@@ -161,7 +161,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </form>
                 <div>
-                    <form action="inventory_management.php">
+                    <form action="list_of_pets.php">
                         <div class="btncancel">
                             <button class="btn btn-danger">
                                 Cancel
