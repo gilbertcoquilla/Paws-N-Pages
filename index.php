@@ -1,5 +1,7 @@
 <?php
 session_start();
+include('config.php');
+include('connection.php');
 ?>
 
 <!DOCTYPE html>
@@ -55,11 +57,25 @@ session_start();
                 <a href="appointment.php" class="nav-item nav-link">Appointments</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
                 <a href="userProfile.php" class="nav-item nav-link">Profile</a>
-                <a href="logout.php" class="nav-item nav-link">Logout</a>
 
-                <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
-                    US
-                    <i class="bi bi-arrow-right"></i></a>
+                <?php if ($_SESSION["id"] > 0) { ?>
+
+                    <a href="logout.php" class="nav-item nav-link">Logout
+                        <i class="bi bi-arrow-right"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+
+
+                <?php } else { ?>
+
+                    <a href="login.php" class="nav-item nav-link">Login</a>
+                    <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN US
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                <?php } ?>
+
+
             </div>
         </div>
     </nav>
@@ -104,37 +120,42 @@ session_start();
                         <i class="display-1 text-primary me-4"></i>
                         <div>
                             <h5 class="text-uppercase mb-3">Contact Us</h5>
-                            <p>We provide a system for Vet Clinics to showcase their services and supplies available.
+                            <p>We provide a system for Veterinary Clinics to showcase their services and supplies available.
                             </p>
                             <img src="https://i.ibb.co/TgT3HxN/2.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
                             <a class="text-primary text-uppercase" href="contact.php">Contact Us<i class="bi bi-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="service-item bg-light d-flex p-4">
-                        <i class="display-1 text-primary me-4"></i>
-                        <div>
-                            <h5 class="text-uppercase mb-3">Appointments</h5>
-                            <p>Click here to view your booked appointments</p>
-                            <img src="https://i.ibb.co/jZxWwSW/3.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" href="#" />
 
-                            <a class="text-primary text-uppercase" href="">View Appointments<i class="bi bi-chevron-right"></i></a>
+                <?php if ($_SESSION["id"] > 0) { ?>
+
+                    <div class="col-md-6">
+                        <div class="service-item bg-light d-flex p-4">
+                            <i class="display-1 text-primary me-4"></i>
+                            <div>
+                                <h5 class="text-uppercase mb-3">Appointments</h5>
+                                <p>Click here to view your booked appointments</p>
+                                <img src="https://i.ibb.co/jZxWwSW/3.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" href="#" />
+
+                                <a class="text-primary text-uppercase" href="">View Appointments<i class="bi bi-chevron-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="service-item bg-light d-flex p-4">
-                        <i class="display-1 text-primary me-4"></i>
-                        <div>
-                            <h5 class="text-uppercase mb-3">Orders</h5>
-                            <p>Click here to view your orders and to track its delivery</p>
-                            <img src="https://i.ibb.co/S5CJjnD/4.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
+                    <div class="col-md-6">
+                        <div class="service-item bg-light d-flex p-4">
+                            <i class="display-1 text-primary me-4"></i>
+                            <div>
+                                <h5 class="text-uppercase mb-3">Orders</h5>
+                                <p>Click here to view your orders and to track its delivery</p>
+                                <img src="https://i.ibb.co/S5CJjnD/4.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
 
-                            <a class="text-primary text-uppercase" href="">View Orders<i class="bi bi-chevron-right"></i></a>
+                                <a class="text-primary text-uppercase" href="">View Orders<i class="bi bi-chevron-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                <?php } ?>
 
             </div>
         </div>
