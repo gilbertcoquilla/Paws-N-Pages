@@ -179,37 +179,37 @@ if (isset($_GET['delid'])) {
                                         <?php
                                         $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
                                         while ($row = mysqli_fetch_array($ret)) {
-                                            ?>
-                                                <tr>
-                                                    <td><b>Name: &nbsp;&nbsp;</b></td>
-                                                    <td>
-                                                        <?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Contact No: &nbsp;&nbsp;</b></td>
-                                                    <td>
-                                                        <?php echo $row['ContactNo'] ?>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Age: &nbsp;&nbsp;</b></td>
-                                                    <td>
-                                                        <?php echo $row['Age'] ?>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Username: &nbsp;&nbsp;</b></td>
-                                                    <td>
-                                                        <?php echo $row['Username'] ?>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b>Email: &nbsp;&nbsp;</b></td>
-                                                    <td>
-                                                        <?php echo $row['Email'] ?>
-                                                    </td>
-                                                </tr>
+                                        ?>
+                                            <tr>
+                                                <td><b>Name: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Contact No: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['ContactNo'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Age: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['Age'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Username: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['Username'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Email: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['Email'] ?>
+                                                </td>
+                                            </tr>
 
                                         <?php } ?>
                                     </tbody>
@@ -230,65 +230,65 @@ if (isset($_GET['delid'])) {
                 <?php
                 $ret = mysqli_query($con, "SELECT * FROM pets WHERE UserID='$userID'");
                 while ($row = mysqli_fetch_array($ret)) {
-                    ?>
-                        <div class="card mb-4">
-                            <div class="card-header userProfile-font">🐾 Pet Profile &nbsp;<a href="userprofile.php?delid=<?php echo ($row['PetID']); ?>" style="float:right;" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a></div>
-                            <div class="card-body">
-                                <div style="display: none;">
-                                    <?php
-                                    // $_SESSION['petid'] = $row['PetID'];
-                                    // $petid = $_SESSION['petid'];
-                                    ?>
-                                </div>
-                                <center>
-                                    <?php if ($row['PetImage'] != "") {
-                                        echo '<img src=image_upload/' . $row['PetImage'] . ' height=100px; width=100px;';
-                                    }
-                                    ?>
-                                </center>
-                                <br />
-                                <br />
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td><b>Pet Name: &nbsp;&nbsp;</b></td>
-                                            <td>
-                                                <?php echo $row['PetName'] ?>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Species: &nbsp;&nbsp;</b></td>
-                                            <td>
-                                                <?php echo $row['Species'] ?>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Breed: &nbsp;&nbsp;</b></td>
-                                            <td>
-                                                <?php echo $row['Breed'] ?>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Age: &nbsp;&nbsp;</b></td>
-                                            <td>
-                                                <?php echo $row['Age'] ?>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Color: &nbsp;&nbsp;</b></td>
-                                            <td>
-                                                <?php echo $row['Color'] ?>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- START OF BUTTON FOR VIEWING OF HEALTH RECORD -->
-                                <a href="pethealthrecord.php?petid=<?php echo ($row['PetID']); ?>" class="btn btn-primary" type="button" style="float:left;"><span class="glyphicon glyphicon-plus"></span>VIEW HEALTH
-                                    RECORD</a>
-
-                                <!-- END OF BUTTON FOR VIEWING OF HEALTH RECORD -->
+                ?>
+                    <div class="card mb-4">
+                        <div class="card-header userProfile-font">🐾 Pet Profile &nbsp;<a href="userprofile.php?delid=<?php echo ($row['PetID']); ?>" style="float:right;" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a></div>
+                        <div class="card-body">
+                            <div style="display: none;">
+                                <?php
+                                // $_SESSION['petid'] = $row['PetID'];
+                                // $petid = $_SESSION['petid'];
+                                ?>
                             </div>
+                            <center>
+                                <?php if ($row['PetImage'] != "") {
+                                    echo '<img src=image_upload/' . $row['PetImage'] . ' height=100px; width=100px;';
+                                }
+                                ?>
+                            </center>
+                            <br />
+                            <br />
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td><b>Pet Name: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <?php echo $row['PetName'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Species: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <?php echo $row['Species'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Breed: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <?php echo $row['Breed'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Age: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <?php echo $row['Age'] ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Color: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <?php echo $row['Color'] ?>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- START OF BUTTON FOR VIEWING OF HEALTH RECORD -->
+                            <a href="pethealthrecord.php?petid=<?php echo ($row['PetID']); ?>" class="btn btn-primary" type="button" style="float:left;"><span class="glyphicon glyphicon-plus"></span>VIEW HEALTH
+                                RECORD</a>
+
+                            <!-- END OF BUTTON FOR VIEWING OF HEALTH RECORD -->
                         </div>
+                    </div>
                 <?php } ?>
             </div>
             <!-- END OF PET PROFILE -->
@@ -310,40 +310,40 @@ if (isset($_GET['delid'])) {
                             <?php
                             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
                             while ($row = mysqli_fetch_array($ret)) {
-                                ?>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label>First Name</label>
-                                            <input type="hidden" name="userID" value="<?php echo $row['UserID'] ?>" />
-                                            <input type="text" name="fname" value="<?php echo $row['FirstName'] ?>" class="form-control" />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label>Middle Name</label>
-                                            <input type="text" name="mname" value="<?php echo $row['MiddleName'] ?>" class="form-control" />
-                                        </div>
+                            ?>
+                                <div class="row gx-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label>First Name</label>
+                                        <input type="hidden" name="userID" value="<?php echo $row['UserID'] ?>" />
+                                        <input type="text" name="fname" value="<?php echo $row['FirstName'] ?>" class="form-control" />
                                     </div>
-                                    <div class="form-group">
-                                        <label>Last Name</label>
-                                        <input type="text" name="lname" value="<?php echo $row['LastName'] ?>" class="form-control" />
+                                    <div class="col-md-6">
+                                        <label>Middle Name</label>
+                                        <input type="text" name="mname" value="<?php echo $row['MiddleName'] ?>" class="form-control" />
                                     </div>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label>Contact No.</label>
-                                            <input type="text" name="cnum" value="<?php echo $row['ContactNo'] ?>" class="form-control" />
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label>Age</label>
-                                            <input type="text" name="age" value="<?php echo $row['Age'] ?>" class="form-control" readonly />
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" name="lname" value="<?php echo $row['LastName'] ?>" class="form-control" />
+                                </div>
+                                <div class="row gx-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label>Contact No.</label>
+                                        <input type="text" name="cnum" value="<?php echo $row['ContactNo'] ?>" class="form-control" />
                                     </div>
-                                    <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" name="username" value="<?php echo $row['Username'] ?>" class="form-control" />
+                                    <div class="col-md-6">
+                                        <label>Age</label>
+                                        <input type="text" name="age" value="<?php echo $row['Age'] ?>" class="form-control" readonly />
                                     </div>
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="text" name="email" value="<?php echo $row['Email'] ?>" class="form-control" readonly />
-                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" name="username" value="<?php echo $row['Username'] ?>" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" name="email" value="<?php echo $row['Email'] ?>" class="form-control" readonly />
+                                </div>
                             <?php } ?>
                         </div>
                     </div>
@@ -370,9 +370,11 @@ if (isset($_GET['delid'])) {
                     <div class="modal-body">
                         <div class="col-md-12">
 
-                            <img id="image" src="" width="100px" />
-                            <input type="file" name="image" onchange="previewFile(this);" />
-
+                            <div class="form-group">
+                                <label>Pet Image</label>
+                                <img id="image" src="" width="100px" />
+                                <input type="file" name="image" onchange="previewFile(this);" />
+                            </div>
                             <div class="form-group">
                                 <label>Pet Name</label>
                                 <input type="text" name="petname" class="form-control" required="required" />
