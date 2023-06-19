@@ -103,6 +103,43 @@ $clinic_id = $_GET['clinicid'];
             border: none;
             text-align-last: center;
         }
+
+        /* test */
+        .pcard {
+        padding: 1rem;
+        height: 4rem;
+        }
+        
+        .pcards {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        gap: 1rem;
+        }
+        @media (min-width: 600px) {
+        .pcards { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 900px) {
+        .pcards { grid-template-columns: repeat(3, 1fr); }
+        }
+        .image-container {
+        width: 350px; /* Set the desired width */
+        height: 350px; /* Set the desired height */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        }
+
+        .image-container img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        }
+        
+
     </style>
 </head>
 
@@ -136,6 +173,9 @@ $clinic_id = $_GET['clinicid'];
             </div>
             <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
                 <div class="p-4">
+            
+
+
 
                     <?php
                     echo $clinic_id; // for testing purposes (if the clinic id was really retrieved properly. update: successful) 
@@ -193,87 +233,40 @@ $clinic_id = $_GET['clinicid'];
             <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
                 <h1 class="text-primary text-uppercase">Products</h1>
             </div>
-            <div class="owl-carousel product-carousel">
 
-                <?php
-                $ret = mysqli_query($con, "SELECT * FROM petsupplies WHERE ClinicID='$clinic_id'");
-                $cnt = 1;
-                $row = mysqli_num_rows($ret);
-                if ($row > 0) {
-                    while ($row = mysqli_fetch_array($ret)) {
-
-                ?>
-
-                        <!-- 1 -->
-                        <div class="pb-5">
-                            <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                                <img class="img-fluid mb-4" src="" alt=""><?php if ($row['SupplyImage'] != "") {
-                                                                                echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;';
-                                                                            }
-                                                                            ?>
-                                <h6 class="text-uppercase"><?php echo $row['SupplyName'] ?></h6>
-                                <h5 class="text-primary mb-0">₱<?php echo $row['SupplyPrice'] ?></h5>
-                                <div class="btn-action d-flex justify-content-center">
-                                    <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
-                                    <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of 1 -->
-
-                <?php
-                        $cnt = $cnt + 1;
-                    }
-                } ?>
-
-                <!-- <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="img/product-2.png" alt="">
-                        <h6 class="text-uppercase">Cat Pet Foods</h6>
-                        <h5 class="text-primary mb-0">₱199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
-                            <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
-                        </div>
+            <div class="pcards">
+    <?php
+    $ret = mysqli_query($con, "SELECT petsupplies.SupplyID, petsupplies.SupplyImage, clinics.ClinicName, petsupplies.SupplyName, petsupplies.SupplyDescription, petsupplies.SupplyPrice, petsupplies.Stocks, petsupplies.NeedPrescription FROM petsupplies INNER JOIN clinics ON petsupplies.ClinicID = clinics.ClinicID");
+    $cnt = 1;
+    $row = mysqli_num_rows($ret);
+    if ($row > 0) {
+        while ($row = mysqli_fetch_array($ret)) {
+    ?>
+            <div class="bg-light d-flex flex-column text-center">
+                <div class="image-container">
+                    <?php if ($row['SupplyImage'] != "") { echo '<img class="img-fluid mb-4" src="image_upload/' . $row['SupplyImage'] . '">'; } ?>
+                </div>
+                <div class="product-info">
+                    <h6 class="text-uppercase"><b><?php echo $row['SupplyName']; ?></b></h6>
+                    <p><?php echo $row['SupplyDescription']; ?><br/></p>
+                    Stocks: <?php echo $row['Stocks'] ?></br>
+                    <h5 class="text-primary mb-0">₱ <?php echo $row['SupplyPrice']; ?></h5>
+                    <div class="btn-action d-flex justify-content-center">
+                        <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
+                        <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
                     </div>
                 </div>
-                <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="img/product-3.png" alt="">
-                        <h6 class="text-uppercase">Grain Pet Foods</h6>
-                        <h5 class="text-primary mb-0">₱199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
-                            <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="img/product-4.png" alt="">
-                        <h6 class="text-uppercase">Grain 2 Pet Foods</h6>
-                        <h5 class="text-primary mb-0">₱199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
-                            <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="pb-5">
-                    <div class="product-item position-relative bg-light d-flex flex-column text-center">
-                        <img class="img-fluid mb-4" src="img/product-2.png" alt="">
-                        <h6 class="text-uppercase">Quality Pet Foods</h6>
-                        <h5 class="text-primary mb-0">₱199.00</h5>
-                        <div class="btn-action d-flex justify-content-center">
-                            <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
-                            <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
-                        </div>
-                    </div>
-                </div> -->
-
             </div>
-        </div>
-    </div>
+    <?php
+            $cnt = $cnt + 1;
+        }
+    }
+    ?>
+</div>
+</div>
+</div>
+
+
     <!-- Products End -->
 
 
