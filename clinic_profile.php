@@ -106,40 +106,46 @@ $clinic_id = $_GET['clinicid'];
 
         /* test */
         .pcard {
-        padding: 1rem;
-        height: 4rem;
+            padding: 1rem;
+            height: 4rem;
         }
-        
+
         .pcards {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: grid;
-        gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1rem;
         }
+
         @media (min-width: 600px) {
-        .pcards { grid-template-columns: repeat(2, 1fr); }
+            .pcards {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (min-width: 900px) {
-        .pcards { grid-template-columns: repeat(3, 1fr); }
+            .pcards {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
+
         .image-container {
-        width: 350px; /* Set the desired width */
-        height: 350px; /* Set the desired height */
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+            width: 350px;
+            /* Set the desired width */
+            height: 350px;
+            /* Set the desired height */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         .image-container img {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
         }
-        
-
     </style>
 </head>
 
@@ -173,7 +179,7 @@ $clinic_id = $_GET['clinicid'];
             </div>
             <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
                 <div class="p-4">
-            
+
 
 
 
@@ -235,36 +241,38 @@ $clinic_id = $_GET['clinicid'];
             </div>
 
             <div class="pcards">
-    <?php
-    $ret = mysqli_query($con, "SELECT petsupplies.SupplyID, petsupplies.SupplyImage, clinics.ClinicName, petsupplies.SupplyName, petsupplies.SupplyDescription, petsupplies.SupplyPrice, petsupplies.Stocks, petsupplies.NeedPrescription FROM petsupplies INNER JOIN clinics ON petsupplies.ClinicID = clinics.ClinicID");
-    $cnt = 1;
-    $row = mysqli_num_rows($ret);
-    if ($row > 0) {
-        while ($row = mysqli_fetch_array($ret)) {
-    ?>
-            <div class="bg-light d-flex flex-column text-center">
-                <div class="image-container">
-                    <?php if ($row['SupplyImage'] != "") { echo '<img class="img-fluid mb-4" src="image_upload/' . $row['SupplyImage'] . '">'; } ?>
-                </div>
-                <div class="product-info">
-                    <h6 class="text-uppercase"><b><?php echo $row['SupplyName']; ?></b></h6>
-                    <p><?php echo $row['SupplyDescription']; ?><br/></p>
-                    Stocks: <?php echo $row['Stocks'] ?></br>
-                    <h5 class="text-primary mb-0">₱ <?php echo $row['SupplyPrice']; ?></h5>
-                    <div class="btn-action d-flex justify-content-center">
-                        <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
-                        <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
-                    </div>
-                </div>
+                <?php
+                $ret = mysqli_query($con, "SELECT * FROM petsupplies WHERE ClinicID='$clinic_id'");
+                $cnt = 1;
+                $row = mysqli_num_rows($ret);
+                if ($row > 0) {
+                    while ($row = mysqli_fetch_array($ret)) {
+                ?>
+                        <div class="bg-light d-flex flex-column text-center">
+                            <div class="image-container">
+                                <?php if ($row['SupplyImage'] != "") {
+                                    echo '<img class="img-fluid mb-4" src="image_upload/' . $row['SupplyImage'] . '">';
+                                } ?>
+                            </div>
+                            <div class="product-info">
+                                <h6 class="text-uppercase"><b><?php echo $row['SupplyName']; ?></b></h6>
+                                <p><?php echo $row['SupplyDescription']; ?><br /></p>
+                                Stocks: <?php echo $row['Stocks'] ?></br>
+                                <h5 class="text-primary mb-0">₱ <?php echo $row['SupplyPrice']; ?></h5>
+                                <div class="btn-action d-flex justify-content-center">
+                                    <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
+                                    <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                <?php
+                        $cnt = $cnt + 1;
+                    }
+                }
+                ?>
             </div>
-    <?php
-            $cnt = $cnt + 1;
-        }
-    }
-    ?>
-</div>
-</div>
-</div>
+        </div>
+    </div>
 
 
     <!-- Products End -->
