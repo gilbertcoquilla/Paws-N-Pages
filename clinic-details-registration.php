@@ -40,13 +40,16 @@ if (isset($_POST['submit'])) {
     $clinicName = $_POST['clinicname'];
     $subscriptionType = $_POST['subtype'];
     $subscriptionStatus = $_POST['subscriptionstatus'];
+    $otime = $_POST['openhours'];
+    $ctime = $_POST['closehours'];
+    $daysopened = implode(', ', $_REQUEST['opendays']);
 
     $userID = $_POST['userID'];
     $_SESSION['userID_reg'] = $userID;
 
     // Query for data insertion
-    $query = mysqli_query($con, "INSERT INTO clinics (ClinicName, ClinicImage, BusinessPermit, BusinessNameReg, CertificateOfReg, SubscriptionType, SubscriptionStatus, UserID) 
-    VALUES ('$clinicName', '$file1', '$file3', '$file4', '$file2', '$subscriptionType', '$subscriptionStatus', '$userID')");
+    $query = mysqli_query($con, "INSERT INTO clinics (ClinicName, ClinicImage, BusinessPermit, BusinessNameReg, CertificateOfReg, SubscriptionType, SubscriptionStatus, UserID, OpeningTime, ClosingTime, OperatingDays) 
+    VALUES ('$clinicName', '$file1', '$file3', '$file4', '$file2', '$subscriptionType', '$subscriptionStatus', '$userID', '$otime', '$ctime', '$daysopened')");
 
     if ($query) {
         // echo "<script>alert('You have successfully added an item');</script>";
@@ -67,7 +70,8 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -116,7 +120,7 @@ if (isset($_POST['submit'])) {
             if (file) {
                 var reader = new FileReader();
 
-                reader.onload = function() {
+                reader.onload = function () {
                     $("#cliniclogo").attr("src", reader.result);
                 }
 
@@ -139,56 +143,77 @@ if (isset($_POST['submit'])) {
                     <form method="post" enctype="multipart/form-data" runat="server">
                         <div class="row g-3 bg-dark">
 
-                            <div class="col-6 ">
-                                <a href="registration.php"><button type="button" name="signup" class="btn btn-secondary text-white w-100 py-3">SIGN UP</button></a>
-                            </div>
-                            <div class="col-6">
-                                <a href="login.php"><button type="button" name="login" class="btn btn-outline-light w-100 py-3">LOG IN</button></a>
-                            </div>
 
                             <div class="col-12">
-                                <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Clinic Details 🏥</h5>
+                                <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Clinic Details 🏥
+                                </h5>
                             </div>
 
                             <!-- For getting userID -->
                             <?php
-                                $ret = mysqli_query($con, "SELECT * FROM users WHERE Email='$email'");
-                                $cnt = 1;
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
+                            $ret = mysqli_query($con, "SELECT * FROM users WHERE Email='$email'");
+                            $cnt = 1;
+                            $row = mysqli_num_rows($ret);
+                            if ($row > 0) {
+                                while ($row = mysqli_fetch_array($ret)) {
 
-                            ?>
-                                <div class="col-12" style="display: none;">
-                                    <input type="text" name="userID" class="form-control  bg-light border-0 px-4 py-3" value="<?php echo $row['UserID'] ?>">
-                                </div>
+                                    ?>
+                                    <div class="col-12" style="display: none;">
+                                        <input type="text" name="userID" class="form-control  bg-light border-0 px-4 py-3"
+                                            value="<?php echo $row['UserID'] ?>">
+                                    </div>
 
-                            <?php
-                                        $cnt = $cnt + 1;
-                                    }
-                                } 
+                                    <?php
+                                    $cnt = $cnt + 1;
+                                }
+                            }
                             ?>
 
                             <div class="col-12">
-                                <input type="text" name="clinicname" class="form-control  bg-light border-0 px-4 py-3" placeholder="Clinic Name" required>
+                                <input type="text" name="clinicname" class="form-control  bg-light border-0 px-4 py-3"
+                                    placeholder="Clinic Name" required>
                             </div>
-
-                            <div class="col-12">
+                            <div class="col-6">
+                                <p>Opening Hours</p>
+                                <input type="time" name="openhours" class="form-control  bg-light border-0 px-4 py-3"
+                                    required>
+                            </div>
+                            <div class="col-6">
+                                <p>Closing Hours</p>
+                                <input type="time" name="closehours" class="form-control  bg-light border-0 px-4 py-3"
+                                    required>
+                            </div>
+                            <div class="col-`1`">
+                                <p>Operating Days</p>
+                                <input type="checkbox" name="opendays[]" value="Sunday"> Sunday &nbsp;&nbsp;
+                                <input type="checkbox" name="opendays[]" value="Monday"> Monday &nbsp;&nbsp;
+                                <input type="checkbox" name="opendays[]" value="Tuesday"> Tuesday &nbsp;&nbsp;
+                                <input type="checkbox" name="opendays[]" value="Wednesday"> Wednesday &nbsp;&nbsp;
+                                <input type="checkbox" name="opendays[]" value="Thursday"> Thursday &nbsp;&nbsp;
+                                <input type="checkbox" name="opendays[]" value="Friday"> Friday &nbsp;&nbsp;
+                                <input type="checkbox" name="opendays[]" value="Saturday"> Saturday
+                            </div>
+                            <div class="col-6">
                                 <p> Clinic Logo </p>
                                 <!-- <img id="cliniclogo" src="" width="100px" /> -->
-                                <input type="file" name="cliniclogo" class="form-control  bg-light border-0 px-4 py-3" onchange="previewFile(this);" />
+                                <input type="file" name="cliniclogo" class="form-control  bg-light border-0 px-4 py-3"
+                                    onchange="previewFile(this);" />
                             </div>
                             <div class="col-6">
                                 <p> Upload DTI Certificate of Registration </p>
-                                <input type="file" name="dticert" class="form-control  bg-light border-0 px-4 py-3" placeholder="DTI Certificate of Registration" required>
+                                <input type="file" name="dticert" class="form-control  bg-light border-0 px-4 py-3"
+                                    placeholder="DTI Certificate of Registration" required>
                             </div>
                             <div class="col-6">
                                 <p>Upload Business Permit</p>
-                                <input type="file" name="businesspermit" class="form-control  bg-light border-0 px-4 py-3" placeholder="Business Permit" required>
+                                <input type="file" name="businesspermit"
+                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Business Permit"
+                                    required>
                             </div>
                             <div class="col-6">
                                 <p>Upload DTI Registered Business Name</p>
-                                <input type="file" name="businessname" class="form-control  bg-light border-0 px-4 py-3" placeholder="Business Name" required>
+                                <input type="file" name="businessname" class="form-control  bg-light border-0 px-4 py-3"
+                                    placeholder="Business Name" required>
                             </div>
                             <div class="col-6">
                                 <p>Subscription Type</p>
@@ -199,7 +224,9 @@ if (isset($_POST['submit'])) {
                                 </select>
                             </div>
                             <div class="col-12" style="display: none;">
-                                <input type="text" name="subscriptionstatus" class="form-control  bg-light border-0 px-4 py-3" placeholder="Subscription Status" value="Inactive">
+                                <input type="text" name="subscriptionstatus"
+                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Subscription Status"
+                                    value="Inactive">
                             </div>
 
                             <div class="col-12"></div>

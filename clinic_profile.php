@@ -14,7 +14,8 @@ $clinic_id = $_GET['clinicid'];
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Clinic</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -162,7 +163,8 @@ $clinic_id = $_GET['clinicid'];
             <div class="navbar-nav ms-auto py-0">
                 <a href="index.php" class="nav-item nav-link active">Home</a>
                 <a href="clinics.php" class="nav-item nav-link">Clinics</a>
-                <a href="contact.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">Profile <i class="bi bi-arrow-right"></i></a>
+                <a href="contact.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">Profile
+                    <i class="bi bi-arrow-right"></i></a>
 
             </div>
         </div>
@@ -175,7 +177,9 @@ $clinic_id = $_GET['clinicid'];
     <div class="blog-item mb-5">
         <div class="row g-0 bg-light overflow-hidden">
             <div class="col-12 col-sm-5 h-100">
-                <img class="img-fluid h-100" src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1" style="object-fit: cover; width: 100%; height: 100%;">
+                <img class="img-fluid h-100"
+                    src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1"
+                    style="object-fit: cover; width: 100%; height: 100%;">
             </div>
             <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
                 <div class="p-4">
@@ -195,35 +199,53 @@ $clinic_id = $_GET['clinicid'];
                     if ($row > 0) {
                         while ($row = mysqli_fetch_array($ret)) {
 
-                    ?>
+                            ?>
 
-                            <h5 class="text-uppercase mb-3"><?php echo $row['ClinicName'] ?></h5>
+                            <h5 class="text-uppercase mb-3">
+                                <?php echo $row['ClinicName'] ?>
+                            </h5>
 
                             <?php
-                            $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
+                            $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
                             $cnt1 = 1;
                             $row1 = mysqli_num_rows($ret1);
                             if ($row1 > 0) {
                                 while ($row1 = mysqli_fetch_array($ret1)) {
-                            ?>
-                                    <span><?php echo $row1['LotNo_Street'] . ' ' . $row1['Barangay'] . ' ' . $row1['City'] ?></span></br>
-                                    <span><?php echo $row1['ContactNo'] ?></span> </br>
-                            <?php
+                                    ?>
+                                    <span>
+                                        <?php echo $row1['LotNo_Street'] . ' ' . $row1['Barangay'] . ' ' . $row1['City'] ?>
+                                    </span></br>
+                                    <span>
+                                        <?php echo $row1['ContactNo'] ?>
+                                    </span> </br>
+                                    <span>
+                                        <?php echo date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?>
+                                    </span></br>
+                                    <span>
+                                        <?php echo $row1['OperatingDays'] ?>
+                                    </span> </br>
+                                    <?php
                                 }
                             } ?>
 
 
 
-                            <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Vaccination </span>&nbsp;
-                            <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Surgery </span>&nbsp;
-                            <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> 24/7 </span><br />
+                            <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Vaccination
+                            </span>&nbsp;
+                            <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Surgery
+                            </span>&nbsp;
+                            <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> 24/7
+                            </span><br />
 
-                    <?php }
+                        <?php }
                     } ?>
-                    <a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank"><i class="bi-facebook"></i>View Facebook</a> <br />
+                    <a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank"><i
+                            class="bi-facebook"></i>View Facebook</a> <br />
 
                     <!-- Need to store clinic ID in session in this page and then close it on the next one after booking an appointment -->
-                    <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>">Book an appointment<i class="bi bi-chevron-right"></i></a>
+                    <a class="btn btn-primary m-1"
+                        href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>">Book an appointment<i
+                            class="bi bi-chevron-right"></i></a>
                 </div>
             </div>
         </div>
@@ -247,7 +269,7 @@ $clinic_id = $_GET['clinicid'];
                 $row = mysqli_num_rows($ret);
                 if ($row > 0) {
                     while ($row = mysqli_fetch_array($ret)) {
-                ?>
+                        ?>
                         <div class="bg-light d-flex flex-column text-center">
                             <div class="image-container">
                                 <?php if ($row['SupplyImage'] != "") {
@@ -255,17 +277,26 @@ $clinic_id = $_GET['clinicid'];
                                 } ?>
                             </div>
                             <div class="product-info">
-                                <h6 class="text-uppercase"><b><?php echo $row['SupplyName']; ?></b></h6>
-                                <p><?php echo $row['SupplyDescription']; ?><br /></p>
-                                Stocks: <?php echo $row['Stocks'] ?></br>
-                                <h5 class="text-primary mb-0">₱ <?php echo $row['SupplyPrice']; ?></h5>
+                                <h6 class="text-uppercase"><b>
+                                        <?php echo $row['SupplyName']; ?>
+                                    </b></h6>
+                                <p>
+                                    <?php echo $row['SupplyDescription']; ?><br />
+                                </p>
+                                Stocks:
+                                <?php echo $row['Stocks'] ?></br>
+                                <h5 class="text-primary mb-0">₱
+                                    <?php echo $row['SupplyPrice']; ?>
+                                </h5>
                                 <div class="btn-action d-flex justify-content-center">
-                                    <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i class="bi bi-cart"></i></button>
-                                    <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i class="bi bi-eye"></i></button>
+                                    <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i
+                                            class="bi bi-cart"></i></button>
+                                    <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i
+                                            class="bi bi-eye"></i></button>
                                 </div>
                             </div>
                         </div>
-                <?php
+                        <?php
                         $cnt = $cnt + 1;
                     }
                 }
@@ -316,7 +347,8 @@ $clinic_id = $_GET['clinicid'];
 
 
     <!-- Modal Start -->
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -351,18 +383,25 @@ $clinic_id = $_GET['clinicid'];
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
-                    <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961 762 6162</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
+                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
+                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
+                        762 6162</a>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="index.php#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="index.php#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="index.php#services"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="index.php#founders"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
@@ -401,7 +440,7 @@ $clinic_id = $_GET['clinicid'];
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var cartItems = [];
 
             function updateCart() {
@@ -425,7 +464,7 @@ $clinic_id = $_GET['clinicid'];
                 $("#cartItems").html(cartContent);
             }
 
-            $(document).on("click", ".remove-btn", function() {
+            $(document).on("click", ".remove-btn", function () {
                 var index = $(this).data("index");
                 cartItems.splice(index, 1);
                 updateCart();
@@ -437,7 +476,7 @@ $clinic_id = $_GET['clinicid'];
 
 
             function addToCart(name) {
-                var index = cartItems.findIndex(function(item) {
+                var index = cartItems.findIndex(function (item) {
                     return item.name === name;
                 });
                 if (index === -1) {
@@ -451,17 +490,17 @@ $clinic_id = $_GET['clinicid'];
                 updateCart();
             }
 
-            $(document).on("click", "#openCartBtn", function() {
+            $(document).on("click", "#openCartBtn", function () {
                 updateCart();
                 $("#cartModal").modal("show");
             });
 
-            $(document).on("click", "#addToCart", function() {
+            $(document).on("click", "#addToCart", function () {
                 var productName = $(this).closest(".product-item").find("h6").text();
                 addToCart(productName);
             });
 
-            $(document).on("click", ".quantity-btn", function() {
+            $(document).on("click", ".quantity-btn", function () {
                 var index = $(this).data("index");
                 var action = $(this).data("action");
                 if (action === "increase") {
@@ -475,7 +514,7 @@ $clinic_id = $_GET['clinicid'];
                 updateCart();
             });
 
-            $(document).on("click", "#checkoutBtn", function() {
+            $(document).on("click", "#checkoutBtn", function () {
                 // Handle checkout logic here
                 console.log("Checkout button clicked");
             });
@@ -484,14 +523,14 @@ $clinic_id = $_GET['clinicid'];
     <!-- Add the JavaScript code at the bottom of your HTML file -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Close button click event
-            $('#cartModal .close').click(function() {
+            $('#cartModal .close').click(function () {
                 $('#cartModal').modal('hide');
             });
 
             // Checkout button click event
-            $('#checkoutBtn').click(function() {
+            $('#checkoutBtn').click(function () {
                 // Perform the checkout action here
                 // You can add your own code to handle the checkout process
                 alert('Checkout button clicked!');

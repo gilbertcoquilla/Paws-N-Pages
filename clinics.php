@@ -1,5 +1,14 @@
 <?php
+
+//database connection  file
 include('connection.php');
+//Code for deletion
+// if (isset($_GET['delid'])) {
+//     $rid = intval($_GET['delid']);
+//     $sql = mysqli_query($con, "DELETE FROM petsupplies WHERE SupplyID=$rid");
+//     echo "<script>alert('Item is deleted successfully');</script>";
+//     echo "<script>window.location.href = 'inventory_management.php'</script>";
+// }
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +17,8 @@ include('connection.php');
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Clinic Directory</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -44,7 +54,8 @@ include('connection.php');
             <div class="navbar-nav ms-auto py-0">
                 <a href="index.php" class="nav-item nav-link">Home</a>
                 <a href="clinics.php" class="nav-item nav-link active">Clinics</a>
-                <a href="contact.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">Profile <i class="bi bi-arrow-right"></i></a>
+                <a href="contact.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">Profile
+                    <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </nav>
@@ -72,20 +83,30 @@ include('connection.php');
                 <div class="mb-5">
                     <h3 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Services</h3>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Wellness Examinations </a>
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Wellness
+                            Examinations </a>
                         <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Vaccinations </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Spaying and Neutering </a>
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Spaying and
+                            Neutering </a>
                         <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Dental Care </a>
                         <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Surgery </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Laboratory and Diagnostic Testing </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;24/7 Emergency and Critical Care </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Parasite Control </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Nutrition and Diet Counseling </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Pet Boarding and Daycare </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Grooming Services </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Behavior Counseling </a>
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Laboratory and
+                            Diagnostic Testing </a>
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;24/7 Emergency and
+                            Critical Care </a>
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Parasite Control
+                        </a>
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Nutrition and Diet
+                            Counseling </a>
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Pet Boarding and
+                            Daycare </a>
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Grooming Services
+                        </a>
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Behavior Counseling
+                        </a>
                         <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Microchipping </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Hospice and Palliative Care </a>
+                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Hospice and
+                            Palliative Care </a>
                     </div>
                 </div>
                 <!-- Services End -->
@@ -101,45 +122,59 @@ include('connection.php');
                 $row = mysqli_num_rows($ret);
                 if ($row > 0) {
                     while ($row = mysqli_fetch_array($ret)) {
-                ?>
+                        ?>
                         <div class="blog-item mb-5">
                             <div class="row g-0 bg-light overflow-hidden">
 
                                 <div class="col-12 col-sm-5 h-100">
-                                    <img class="img-fluid h-100" src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1" style="object-fit: cover; width: 100%; height: 100%;">
+                                    <img class="img-fluid h-100"
+                                        src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1"
+                                        style="object-fit: cover; width: 100%; height: 100%;">
                                 </div>
                                 <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
 
                                     <div class="p-4">
                                         <h5 style="display: none;" class="text-uppercase mb-3" name="cname">
                                         </h5>
-                                        <h5 class="text-uppercase mb-3" name="cname"><?php echo $row['ClinicName'] ?></h5>
+                                        <h5 class="text-uppercase mb-3" name="cname">
+                                            <?php echo $row['ClinicName'] ?>
+                                        </h5>
 
                                         <!-- For address -->
 
                                         <?php
                                         $clinic_id = $row['ClinicID'];
-                                        $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
+                                        $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, clinics.ClinicID, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
                                         $cnt1 = 1;
                                         $row1 = mysqli_num_rows($ret1);
                                         if ($row1 > 0) {
                                             while ($row1 = mysqli_fetch_array($ret1)) {
-                                        ?>
+                                                ?>
 
-                                                <p name="caddress"><?php echo $row1['LotNo_Street'] . ' ' . $row1['Barangay'] . ' ' . $row1['City'] ?> </p>
+                                                <p name="caddress">
+                                                    <?php echo $row1['LotNo_Street'] . ' ' . $row1['Barangay'] . ' ' . $row1['City'] ?>
+                                                </p>
+                                                <p name="operatinghours">
+                                                    <?php echo date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?>
+                                                </p>
+                                                <p name="operatingdays">
+                                                    <?php echo $row1['OperatingDays'] ?></span>
+                                                </p>
 
-                                        <?php
+                                                <?php
                                             }
                                         } ?>
 
                                         <!-- For address -->
 
-                                        <br /><br /><a class="text-primary text-uppercase" href="clinic_profile.php?clinicid=<?php echo htmlentities($row['ClinicID']); ?>">View Clinic<i class="bi bi-chevron-right"></i></a>
+                                        <br /><br /><a class="text-primary text-uppercase"
+                                            href="clinic_profile.php?clinicid=<?php echo htmlentities($row['ClinicID']); ?>">View
+                                            Clinic<i class="bi bi-chevron-right"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                <?php
+                        <?php
                         $cnt = $cnt + 1;
                     }
                 } ?>
@@ -257,18 +292,25 @@ include('connection.php');
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
-                    <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961 762 6162</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
+                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
+                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
+                        762 6162</a>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="index.php#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="index.php#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="index.php#services"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="index.php#founders"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
