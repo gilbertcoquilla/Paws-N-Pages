@@ -228,7 +228,7 @@ if (isset($_GET['delid'])) {
                             <th class="column1">Appointment ID</th>
                             <th class="column1">Date</th>
                             <th class="column1">Time</th>
-                            <th class="column1">Service</th>
+                            <th class="column1">Availed Services</th>
                             <th class="column1">Notes</th>
                             <th class="column1">Clinic</th>
                             <th class="column1">Client</th>
@@ -240,7 +240,8 @@ if (isset($_GET['delid'])) {
                     <tbody>
                         <?php
 
-                        $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, appointments.AppointmentStatus, appointments.Remarks, services.ServiceName, clinics.ClinicName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN clinics ON services.ClinicID = clinics.ClinicID INNER JOIN users ON appointments.UserID = users.UserID");
+                        // $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, appointments.AppointmentStatus, appointments.Remarks, services.ServiceName, clinics.ClinicName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN clinics ON services.ClinicID = clinics.ClinicID INNER JOIN users ON appointments.UserID = users.UserID ORDER BY AppointmentID ASC");
+                        $ret = mysqli_query($con, "SELECT * FROM appointments, clinics, users WHERE appointments.UserID = users.UserID AND clinics.UserID = users.UserID ORDER BY AppointmentID ASC");
 
                         $cnt = 1;
                         $row = mysqli_num_rows($ret);
@@ -253,7 +254,7 @@ if (isset($_GET['delid'])) {
                                     <td><?php echo $cnt; ?></td>
                                     <td><?php echo $row['PreferredDate'] ?></td>
                                     <td><?php echo $row['PreferredTime'] ?></td>
-                                    <td><?php echo $row['ServiceName']; ?></td>
+                                    <td><?php echo $row['AvailedServices']; ?></td>
                                     <td><?php echo $row['Notes']; ?></td>
                                     <td><?php echo $row['ClinicName']; ?></td>
                                     <td><?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName']; ?></td>

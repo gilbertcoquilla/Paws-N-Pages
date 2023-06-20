@@ -114,7 +114,8 @@ if (isset($_POST['submit'])) {
 
                     <?php
                     $eid = $_GET['editid'];
-                    $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, appointments.AppointmentStatus, appointments.Remarks, services.ServiceName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN users ON appointments.UserID = users.UserID WHERE AppointmentID='$eid'");
+                    // $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, appointments.AppointmentStatus, appointments.Remarks, services.ServiceName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN users ON appointments.UserID = users.UserID WHERE AppointmentID='$eid'");
+                    $ret = mysqli_query($con, "SELECT * FROM appointments, clinics, users WHERE appointments.UserID = users.UserID AND clinics.UserID = users.UserID AND AppointmentID='$eid'");
                     while ($row = mysqli_fetch_array($ret)) {
                     ?>
 
@@ -136,8 +137,8 @@ if (isset($_POST['submit'])) {
 
                         <!--4-->
                         <div class="wrap-input100 validate-input m-b-23">
-                            <p>Service</p>
-                            <input type="text" id="service" name="service" value="<?php echo $row['ServiceName'] ?>" readonly />
+                            <p>Availed Services</p>
+                            <input type="text" id="service" name="service" value="<?php echo $row['AvailedServices'] ?>" readonly />
                             <br>
                         </div>
 
