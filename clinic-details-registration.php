@@ -6,7 +6,7 @@ include('connection.php');
 
 $email = $_SESSION['email'];
 
-if (isset($_POST['submit']) && $_SESSION['email'] > 0) {
+if (isset($_POST['submit'])) {
 
     // Clinic Image/Logo
     $file1 = $_FILES['cliniclogo']['name'];
@@ -57,8 +57,6 @@ if (isset($_POST['submit']) && $_SESSION['email'] > 0) {
     } else {
         echo "<script>alert('Something went wrong. Please try again');</script>";
     }
-} else {
-    echo "<script>alert('Invalid session. Please try again');</script>";
 }
 
 ?>
