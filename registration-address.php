@@ -7,7 +7,7 @@ $userID = $_SESSION["id"];
 
 include('connection.php');
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit']) && $_SESSION["id"] > 0) {
 
     // For Address
     $lotno_street = $_POST['lotno_street'];
@@ -29,6 +29,8 @@ if (isset($_POST['submit'])) {
     } else {
         echo "<script>alert('Something went wrong. Please try again');</script>";
     }
+} else {
+    echo "<script>alert('Invalid session. Please try again');</script>";
 }
 ?>
 
