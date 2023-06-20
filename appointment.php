@@ -241,7 +241,7 @@ if (isset($_GET['delid'])) {
                         <?php
 
                         // $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, appointments.AppointmentStatus, appointments.Remarks, services.ServiceName, clinics.ClinicName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN clinics ON services.ClinicID = clinics.ClinicID INNER JOIN users ON appointments.UserID = users.UserID ORDER BY AppointmentID ASC");
-                        $ret = mysqli_query($con, "SELECT * FROM appointments, clinics, users WHERE appointments.UserID = users.UserID AND clinics.UserID = users.UserID ORDER BY AppointmentID ASC");
+                        $ret = mysqli_query($con, "SELECT * FROM appointments, clinics, users WHERE appointments.UserID = users.UserID AND appointments.ClinicID = clinics.ClinicID ORDER BY AppointmentID ASC");
 
                         $cnt = 1;
                         $row = mysqli_num_rows($ret);

@@ -23,10 +23,11 @@ if (isset($_POST['submit'])) {
     $squence = rand(00000, 99999);
     $brefno = $code . $ymd . $squence;
 
+    $clinicid = $_POST['clinicID'];
 
     // foreach ($services as $listofservices) {
     // Query for data insertion
-    $query = mysqli_query($con, "INSERT INTO appointments (Notes, PreferredDate, PreferredTime, AppointmentStatus, AvailedServices, UserID, Appointment_RefNo) VALUES ('$notes', '$appointmentDate', '$appointmentTime', '$status', '$listofservices', '$userID', '$brefno')");
+    $query = mysqli_query($con, "INSERT INTO appointments (Notes, PreferredDate, PreferredTime, AppointmentStatus, AvailedServices, UserID, Appointment_RefNo, ClinicID) VALUES ('$notes', '$appointmentDate', '$appointmentTime', '$status', '$listofservices', '$userID', '$brefno', '$clinicid')");
     if ($query) {
         echo "<script>alert('You have successfully booked an appointment with Booking Reference No. <b>'" . $brefno . "'</b>');</script>";
         echo "<script> document.location ='booking_form.php'; </script>";
@@ -43,8 +44,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Booking</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -172,9 +172,7 @@ if (isset($_POST['submit'])) {
     <div class="blog-item mb-5">
         <div class="row g-0 bg-light overflow-hidden">
             <div class="col-12 col-sm-5 h-100">
-                <img class="img-fluid h-100"
-                    src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1"
-                    style="object-fit: cover; width: 100%; height: 100%;">
+                <img class="img-fluid h-100" src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1" style="object-fit: cover; width: 100%; height: 100%;">
             </div>
             <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
                 <div class="p-4">
@@ -189,7 +187,7 @@ if (isset($_POST['submit'])) {
                     if ($row > 0) {
                         while ($row = mysqli_fetch_array($ret)) {
 
-                            ?>
+                    ?>
 
                             <h5 class="text-uppercase mb-3">
                                 <?php echo $row['ClinicName'] ?>
@@ -201,14 +199,14 @@ if (isset($_POST['submit'])) {
                             $row1 = mysqli_num_rows($ret1);
                             if ($row1 > 0) {
                                 while ($row1 = mysqli_fetch_array($ret1)) {
-                                    ?>
+                            ?>
                                     <span>
                                         <?php echo $row1['LotNo_Street'] . ' ' . $row1['Barangay'] . ' ' . $row1['City'] ?>
                                     </span></br>
                                     <span>
                                         <?php echo $row1['ContactNo'] ?>
                                     </span> </br>
-                                    <?php
+                            <?php
                                 }
                             } ?>
 
@@ -219,13 +217,11 @@ if (isset($_POST['submit'])) {
                             <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> 24/7
                             </span><br />
 
-                        <?php }
+                    <?php }
                     } ?>
 
-                    <a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank"><i
-                            class="bi-facebook"></i>View Facebook</a> <br />
-                    <a class="btn btn-primary m-1" href="feedback.php">Leave a review<i
-                            class="bi bi-chevron-right"></i></a>
+                    <a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank"><i class="bi-facebook"></i>View Facebook</a> <br />
+                    <a class="btn btn-primary m-1" href="feedback.php">Leave a review<i class="bi bi-chevron-right"></i></a>
                 </div>
             </div>
         </div>
@@ -256,12 +252,11 @@ if (isset($_POST['submit'])) {
                             $row = mysqli_num_rows($ret);
                             if ($row > 0) {
                                 while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
+                            ?>
 
-                                    <input type="checkbox" id="service" name="service[]"
-                                        value="<?php echo $row['ServiceName'] ?>">&nbsp; <?php echo $row['ServiceName'] ?>
+                                    <input type="checkbox" id="service" name="service[]" value="<?php echo $row['ServiceName'] ?>">&nbsp; <?php echo $row['ServiceName'] ?>
                                     </br></br>
-                                    <?php
+                            <?php
 
                                     $cnt = $cnt + 1;
                                 }
@@ -285,34 +280,32 @@ if (isset($_POST['submit'])) {
                     <div class="row g-3" class="">
                         <div class="col-12">
                             <h5>Select Date:</h5>
-                            <input type="date" class="form-control  bg-light border-0 px-4 py-3" id="datePicker"
-                                name="appointmentDate" required>
+                            <input type="date" class="form-control  bg-light border-0 px-4 py-3" id="datePicker" name="appointmentDate" required>
                         </div>
                         <div class="col-12">
                             <h5>Select Time:</h5>
-                            <input type="time" class="form-control  bg-light border-0 px-4 py-3" id="timePicker"
-                                name="appointmentTime" required step="3600"
-                                oninvalid="this.setCustomValidity('Enter User Name Here')"
-                                oninput="this.setCustomValidity('')">
+                            <input type="time" class="form-control  bg-light border-0 px-4 py-3" id="timePicker" name="appointmentTime" required step="3600" oninvalid="this.setCustomValidity('Please choose a time by hour and double check the operating days and hours of the clinic')" oninput="this.setCustomValidity('')">
                             <span style="color:red;">*Please choose a time by hour and double check the operating days
                                 and hours of the clinic</span>
                         </div>
                         <div class="col-12">
                             <h5>Notes:</h5>
-                            <input type="name" name="notes" class="form-control  bg-light border-0 px-4 py-3"
-                                placeholder="Example: my pet has a fever">
+                            <input type="name" name="notes" class="form-control  bg-light border-0 px-4 py-3" placeholder="Example: my pet has a fever">
                         </div>
 
                         <div class="col-12" style="display: none;">
                             <h5>Status:</h5>
-                            <input type="name" name="status" class="form-control  bg-light border-0 px-4 py-3"
-                                value="Processing">
+                            <input type="name" name="status" class="form-control  bg-light border-0 px-4 py-3" value="Processing">
                         </div>
 
                         <div class="col-12" style="display: none;">
                             <h5>User ID:</h5>
-                            <input type="text" name="userID" class="form-control  bg-light border-0 px-4 py-3"
-                                value="<?php echo $userID ?>" required>
+                            <input type="text" name="userID" class="form-control  bg-light border-0 px-4 py-3" value="<?php echo $userID ?>" required>
+                        </div>
+
+                        <div class="col-12" style="display: none;">
+                            <h5>Clinic ID:</h5>
+                            <input type="text" name="clinicID" class="form-control  bg-light border-0 px-4 py-3" value="<?php echo $clinic_id ?>" required>
                         </div>
 
                         <div class="col-12">
@@ -366,8 +359,7 @@ if (isset($_POST['submit'])) {
 
 
     <!-- Modal Start -->
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -402,10 +394,8 @@ if (isset($_POST['submit'])) {
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
-                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
-                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
                     <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
                         762 6162</a>
                 </div>
@@ -413,14 +403,10 @@ if (isset($_POST['submit'])) {
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="index.php#services"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="index.php#founders"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="index.php#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="index.php#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
@@ -459,7 +445,7 @@ if (isset($_POST['submit'])) {
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        $(function () {
+        $(function() {
             var dtToday = new Date();
 
             var month = dtToday.getMonth() + 1;
