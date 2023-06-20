@@ -3,11 +3,11 @@
 session_start();
 include('config.php');
 
-$userID = $_SESSION["id"];
+$user_id = $_SESSION['userID_reg'];
 
 include('connection.php');
 
-if (isset($_POST['submit']) && $_SESSION["id"] > 0) {
+if (isset($_POST['submit'])) {
 
     // For Address
     $lotno_street = $_POST['lotno_street'];
@@ -16,10 +16,8 @@ if (isset($_POST['submit']) && $_SESSION["id"] > 0) {
     $province = $_POST['province'];
     $zipcode = $_POST['zipcode'];
 
-    $userID = $_POST['userID'];
-
     // Query for data insertion
-    $query = mysqli_query($con, "INSERT INTO address (LotNo_Street, Barangay, City, Province, ZIPCode, UserID) VALUES ('$lotno_street', '$barangay', '$city', '$province', '$zipcode', '$userID')");
+    $query = mysqli_query($con, "INSERT INTO address (LotNo_Street, Barangay, City, Province, ZIPCode, UserID) VALUES ('$lotno_street', '$barangay', '$city', '$province', '$zipcode', '$user_id')");
 
     if ($query) {
         echo "<script>alert('You have successfully added an address');</script>";
@@ -29,8 +27,6 @@ if (isset($_POST['submit']) && $_SESSION["id"] > 0) {
     } else {
         echo "<script>alert('Something went wrong. Please try again');</script>";
     }
-} else {
-    echo "<script>alert('Invalid session. Please try again');</script>";
 }
 ?>
 
@@ -78,7 +74,7 @@ if (isset($_POST['submit']) && $_SESSION["id"] > 0) {
             padding: 0;
         }
     </style>
-    
+
     <!-- JavaScript Libraries -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -92,7 +88,7 @@ if (isset($_POST['submit']) && $_SESSION["id"] > 0) {
     <!-- Template Javascript -->
     <!-- <script src="js/main.js"></script> -->
     <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
-    
+
     <script>
         var my_handlers = {
 
@@ -186,23 +182,23 @@ if (isset($_POST['submit']) && $_SESSION["id"] > 0) {
                                 <input type="text" name="city" class="form-control  bg-light border-0 px-4 py-3" value="Quezon City" readonly>
                             </div>
 
-                            
+
                             <div class="col-6">
                                 <?php
-                                    $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
-                                    $data = $sql->fetch_all(MYSQLI_ASSOC);
+                                $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
+                                $data = $sql->fetch_all(MYSQLI_ASSOC);
                                 ?>
                                 <select id="barangay" class="form-control  bg-light border-0 px-4 py-3" name="barangay" placeholder="Barangay" required>
                                     <option value="" selected disabled>-- Please choose a barangay --</option>
-                                    <?php foreach ($data as $row): ?>
-                                    <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
-                                        <?= htmlspecialchars($row['BarangayName']) ?>
-                                    </option>
+                                    <?php foreach ($data as $row) : ?>
+                                        <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
+                                            <?= htmlspecialchars($row['BarangayName']) ?>
+                                        </option>
                                     <?php endforeach ?>
-                                <!-- <option value="'.htmlspecialchars($barangay).'"></option>' -->
+                                    <!-- <option value="'.htmlspecialchars($barangay).'"></option>' -->
                                 </select>
                             </div>
-                            
+
 
                             <div class="col-6">
                                 <input type="text" name="zipcode" class="form-control  bg-light border-0 px-4 py-3" placeholder="Zip Code" required>
@@ -215,7 +211,7 @@ if (isset($_POST['submit']) && $_SESSION["id"] > 0) {
                             </div>
                             <div class="col-12"></div>
                         </div>
-                     </form>
+                    </form>
                 </div>
             </div>
 

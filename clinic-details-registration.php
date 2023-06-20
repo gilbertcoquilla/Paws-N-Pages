@@ -6,7 +6,7 @@ include('connection.php');
 
 $email = $_SESSION['email'];
 
-if (isset($_POST['submit'])&& $_SESSION['email'] > 0) {
+if (isset($_POST['submit']) && $_SESSION['email'] > 0) {
 
     // Clinic Image/Logo
     $file1 = $_FILES['cliniclogo']['name'];
@@ -72,8 +72,7 @@ if (isset($_POST['submit'])&& $_SESSION['email'] > 0) {
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -122,7 +121,7 @@ if (isset($_POST['submit'])&& $_SESSION['email'] > 0) {
             if (file) {
                 var reader = new FileReader();
 
-                reader.onload = function () {
+                reader.onload = function() {
                     $("#cliniclogo").attr("src", reader.result);
                 }
 
@@ -159,31 +158,27 @@ if (isset($_POST['submit'])&& $_SESSION['email'] > 0) {
                             if ($row > 0) {
                                 while ($row = mysqli_fetch_array($ret)) {
 
-                                    ?>
+                            ?>
                                     <div class="col-12" style="display: none;">
-                                        <input type="text" name="userID" class="form-control  bg-light border-0 px-4 py-3"
-                                            value="<?php echo $row['UserID'] ?>">
+                                        <input type="text" name="userID" class="form-control  bg-light border-0 px-4 py-3" value="<?php echo $row['UserID'] ?>">
                                     </div>
 
-                                    <?php
+                            <?php
                                     $cnt = $cnt + 1;
                                 }
                             }
                             ?>
 
                             <div class="col-12">
-                                <input type="text" name="clinicname" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="Clinic Name" required>
+                                <input type="text" name="clinicname" class="form-control  bg-light border-0 px-4 py-3" placeholder="Clinic Name" value="<?php echo $email ?>" required>
                             </div>
                             <div class="col-6">
                                 <p>Opening Hours</p>
-                                <input type="time" name="openhours" class="form-control  bg-light border-0 px-4 py-3"
-                                    required>
+                                <input type="time" name="openhours" class="form-control  bg-light border-0 px-4 py-3" required>
                             </div>
                             <div class="col-6">
                                 <p>Closing Hours</p>
-                                <input type="time" name="closehours" class="form-control  bg-light border-0 px-4 py-3"
-                                    required>
+                                <input type="time" name="closehours" class="form-control  bg-light border-0 px-4 py-3" required>
                             </div>
                             <div class="col-`1`">
                                 <p>Operating Days</p>
@@ -198,24 +193,19 @@ if (isset($_POST['submit'])&& $_SESSION['email'] > 0) {
                             <div class="col-6">
                                 <p> Clinic Logo </p>
                                 <!-- <img id="cliniclogo" src="" width="100px" /> -->
-                                <input type="file" name="cliniclogo" class="form-control  bg-light border-0 px-4 py-3"
-                                    onchange="previewFile(this);" />
+                                <input type="file" name="cliniclogo" class="form-control  bg-light border-0 px-4 py-3" />
                             </div>
                             <div class="col-6">
                                 <p> Upload DTI Certificate of Registration </p>
-                                <input type="file" name="dticert" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="DTI Certificate of Registration" required>
+                                <input type="file" name="dticert" class="form-control  bg-light border-0 px-4 py-3" placeholder="DTI Certificate of Registration" required>
                             </div>
                             <div class="col-6">
                                 <p>Upload Business Permit</p>
-                                <input type="file" name="businesspermit"
-                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Business Permit"
-                                    required>
+                                <input type="file" name="businesspermit" class="form-control  bg-light border-0 px-4 py-3" placeholder="Business Permit" required>
                             </div>
                             <div class="col-6">
                                 <p>Upload DTI Registered Business Name</p>
-                                <input type="file" name="businessname" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="Business Name" required>
+                                <input type="file" name="businessname" class="form-control  bg-light border-0 px-4 py-3" placeholder="Business Name" required>
                             </div>
                             <div class="col-6">
                                 <p>Subscription Type</p>
@@ -226,9 +216,7 @@ if (isset($_POST['submit'])&& $_SESSION['email'] > 0) {
                                 </select>
                             </div>
                             <div class="col-12" style="display: none;">
-                                <input type="text" name="subscriptionstatus"
-                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Subscription Status"
-                                    value="Inactive">
+                                <input type="text" name="subscriptionstatus" class="form-control  bg-light border-0 px-4 py-3" placeholder="Subscription Status" value="Inactive">
                             </div>
 
                             <div class="col-12"></div>
