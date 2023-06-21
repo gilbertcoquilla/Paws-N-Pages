@@ -167,11 +167,10 @@ $clinic_id = $_GET['clinicid'];
 
             </div>
         </div>
-        <button type="button" class="btn" id="openCartBtn"><i class="bi bi-cart"></i></button>
+        <!-- <button type="button" class="btn" id="openCartBtn"><i class="bi bi-cart"></i></button> -->
+        <a href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i class="bi bi-cart"></i></a>
     </nav>
     <!-- Navbar End -->
-
-
 
     <br />
 
@@ -198,7 +197,8 @@ $clinic_id = $_GET['clinicid'];
                     ?>
                             <p class="text-uppercase mb-3" style="font-size:20px; color:black;"><b>
                                     <?php echo $row['ClinicName'] ?>
-                                </b></br>
+                                </b>
+                                </br>
 
                                 <?php
                                 $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
