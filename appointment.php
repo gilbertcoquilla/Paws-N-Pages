@@ -26,6 +26,10 @@ if (isset($_GET['delid'])) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <!-- For Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <!-- Favicon -->
@@ -48,6 +52,8 @@ if (isset($_GET['delid'])) {
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
+
+
     <!-- css -->
     <style>
         h1 {
@@ -64,12 +70,7 @@ if (isset($_GET['delid'])) {
             background-color: dodgerblue;
         }
 
-        table {
-            width: auto;
-            display: flexbox;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
+
 
         .table-container {
             padding: 90px 90px;
@@ -82,7 +83,7 @@ if (isset($_GET['delid'])) {
 
         .tbl-content {
             height: 300px;
-            overflow-x: auto;
+
             margin-top: 0px;
             border: 1px solid black;
         }
@@ -170,12 +171,24 @@ if (isset($_GET['delid'])) {
     <!-- script -->
     <script>
         // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
-        $(window).on("load resize ", function() {
+        $(window).on("load resize ", function () {
             var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
             $('.tbl-header').css({
                 'padding-right': scrollWidth
             });
         }).resize();
+
+
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#appointments').DataTable({
+                order: [[2, 'asc']],
+            });
+        });
+
     </script>
 
 </head>
@@ -222,7 +235,7 @@ if (isset($_GET['delid'])) {
 
                 </div> -->
                 <br><br><br>
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover" name="appointments" id="appointments">
                     <thead>
                         <tr class="table100-head">
                             <th class="column1">Appointment ID</th>
@@ -248,24 +261,47 @@ if (isset($_GET['delid'])) {
                         if ($row > 0) {
                             while ($row = mysqli_fetch_array($ret)) {
 
-                        ?>
+                                ?>
                                 <!--Fetch the Records -->
                                 <tr>
-                                    <td><?php echo $cnt; ?></td>
-                                    <td><?php echo $row['PreferredDate'] ?></td>
-                                    <td><?php echo $row['PreferredTime'] ?></td>
-                                    <td><?php echo $row['AvailedServices']; ?></td>
-                                    <td><?php echo $row['Notes']; ?></td>
-                                    <td><?php echo $row['ClinicName']; ?></td>
-                                    <td><?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName']; ?></td>
-                                    <td><?php echo $row['AppointmentStatus']; ?></td>
-                                    <td><?php echo $row['Remarks']; ?></td>
                                     <td>
-                                        <a href="appointment_edit.php?editid=<?php echo htmlentities($row['AppointmentID']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
-                                        <a href="appointment.php?delid=<?php echo ($row['AppointmentID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete appointment?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a>
+                                        <?php echo $cnt; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['PreferredDate'] ?>
+                                    </td>
+                                    <td>
+                                        <?php echo date('h:i A', strtotime($row['PreferredTime'])) ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['AvailedServices']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['Notes']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['ClinicName']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['AppointmentStatus']; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['Remarks']; ?>
+                                    </td>
+                                    <td>
+                                        <a href="appointment_edit.php?editid=<?php echo htmlentities($row['AppointmentID']); ?>"
+                                            class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons"
+                                                style="color:dodgerblue;">&#xE254;</i></a>
+                                        <a href="appointment.php?delid=<?php echo ($row['AppointmentID']); ?>" class="delete"
+                                            title="Delete" data-toggle="tooltip"
+                                            onclick="return confirm('Delete appointment?');"><i class="material-icons"
+                                                style="color:firebrick;">&#xE872;</i></a>
                                     </td>
                                 </tr>
-                            <?php
+                                <?php
                                 $cnt = $cnt + 1;
                             }
                         } else { ?>
