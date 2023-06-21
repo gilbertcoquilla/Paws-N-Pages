@@ -338,15 +338,15 @@ if ($row_a > 0) {
                                         while ($row1 = mysqli_fetch_array($ret1)) {
                                     ?>
 
-                                            <input type="number" name="quantity" value="<?php echo $row1['Quantity'] ?>" style="width: 40px;">
+                                            <input type="number" name="quantity" value="<?php echo $row1['Quantity'] ?>" min="1" style="width: 40px;">
 
                                         <?php
                                             $cnt1 = $cnt1 + 1;
                                         }
                                     } else {
-                                    ?>
+                                        ?>
 
-                                        <input type="number" name="quantity" value="1" style="width: 40px;">
+                                        <input type="number" name="quantity" value="1" min="1" style="width: 40px;">
 
                                     <?php } ?>
 
