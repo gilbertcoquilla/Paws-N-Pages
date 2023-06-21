@@ -229,15 +229,21 @@ $clinic_id = $_GET['clinicid'];
                             } ?>
 
 
+                            <?php
+                            $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id'");
+                            $cnt2 = 1;
+                            $row2 = mysqli_num_rows($ret2);
+                            if ($row2 > 0) {
+                                while ($row2 = mysqli_fetch_array($ret2)) {
+                                    ?>
+                                    <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black">
+                                        <?php echo ' ' . $row2['ServiceName'] . ' ' ?>
+                                    </span>&nbsp;
+                                    <?php
+                                }
+                            }
 
-                            <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Vaccination
-                            </span>&nbsp;
-                            <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Surgery
-                            </span>&nbsp;
-                            <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> 24/7
-                            </span><br />
-
-                        <?php }
+                        }
                     } ?>
                     <a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank"><i
                             class="bi-facebook"></i>View Facebook</a> <br />

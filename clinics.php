@@ -127,9 +127,12 @@ include('connection.php');
                             <div class="row g-0 bg-light overflow-hidden">
 
                                 <div class="col-12 col-sm-5 h-100">
-                                    <img class="img-fluid h-100"
-                                        src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1"
-                                        style="object-fit: cover; width: 100%; height: 100%;">
+                                    <?php if ($row['ClinicImage'] != "") {
+                                        // echo '<img src=image_upload/' . $row['ClinicImage'] . ' class="img-fluid" style="height:300px; width:300px;"';
+                                        echo '<img src=image_upload/' . $row['ClinicImage'] . ' class="img-fluid" style="object-fit: cover;width: 100%; height: 100%;"';
+                                    }
+                                    ?>
+                                    <!-- <img class="img-fluid h-100" style="object-fit: cover; width: 100%; height: 100%;"> -->
                                 </div>
                                 <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
 
@@ -151,16 +154,24 @@ include('connection.php');
                                             while ($row1 = mysqli_fetch_array($ret1)) {
                                                 ?>
 
-                                                <p name="caddress">
-                                                    <?php echo $row1['LotNo_Street'] . ' ' . $row1['Barangay'] . ' ' . $row1['City'] ?>
+                                                <p>
+                                                    <?php echo $row1['LotNo_Street'] . '<br/> Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City'] ?><br />
+                                                    <?php echo '<b>Opening Hours: </b>' . date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?><br />
+                                                    <?php echo '<b>Opening Days: </b>' . $row1['OperatingDays'] ?>
                                                 </p>
-                                                <p name="operatinghours">
-                                                    <?php echo date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?>
-                                                </p>
-                                                <p name="operatingdays">
-                                                    <?php echo $row1['OperatingDays'] ?></span>
-                                                </p>
-
+                                                <?php
+                                                $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id'");
+                                                $cnt2 = 1;
+                                                $row2 = mysqli_num_rows($ret2);
+                                                if ($row2 > 0) {
+                                                    while ($row2 = mysqli_fetch_array($ret2)) {
+                                                        ?>
+                                                        <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black">
+                                                            <?php echo ' ' . $row2['ServiceName'] . ' ' ?>
+                                                        </span>&nbsp;
+                                                        <?php
+                                                    }
+                                                } ?>
                                                 <?php
                                             }
                                         } ?>
