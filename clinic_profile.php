@@ -173,20 +173,19 @@ $clinic_id = $_GET['clinicid'];
     <!-- Navbar End -->
 
 
-    <!-- Clinic Profile Start -->
-    <div class="blog-item mb-5">
-        <div class="row g-0 bg-light overflow-hidden">
-            <div class="col-12 col-sm-5 h-100">
-                <img class="img-fluid h-100"
-                    src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1"
-                    style="object-fit: cover; width: 100%; height: 100%;">
-            </div>
-            <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
-                <div class="p-4">
 
+    <br />
 
-
-
+    <div class="container ">
+        <div class="row g-5">
+            <div class="col-lg-3 bg-light ">
+                <!-- CLINIC PROFILE START -->
+                <div class="mb-5">
+                    <div class="col-12">
+                        <img class="img-fluid h-100"
+                            src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1"
+                            style="width: 100%; height: 100%;">
+                    </div>
                     <?php
                     echo $clinic_id; // for testing purposes (if the clinic id was really retrieved properly. update: successful) 
                     $_SESSION['clinic_id'] = $clinic_id;
@@ -200,33 +199,25 @@ $clinic_id = $_GET['clinicid'];
                         while ($row = mysqli_fetch_array($ret)) {
 
                             ?>
+                            <p class="text-uppercase mb-3" style="font-size:20px; color:black;"><b>
+                                    <?php echo $row['ClinicName'] ?>
+                                </b></br>
 
-                            <h5 class="text-uppercase mb-3">
-                                <?php echo $row['ClinicName'] ?>
-                            </h5>
-
-                            <?php
-                            $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
-                            $cnt1 = 1;
-                            $row1 = mysqli_num_rows($ret1);
-                            if ($row1 > 0) {
-                                while ($row1 = mysqli_fetch_array($ret1)) {
-                                    ?>
-                                    <span>
-                                        <?php echo $row1['LotNo_Street'] . ' ' . $row1['Barangay'] . ' ' . $row1['City'] ?>
-                                    </span></br>
-                                    <span>
-                                        <?php echo $row1['ContactNo'] ?>
-                                    </span> </br>
-                                    <span>
-                                        <?php echo date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?>
-                                    </span></br>
-                                    <span>
-                                        <?php echo $row1['OperatingDays'] ?>
-                                    </span> </br>
+                                <?php
+                                $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
+                                $cnt1 = 1;
+                                $row1 = mysqli_num_rows($ret1);
+                                if ($row1 > 0) {
+                                    while ($row1 = mysqli_fetch_array($ret1)) {
+                                        ?>
+                                    <p>
+                                        <?php echo $row1['LotNo_Street'] . '<br/> Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City'] ?><br />
+                                        <?php echo '<b>Opening Hours: </b>' . date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?><br />
+                                        <?php echo '<b>Opening Days: </b>' . $row1['OperatingDays'] ?>
+                                    </p>
                                     <?php
-                                }
-                            } ?>
+                                    }
+                                } ?>
 
 
                             <?php
@@ -236,86 +227,76 @@ $clinic_id = $_GET['clinicid'];
                             if ($row2 > 0) {
                                 while ($row2 = mysqli_fetch_array($ret2)) {
                                     ?>
-                                    <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black">
-                                        <?php echo ' ' . $row2['ServiceName'] . ' ' ?>
-                                    </span>&nbsp;
+                                    <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> &nbsp;
+                                        <?php echo $row2['ServiceName'] ?>&nbsp;
+                                    </span>
                                     <?php
                                 }
                             }
-
                         }
                     } ?>
-                    <a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank"><i
-                            class="bi-facebook"></i>View Facebook</a> <br />
-
+                    <br />
+                    <br />
                     <!-- Need to store clinic ID in session in this page and then close it on the next one after booking an appointment -->
                     <a class="btn btn-primary m-1"
-                        href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>">Book an appointment<i
-                            class="bi bi-chevron-right"></i></a>
+                        href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>"
+                        style="text-align:left;">Book an appointment<i class="bi bi-chevron-right"></i>
+                    </a>
+
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
-    </div>
+            <!-- CLINIC PROFILE END -->
 
-    <!-- Clinic Profile End -->
+            <!-- PRODUCTS START -->
+            <div class="col-lg-9">
+                <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
+                    <h1 class="text-primary text-uppercase">Products</h1>
+                </div>
 
-    <!-- Products Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
-                <h1 class="text-primary text-uppercase">Products</h1>
-            </div>
-
-            <div class="pcards">
-                <?php
-                $ret = mysqli_query($con, "SELECT * FROM petsupplies WHERE ClinicID='$clinic_id'");
-                $cnt = 1;
-                $row = mysqli_num_rows($ret);
-                if ($row > 0) {
-                    while ($row = mysqli_fetch_array($ret)) {
-                        ?>
-                        <div class="bg-light d-flex flex-column text-center">
-                            <div class="image-container">
-                                <?php if ($row['SupplyImage'] != "") {
-                                    echo '<img class="img-fluid mb-4" src="image_upload/' . $row['SupplyImage'] . '">';
-                                } ?>
-                            </div>
-                            <div class="product-info">
-                                <h6 class="text-uppercase"><b>
-                                        <?php echo $row['SupplyName']; ?>
-                                    </b></h6>
-                                <p>
-                                    <?php echo $row['SupplyDescription']; ?><br />
-                                </p>
-                                Stocks:
-                                <?php echo $row['Stocks'] ?></br>
-                                <h5 class="text-primary mb-0">₱
-                                    <?php echo $row['SupplyPrice']; ?>
-                                </h5>
-                                <div class="btn-action d-flex justify-content-center">
-                                    <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i
-                                            class="bi bi-cart"></i></button>
-                                    <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i
-                                            class="bi bi-eye"></i></button>
+                <div class="pcards">
+                    <?php
+                    $ret = mysqli_query($con, "SELECT * FROM petsupplies WHERE ClinicID='$clinic_id'");
+                    $cnt = 1;
+                    $row = mysqli_num_rows($ret);
+                    if ($row > 0) {
+                        while ($row = mysqli_fetch_array($ret)) {
+                            ?>
+                            <div class="bg-light d-flex flex-column text-center">
+                                <div class="image-container">
+                                    <?php if ($row['SupplyImage'] != "") {
+                                        echo '<img class="img-fluid mb-4" src="image_upload/' . $row['SupplyImage'] . '">';
+                                    } ?>
+                                </div>
+                                <div class="product-info">
+                                    <h6 class="text-uppercase"><b>
+                                            <?php echo $row['SupplyName']; ?>
+                                        </b></h6>
+                                    <p>
+                                        <?php echo $row['SupplyDescription']; ?><br />
+                                    </p>
+                                    Stocks:
+                                    <?php echo $row['Stocks'] ?></br>
+                                    <h5 class="text-primary mb-0">₱
+                                        <?php echo $row['SupplyPrice']; ?>
+                                    </h5>
+                                    <div class="btn-action d-flex justify-content-center">
+                                        <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i
+                                                class="bi bi-cart"></i></button>
+                                        <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i
+                                                class="bi bi-eye"></i></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <?php
-                        $cnt = $cnt + 1;
+                            <?php
+                            $cnt = $cnt + 1;
+                        }
                     }
-                }
-                ?>
+                    ?>
+                </div>
             </div>
+            <!-- PRODUCTS END -->
         </div>
     </div>
-
-
-    <!-- Products End -->
-
-
-
 
 
     <!-- Testimonial Start -->
