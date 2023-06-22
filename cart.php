@@ -152,7 +152,6 @@ if (isset($_GET['delid'])) {
                                         while ($row = mysqli_fetch_array($ret)) {
 
                                     ?>
-
                                             <tr>
                                                 <td><?php echo $row['SupplyName'] ?></td>
                                                 <td><?php echo $row['Quantity'] ?></td>
@@ -171,6 +170,19 @@ if (isset($_GET['delid'])) {
 
                                 </tbody>
                             </table>
+
+
+                            <?php
+                            $ret = mysqli_query($con, "SELECT SUM(orderdetails.Price) AS total_price FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
+                            $row = mysqli_fetch_assoc($ret);
+                            $sum = $row['total_price'];
+                            ?>
+                            <?php if ($sum != 0) { ?>
+                                <p style="float: right;">Total Price: <?php echo $sum ?></p>
+                            <?php } else { ?>
+                                <p style="float: right;">Total Price: 0</p>
+                            <?php } ?>
+
 
                         </div>
                     </div>
