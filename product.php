@@ -30,13 +30,13 @@ if ($row_a > 0) {
         $quantity = $_POST['quantity'];
         $price = $_POST['price'] * $quantity;
 
-        $query = mysqli_query($con, "INSERT INTO orderdetails (SupplyID, UserID, Quantity, Price, OD_RefNo) VALUES ('$supply_id', '$userID', '$quantity', '$price', 'abcd1234')");
+        $query = mysqli_query($con, "INSERT INTO orderdetails (SupplyID, UserID, Quantity, Price) VALUES ('$supply_id', '$userID', '$quantity', '$price')");
 
         if ($query) {
             echo "<script>alert('Item is added successfully');</script>";
             echo "<script> document.location ='clinic_profile.php?clinicid=$clinic_id';</script>";
         } else {
-            echo "<script>alert('Something went wrong. Please try again');</script>";
+            echo "<script>alert('Something went wrong. Please try adding again');</script>";
         }
     }
 }
