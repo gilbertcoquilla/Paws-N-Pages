@@ -224,9 +224,9 @@ $clinic_id = $_GET['clinicid'];
                             if ($row2 > 0) {
                                 while ($row2 = mysqli_fetch_array($ret2)) {
                     ?>
-                            <span style="background-color: rgb(0, 170, 0); border-radius: 2px; color:white"> &nbsp;
-                                <?php echo $row2['ServiceName'] ?>&nbsp;
-                            </span>
+                            <span style="background-color: rgb(102, 176, 50); border-radius: 6px; color:white; padding-top: 2px; padding-bottom: 3px;">
+                                &nbsp; <?php echo ' ' . $row2['ServiceName'] . ' ' ?> &nbsp;
+                            </span>&nbsp;
             <?php
                                 }
                             }
