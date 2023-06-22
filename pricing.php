@@ -1,35 +1,42 @@
+<?php
+session_start();
+include('config.php');
+include('connection.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Paws N Pages | Pricing</title>
-        <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    
-        <!-- Favicon -->
-        <link href="img/favicon.ico" rel="icon">
-    
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@700&display=swap" rel="stylesheet">
-    
-        <!-- Icon Font Stylesheet -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-        <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
-    
-        <!-- Libraries Stylesheet -->
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-    
-        <!-- Template Stylesheet -->
-        <link href="css/style.css" rel="stylesheet">
-    </head>
 
-    <body>
+<head>
+    <meta charset="utf-8">
+    <title>Paws N Pages | Pricing</title>
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
         <a href="index.php" class="navbar-brand ms-lg-5">
@@ -81,9 +88,7 @@
                         <h6 class="text-body mb-5">Standard</h6>
                         <div class="text-center bg-primary p-4 mb-2">
                             <h1 class="display-4 text-white mb-0">
-                                <small class="align-top"
-                                    style="font-size: 22px; line-height: 45px;">₱</small>199<small
-                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/
+                                <small class="align-top" style="font-size: 22px; line-height: 45px;">₱</small>199<small class="align-bottom" style="font-size: 16px; line-height: 40px;">/
                                     month</small>
                             </h1>
                         </div>
@@ -108,7 +113,7 @@
                                 <span>List of Services Available</span>
                                 <i class="bi bi-check2 fs-4 text-primary"></i>
                             </div>
-                            <a href="vet-or-pet.php" class="btn btn-primary text-uppercase py-2 px-4 my-3">Join Us</a>
+                            <a href="vet-registration.php" class="btn btn-primary text-uppercase py-2 px-4 my-3">Join Us</a>
                         </div>
                     </div>
                 </div>
@@ -118,9 +123,7 @@
                         <h6 class="text-body mb-5">The Best Choice</h6>
                         <div class="text-center bg-dark p-4 mb-2">
                             <h1 class="display-4 text-white mb-0">
-                                <small class="align-top"
-                                    style="font-size: 22px; line-height: 45px;">₱</small>1,999<small
-                                    class="align-bottom" style="font-size: 16px; line-height: 40px;">/
+                                <small class="align-top" style="font-size: 22px; line-height: 45px;">₱</small>1,999<small class="align-bottom" style="font-size: 16px; line-height: 40px;">/
                                     year</small>
                             </h1>
                         </div>
@@ -150,7 +153,7 @@
                                 <span>List of Services Available</span>
                                 <i class="bi bi-check2 fs-4 text-primary"></i>
                             </div>
-                            <a href="vet-or-pet.php" class="btn btn-primary text-uppercase py-2 px-4 my-3">Join Us</a>
+                            <a href="vet-registration.php" class="btn btn-primary text-uppercase py-2 px-4 my-3">Join Us</a>
                         </div>
                     </div>
                 </div>
@@ -158,7 +161,7 @@
         </div>
     </div>
     <!-- Pricing Plan End -->
-    
+
 
     <!-- Footer Start -->
     <div class="container-fluid bg-light mt-5 py-5">
