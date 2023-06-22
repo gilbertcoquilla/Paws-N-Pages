@@ -1,5 +1,12 @@
+<?php
+session_start();
+include('config.php');
+include('connection.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | About</title>
@@ -87,20 +94,16 @@
                     <div class="bg-light p-4">
                         <ul class="nav nav-pills justify-content-between mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item w-50" role="presentation">
-                                <button class="nav-link text-uppercase w-100 active" id="pills-1-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-1" type="button" role="tab" aria-controls="pills-1"
-                                    aria-selected="true">Our Mission</button>
+                                <button class="nav-link text-uppercase w-100 active" id="pills-1-tab" data-bs-toggle="pill" data-bs-target="#pills-1" type="button" role="tab" aria-controls="pills-1" aria-selected="true">Our Mission</button>
                             </li>
                             <li class="nav-item w-50" role="presentation">
-                                <button class="nav-link text-uppercase w-100" id="pills-2-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-2" type="button" role="tab" aria-controls="pills-2"
-                                    aria-selected="false">Our Vission</button>
+                                <button class="nav-link text-uppercase w-100" id="pills-2-tab" data-bs-toggle="pill" data-bs-target="#pills-2" type="button" role="tab" aria-controls="pills-2" aria-selected="false">Our Vission</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
                                 <p class="mb-0"> Our mission at Paws N Pages is to help you find exceptional veterinary care, trusted resources, and heartfelt support to pets and their owners. We connect pet owners with reputable clinics and offer convenient tools to streamline pet healthcare management.
-</p>
+                                </p>
                             </div>
                             <div class="tab-pane fade" id="pills-2" role="tabpanel" aria-labelledby="pills-2-tab">
                                 <p class="mb-0">At Paws N Pages, we envision a world where every pet receives the love, care, and attention they deserve. We strive to be the go-to resource, ensuring your pets' well-being is our top priority. </p>
@@ -113,15 +116,15 @@
     </div>
     <!-- About End -->
 
-    
+
     <!-- Bianca Start -->
     <div class="container-fluid py-5">
 
         <div class="container">
-        <p>
-        The journey of Paws N Pages began with our founders, Bianca and Shirley, who experienced the devastating loss of their beloved pets due to illness and inadequate veterinary care. These personal tragedies ignited an unwavering desire within them to create a platform that empowers pet owners like you to find the very best clinics and resources for your furry companions.
+            <p>
+                The journey of Paws N Pages began with our founders, Bianca and Shirley, who experienced the devastating loss of their beloved pets due to illness and inadequate veterinary care. These personal tragedies ignited an unwavering desire within them to create a platform that empowers pet owners like you to find the very best clinics and resources for your furry companions.
 
-        </p>
+            </p>
             <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
                 <h6 class="text-primary text-uppercase">Bianca</h6>
             </div>
@@ -155,7 +158,8 @@
                     <div class="position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="img/6.png" alt="">
                     </div>
-                </div><div class="team-item">
+                </div>
+                <div class="team-item">
                     <div class="position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="img/7.png" alt="">
                     </div>
@@ -171,7 +175,7 @@
         </div>
     </div>
     <!-- Bianca End -->
-    
+
     <!-- Shir Start -->
     <div class="container-fluid py-5">
         <div class="container">
@@ -208,7 +212,8 @@
                     <div class="position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="img/14.png" alt="">
                     </div>
-                </div><div class="team-item">
+                </div>
+                <div class="team-item">
                     <div class="position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="img/15.png" alt="">
                     </div>
@@ -224,8 +229,8 @@
         </div>
     </div>
     <!-- Shir End -->
- <!-- Services Start -->
- <div class="container-fluid py-5">
+    <!-- Services Start -->
+    <div class="container-fluid py-5">
         <div class="container">
             <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
                 <h6 class="text-primary text-uppercase">Services</h6>
@@ -244,16 +249,16 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                        <div class="service-item bg-light d-flex p-4">
-                            <i class="display-1 text-primary me-4"></i>
-                            <div>
-                                <h5 class="text-uppercase mb-3">Booking of Appointments</h5>
-                                <p>Avoid waiting in line and find the a clinic that will cater to your pet's needs</p>
-                                <img src="https://i.ibb.co/jZxWwSW/3.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" href="#" />
+                    <div class="service-item bg-light d-flex p-4">
+                        <i class="display-1 text-primary me-4"></i>
+                        <div>
+                            <h5 class="text-uppercase mb-3">Booking of Appointments</h5>
+                            <p>Avoid waiting in line and find the a clinic that will cater to your pet's needs</p>
+                            <img src="https://i.ibb.co/jZxWwSW/3.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" href="#" />
 
-                                <a class="text-primary text-uppercase" href="">View Appointments<i class="bi bi-chevron-right"></i></a>
-                            </div>
+                            <a class="text-primary text-uppercase" href="">View Appointments<i class="bi bi-chevron-right"></i></a>
                         </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="service-item bg-light d-flex p-4">
@@ -279,15 +284,15 @@
                         </div>
                     </div>
                 </div>
-                
+
 
             </div>
         </div>
     </div>
     <!-- Services End -->
 
-        <!-- Footer Start -->
-        <div class="container-fluid bg-light mt-5 py-5">
+    <!-- Footer Start -->
+    <div class="container-fluid bg-light mt-5 py-5">
         <div class="container pt-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-6">
