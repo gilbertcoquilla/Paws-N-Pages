@@ -90,11 +90,11 @@ if (isset($_GET['delid'])) {
                                 <p>Clinic:</p>
 
                                 <?php
-                                    $ret = mysqli_query($con, "SELECT * FROM clinics WHERE ClinicID='$clinic_id'");
-                                    $cnt = 1;
-                                    $row = mysqli_num_rows($ret);
-                                    if ($row > 0) {
-                                        while ($row = mysqli_fetch_array($ret)) {
+                                $ret = mysqli_query($con, "SELECT * FROM clinics WHERE ClinicID='$clinic_id'");
+                                $cnt = 1;
+                                $row = mysqli_num_rows($ret);
+                                if ($row > 0) {
+                                    while ($row = mysqli_fetch_array($ret)) {
 
                                 ?>
                                         <p><b><?php echo $row['ClinicName'] ?></b></p>
@@ -120,7 +120,7 @@ if (isset($_GET['delid'])) {
                             </div>
                             <br>
                             <br>
-                            <button class="btn btn-primary" type="button">Checkout</button>
+                            <a href="clinic_profile.php?clinicid=<?php echo htmlentities($clinic_id); ?>">Go Back</a>
                         </div>
                     </div>
                 </div>
