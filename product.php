@@ -247,8 +247,6 @@ if ($row_a > 0) {
 
     <br />
 
-
-
     <!-- Products Start -->
 
     <div class="container">
@@ -303,7 +301,22 @@ if ($row_a > 0) {
 
                             </div>
                             <br>
-                            <button name="submit" class="btn btn-primary" id="addToCart">Add to Cart</button>
+
+
+
+
+                            <?php
+                            $ret_b = mysqli_query($con, "SELECT * FROM orderdetails WHERE SupplyID='$supply_id' AND UserID='$userID'");
+                            $cnt_b = 1;
+                            $row_b = mysqli_num_rows($ret_b);
+                            ?>
+
+                            <?php if ($row_b > 0) { ?>
+                                <button name="submit" class="btn btn-primary" id="addToCart">Update Cart</button>
+                            <?php } else { ?>
+                                <button name="submit" class="btn btn-primary" id="addToCart">Add to Cart</button>
+                            <?php } ?>
+
                         </form>
                     </div>
                 </div>
