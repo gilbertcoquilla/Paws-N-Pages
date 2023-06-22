@@ -41,15 +41,22 @@ if (isset($_POST['submit'])) {
             '<br/> <b>Subject: </b>' . $subject .
             '<br/> <b>Message: </b>' . $message .
 
-            '<br/> <br/> Regards, <br/>
-                    <b>The Management</b></p>';
+            '<br/> <br/> Best Regards, <br/>
+                    <b>Paws N Pages</b></p>';
         $mail->send();
 
-        echo "<script>alert('Email successfully sent.');</script>";
-        echo "<script>window.location.href = 'index.php'</script>";
-    } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    }
+         // Set success message
+         $message = "Your message has been sent. We'll get back to you as soon as possible.";
+        } catch (Exception $e) {
+            // Set error message
+            $message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        
+        // echo "<script>alert('Your message has been sent. We'll get back to you as soon as possible.');</script>";
+       // echo "<script>window.location.href = 'index.php'</script>";
+    } 
+    //catch (Exception $e) {
+        //echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    //}
 }
 
 ?>
@@ -141,6 +148,11 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                     </form>
+                    <?php if (!empty($message)) : ?>
+    <div class="alert alert-success">
+        <?php echo $message; ?>
+    </div>
+<?php endif; ?>
                 </div>
                 <div class="col-lg-5">
                     <div class="bg-light mb-5 p-5">
