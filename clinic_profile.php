@@ -234,9 +234,11 @@ $clinic_id = $_GET['clinicid'];
                     } ?>
             <br />
             <br />
-            <!-- Need to store clinic ID in session in this page and then close it on the next one after booking an appointment -->
-            <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:left;">Book an appointment<i class="bi bi-chevron-right"></i>
-            </a>
+
+            <?php if ($_SESSION["id"] != "") { ?>
+                <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:left;">Book an appointment<i class="bi bi-chevron-right"></i>
+                </a>
+            <?php } ?>
 
                 </div>
             </div>

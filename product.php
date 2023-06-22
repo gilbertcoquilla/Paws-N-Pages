@@ -11,32 +11,42 @@ $userID = $_SESSION["id"];
 $ret_a = mysqli_query($con, "SELECT * FROM orderdetails WHERE SupplyID='$supply_id' AND UserID='$userID'");
 $cnt_a = 1;
 $row_a = mysqli_num_rows($ret_a);
+
+
 if ($row_a > 0) {
     if (isset($_POST['submit'])) {
-        $quantity = $_POST['quantity'];
-        $price = $_POST['price'] * $quantity;
+        if ($userID != "") {
+            $quantity = $_POST['quantity'];
+            $price = $_POST['price'] * $quantity;
 
-        $query = mysqli_query($con, "UPDATE orderdetails SET Quantity='$quantity', Price='$price' WHERE SupplyID='$supply_id' AND UserID='$userID'");
+            $query = mysqli_query($con, "UPDATE orderdetails SET Quantity='$quantity', Price='$price' WHERE SupplyID='$supply_id' AND UserID='$userID'");
 
-        if ($query) {
-            echo "<script>alert('Item is updated successfully');</script>";
-            echo "<script> document.location ='clinic_profile.php?clinicid=$clinic_id';</script>";
+            if ($query) {
+                echo "<script>alert('Item is updated successfully');</script>";
+                echo "<script> document.location ='clinic_profile.php?clinicid=$clinic_id';</script>";
+            } else {
+                echo "<script>alert('Something went wrong. Please try again');</script>";
+            }
         } else {
-            echo "<script>alert('Something went wrong. Please try again');</script>";
+            echo "<script>alert('Please login first to continue');</script>";
         }
     }
 } else {
     if (isset($_POST['submit'])) {
-        $quantity = $_POST['quantity'];
-        $price = $_POST['price'] * $quantity;
+        if ($userID != "") {
+            $quantity = $_POST['quantity'];
+            $price = $_POST['price'] * $quantity;
 
-        $query = mysqli_query($con, "INSERT INTO orderdetails (SupplyID, UserID, Quantity, Price) VALUES ('$supply_id', '$userID', '$quantity', '$price')");
+            $query = mysqli_query($con, "INSERT INTO orderdetails (SupplyID, UserID, Quantity, Price) VALUES ('$supply_id', '$userID', '$quantity', '$price')");
 
-        if ($query) {
-            echo "<script>alert('Item is added successfully');</script>";
-            echo "<script> document.location ='clinic_profile.php?clinicid=$clinic_id';</script>";
+            if ($query) {
+                echo "<script>alert('Item is added successfully');</script>";
+                echo "<script> document.location ='clinic_profile.php?clinicid=$clinic_id';</script>";
+            } else {
+                echo "<script>alert('Something went wrong. Please try adding again');</script>";
+            }
         } else {
-            echo "<script>alert('Something went wrong. Please try adding again');</script>";
+            echo "<script>alert('Please login first to continue');</script>";
         }
     }
 }
