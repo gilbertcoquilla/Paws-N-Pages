@@ -56,6 +56,7 @@ include('connection.php');
                 <a href="clinic_services.php" class="nav-item nav-link">Services</a>
                 <a href="appointment.php" class="nav-item nav-link">Appointments</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
+                <a href="about.php" class="nav-item nav-link">About Us</a>
                 <a href="userProfile.php" class="nav-item nav-link">Profile</a>
 
                 <?php if ($_SESSION["id"] > 0) { ?>
@@ -253,7 +254,7 @@ include('connection.php');
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
                         <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
                         <a class="text-body mb-2" href="#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body mb-2" href="about.php"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
                         <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
