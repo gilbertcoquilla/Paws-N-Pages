@@ -76,75 +76,47 @@ if (isset($_GET['delid'])) {
     <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
         <h1 class="text-primary text-uppercase">Cart</h1>
     </div>
-    <div class="container-xl px-4 mt-4">
-        <div class="row">
-            <div class="col-xl-4">
-                <!-- Profile picture card-->
-                <div class="card mb-4 mb-xl-0 container">
-                    <center>
-                        <h3 class="card-header" style="width: 100%;"><b>Items Added</b></h3>
-                    </center>
-                    <div class="card-body text-center">
-                        <div class="userProfile">
-                            <div>
-                                <p>Clinic:</p>
 
-                                <?php
-                                $ret = mysqli_query($con, "SELECT * FROM clinics WHERE ClinicID='$clinic_id'");
-                                $cnt = 1;
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
 
-                                ?>
-                                        <p><b><?php echo $row['ClinicName'] ?></b></p>
-                                <?php
-                                        $cnt = $cnt + 1;
-                                    }
-                                } ?>
+         <!-- START OF ITEM -->
 
-                            </div>
-                            <br>
-                            <div>Mode of Payment:<br>
-                                <select name="mop">
-                                    <b>
-                                        <option value="gcash" selected>Gcash</option>
-                                        <option value="payMaya">PayMaya</option>
-                                        <option value="cod">Cash-On-Delivery</option>
-                                    </b>
-                                </select>
-                            </div>
-                            <br><br>
-                            <div>Delivery Address:
-                                <b><input class="form-control" id="inputPhone" type="tel" placeholder="Enter your address" value="Mendoza Building, 102-D Kamuning Rd, Quezon City"></b>
-                            </div>
-                            <br>
-                            <br>
-                            <a href="clinic_profile.php?clinicid=<?php echo htmlentities($clinic_id); ?>">Go Back</a>
+  <div class="container ">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+ 
+        <div class="card">
+          <div class="card-body p-4">
+
+              <div class="col-lg-12">
+                <h5 class="mb-3" style="float:left;"><a href="#!" class="text-body"><i class="bi bi-chevron-left"></i>Continue shopping</a></h5>
+                        <p style="float:right;">You have 4 items in your cart</p><br/>
+                <hr>
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex flex-row align-items-center">
+                        <div>
+                          
+           
                         </div>
+                        <div class="ms-3">
+                          <h6 class="fw-normal mb-0">ITEM</h6>
+                        
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center">
+                        <div style="width: 50px;">
+                          <h6 class="fw-normal mb-0">QTY</h6>
+                        </div>
+                        <div style="width: 80px;">
+                          <h6 class="fw-normal mb-0">SUBTOTAL</h6>
+                        </div>
+                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
 
-
-            <!-- Items Start -->
-            <div class="col-xl-8">
-                <!-- Profile picture card-->
-                <div class="card mb-4 mb-xl-0 container">
-                    <div class="card-body text-center">
-                        <div class="userProfile">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <?php
+                 <?php
                                     $ret = mysqli_query($con, "SELECT * FROM orderdetails, petsupplies WHERE orderdetails.SupplyID = petsupplies.SupplyID AND orderdetails.UserID='$userID' AND petsupplies.ClinicID='$clinic_id'");
                                     $cnt = 1;
                                     $row = mysqli_num_rows($ret);
@@ -152,49 +124,67 @@ if (isset($_GET['delid'])) {
                                         while ($row = mysqli_fetch_array($ret)) {
 
                                     ?>
-                                            <tr>
-                                                <td><?php echo $row['SupplyName'] ?></td>
-                                                <td><?php echo $row['Quantity'] ?></td>
-                                                <td><?php echo $row['Price'] ?></td>
-                                                <td><a href="cart.php?delid=<?php echo ($row['OrderDetailsID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Remove item?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a></td>
-                                            </tr>
-
-                                        <?php
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex flex-row align-items-center">
+                        <div>
+                          
+                     <?php if ($row['SupplyImage'] != "") {
+                                        echo '<img class=" rounded-3" width="100" height="100" src="image_upload/' . $row['SupplyImage'] . '">';
+                                    } ?>
+                        </div>
+                        <div class="ms-3">
+                          <h5><?php echo $row['SupplyName'] ?></h5>
+                            <p class="small mb-0">price each</p>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center">
+                        <div style="width: 50px;">
+                          <h5 class="fw-normal mb-0"><?php echo $row['Quantity'] ?></h5>
+                        </div>
+                        <div style="width: 80px;">
+                          <h5 class="mb-0">₱ <?php echo $row['Price'] ?></h5>
+                        </div>
+                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <?php
                                             $cnt = $cnt + 1;
                                         }
                                     } else { ?>
                                         <tr>
-                                            <th style="text-align:center; color:red;" colspan="100">No Record Found</th>
+                                            <p style="text-align:center; color:red;" colspan="100">There are no items in your cart.</p>
                                         </tr>
                                     <?php } ?>
-
-                                </tbody>
-                            </table>
-
-
-                            <?php
+              </div>
+                    <div>
+                 
+                     <?php
                             $ret = mysqli_query($con, "SELECT SUM(orderdetails.Price) AS total_price FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
                             $row = mysqli_fetch_assoc($ret);
                             $sum = $row['total_price'];
                             ?>
                             <?php if ($sum != 0) { ?>
-                                <p style="float: right;">Total Price: <?php echo $sum ?></p>
-                            <?php } else { ?>
-                                <p style="float: right;">Total Price: 0</p>
-                            <?php } ?>
+                                <b><h5   style="float: left; color:black; font-size:20px; padding: 0px 0px 0px 30px;">ORDER TOTAL</h5 > <h5  style="float: right; color:black; font-size:20px; padding: 0px 30px 0px 0px;"> ₱ <?php echo $sum ?></h5 ></b>
+                            <?php }  ?>
+                               
+                  </div>
+            
+           
 
-
-                        </div>
-                    </div>
-                </div>
             </div>
-            <!-- Items End -->
 
-
-
+          </div>
         </div>
-    </div>
-    <!-- Orders End -->
+      </div>
+
+  </div>
+
+ <!-- END OF ITEM -->
+
 
     <!-- Footer Start -->
     <div class="container-fluid bg-light mt-5 py-5">
