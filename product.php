@@ -86,27 +86,6 @@ if ($row_a > 0) {
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- FOR COUNTER -->
-    <script type="text/javascript">
-        function increaseCount(a, b) {
-            var input = b.previousElementSibling;
-            var value = parseInt(input.value, 10);
-            value = isNaN(value) ? 0 : value;
-            value++;
-            input.value = value;
-        }
-
-        function decreaseCount(a, b) {
-            var input = b.nextElementSibling;
-            var value = parseInt(input.value, 10);
-            if (value > 1) {
-                value = isNaN(value) ? 0 : value;
-                value--;
-                input.value = value;
-            }
-        }
-    </script>
-
     <style>
         .modal-content {
             border: none;
@@ -300,7 +279,9 @@ if ($row_a > 0) {
     <!-- Navbar End -->
 
     <br />
-
+    <div style="padding-left: 30px;">
+        <h3 class="text-primary text-uppercase"><a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>"><i class="bi bi-chevron-left"></i> GO BACK</a></h3>
+    </div>
     <!-- Products Start -->
 
     <div class="container">
@@ -318,23 +299,29 @@ if ($row_a > 0) {
                     } ?>
                     <div class="product-details">
                         <form method="POST" enctype="multipart/form-data" runat="server">
-                            <h1 class="text-uppercase"><b>
+                            <h1 class="text-uppercase" style="padding-bottom: 2px;">
+                                <b>
                                     <?php echo $row['SupplyName'] ?>
-                                </b></h1>
+                                </b>
+                            </h1>
 
+                            <h3>
+                                <b style="color:rgb(102, 176, 50);">
+                                    PHP <?php echo $row['SupplyPrice'] ?>
+                                </b>
+                            </h3>
 
+                            <br>
                             <p style="font-size: 20px; text-align:justify;">
                                 <?php echo $row['SupplyDescription'] ?>
                             </p>
                             <hr>
-                            <div class="product-price">₱
-                                <b>
-                                    <?php echo $row['SupplyPrice'] ?>
-                                </b>
-                            </div>
+
                             <input type="hidden" name="price" value="<?php echo $row['SupplyPrice'] ?>">
-                            <div class="quantity-container">
-                                <span class="quantity-label">Quantity</span>
+                            <br>
+
+                            <div class="quantity-container" style="padding-top: 10px; padding-bottom: 15px;">
+                                <span class="quantity-label" style="font-size: 20px;">QUANTITY</span>&nbsp;
                                 <?php
                                 $ret1 = mysqli_query($con, "SELECT * FROM orderdetails WHERE SupplyID='$supply_id' AND UserID='$userID'");
                                 $cnt1 = 1;
@@ -343,11 +330,16 @@ if ($row_a > 0) {
                                     while ($row1 = mysqli_fetch_array($ret1)) {
                                 ?>
 
-                                        <div class="counter">
-                                            <span class="down" onClick='decreaseCount(event, this)'>-</span>
-                                            <input type="text" name="quantity" value="<?php echo $row1['Quantity'] ?>" min="1" max="<?php echo $row_c['Stocks']; ?>">
-                                            <span class="up" onClick='increaseCount(event, this)'>+</span>
-                                        </div>
+                                        <select name="quantity">
+                                            <?php
+                                            for ($i = 1; $i <= $row_c['Stocks']; $i++) {
+                                            ?>
+                                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                <option value="<?php echo $row1['Quantity']; ?>" selected hidden><?php echo $row1['Quantity']; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
 
                                     <?php
                                         $cnt1 = $cnt1 + 1;
@@ -355,19 +347,20 @@ if ($row_a > 0) {
                                 } else {
                                     ?>
 
-                                    <div class="counter">
-                                        <span class="down" onClick='decreaseCount(event, this)'>-</span>
-                                        <input type="text" name="quantity" value="1" min="1" max="<?php echo $row_c['Stocks']; ?>">
-                                        <span class="up" onClick='increaseCount(event, this)'>+</span>
-                                    </div>
+                                    <select name="quantity">
+                                        <?php
+                                        for ($i = 1; $i <= $row_c['Stocks']; $i++) {
+                                        ?>
+                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
 
                                 <?php } ?>
 
                             </div>
                             <br>
-
-
-
 
                             <?php
                             $ret_b = mysqli_query($con, "SELECT * FROM orderdetails WHERE SupplyID='$supply_id' AND UserID='$userID'");
@@ -376,9 +369,9 @@ if ($row_a > 0) {
                             ?>
 
                             <?php if ($row_b > 0) { ?>
-                                <button name="submit" class="btn btn-primary" id="addToCart">Update Cart</button>
+                                <button name="submit" class="btn btn-primary" id="addToCart" style="width: 100%;">Update Cart</button>
                             <?php } else { ?>
-                                <button name="submit" class="btn btn-primary" id="addToCart">Add to Cart</button>
+                                <button name="submit" class="btn btn-primary" id="addToCart" style="width: 100%;">Add to Cart</button>
                             <?php } ?>
 
                         </form>
@@ -477,7 +470,7 @@ if ($row_a > 0) {
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Form JavaScript File -->
-    <script src="contactform/contactform.js"></script>
+    <!-- <script src="contactform/contactform.js"></script> -->
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
@@ -577,13 +570,39 @@ if ($row_a > 0) {
         });
     </script>
 
-    <script>
-        document.getElementById('plus').onclick = function() {
-            function add() {
-                var quantity = document.getElementById('quantity');
-                quantity.value += 1;
+    <!-- FOR COUNTER -->
+    <script type="text/javascript">
+        // var stocks = document.getElementById('stocks').value;
+        // var qty = document.getElementById('quantity').value;
+
+        $('#add').on('click', function() {
+            var input = $('#quantity');
+            var stocks = $('#stocks');
+            if (input < stocks) {
+                input.val(parseFloat(input.val()) + 1);
             }
-        };
+
+        });
+
+        // function increaseCount(a, b) {
+        //     var input = b.previousElementSibling;
+        //     var value = parseInt(input.value, 10);
+        //     value = isNaN(value) ? 0 : value;
+        //     if (input < stocks) {
+        //         value++;
+        //         input.value = value;
+        //     }
+        // }
+
+        function decreaseCount(a, b) {
+            var input = b.nextElementSibling;
+            var value = parseInt(input.value, 10);
+            if (value > 1) {
+                value = isNaN(value) ? 0 : value;
+                value--;
+                input.value = value;
+            }
+        }
     </script>
 
 </body>
