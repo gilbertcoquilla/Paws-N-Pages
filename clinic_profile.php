@@ -263,13 +263,17 @@ $clinic_id = $_GET['clinicid'];
                             <div class="bg-light d-flex flex-column text-center">
                                 <div class="image-container">
                                     <?php if ($row['SupplyImage'] != "") {
-                                        echo '<img class="img-fluid mb-4" src="image_upload/' . $row['SupplyImage'] . '">';
+                                        echo '<a href="product.php?productid=' . $row['SupplyID'] . '"><img class="img-fluid mb-4" src="image_upload/' . $row['SupplyImage'] . '"></a>';
                                     } ?>
                                 </div>
                                 <div class="product-info">
-                                    <h6 class="text-uppercase"><b>
-                                            <?php echo $row['SupplyName']; ?>
-                                        </b></h6>
+                                    <h6 class="text-uppercase">
+                                        <a style="color: black;" href="product.php?productid=<?php echo htmlentities($row['SupplyID']); ?>">
+                                            <b>
+                                                <?php echo $row['SupplyName']; ?>
+                                            </b>
+                                        </a>
+                                    </h6>
                                     <div style="display: none;">
                                         <p>
                                             <?php echo $row['SupplyDescription']; ?><br />
@@ -281,16 +285,7 @@ $clinic_id = $_GET['clinicid'];
                                         <?php echo $row['SupplyPrice']; ?>
                                     </h5>
                                     <br>
-                                    <div class="btn-action d-flex justify-content-center">
-                                        <!-- <button type="button" id="addToCart" class="btn btn-primary py-2 px-3"><i
-                                                class="bi bi-cart"></i></button>
-                                        <button type="button" id="itemInfo" class="btn btn-primary py-2 px-3"><i
-                                                class="bi bi-eye"></i></button> -->
-                                        <a class="text-primary text-uppercase" href="product.php?productid=<?php echo htmlentities($row['SupplyID']); ?>">
-                                            View Product
-                                            <i class="bi bi-chevron-right"></i>
-                                        </a>
-                                    </div>
+
                                 </div>
                             </div>
                     <?php
