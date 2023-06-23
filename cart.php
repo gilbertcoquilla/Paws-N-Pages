@@ -8,6 +8,16 @@ $supply_id = $_GET['productid'];
 $clinic_id = $_SESSION['clinic_id'];
 $userID = $_SESSION["id"];
 
+// To check if the item is added to the cart
+$ret_a = mysqli_query($con, "SELECT * FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+$cnt_a = 1;
+$row_a = mysqli_num_rows($ret_a);
+
+// To get sum of quantity
+$ret_q = mysqli_query($con, "SELECT SUM(orderdetails.Quantity) AS total_items FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
+$row_q = mysqli_fetch_assoc($ret_q);
+$sum_q = $row_q['total_items'];
+
 if (isset($_GET['delid'])) {
     $rid = intval($_GET['delid']);
     $sql = mysqli_query($con, "DELETE FROM orderdetails WHERE OrderDetailsID=$rid");
@@ -46,6 +56,8 @@ if (isset($_GET['delid'])) {
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -78,112 +90,123 @@ if (isset($_GET['delid'])) {
     </div>
 
 
-         <!-- START OF ITEM -->
+    <!-- START OF ITEM -->
 
-  <div class="container ">
-    <div class="row d-flex justify-content-center align-items-center h-100">
- 
-        <div class="card">
-          <div class="card-body p-4">
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center h-100">
 
-              <div class="col-lg-12">
-                <h5 class="mb-3" style="float:left;"><a href="#!" class="text-body"><i class="bi bi-chevron-left"></i>Continue shopping</a></h5>
-                        <p style="float:right;">You have 4 items in your cart</p><br/>
-                <hr>
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          
-           
+            <div class="card">
+                <div class="card-body p-4">
+
+                    <div class="col-lg-12">
+                        <h5 class="mb-3" style="float:left;"><a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>" style="color: rgb(102, 176, 50);"><i class="bi bi-chevron-left"></i>Continue shopping</a></h5>
+                        <p style="float:right;">You have <b><?php echo $sum_q ?></b> item(s) in your cart</p><br />
+                        <hr>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div>
+
+
+                                        </div>
+                                        <div class="ms-3">
+                                            <h6 class="fw-normal mb-0">ITEM</h6>
+
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center" style="padding-right: 110px;">
+                                        <div style="width: 50%;">
+                                            <h6 class="fw-normal mb-0">QTY</h6>
+                                        </div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div style="width: 100%;">
+                                            <h6 class="fw-normal mb-0">SUBTOTAL</h6>
+                                        </div>
+                                        <a href="#!" style="color: red;"><i class="fas fa-trash-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ms-3">
-                          <h6 class="fw-normal mb-0">ITEM</h6>
-                        
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px;">
-                          <h6 class="fw-normal mb-0">QTY</h6>
-                        </div>
-                        <div style="width: 80px;">
-                          <h6 class="fw-normal mb-0">SUBTOTAL</h6>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
+
+                        <?php
+                        $ret = mysqli_query($con, "SELECT * FROM orderdetails, petsupplies WHERE orderdetails.SupplyID = petsupplies.SupplyID AND orderdetails.UserID='$userID' AND petsupplies.ClinicID='$clinic_id'");
+                        $cnt = 1;
+                        $row = mysqli_num_rows($ret);
+                        if ($row > 0) {
+                            while ($row = mysqli_fetch_array($ret)) {
+
+                        ?>
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex flex-row align-items-center">
+                                                <div>
+
+                                                    <?php if ($row['SupplyImage'] != "") {
+                                                        echo '<img class=" rounded-3" width="100" height="100" src="image_upload/' . $row['SupplyImage'] . '">';
+                                                    } ?>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <h5><?php echo $row['SupplyName'] ?></h5>
+                                                    <p class="normal mb-0">₱ <?php echo $row['SupplyPrice'] ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center" style="padding-right: 45px;">
+                                                <div style="width: 50px;">
+                                                    <h5 class="fw-normal mb-0"><?php echo $row['Quantity'] ?></h5>
+                                                </div>
+                                                &nbsp;&nbsp;
+                                                <div style="width: 100px;">
+                                                    <h5 class="mb-0">₱ <?php echo $row['Price'] ?></h5>
+                                                </div>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <div style="float: right;">
+                                                    <a href="cart.php?delid=<?php echo $row['OrderDetailsID'] ?>" style="color: red;" onclick="return confirm('Remove item from cart?');"><i class="fa fa-trash"></i></a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
+                                $cnt = $cnt + 1;
+                            }
+                        } else { ?>
+                            <tr>
+                                <p style="text-align:center; color:red;" colspan="100">There are no items in your cart.</p>
+                            </tr>
+                        <?php } ?>
                     </div>
-                  </div>
-                </div>
 
-                 <?php
-                                    $ret = mysqli_query($con, "SELECT * FROM orderdetails, petsupplies WHERE orderdetails.SupplyID = petsupplies.SupplyID AND orderdetails.UserID='$userID' AND petsupplies.ClinicID='$clinic_id'");
-                                    $cnt = 1;
-                                    $row = mysqli_num_rows($ret);
-                                    if ($row > 0) {
-                                        while ($row = mysqli_fetch_array($ret)) {
 
-                                    ?>
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
+                    <?php
+                    $ret = mysqli_query($con, "SELECT SUM(orderdetails.Price) AS total_price FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
+                    $row = mysqli_fetch_assoc($ret);
+                    $sum = $row['total_price'];
+                    ?>
+                    <?php if ($sum != 0) { ?>
                         <div>
-                          
-                     <?php if ($row['SupplyImage'] != "") {
-                                        echo '<img class=" rounded-3" width="100" height="100" src="image_upload/' . $row['SupplyImage'] . '">';
-                                    } ?>
+                            <b>
+                                <h5 style="float: left; color:black; font-size:25px; padding: 0px 0px 0px 30px;">ORDER TOTAL</h5>
+                                <h5 style="float: right; color: black; font-size:25px; padding: 0px 30px 0px 0px;"> ₱ <?php echo $sum ?></h5>
+                            </b>
+                            <br>
+                            <p></p>
+                            <p style="float: left; font-size: 18px; font-style: italic; padding-left: 28px;">*Shipping fee is not included</p>
+                            <a class="btn btn-primary m-1" href="checkout.php" style="float: right;">CHECKOUT</a>
                         </div>
-                        <div class="ms-3">
-                          <h5><?php echo $row['SupplyName'] ?></h5>
-                            <p class="small mb-0">price each</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px;">
-                          <h5 class="fw-normal mb-0"><?php echo $row['Quantity'] ?></h5>
-                        </div>
-                        <div style="width: 80px;">
-                          <h5 class="mb-0">₱ <?php echo $row['Price'] ?></h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <?php
-                                            $cnt = $cnt + 1;
-                                        }
-                                    } else { ?>
-                                        <tr>
-                                            <p style="text-align:center; color:red;" colspan="100">There are no items in your cart.</p>
-                                        </tr>
-                                    <?php } ?>
-              </div>
-                    <div>
-                 
-                     <?php
-                            $ret = mysqli_query($con, "SELECT SUM(orderdetails.Price) AS total_price FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
-                            $row = mysqli_fetch_assoc($ret);
-                            $sum = $row['total_price'];
-                            ?>
-                            <?php if ($sum != 0) { ?>
-                                <b><h5   style="float: left; color:black; font-size:20px; padding: 0px 0px 0px 30px;">ORDER TOTAL</h5 > <h5  style="float: right; color:black; font-size:20px; padding: 0px 30px 0px 0px;"> ₱ <?php echo $sum ?></h5 ></b>
-                            <?php }  ?>
-                               
-                  </div>
-            
-           
 
+                    <?php }  ?>
+                </div>
             </div>
-
-          </div>
         </div>
-      </div>
+    </div>
 
-  </div>
+    </div>
 
- <!-- END OF ITEM -->
+    <!-- END OF ITEM -->
 
 
     <!-- Footer Start -->
