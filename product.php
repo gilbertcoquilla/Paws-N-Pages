@@ -86,6 +86,8 @@ if ($row_a > 0) {
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
         .modal-content {
             border: none;
@@ -280,8 +282,10 @@ if ($row_a > 0) {
 
     <br />
     <div style="padding-left: 30px;">
-        <h3 class="text-primary text-uppercase"><a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>"><i class="bi bi-chevron-left"></i> GO BACK</a></h3>
+        <h3 class="text-primary text-uppercase"><a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>"><i class="bi bi-chevron-left"></i> GO BACK</a><a style="float: right; padding-right: 50px;" href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i class="fa fa-shopping-cart"></i></a></h3>
     </div>
+
+    <br><br>
     <!-- Products Start -->
 
     <div class="container">

@@ -36,6 +36,8 @@ $clinic_id = $_GET['clinicid'];
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
         .modal-content {
             border: none;
@@ -246,8 +248,8 @@ $clinic_id = $_GET['clinicid'];
 
             <!-- PRODUCTS START -->
             <div class="col-lg-9">
-                <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
-                    <h1 class="text-primary text-uppercase">Products</h1>
+                <div class="border-start border-5 border-primary ps-5 mb-5" style="width: 112%;">
+                    <h2 class="text-primary text-uppercase">Products <a style="float: right;" href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i class="fa fa-shopping-cart"></i></a></h2>
                 </div>
 
                 <div class="pcards">
@@ -275,7 +277,7 @@ $clinic_id = $_GET['clinicid'];
                                         Stocks:
                                         <?php echo $row['Stocks'] ?></br>
                                     </div>
-                                    <h5 class="text-primary mb-0">₱
+                                    <h5 class="text-primary mb-0">PHP
                                         <?php echo $row['SupplyPrice']; ?>
                                     </h5>
                                     <br>
