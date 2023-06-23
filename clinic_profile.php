@@ -170,7 +170,7 @@ $clinic_id = $_GET['clinicid'];
             </div>
         </div>
         <!-- <button type="button" class="btn" id="openCartBtn"><i class="bi bi-cart"></i></button> -->
-        <a href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i class="bi bi-cart"></i></a>
+        <!-- <a href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i class="bi bi-cart"></i></a> -->
     </nav>
     <!-- Navbar End -->
 

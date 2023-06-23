@@ -13,6 +13,11 @@ $ret_c = mysqli_query($con, "SELECT Stocks FROM petsupplies WHERE SupplyID='$sup
 $cnt_c = 1;
 $row_c = mysqli_fetch_array($ret_c);
 
+// To count the stocks left
+$ret_s = mysqli_query($con, "SELECT Stocks FROM petsupplies WHERE SupplyID='$supply_id'");
+$cnt_s = 1;
+$row_s = mysqli_num_rows($ret_s);
+
 // To check if the item is added to the cart
 $ret_a = mysqli_query($con, "SELECT * FROM orderdetails WHERE SupplyID='$supply_id' AND UserID='$userID'");
 $cnt_a = 1;
@@ -181,13 +186,13 @@ if ($row_a > 0) {
         }
 
         .product-image {
-            width: 50%;
-            height: 50%;
+            width: 100%;
+            height: 100%;
         }
 
         .product-details {
             margin-left: 20px;
-            width: 40%;
+            width: 50%;
             height: 50%;
         }
 
@@ -276,7 +281,7 @@ if ($row_a > 0) {
             </div>
         </div>
         <!-- <button type="button" class="btn" id="openCartBtn"><i class="bi bi-cart"></i></button> -->
-        <a href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i class="bi bi-cart"></i></a>
+        <!-- <a href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i class="bi bi-cart"></i></a> -->
     </nav>
     <!-- Navbar End -->
 
@@ -288,7 +293,7 @@ if ($row_a > 0) {
     <br><br>
     <!-- Products Start -->
 
-    <div class="container">
+    <div style="width: 95%; padding-left: 5%;">
 
         <?php
         $ret = mysqli_query($con, "SELECT * FROM petsupplies WHERE SupplyID='$supply_id'");
@@ -299,8 +304,11 @@ if ($row_a > 0) {
         ?>
                 <div class="product-container">
                     <?php if ($row['SupplyImage'] != "") {
-                        echo '<img width="500" height="500" src="image_upload/' . $row['SupplyImage'] . '">';
+                        echo '<img width="60%" src="image_upload/' . $row['SupplyImage'] . '">';
                     } ?>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                     <div class="product-details">
                         <form method="POST" enctype="multipart/form-data" runat="server">
                             <h1 class="text-uppercase" style="padding-bottom: 2px;">
@@ -316,6 +324,7 @@ if ($row_a > 0) {
                             </h3>
 
                             <br>
+
                             <p style="font-size: 20px; text-align:justify;">
                                 <?php echo $row['SupplyDescription'] ?>
                             </p>
@@ -364,6 +373,17 @@ if ($row_a > 0) {
                                 <?php } ?>
 
                             </div>
+
+                            <!-- To display status of stocks -->
+                            <?php if ($row_s >= 15) { ?>
+                                <p style="font-size: 18px; font-style: italic;">In stock</p>
+                            <?php } ?>
+
+                            <?php if ($row_s < 15) { ?>
+                                <p style="font-size: 18px; font-style: italic; color: red;">Low stock</p>
+                            <?php } ?>
+                            <!-- To display status of stocks -->
+
                             <br>
 
                             <?php
