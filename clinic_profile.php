@@ -238,7 +238,7 @@ $clinic_id = $_GET['clinicid'];
             <br />
 
             <?php if ($_SESSION["id"] != "") { ?>
-                <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:left;">Book an appointment<i class="bi bi-chevron-right"></i>
+                <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:left;">Book an appointment
                 </a>
             <?php } ?>
 
@@ -266,6 +266,7 @@ $clinic_id = $_GET['clinicid'];
                                         echo '<a href="product.php?productid=' . $row['SupplyID'] . '"><img class="img-fluid mb-4" src="image_upload/' . $row['SupplyImage'] . '"></a>';
                                     } ?>
                                 </div>
+                                <br>
                                 <div class="product-info">
                                     <h6 class="text-uppercase">
                                         <a style="color: black;" href="product.php?productid=<?php echo htmlentities($row['SupplyID']); ?>">

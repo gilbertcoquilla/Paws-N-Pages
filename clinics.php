@@ -127,11 +127,9 @@ include('connection.php');
 
                                 <div class="col-12 col-sm-5 h-100">
                                     <?php if ($row['ClinicImage'] != "") {
-                                        // echo '<img src=image_upload/' . $row['ClinicImage'] . ' class="img-fluid" style="height:300px; width:300px;"';
-                                        echo '<img src=image_upload/' . $row['ClinicImage'] . ' class="img-fluid" style="object-fit: cover;width: 100%; height: 100%;"';
+                                        echo '<a href="clinic_profile.php?clinicid=' . $row['ClinicID'] . '"><img src=image_upload/' . $row['ClinicImage'] . ' class="img-fluid" style="object-fit: cover;width: 100%; height: 100%;"></a>';
                                     }
                                     ?>
-                                    <!-- <img class="img-fluid h-100" style="object-fit: cover; width: 100%; height: 100%;"> -->
                                 </div>
                                 <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
 
@@ -139,7 +137,9 @@ include('connection.php');
                                         <h5 style="display: none;" class="text-uppercase mb-3" name="cname">
                                         </h5>
                                         <h5 class="text-uppercase mb-3" name="cname">
-                                            <?php echo $row['ClinicName'] ?>
+                                            <a style="color: black;" href="clinic_profile.php?clinicid=<?php echo htmlentities($row['ClinicID']); ?>">
+                                                <?php echo $row['ClinicName'] ?>
+                                            </a>
                                         </h5>
 
                                         <!-- For address -->
@@ -159,7 +159,7 @@ include('connection.php');
                                                     <?php echo '<b>Operating Days: </b>' . $row1['OperatingDays'] ?>
                                                 </p>
                                                 <?php
-                                                $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id'");
+                                                $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id' LIMIT 3");
                                                 $cnt2 = 1;
                                                 $row2 = mysqli_num_rows($ret2);
                                                 if ($row2 > 0) {
@@ -177,8 +177,8 @@ include('connection.php');
 
                                         <!-- For address -->
 
-                                        <br /><br /><a class="text-primary text-uppercase" href="clinic_profile.php?clinicid=<?php echo htmlentities($row['ClinicID']); ?>">View
-                                            Clinic<i class="bi bi-chevron-right"></i></a>
+                                        <br />
+
                                     </div>
                                 </div>
                             </div>
