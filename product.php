@@ -13,11 +13,6 @@ $ret_c = mysqli_query($con, "SELECT Stocks FROM petsupplies WHERE SupplyID='$sup
 $cnt_c = 1;
 $row_c = mysqli_fetch_array($ret_c);
 
-// To count the stocks left
-$ret_s = mysqli_query($con, "SELECT Stocks FROM petsupplies WHERE SupplyID='$supply_id'");
-$cnt_s = 1;
-$row_s = mysqli_num_rows($ret_s);
-
 // To check if the item is added to the cart
 $ret_a = mysqli_query($con, "SELECT * FROM orderdetails WHERE SupplyID='$supply_id' AND UserID='$userID'");
 $cnt_a = 1;
@@ -375,11 +370,11 @@ if ($row_a > 0) {
                             </div>
 
                             <!-- To display status of stocks -->
-                            <?php if ($row_s >= 15) { ?>
+                            <?php if ($row_c['Stocks'] >= 15) { ?>
                                 <p style="font-size: 18px; font-style: italic;">In stock</p>
                             <?php } ?>
 
-                            <?php if ($row_s < 15) { ?>
+                            <?php if ($row_c['Stocks'] < 15) { ?>
                                 <p style="font-size: 18px; font-style: italic; color: red;">Low stock</p>
                             <?php } ?>
                             <!-- To display status of stocks -->
