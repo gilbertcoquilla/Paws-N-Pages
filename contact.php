@@ -45,17 +45,17 @@ if (isset($_POST['submit'])) {
                     <b>Paws N Pages</b></p>';
         $mail->send();
 
-         // Set success message
-         $message = "Your message has been sent. We'll get back to you as soon as possible.";
-        } catch (Exception $e) {
-            // Set error message
-            $message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        
+        // Set success message
+        $message = "Your message has been sent. We'll get back to you as soon as possible.";
+    } catch (Exception $e) {
+        // Set error message
+        $message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+
         // echo "<script>alert('Your message has been sent. We'll get back to you as soon as possible.');</script>";
-       // echo "<script>window.location.href = 'index.php'</script>";
-    } 
+        // echo "<script>window.location.href = 'index.php'</script>";
+    }
     //catch (Exception $e) {
-        //echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    //echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     //}
 }
 
@@ -149,10 +149,12 @@ if (isset($_POST['submit'])) {
                         </div>
                     </form>
                     <?php if (!empty($message)) : ?>
-    <div class="alert alert-success">
-        <?php echo $message; ?>
-    </div>
-<?php endif; ?>
+                        <br>
+                        <div class="alert alert-success">
+                            <?php echo $message; ?>
+                        </div>
+                        <br>
+                    <?php endif; ?>
                 </div>
                 <div class="col-lg-5">
                     <div class="bg-light mb-5 p-5">
@@ -187,8 +189,8 @@ if (isset($_POST['submit'])) {
                 <h6 class="text-primary text-uppercase">Vet clinics</h6>
                 <h1 class="display-5 text-uppercase mb-0">Want to showcase your clinic?</h1>
                 <div class="col-6">
-                <a href="vet-registration.php"><button type="button" name="submit" class="btn btn-primary py-3">Sign Me Up!</button></a>
-                </div>    
+                    <a href="vet-registration.php"><button type="button" name="submit" class="btn btn-primary py-3">Sign Me Up!</button></a>
+                </div>
             </div>
         </div>
     </div>
@@ -216,7 +218,7 @@ if (isset($_POST['submit'])) {
                         <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6">
                     <h6 class="text-uppercase mt-4 mb-3">Follow Us</h6>
                     <div class="d-flex">
