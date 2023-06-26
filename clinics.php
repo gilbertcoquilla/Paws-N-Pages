@@ -38,6 +38,8 @@ include('connection.php');
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -72,8 +74,8 @@ include('connection.php');
                 <!-- Search Form Start -->
                 <div class="mb-5">
                     <div class="input-group">
-                        <input type="text" class="form-control p-3" placeholder="Search">
-                        <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                        <input type="text" class="form-control p-3" placeholder="Search" style="border-radius: 15px 0px 0px 15px;">
+                        <button class="btn btn-primary px-4" style="border-radius: 0px 15px 15px 0px;"><i class="bi bi-search"></i></button>
                     </div>
                 </div>
                 <!-- Search Form End -->
@@ -123,7 +125,7 @@ include('connection.php');
                     while ($row = mysqli_fetch_array($ret)) {
                 ?>
                         <div class="blog-item mb-5">
-                            <div class="row g-0 bg-light overflow-hidden">
+                            <div class="row g-0 bg-light overflow-hidden" style="border-radius: 15px;">
 
                                 <div class="col-12 col-sm-5 h-100">
                                     <?php if ($row['ClinicImage'] != "") {
@@ -146,7 +148,7 @@ include('connection.php');
 
                                         <?php
                                         $clinic_id = $row['ClinicID'];
-                                        $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, clinics.ClinicID, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
+                                        $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, clinics.ClinicID, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id' LIMIT 1");
                                         $cnt1 = 1;
                                         $row1 = mysqli_num_rows($ret1);
                                         if ($row1 > 0) {

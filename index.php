@@ -88,8 +88,8 @@ include('connection.php');
         <div class="container py-5">
             <div class="row justify-content-start">
                 <div class="col-lg-8 text-center text-lg-start">
-                    <h1 class="display-2 text-uppercase text-white bg-primary mb-lg-4">Paws N Pages</h1>
-                    <h3 class="text-uppercase text-dark bg-white mb-lg-4">Find the right vet clinic for you</h3>
+                    <h1 class="display-2 text-uppercase text-white bg-primary mb-lg-4" style="border-radius: 5px;">&nbsp;Paws N Pages</h1>
+                    <h3 class="text-uppercase text-dark bg-white mb-lg-4" style="border-radius: 5px;">&nbsp;&nbsp;&nbsp;Find the right vet clinic for you</h3>
                 </div>
             </div>
         </div>
@@ -106,7 +106,7 @@ include('connection.php');
             </div>
             <div class="row g-5">
                 <div class="col-md-6">
-                    <div class="service-item bg-light d-flex p-4">
+                    <div class="service-item bg-light d-flex p-4" style="border-radius: 15px;">
                         <i class="flaticon-location display-1 text-primary me-4"></i>
                         <div>
                             <h5 class="text-uppercase mb-3">Browse Veterinary Clinics </h5>
@@ -117,7 +117,7 @@ include('connection.php');
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="service-item bg-light d-flex p-4">
+                    <div class="service-item bg-light d-flex p-4" style="border-radius: 15px;">
                         <i class="display-1 text-primary me-4"></i>
                         <div>
                             <h5 class="text-uppercase mb-3">Contact Us</h5>
@@ -132,7 +132,7 @@ include('connection.php');
                 <?php if ($_SESSION["id"] > 0) { ?>
 
                     <div class="col-md-6">
-                        <div class="service-item bg-light d-flex p-4">
+                        <div class="service-item bg-light d-flex p-4" style="border-radius: 15px;">
                             <i class="display-1 text-primary me-4"></i>
                             <div>
                                 <h5 class="text-uppercase mb-3">Appointments</h5>
@@ -144,7 +144,7 @@ include('connection.php');
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="service-item bg-light d-flex p-4">
+                        <div class="service-item bg-light d-flex p-4" style="border-radius: 15px;">
                             <i class="display-1 text-primary me-4"></i>
                             <div>
                                 <h5 class="text-uppercase mb-3">Orders</h5>
@@ -175,49 +175,49 @@ include('connection.php');
             <div class="owl-carousel team-carousel position-relative" style="padding-right: 25px;">
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden" src="https://media.discordapp.net/attachments/1112075552669581332/1113440500536582234/1.png" alt="">
+                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;" src="https://media.discordapp.net/attachments/1112075552669581332/1113440500536582234/1.png" alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
                                 <a class="btn btn-light btn-square mx-1" href="https://www.linkedin.com/in/gilbert-coquilla-63529a210" target=”_blank”><i class="bi bi-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-light text-center p-4" style="height: 130px">
+                    <div class="bg-light text-center p-4" style="height: 160px; border-radius: 0px 0px 15px 15px;">
                         <h5 class="text-uppercase">John Gilbert Coquilla</h5>
                         <p class="m-0">Back-end Developer</p>
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100 h-100" style="width:200px;height:200px;overflow:hidden" src="https://media.discordapp.net/attachments/1112075552669581332/1113440500796620810/2.png" alt="">
+                        <img class="img-fluid w-100 h-100" style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;" src="https://media.discordapp.net/attachments/1112075552669581332/1113440500796620810/2.png" alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
                                 <a class="btn btn-light btn-square mx-1" href="https://www.linkedin.com/in/bianca-ongkingco-557727262" target=”_blank”><i class="bi bi-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-light text-center p-4" style="height: 130px">
+                    <div class="bg-light text-center p-4" style="height: 160px; border-radius: 0px 0px 15px 15px;">
                         <h5 class="text-uppercase">Czarina Bianca Ongkingco</h5>
                         <p class="m-0">Back-end Developer</p>
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden" src="https://media.discordapp.net/attachments/1112075552669581332/1113440501060878397/3.png" alt="">
+                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;" src="https://media.discordapp.net/attachments/1112075552669581332/1113440501060878397/3.png" alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
                                 <a class="btn btn-light btn-square mx-1" href="https://guillemanzano.my.canva.site/gm-portfolio" target=”_blank”><i class="bi bi-globe"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-light text-center p-4" style="height: 130px">
+                    <div class="bg-light text-center p-4" style="height: 160px; border-radius: 0px 0px 15px 15px;">
                         <h5 class="text-uppercase">Guilianna Manzano</h5>
                         <p class="m-0">Front-end Developer</p>
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden" src="https://media.discordapp.net/attachments/1112075552669581332/1113440501308334110/4.png" alt="">
+                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;" src="https://media.discordapp.net/attachments/1112075552669581332/1113440501308334110/4.png" alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
                                 <a class="btn btn-light btn-square mx-1" href="https://shirpaz.xyz"><i class="bi bi-globe" target=”_blank”></i></a>
@@ -225,7 +225,7 @@ include('connection.php');
                             </div>
                         </div>
                     </div>
-                    <div class="bg-light text-center p-4" style="height: 130px">
+                    <div class="bg-light text-center p-4" style="height: 160px; border-radius: 0px 0px 15px 15px;">
                         <h5 class="text-uppercase">Shirley May Paz</h5>
                         <p class="m-0">Front-end Developer</p>
                     </div>

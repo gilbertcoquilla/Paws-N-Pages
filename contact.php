@@ -130,22 +130,22 @@ if (isset($_POST['submit'])) {
 
                         <div class="row g-3">
                             <div class="col-12">
-                                <input type="text" name="name" class="form-control  bg-light border-0 px-4 py-3" placeholder="Your Name" required>
+                                <input type="text" style="border-radius: 10px;" name="name" class="form-control  bg-light border-0 px-4 py-3" placeholder="Your Name" required>
                             </div>
                             <div class="col-12">
-                                <input type="email" name="email" class="form-control  bg-light border-0 px-4 py-3" placeholder="Your Email" required>
+                                <input type="email" style="border-radius: 10px;" name="email" class="form-control  bg-light border-0 px-4 py-3" placeholder="Your Email" required>
                             </div>
                             <div class="col-12">
-                                <input type="text" name="subject" class="form-control  bg-light border-0 px-4 py-3" placeholder="Subject" required>
+                                <input type="text" style="border-radius: 10px;" name="subject" class="form-control  bg-light border-0 px-4 py-3" placeholder="Subject" required>
                             </div>
                             <div class="col-12">
-                                <textarea name="message" class="form-control bg-light border-0 px-4 py-3" rows="6" placeholder="Message" required></textarea>
+                                <textarea name="message" style="border-radius: 10px;" class="form-control bg-light border-0 px-4 py-3" rows="6" placeholder="Message" required></textarea>
                             </div>
                             <div class="col-12">
                                 <!-- <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Send
                                     Message</button> -->
 
-                                <input type="submit" name="submit" value="Send Message" class="btn btn-primary w-100 py-3" />
+                                <input type="submit" name="submit" value="Send Message" class="btn btn-primary w-100 py-3" style="border-radius: 15px;" />
                             </div>
                         </div>
                     </form>
@@ -165,7 +165,7 @@ if (isset($_POST['submit'])) {
 
                 </div>
                 <div class="col-lg-5">
-                    <div class="bg-light mb-5 p-5">
+                    <div class="bg-light mb-5 p-5" style="border-radius: 15px;">
                         <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-geo-alt fs-1 text-primary me-3"></i>
                             <div class="text-start">
@@ -195,9 +195,9 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
                 <h6 class="text-primary text-uppercase">Vet clinics</h6>
-                <h1 class="display-5 text-uppercase mb-0">Want to showcase your clinic?</h1>
+                <h1 class="display-5 text-uppercase mb-0">Want to showcase your clinic?</h1><br>
                 <div class="col-6">
-                    <a href="vet-registration.php"><button type="button" name="submit" class="btn btn-primary py-3">Sign Me Up!</button></a>
+                    <a href="vet-registration.php"><button type="button" name="submit" class="btn btn-primary py-3" style="border-radius: 15px; width: 80%;">Sign Me Up!</button></a>
                 </div>
             </div>
         </div>

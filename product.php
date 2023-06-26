@@ -63,7 +63,7 @@ if ($row_a > 0) {
 
 <head>
     <meta charset="utf-8">
-    <title>Paws N Pages | Clinic</title>
+    <title>Paws N Pages | Product</title>
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <!-- Favicon -->
@@ -388,9 +388,9 @@ if ($row_a > 0) {
                             ?>
 
                             <?php if ($row_b > 0) { ?>
-                                <button name="submit" class="btn btn-primary" id="addToCart" style="width: 100%;">Update Cart</button>
+                                <button name="submit" class="btn btn-primary" id="addToCart" style="width: 100%; border-radius: 15px;">Update Cart</button>
                             <?php } else { ?>
-                                <button name="submit" class="btn btn-primary" id="addToCart" style="width: 100%;">Add to Cart</button>
+                                <button name="submit" class="btn btn-primary" id="addToCart" style="width: 100%; border-radius: 15px;">Add to Cart</button>
                             <?php } ?>
 
                         </form>

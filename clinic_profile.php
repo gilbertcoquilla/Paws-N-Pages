@@ -177,9 +177,9 @@ $_SESSION['clinic_id'] = $clinic_id;
 
     <br />
 
-    <div class="container ">
+    <div class="container">
         <div class="row g-5">
-            <div class="col-lg-3 bg-light ">
+            <div class="col-lg-3 bg-light" style="border-radius: 15px;">
                 <!-- CLINIC PROFILE START -->
                 <div class="mb-5">
 
@@ -204,7 +204,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                                 </br>
 
                                 <?php
-                                $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
+                                $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id' LIMIT 1");
                                 $cnt1 = 1;
                                 $row1 = mysqli_num_rows($ret1);
                                 if ($row1 > 0) {
@@ -221,7 +221,7 @@ $_SESSION['clinic_id'] = $clinic_id;
 
 
                     <?php
-                            $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id'");
+                            $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id' LIMIT 4");
                             $cnt2 = 1;
                             $row2 = mysqli_num_rows($ret2);
                             if ($row2 > 0) {
@@ -239,7 +239,9 @@ $_SESSION['clinic_id'] = $clinic_id;
             <br />
 
             <?php if ($_SESSION["id"] != "") { ?>
-                <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:left;">Book an appointment
+                <br>
+                <br>
+                <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:left; border-radius: 15px;">Book an appointment
                 </a>
             <?php } ?>
 
@@ -261,34 +263,36 @@ $_SESSION['clinic_id'] = $clinic_id;
                     if ($row > 0) {
                         while ($row = mysqli_fetch_array($ret)) {
                     ?>
-                            <div class="bg-light d-flex flex-column text-center">
+                            <div class="bg-light d-flex flex-column text-center" style="border-radius: 15px;">
                                 <div class="image-container">
                                     <?php if ($row['SupplyImage'] != "") {
                                         echo '<a href="product.php?productid=' . $row['SupplyID'] . '"><img class="img-fluid mb-4" src="image_upload/' . $row['SupplyImage'] . '"></a>';
                                     } ?>
                                 </div>
                                 <br>
-                                <div class="product-info">
-                                    <h6 class="text-uppercase">
-                                        <a style="color: black;" href="product.php?productid=<?php echo htmlentities($row['SupplyID']); ?>">
+                                <a style="color: black;" href="product.php?productid=<?php echo htmlentities($row['SupplyID']); ?>">
+                                    <div class="product-info">
+                                        <h6 class="text-uppercase">
+
                                             <b>
                                                 <?php echo $row['SupplyName']; ?>
                                             </b>
-                                        </a>
-                                    </h6>
-                                    <div style="display: none;">
-                                        <p>
-                                            <?php echo $row['SupplyDescription']; ?><br />
-                                        </p>
-                                        Stocks:
-                                        <?php echo $row['Stocks'] ?></br>
-                                    </div>
-                                    <h5 class="text-primary mb-0">PHP
-                                        <?php echo $row['SupplyPrice']; ?>
-                                    </h5>
-                                    <br>
 
-                                </div>
+                                        </h6>
+                                        <div style="display: none;">
+                                            <p>
+                                                <?php echo $row['SupplyDescription']; ?><br />
+                                            </p>
+                                            Stocks:
+                                            <?php echo $row['Stocks'] ?></br>
+                                        </div>
+                                        <h5 class="text-primary mb-0">PHP
+                                            <?php echo $row['SupplyPrice']; ?>
+                                        </h5>
+                                        <br>
+
+                                    </div>
+                                </a>
                             </div>
                     <?php
                             $cnt = $cnt + 1;

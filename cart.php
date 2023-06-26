@@ -95,11 +95,11 @@ if (isset($_GET['delid'])) {
   <div class="container">
     <div class="row d-flex justify-content-center align-items-center h-100">
 
-      <div class="card">
+      <div class="card" style="border-radius: 15px;">
         <div class="card-body p-4">
 
           <div class="col-lg-12">
-            <h5 class="mb-3" style="float:left;"><a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>" style="color: rgb(102, 176, 50);"><i class="bi bi-chevron-left"></i>Continue shopping</a></h5>
+            <h5 class="mb-3" style="float:left;"><a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>" style="color: rgb(102, 176, 50);"><i class="bi bi-chevron-left"></i>&nbsp;Continue shopping</a></h5>
             <p style="float:right;">You have <b><?php echo $sum_q ?></b> item(s) in your cart</p><br />
             <hr>
             <div class="card mb-3">
@@ -194,8 +194,8 @@ if (isset($_GET['delid'])) {
               </b>
               <br>
               <p></p>
-              <p style="float: left; font-size: 18px; font-style: italic; padding-left: 28px;">*Shipping fee is not included</p>
-              <a class="btn btn-primary m-1" href="checkout.php" style="float: right;">CHECKOUT</a>
+              <p style="float: left; font-size: 18px; font-style: italic; padding-left: 28px;">*Shipping fee is not included</p><br>
+              <a class="btn btn-primary py-3" href="checkout.php?clinicid=<?php echo $clinic_id ?>" style="float: right; width: 18%; border-radius: 15px;">CHECKOUT</a>
             </div>
 
           <?php }  ?>
