@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
     // Query for data insertion
     $query = mysqli_query($con, "INSERT INTO appointments (Notes, PreferredDate, PreferredTime, AppointmentStatus, AvailedServices, UserID, Appointment_RefNo, ClinicID) VALUES ('$notes', '$appointmentDate', '$appointmentTime', '$status', '$listofservices', '$userID', '$brefno', '$clinicid')");
     if ($query) {
-        echo "<script>alert('You have successfully booked an appointment with Booking Reference No. <b>'" . $brefno . "'</b>');</script>";
+        echo "<script>alert('You have successfully booked an appointment!');</script>";
         echo "<script> document.location ='booking_form.php'; </script>";
     } else {
         echo "<script>alert('Something went wrong. Please try again');</script>";
@@ -170,7 +170,7 @@ if (isset($_POST['submit'])) {
     <!-- Blog Start -->
     <div class="container ">
         <div class="row g-5">
-            <div class="col-lg-3 bg-light ">
+            <div class="col-lg-3 bg-light" style="border-radius: 15px;">
                 <!-- CLINIC PROFILE START -->
                 <div class="mb-5">
                     <div class="col-12">
@@ -194,7 +194,7 @@ if (isset($_POST['submit'])) {
                                 </b></br>
 
                                 <?php
-                                $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id'");
+                                $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id' LIMIT 1");
                                 $cnt1 = 1;
                                 $row1 = mysqli_num_rows($ret1);
                                 if ($row1 > 0) {
@@ -223,8 +223,9 @@ if (isset($_POST['submit'])) {
                     <?php
                                 }
                             } ?>
-                    <br /><br /><a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank"><i class="bi-facebook"></i>View Facebook</a> <br />
-                    <a class="btn btn-primary m-1" href="feedback.php">Leave a review<i class="bi bi-chevron-right"></i></a>
+                    <!-- <br /><br /><a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank" style="padding-left: 5px;"><i class="bi-facebook"></i> View Facebook</a> <br /><br> -->
+                    <br><br>
+                    <a class="btn btn-primary m-1" href="feedback.php" style="border-radius: 15px; width: 95%;">Leave a review</a>
             <?php }
                     } ?>
 
@@ -235,9 +236,9 @@ if (isset($_POST['submit'])) {
             <!-- BOOKING FORM START -->
             <div class="col-lg-9">
                 <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
-                    <h1 class="display-5 text-uppercase mb-0">Booking Form</h1>
-                    <h6 class="text-primary text-uppercase">NOTE: Booking an appointment is NOT guaranteed, it is still
-                        to be accepted by the Vet Clinic</h6>
+                    <h2 class="display-6 text-uppercase mb-0">Booking Form</h2>
+                    <h6 class="text-primary text-uppercase" style="font-size: 18px;">NOTE: Booking an appointment is NOT guaranteed, it is yet
+                        to be approved by the Veterinary Clinic</h6>
                 </div>
 
 
@@ -246,7 +247,7 @@ if (isset($_POST['submit'])) {
                         <h5>Services to avail</h5>
 
                         <?php
-                        $ret = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id'");
+                        $ret = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id' LIMIT 4");
                         $cnt = 1;
                         $row = mysqli_num_rows($ret);
                         if ($row > 0) {
@@ -266,19 +267,19 @@ if (isset($_POST['submit'])) {
                     <br />
                     <div class="col-12">
                         <h5>Preferred date:</h5>
-                        <input type="date" class="form-control  bg-light border-0 px-4 py-3" id="datePicker" name="appointmentDate" required>
+                        <input type="date" class="form-control bg-light border-0 px-4 py-3" style="border-radius: 15px;" id="datePicker" name="appointmentDate" required>
                     </div>
                     <br />
                     <div class="col-12">
                         <h5>Preferred time:</h5>
-                        <input type="time" class="form-control  bg-light border-0 px-4 py-3" id="timePicker" name="appointmentTime" required step="3600" oninvalid="this.setCustomValidity('Please choose a time by hour and double check the operating days and hours of the clinic')" oninput="this.setCustomValidity('')">
-                        <span style="color:red;">*Please choose a time by hour and double check the operating days
+                        <input type="time" class="form-control bg-light border-0 px-4 py-3" style="border-radius: 15px;" id="timePicker" name="appointmentTime" required step="3600" oninvalid="this.setCustomValidity('Please choose a time by hour and double check the operating days and hours of the clinic')" oninput="this.setCustomValidity('')">
+                        <span style="color:red; font-style:italic;">*Please choose a time by hour and double check the operating days
                             and hours of the clinic</span>
                     </div>
                     <br />
                     <div class="col-12">
                         <h5>Notes:</h5>
-                        <input type="name" name="notes" class="form-control  bg-light border-0 px-4 py-3" placeholder="Example: my pet has a fever">
+                        <input type="name" name="notes" style="border-radius: 15px;" class="form-control bg-light border-0 px-4 py-3" placeholder="For example: my pet has a fever">
                     </div>
                     <br />
                     <div class="col-12" style="display: none;">
@@ -297,7 +298,7 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div class="col-12">
-                        <input type="submit" name="submit" value="Submit" class="btn btn-primary w-100 py-3" />
+                        <input type="submit" name="submit" value="Submit" style="border-radius: 15px;" class="btn btn-primary w-100 py-3" />
                     </div>
                 </form>
             </div>
