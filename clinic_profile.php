@@ -5,6 +5,7 @@ include('config.php');
 include('connection.php');
 
 $clinic_id = $_GET['clinicid'];
+$_SESSION['clinic_id'] = $clinic_id;
 
 ?>
 
@@ -181,13 +182,7 @@ $clinic_id = $_GET['clinicid'];
             <div class="col-lg-3 bg-light ">
                 <!-- CLINIC PROFILE START -->
                 <div class="mb-5">
-                    <div class="col-12">
-                        <img class="img-fluid h-100" src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1" style="width: 100%; height: 100%;">
-                    </div>
-                    <?php
-                    echo $clinic_id; // for testing purposes (if the clinic id was really retrieved properly. update: successful) 
-                    $_SESSION['clinic_id'] = $clinic_id;
-                    ?>
+
 
                     <?php
                     $ret = mysqli_query($con, "SELECT * FROM clinics WHERE ClinicID = '$clinic_id'");
@@ -197,6 +192,12 @@ $clinic_id = $_GET['clinicid'];
                         while ($row = mysqli_fetch_array($ret)) {
 
                     ?>
+                            <div style="padding-bottom: 25px;">
+                                <?php if ($row['ClinicImage'] != "") {
+                                    echo '<a href="clinic_profile.php?clinicid=' . $row['ClinicID'] . '"><img src=image_upload/' . $row['ClinicImage'] . ' style="object-fit: cover; width: 100%; height: 100%;"></a>';
+                                }
+                                ?>
+                            </div>
                             <p class="text-uppercase mb-3" style="font-size:20px; color:black;"><b>
                                     <?php echo $row['ClinicName'] ?>
                                 </b>
@@ -211,8 +212,8 @@ $clinic_id = $_GET['clinicid'];
                                 ?>
                             <p>
                                 <?php echo $row1['LotNo_Street'] . '<br/> Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City'] ?><br />
-                                <?php echo '<b>Opening Hours: </b>' . date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?><br />
-                                <?php echo '<b>Opening Days: </b>' . $row1['OperatingDays'] ?>
+                                <?php echo '<b>Operating Hours: </b>' . date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?><br />
+                                <?php echo '<b>Operating Days: </b>' . $row1['OperatingDays'] ?>
                             </p>
                     <?php
                                     }
