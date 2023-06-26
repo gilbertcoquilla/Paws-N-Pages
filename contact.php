@@ -49,7 +49,8 @@ if (isset($_POST['submit'])) {
         $message = "Your message has been sent. We'll get back to you as soon as possible.";
     } catch (Exception $e) {
         // Set error message
-        $message = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+          $message = "<span style='color: red'>Message could not be sent. Mailer Error: {$mail->ErrorInfo}</span>";
+
 
         // echo "<script>alert('Your message has been sent. We'll get back to you as soon as possible.');</script>";
         // echo "<script>window.location.href = 'index.php'</script>";
@@ -148,13 +149,20 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>
                     </form>
-                    <?php if (!empty($message)) : ?>
+                   <?php if (!empty($message)) : ?>
                         <br>
-                        <div class="alert alert-success">
-                            <?php echo $message; ?>
-                        </div>
+                        <?php if (strpos($message, 'Error') !== false) : ?>
+                            <div class="alert alert-danger">
+                                <?php echo $message; ?>
+                            </div>
+                        <?php else : ?>
+                            <div class="alert alert-success">
+                                <?php echo $message; ?>
+                            </div>
+                        <?php endif; ?>
                         <br>
                     <?php endif; ?>
+
                 </div>
                 <div class="col-lg-5">
                     <div class="bg-light mb-5 p-5">
