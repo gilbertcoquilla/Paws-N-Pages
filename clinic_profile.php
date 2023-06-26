@@ -240,7 +240,6 @@ $_SESSION['clinic_id'] = $clinic_id;
 
             <?php if ($_SESSION["id"] != "") { ?>
                 <br>
-                <br>
                 <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:left; border-radius: 15px;">Book an appointment
                 </a>
             <?php } ?>
