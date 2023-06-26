@@ -126,7 +126,7 @@ if (isset($_POST['submit'])) {
             <div class="row g-5">
                 <div class="col-lg-7">
 
-                    <form method="POST" enctype="multipart/form-data" novalidate="novalidate">
+                    <form method="POST" enctype="multipart/form-data">
 
                         <div class="row g-3">
                             <div class="col-12">
