@@ -1,4 +1,3 @@
-
 <?php
 
 session_start();
@@ -19,11 +18,62 @@ $ret_q = mysqli_query($con, "SELECT SUM(orderdetails.Quantity) AS total_items FR
 $row_q = mysqli_fetch_assoc($ret_q);
 $sum_q = $row_q['total_items'];
 
-if (isset($_GET['delid'])) {
-    $rid = intval($_GET['delid']);
-    $sql = mysqli_query($con, "DELETE FROM orderdetails WHERE OrderDetailsID=$rid");
-    echo "<script>alert('Item is removed from cart');</script>";
-    echo "<script>window.location.href = 'cart.php'</script>";
+// Details
+$od_quantity = $_REQUEST['quantity'];
+// $od_products = implode(', ', $_REQUEST['products']);
+
+// $od_details = $od_quantity . 'x' . $od_products;
+
+$totalPrice = $_POST['totalprice'];
+
+date_default_timezone_set("Asia/Hong_Kong");
+$currentDateTime = date('y-m-d h:i:sa');
+
+$ship_to_address = $_POST['address'];
+$orderStatus = 'Pending';
+
+// For proof of payment
+$file = $_FILES['proof']['name'];
+$tempfile = $_FILES['proof']['tmp_name'];
+$folder = "image_upload/" . $file;
+move_uploaded_file($tempfile, $folder);
+
+$reference_no = $_POST['refno'];
+
+// For Order Reference No
+$code = 'ODRN';
+$ymd = date('ymd');
+$sequence = rand(00000, 99999);
+$order_refno = $code . $ymd . $sequence;
+
+// Still lacking:
+// 1) decrease number of stocks depending on the number of items ordered
+// 2) delete items in cart after placing order
+
+
+// Insert data to DB
+// if ($row_a > 0) {
+//     if (isset($_POST['order'])) {
+//         $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus')");
+//         if ($query) {
+//             echo "<script>alert('Thanks for ordering!');</script>";
+//             echo "<script> document.location ='clinics.php'; </script>";
+//         } else {
+//             echo "<script>alert('Something went wrong. Please try again');</script>";
+//         }
+//     }
+// } else {
+//     echo "<script>alert('Please add a product first to continue');</script>";
+// }
+
+if (isset($_POST['order'])) {
+    $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus')");
+    if ($query) {
+        echo "<script>alert('Thanks for ordering!');</script>";
+        echo "<script> document.location ='clinics.php'; </script>";
+    } else {
+        echo "<script>alert('Something went wrong. Please try again');</script>";
+    }
 }
 
 ?>
@@ -32,10 +82,8 @@ if (isset($_GET['delid'])) {
 
 <head>
     <meta charset="utf-8">
-    <title>Paws N Pages | Order Summary</title>
-    <link rel = "icon" href = 
-        "https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" 
-        type = "image/x-icon">
+    <title>Paws N Pages | Checkout</title>
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -45,7 +93,7 @@ if (isset($_GET['delid'])) {
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@700&display=swap" rel="stylesheet">  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@700&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -63,24 +111,25 @@ if (isset($_GET['delid'])) {
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
     <style>
-        body
-{
-    background:  url(https://wallpapercave.com/wp/wp2514316.jpg) no-repeat center center fixed; 
-    background-size: cover;
-}
+        body {
+            background: url(https://wallpapercave.com/wp/wp2514316.jpg) no-repeat center center fixed;
+            background-size: cover;
+        }
     </style>
 
     <script type="text/javascript">
-    $(function () {
-        $("#different").click(function () {
-            if ($(this).is(":checked")) {
-                $("#other").show();
-            } else {
-                $("#other").hide();
-            }
+        $(function() {
+            $("#different").click(function() {
+                if ($(this).is(":checked")) {
+                    $("#other").show();
+                    $("#address").hide();
+                } else {
+                    $("#other").hide();
+                    $("#address").show();
+                }
+            });
         });
-    });
-</script>
+    </script>
 </head>
 
 <body>
@@ -107,219 +156,258 @@ if (isset($_GET['delid'])) {
     <!-- Navbar End -->
 
     <!-- Orders Start -->
-        <br>
-        <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
-            <h1 class="text-primary text-uppercase" >CHECKOUT</h1>
-        </div>
+    <br>
+    <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
+        <h1 class="text-primary text-uppercase">CHECKOUT</h1>
+    </div>
+
+    <!-- Start of form -->
+    <form method="post" action="">
         <div class="container-xl px-4 mt-4">
             <div class="row">
                 <div class="col-xl-4">
                     <!-- Profile picture card-->
-                    <div class="card mb-4 mb-xl-0 container" style="background-color:white;">
+                    <div class="card mb-4 mb-xl-0 container" style="background-color:white; border-radius: 15px;">
                         <div class="card-body text-center">
-                        
-                        
-                         
-                            <div class="col-12">
-                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px;">order summary</h6>
+
+                            <div class="col-12" style="padding-bottom: 5px;">
+                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">order summary</h6>
                             </div>
-
-                        <div class="row" style="padding-top:10px;">
-                                                <div class="col-4">
-                                                <p>QTY</p>
-                                                </div>
-                                                <div class="col-4">
-                                                    <p>ITEM</p>
-                                                </div>
-                                                <div class="col-4">
-                                                    <p>SUBTOTAL</p>
-                                                </div>
-                                            </div>
+                            <div class="row" style="padding-top:10px; font-size: 14px; font-weight: bold;">
+                                <div class="col-4">
+                                    <p>QTY</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>ITEM</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>SUBTOTAL</p>
+                                </div>
+                            </div>
                             <?php
-                        $ret = mysqli_query($con, "SELECT * FROM orderdetails, petsupplies WHERE orderdetails.SupplyID = petsupplies.SupplyID AND orderdetails.UserID='$userID' AND petsupplies.ClinicID='$clinic_id'");
-                        $cnt = 1;
-                        $row = mysqli_num_rows($ret);
-                        if ($row > 0) {
-                            while ($row = mysqli_fetch_array($ret)) {
+                            $ret = mysqli_query($con, "SELECT * FROM orderdetails, petsupplies WHERE orderdetails.SupplyID = petsupplies.SupplyID AND orderdetails.UserID='$userID' AND petsupplies.ClinicID='$clinic_id'");
+                            $cnt = 1;
+                            $row = mysqli_num_rows($ret);
+                            if ($row > 0) {
+                                while ($row = mysqli_fetch_array($ret)) {
+                            ?>
+                                    <div class="card mb-3" style="padding-top:10px; border-radius: 15px;">
 
-                        ?>
-                                <div class="card mb-3" style="padding-top:10px;">
-                                    
-                                       
-                                            <div class="row ">
-                                                <div class="col-4">
+                                        <div class="row" style="font-size: 17px;">
+                                            <div class="col-4">
                                                 <p><?php echo $row['Quantity'] ?></p>
-                                                    
-                                                </div>
-                                                <div class="col-4">
-                                                    <p><?php echo $row['SupplyName'] ?></p>
-                                                   
-                                                </div>
-                                                <div class="col-4">
-                                                    <p>₱ <?php echo $row['Price'] ?></p>
-                                                   
-                                                </div>
+                                                <div style="display: none;"><input type="text" id="quantities" name="quantities[]" value="<?php echo $row['Quantity'] ?>"></div>
                                             </div>
-                                       
+                                            <div class="col-4">
+                                                <p><?php echo $row['SupplyName'] ?></p>
+                                                <div style="display: none;"><input type="text" id="products" name="products[]" value="<?php echo $row['SupplyName'] ?>"></div>
+                                            </div>
+                                            <div class="col-4">
+                                                <p>₱ <?php echo $row['Price'] ?></p>
+                                            </div>
+                                        </div>
                                     </div>
-                                
+
                             <?php
-                                $cnt = $cnt + 1;
-                            }
-                        }  ?>
+                                    $cnt = $cnt + 1;
+                                }
+                            }  ?>
 
-                          <?php
-                    $ret = mysqli_query($con, "SELECT SUM(orderdetails.Price) AS total_price FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
-                    $row = mysqli_fetch_assoc($ret);
-                    $sum = $row['total_price'];
-                    ?>
-                    <?php if ($sum != 0) { ?>
-                        <div>
-                            <hr/>
-                            <b>
-                                
-                                <p style="float: left;  padding: 0px 0px 0px 30px;">ORDER TOTAL</p>
-                                <p style="float: right;   padding: 0px 30px 0px 0px;"> ₱ <?php echo $sum ?></p>
-                                
-                            </b>
-                            
-                            <br/>
-                            <br/>
-                            <br/>
-                            
-                        </div>
+                            <?php
+                            $ret = mysqli_query($con, "SELECT SUM(orderdetails.Price) AS total_price FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
+                            $row = mysqli_fetch_assoc($ret);
+                            $sum = $row['total_price'];
+                            ?>
+                            <?php if ($sum != 0) { ?>
+                                <div>
+                                    <hr />
+                                    <b>
 
-                    <?php }  ?>
+                                        <p style="float: left;  padding: 0px 0px 0px 30px;">ORDER TOTAL</p>
+                                        <p style="float: right;   padding: 0px 30px 0px 0px;"> ₱ <?php echo $sum ?></p>
+                                        <input type="hidden" name="totalprice" value="<?php echo $sum ?>">
+                                    </b>
+
+                                    <br />
+                                    <br />
+                                    <br />
+
+                                </div>
+
+                            <?php }  ?>
                             <div class="col-12">
-                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px;">SCAN TO PAY</h6><BR/>
+                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">SCAN TO PAY</h6><BR />
                             </div>
-                    <img src="https://help.gcash.com/hc/article_attachments/9396039095961/3rd.png" alt="Italian Trulli" width=300; height=300;>
+                            <img src="https://help.gcash.com/hc/article_attachments/9396039095961/3rd.png" alt="Italian Trulli" width=300; height=300;>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-8">
                     <!-- Profile picture card-->
-                    <div class="card mb-4 mb-xl-0 container">
+                    <div class="card mb-4 mb-xl-0 container" style="background-color:#FFFFFF; border-radius: 15px;">
 
                         <div class="card-body text-center">
-                            <div class="userProfile">
-                                <form method="post">
-                        <div class="row g-3 bg-light">
-                         
-                            <div class="col-12">
-                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px;">Details</h6>
-                            </div>
-                            <div class="col-6 ">
-                                <input type="text" name="name" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="Name" required>
-                            </div>
-                            <div class="col-6">
-                                <input type="text" name="phone" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="Contact Number" required>
-                            </div>
-
-                             <div class="col-6 ">
-                                <input type="text" name="lotno_street" class="form-control  bg-light border-0 px-4 py-3" placeholder="House/Lot No. & Street" required>
-                            </div>
-
-                            <div class="col-6">
-                                <input type="text" name="province" class="form-control  bg-light border-0 px-4 py-3" value="NCR" readonly>
-                            </div>
-                            <div class="col-6">
-                                <input type="text" name="city" class="form-control  bg-light border-0 px-4 py-3" value="Quezon City" readonly>
-                            </div>
+                            <div class=" userProfile">
 
 
-                            <div class="col-6">
                                 <?php
-                                $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
-                                $data = $sql->fetch_all(MYSQLI_ASSOC);
+                                $ret = mysqli_query($con, "SELECT * FROM users, address WHERE users.UserID = address.UserID AND users.UserID='$userID' LIMIT 1");
+                                $cnt = 1;
+                                $row = mysqli_num_rows($ret);
+                                if ($row > 0) {
+                                    while ($row = mysqli_fetch_array($ret)) {
                                 ?>
-                                <select id="barangay" class="form-control  bg-light border-0 px-4 py-3" name="barangay" placeholder="Barangay" required>
-                                    <option value="" selected disabled>-- Please choose a barangay --</option>
-                                    <?php foreach ($data as $row) : ?>
-                                        <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
-                                            <?= htmlspecialchars($row['BarangayName']) ?>
-                                        </option>
-                                    <?php endforeach ?>
-                                    <!-- <option value="'.htmlspecialchars($barangay).'"></option>' -->
-                                </select>
-                            </div>
 
-                            <div class="col-6">
-                                <input type="text" name="zipcode" class="form-control  bg-light border-0 px-4 py-3" placeholder="Zip Code" required>
-                            </div>
-                            <div class="col-6" style="text-align: left; padding-top:20px;">
-                                <input type="checkbox" name="different" id="different" value="Ship to a different address" style="padding-left: 20%;"> Ship to a different address
-                            </div>
-                            
-                            <!-- START OF HIDDEN DIV IF SHIP TO OTHER ADDRESS -->
-                            
-                            <div id="other" style="display:none;">
-                            <div class="row g-3 bg-light">
-                                <div class="col-12">
-                                    <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px;">Other Address</h6>
-                                </div>
-                                <div class="col-6 ">
-                                    <input type="text" name="lotno_street" class="form-control  bg-light border-0 px-4 py-3" placeholder="House/Lot No. & Street" required>
-                                </div>
+                                        <div class="row g-3" style="background-color:#FFFFFF;">
+                                            <div class="col-12">
+                                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">Details</h6>
+                                            </div>
+                                            <div class="col-6 ">
+                                                <input type="text" style="border-radius: 15px;" name="name" class="form-control  bg-light border-0 px-4 py-3" placeholder="Name" value="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>" readonly>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" style="border-radius: 15px;" name="phone" class="form-control  bg-light border-0 px-4 py-3" placeholder="Contact Number" value="<?php echo $row['ContactNo'] ?>" readonly>
+                                            </div>
 
-                                <div class="col-6">
-                                    <input type="text" name="province" class="form-control  bg-light border-0 px-4 py-3" value="NCR" readonly>
-                                </div>
-                                <div class="col-6">
-                                    <input type="text" name="city" class="form-control  bg-light border-0 px-4 py-3" value="Quezon City" readonly>
-                                </div>
+                                            <div style="display: none;">
+                                                <div class="col-6 ">
+                                                    <input type="text" name="lotno_street" class="form-control  bg-light border-0 px-4 py-3" placeholder="House/Lot No. & Street" value="<?php echo $row['LotNo_Street'] ?>" readonly>
+                                                </div>
 
-                                <div class="col-6">
-                                    <?php
-                                    $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
-                                    $data = $sql->fetch_all(MYSQLI_ASSOC);
-                                    ?>
-                                    <select id="barangay" class="form-control  bg-light border-0 px-4 py-3" name="barangay" placeholder="Barangay" required>
-                                        <option value="" selected disabled>-- Please choose a barangay --</option>
-                                        <?php foreach ($data as $row) : ?>
-                                            <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
-                                                <?= htmlspecialchars($row['BarangayName']) ?>
-                                            </option>
-                                        <?php endforeach ?>
-                                        <!-- <option value="'.htmlspecialchars($barangay).'"></option>' -->
-                                    </select>
-                                </div>
-                            </div>
-                            </div>
-                            <!-- END OF HIDDEN DIV IF SHIP TO OTHER ADDRESS -->
-                                <div class="col-12">
-                                    
-                                    <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px;">PROOF OF PAYMENT</h6>
-                                </div>
-                            <div class="col-6">
-                                <label for="files" style="float:left; padding-bottom:10px; padding-left:23px;">Upload proof of payment</label>
-                                    <input type="file" name="proof" class="form-control  bg-light border-0 px-4 py-3" value="proof" readonly>
-                                </div>
-                                 
-                                <div class="col-6">
-                                    <label style="padding-bottom:10px;"></label>
-                                    <input type="text" name="refno" class="form-control  bg-light border-0 px-4 py-3" value="Reference No." readonly>
-                                </div>
+                                                <div class="col-6">
+                                                    <input type="text" name="province" class="form-control  bg-light border-0 px-4 py-3" value="NCR" readonly>
+                                                </div>
 
-                            <br/>
-                                <button type="submit" name="submit" class="btn btn-primary  py-3" style="float:right; width:20%;">Place Order</button>
-                            
-                            <div class="col-12"></div>
-                        </div>
-                    </form>
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                                <div class="col-6">
+                                                    <input type="text" name="city" class="form-control  bg-light border-0 px-4 py-3" value="Quezon City" readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-6" style="display: none;">
+                                                <?php
+                                                $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
+                                                $data = $sql->fetch_all(MYSQLI_ASSOC);
+                                                ?>
+                                                <select id="barangay" class="form-control  bg-light border-0 px-4 py-3" name="barangay" placeholder="Barangay" readonly>
+                                                    <option value="<?php echo $row['Barangay'] ?>" selected hidden><?php echo $row['Barangay'] ?></option>
+                                                    <?php foreach ($data as $row1) : ?>
+                                                        <option value="<?= htmlspecialchars($row1['BarangayName']) ?>">
+                                                            <?= htmlspecialchars($row1['BarangayName']) ?>
+                                                        </option>
+                                                    <?php endforeach ?>
+                                                    <!-- <option value="'.htmlspecialchars($barangay).'"></option>' -->
+                                                </select>
+                                            </div>
+
+
+                                            <!-- Address selection -->
+                                            <div class="col-12">
+                                                <?php
+                                                $sql = mysqli_query($con, "SELECT CONCAT(LotNo_Street, ', ' , Barangay, ', ', City, ', ', Province, ', ', ZIPCode) AS CurrentAddress FROM address WHERE UserID='$userID'");
+                                                $data = $sql->fetch_all(MYSQLI_ASSOC);
+                                                ?>
+
+                                                <select id="address" style="border-radius: 15px;" class="form-control  bg-light border-1 px-4 py-3" name="address" placeholder="Address" readonly>
+                                                    <option style="text-align: center;" selected disabled>-- Please select an address --</option>
+                                                    <?php foreach ($data as $row2) : ?>
+                                                        <option value="<?= htmlspecialchars($row2['CurrentAddress']) ?>">
+                                                            <?= htmlspecialchars($row2['CurrentAddress']) ?>
+                                                        </option>
+                                                    <?php endforeach ?>
+                                                </select>
+                                            </div>
+                                            <!-- End of Address selection -->
+
+                                            <div class="col-6" style="display: none;">
+                                                <input type="text" name="zipcode" class="form-control  bg-light border-0 px-4 py-3" placeholder="Zip Code" value="<?php echo $row['ZIPCode'] ?>" readonly>
+                                            </div>
+
+                                            <div class="col-6" style="text-align: left; padding-top:20px; padding-bottom: 10px;">
+                                                <input type="checkbox" name="different" id="different" value="Ship to a different address"> Ship to a different address
+                                            </div>
+
+                                            <!-- START OF HIDDEN DIV IF SHIP TO OTHER ADDRESS -->
+
+                                            <div id="other" style="display:none;">
+                                                <div class="row g-3">
+                                                    <div class="col-12">
+                                                        <h6 class="display-5 text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">Other Address</h6>
+                                                    </div>
+                                                    <div class="col-6 ">
+                                                        <input type="text" style="border-radius: 15px;" name="lotno_street_1" class="form-control  bg-light border-1 px-4 py-3" placeholder="House/Lot No. & Street">
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <input type="text" style="border-radius: 15px;" name="province_1" class="form-control  bg-light border-0 px-4 py-3" value="NCR" readonly>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="text" style="border-radius: 15px;" name="city_1" class="form-control  bg-light border-0 px-4 py-3" value="Quezon City" readonly>
+                                                    </div>
+
+                                                    <div class="col-6">
+                                                        <?php
+                                                        $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
+                                                        $data = $sql->fetch_all(MYSQLI_ASSOC);
+                                                        ?>
+                                                        <select id="barangay" style="border-radius: 15px;" class="form-control  bg-light border-1 px-4 py-3" name="barangay_1" placeholder="Barangay">
+                                                            <option value="" selected disabled>-- Please choose a barangay --</option>
+                                                            <?php foreach ($data as $row) : ?>
+                                                                <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
+                                                                    <?= htmlspecialchars($row['BarangayName']) ?>
+                                                                </option>
+                                                            <?php endforeach ?>
+                                                            <!-- <option value="'.htmlspecialchars($barangay).'"></option>' -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END OF HIDDEN DIV IF SHIP TO OTHER ADDRESS -->
+                                            <div class="col-12">
+                                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">PROOF OF PAYMENT</h6>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <label for="proof" style="float:left; padding-bottom:15px; padding-left:23px;">Upload proof of payment</label>
+                                                <input type="file" style="border-radius: 15px;" id="proof" name="proof" class="form-control bg-light border-1 px-4 py-3" value="proof" required>
+                                            </div>
+
+                                            <div class="col-6" style="padding-top: 15px;">
+                                                <label style="padding-bottom:20px;"></label>
+                                                <input type="text" name="refno" style="border-radius: 15px;" class="form-control bg-light border-1 px-4 py-3" placeholder="Reference No." required>
+                                            </div>
+
+                                            <br />
+
+                                            <div class="col-6">
+                                                <br><br>
+                                                <a class="btn btn-danger py-3" style="float:left; width:50%; border-radius: 15px;" href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>">Go Back</a>
+                                            </div>
+
+                                            <div class="col-6">
+                                                <br><br>
+                                                <button type="submit" name="order" class="btn btn-primary py-3" style="float:right; width:50%; border-radius: 15px;">Place Order</button>
+                                            </div>
+
+                                            <div></div>
+
+                                        </div>
+
+                                <?php
+                                    }
+                                } ?>
+    </form>
+    <!-- End of form -->
+
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     <!-- Orders End -->
 
-     <!-- Footer Start -->
-     <div class="container-fluid bg-light mt-5 py-5">
+    <!-- Footer Start -->
+    <div class="container-fluid bg-light mt-5 py-5">
         <div class="container pt-5">
             <div class="row g-5">
                 <div class="col-lg-4 col-md-6">
@@ -339,7 +427,7 @@ if (isset($_GET['delid'])) {
                         <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6">
                     <h6 class="text-uppercase mt-4 mb-3">Follow Us</h6>
                     <div class="d-flex">
