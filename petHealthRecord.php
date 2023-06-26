@@ -110,7 +110,7 @@ $petID = $_GET['petid'];
             <div class="col-xl-12">
 
                 <!-- START OF VACCINE RECORD -->
-                <div class="card mb-4 mb-xl-0">
+                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                     <div class="card-header userProfile-font"><b>💉 Vaccine Record</b></div>
                     <div class="card-body text-center">
                         <table class="table table-striped table-hover">
@@ -208,7 +208,7 @@ $petID = $_GET['petid'];
                 <!-- END OF VACCINE RECORD -->
                 <br /><br />
                 <!-- START OF HEALTH ASSESSMENT RECORD -->
-                <div class="card mb-4 mb-xl-0">
+                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                     <div class="card-header userProfile-font"><b>🩺 Health Assessment Record</b></div>
                     <div class="card-body text-center">
                         <table class="table table-striped table-hover">
@@ -290,8 +290,11 @@ $petID = $_GET['petid'];
 
             </div>
         </div>
+        <br>
+        <a class="btn btn-primary py-2" style="width:15%; border-radius: 15px;" href="userProfile.php">Go Back</a>
     </div>
     <!-- END OF PET HEALTH RECORD -->
+
 
 
     <!-- Footer Start -->

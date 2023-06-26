@@ -168,7 +168,7 @@ if (isset($_GET['delid'])) {
         <div class="row">
             <!-- START OF PET OWNER PROFILE -->
             <div class="col-xl-5">
-                <div class="card mb-4 mb-xl-0">
+                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                     <div class="card-header userProfile-font">👤 Pet Owner Profile &nbsp; <a href="" data-toggle="modal" title="Delete" style="float:right;" data-target="#update_modal<?php echo $row['userID'] ?>"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a></div>
                     <div class="card-body text-center">
                         <!-- Profile picture help block-->
@@ -224,14 +224,14 @@ if (isset($_GET['delid'])) {
             <!-- START OF PET PROFILE -->
             <div class="col-xl-7">
                 <!-- ADD PET BUTTON -->
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:100%;"><span class="glyphicon glyphicon-plus"></span>Add Pet</button>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:100%; border-radius: 15px;"><span class="glyphicon glyphicon-plus"></span>Add Pet</button>
                 <br>
                 <br>
                 <?php
                 $ret = mysqli_query($con, "SELECT * FROM pets WHERE UserID='$userID'");
                 while ($row = mysqli_fetch_array($ret)) {
                 ?>
-                    <div class="card mb-4">
+                    <div class="card mb-4" style="border-radius: 15px;">
                         <div class="card-header userProfile-font">🐾 Pet Profile &nbsp;<a href="userprofile.php?delid=<?php echo ($row['PetID']); ?>" style="float:right;" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a></div>
                         <div class="card-body">
                             <div style="display: none;">
@@ -283,7 +283,7 @@ if (isset($_GET['delid'])) {
                                 </tbody>
                             </table>
                             <!-- START OF BUTTON FOR VIEWING OF HEALTH RECORD -->
-                            <a href="pethealthrecord.php?petid=<?php echo ($row['PetID']); ?>" class="btn btn-primary" type="button" style="float:left;"><span class="glyphicon glyphicon-plus"></span>VIEW HEALTH
+                            <a href="petHealthRecord.php?petid=<?php echo ($row['PetID']); ?>" class="btn btn-primary" type="button" style="float:left; border-radius: 15px;"><span class="glyphicon glyphicon-plus"></span>VIEW HEALTH
                                 RECORD</a>
 
                             <!-- END OF BUTTON FOR VIEWING OF HEALTH RECORD -->
@@ -299,7 +299,7 @@ if (isset($_GET['delid'])) {
     <!-- START OF MODAL FOR EDIT PET OWNER PROFILE -->
     <div class="modal fade" id="update_modal<?php echo $row['userID'] ?>" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="border-radius: 15px;">
                 <form method="POST">
                     <div class="modal-header modal-header-success">
                         <h3 class="modal-title">Edit Profile</h3>
@@ -349,9 +349,9 @@ if (isset($_GET['delid'])) {
                     </div>
                     <div style="clear:both;"></div>
                     <div class="modal-footer">
-                        <button name="update" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span>
+                        <button name="update" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
                             Update</button>
-                        <button class="btn btn-danger" type="button" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
                     </div>
             </div>
             </form>
@@ -362,7 +362,7 @@ if (isset($_GET['delid'])) {
     <!-- START OF MODAL FOR ADDING NEW PET -->
     <div class="modal fade" id="form_modal" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="border-radius: 15px;">
                 <form method="POST" enctype="multipart/form-data" runat="server">
                     <div class="modal-header">
                         <h3 class="modal-title">Add New Pet</h3>
@@ -377,32 +377,32 @@ if (isset($_GET['delid'])) {
                             </div>
                             <div class="form-group">
                                 <label>Pet Name</label>
-                                <input type="text" name="petname" class="form-control" required="required" />
+                                <input type="text" name="petname" style="border-radius: 15px;" class="form-control" required="required" />
                             </div>
                             <div class="form-group">
                                 <label>Species</label>
-                                <input type="text" name="species" class="form-control" required="required" />
+                                <input type="text" name="species" style="border-radius: 15px;" class="form-control" required="required" />
                             </div>
                             <div class="form-group">
                                 <label>Breed</label>
-                                <input type="text" name="breed" class="form-control" required="required" />
+                                <input type="text" name="breed" style="border-radius: 15px;" class="form-control" required="required" />
                             </div>
                             <div class="form-group">
                                 <label>Age</label>
-                                <input type="text" name="age" class="form-control" required="required" />
+                                <input type="text" name="age" style="border-radius: 15px;" class="form-control" required="required" />
                             </div>
                             <div class="form-group">
                                 <label>Color</label>
-                                <input type="text" name="color" class="form-control" required="required" />
+                                <input type="text" name="color" style="border-radius: 15px;" class="form-control" required="required" />
                                 <input type="hidden" name="userID" value="<?php echo $userID ?>" />
                             </div>
                         </div>
                     </div>
                     <div style="clear:both;"></div>
                     <div class="modal-footer">
-                        <button name="save_pet" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>
+                        <button name="save_pet" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-save"></span>
                             Save</button>
-                        <button class="btn btn-danger" type="button" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
                     </div>
                 </form>
             </div>

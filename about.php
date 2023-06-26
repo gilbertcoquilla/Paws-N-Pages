@@ -35,9 +35,6 @@ include('connection.php');
 </head>
 
 <body>
-
-
-
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
         <a href="index.php" class="navbar-brand ms-lg-5">
@@ -82,7 +79,7 @@ include('connection.php');
             <div class="row gx-5">
                 <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded" src="img/about.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100 rounded" src="img/about.jpg" style="object-fit: cover; border-radius: 15px;">
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -91,13 +88,13 @@ include('connection.php');
                         <h1 class="text-primary text-uppercase">Welcome to Paws N Pages</h1>
                     </div>
                     <h4 class="text-body mb-4">Where we wholeheartedly welcome pet owners seeking exceptional veterinary care and convenient pet supplies. As a passionate team of pet lovers, we are driven by a deep understanding of the profound bond between humans and animals.</h4>
-                    <div class="bg-light p-4">
+                    <div class="bg-light p-4" style="border-radius: 15px;">
                         <ul class="nav nav-pills justify-content-between mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item w-50" role="presentation">
-                                <button class="nav-link text-uppercase w-100 active" id="pills-1-tab" data-bs-toggle="pill" data-bs-target="#pills-1" type="button" role="tab" aria-controls="pills-1" aria-selected="true">Our Mission</button>
+                                <button style="border-radius: 15px;" class="nav-link text-uppercase w-100 active" id="pills-1-tab" data-bs-toggle="pill" data-bs-target="#pills-1" type="button" role="tab" aria-controls="pills-1" aria-selected="true">Our Mission</button>
                             </li>
                             <li class="nav-item w-50" role="presentation">
-                                <button class="nav-link text-uppercase w-100" id="pills-2-tab" data-bs-toggle="pill" data-bs-target="#pills-2" type="button" role="tab" aria-controls="pills-2" aria-selected="false">Our Vission</button>
+                                <button style="border-radius: 15px;" class="nav-link text-uppercase w-100" id="pills-2-tab" data-bs-toggle="pill" data-bs-target="#pills-2" type="button" role="tab" aria-controls="pills-2" aria-selected="false">Our Vission</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
@@ -131,42 +128,42 @@ include('connection.php');
             <div class="owl-carousel team-carousel position-relative" style="padding-right: 25px;">
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/1.png" alt="">
+                        <img class="img-fluid w-100" src="img/1.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/2.png" alt="">
+                        <img class="img-fluid w-100" src="img/2.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/3.png" alt="">
+                        <img class="img-fluid w-100" src="img/3.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/4.png" alt="">
+                        <img class="img-fluid w-100" src="img/4.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/5.png" alt="">
+                        <img class="img-fluid w-100" src="img/5.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/6.png" alt="">
+                        <img class="img-fluid w-100" src="img/6.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/7.png" alt="">
+                        <img class="img-fluid w-100" src="img/7.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/8.png" alt="">
+                        <img class="img-fluid w-100" src="img/8.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
 
@@ -185,42 +182,42 @@ include('connection.php');
             <div class="owl-carousel team-carousel position-relative" style="padding-right: 25px;">
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/9.png" alt="">
+                        <img class="img-fluid w-100" src="img/9.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/10.png" alt="">
+                        <img class="img-fluid w-100" src="img/10.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/11.png" alt="">
+                        <img class="img-fluid w-100" src="img/11.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/12.png" alt="">
+                        <img class="img-fluid w-100" src="img/12.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/13.png" alt="">
+                        <img class="img-fluid w-100" src="img/13.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/14.png" alt="">
+                        <img class="img-fluid w-100" src="img/14.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/15.png" alt="">
+                        <img class="img-fluid w-100" src="img/15.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="img/16.png" alt="">
+                        <img class="img-fluid w-100" src="img/16.png" alt="" style="border-radius: 15px;">
                     </div>
                 </div>
 
@@ -238,7 +235,7 @@ include('connection.php');
             </div>
             <div class="row g-5">
                 <div class="col-md-4">
-                    <div class="service-item bg-light d-flex p-4">
+                    <div class="service-item bg-light d-flex p-4" style="border-radius: 15px;">
                         <i class="flaticon-location display-1 text-primary me-4"></i>
                         <div>
                             <h5 class="text-uppercase mb-3">Veterinary Clinics Directory</h5>
@@ -249,7 +246,7 @@ include('connection.php');
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="service-item bg-light d-flex p-4">
+                    <div class="service-item bg-light d-flex p-4" style="border-radius: 15px;">
                         <i class="display-1 text-primary me-4"></i>
                         <div>
                             <h5 class="text-uppercase mb-3">Booking of Appointments</h5>
@@ -261,20 +258,21 @@ include('connection.php');
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="service-item bg-light d-flex p-4">
+                    <div class="service-item bg-light d-flex p-4" style="border-radius: 15px;">
                         <i class="display-1 text-primary me-4"></i>
                         <div>
                             <h5 class="text-uppercase mb-3">Pet Booklet</h5>
                             <p>Digitalize your Pet Booklet and never have to loose it again!
                             </p>
                             <img src="https://media.discordapp.net/attachments/1112075552669581332/1121348266773184552/31.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
+                            <p style="padding-bottom: 40px;"></p>
                             <a class="text-primary text-uppercase" href="contact.php">Contact Us<i class="bi bi-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-12">
-                    <div class="service-item bg-light d-flex p-4">
+                    <div class="service-item bg-light d-flex p-4" style="border-radius: 15px;">
                         <i class="display-1 text-primary me-4"></i>
                         <div>
                             <h5 class="text-uppercase mb-3">Want to Join Our Clinic Directory?</h5>
