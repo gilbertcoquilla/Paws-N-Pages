@@ -1,26 +1,3 @@
-<?php
-session_start();
-$message = "";
-if (count($_POST) > 0) {
-    $con = mysqli_connect("localhost", "root", "", "pawsnpages_db") or die('Unable to connect');
-    $result = mysqli_query($con, "SELECT * FROM users WHERE Username='" . $_POST["username"] . "' and Password = '" . $_POST["password"] . "'");
-    $row = mysqli_fetch_array($result);
-
-    if (is_array($row)) {
-        $_SESSION["id"] = $row['UserID'];
-        $_SESSION["name"] = $row['Username'];
-    } else {
-        // echo '<script> alert("Invalid Username or Password!")</script>';
-        echo 'echo "<p styly="color:red;">Invalid Username or Password!</p>";';
-
-    }
-}
-if (isset($_SESSION["id"])) {
-    header("Location:index.php");
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <!--- NO BACKGROUND YET
@@ -46,6 +23,10 @@ if (isset($_SESSION["id"])) {
     <!-- Icon Font Stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css">
+
 
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -87,7 +68,7 @@ if (isset($_SESSION["id"])) {
                         <div class="row g-3 bg-dark">
                             <div class="col-6 ">
                                 <input type="button" class="btn btn-primary w-100 py-3"
-                                    onclick="window.location='registration.php'" value="SIGN UP">
+                                    onclick="window.location='vet-or-pet.php'" value="SIGN UP">
                             </div>
                             <div class="col-6">
                                 <input type="button" class="btn btn-outline-light w-100 py-3"
@@ -96,6 +77,28 @@ if (isset($_SESSION["id"])) {
                             <div class="col-12">
                                 <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Welcome Back! 🫶</h5>
                             </div>
+
+                            <?php
+                            session_start();
+                            $message = "";
+                            if (count($_POST) > 0) {
+                                $con = mysqli_connect("localhost", "root", "", "pawsnpages_db") or die('Unable to connect');
+                                $result = mysqli_query($con, "SELECT * FROM users WHERE Username='" . $_POST["username"] . "' and Password = '" . $_POST["password"] . "'");
+                                $row = mysqli_fetch_array($result);
+
+                                if (is_array($row)) {
+                                    $_SESSION["id"] = $row['UserID'];
+                                    $_SESSION["name"] = $row['Username'];
+                                } else {
+                                    echo '<div class="alert alert-danger"><i class="fa fa-times-circle"></i>&nbsp; Invalid Username or Password!</div>';
+                                }
+                            }
+                            if (isset($_SESSION["id"])) {
+                                header("Location:index.php");
+                            }
+                            ?>
+
+
                             <div class="col-12">
                                 <input type="text" name="username" id="username"
                                     class="form-control  bg-light border-0 px-4 py-3" placeholder="Username">
