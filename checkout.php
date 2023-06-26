@@ -307,7 +307,7 @@ if (isset($_POST['order'])) {
                                                 $data = $sql->fetch_all(MYSQLI_ASSOC);
                                                 ?>
 
-                                                <select id="address" style="border-radius: 15px;" class="form-control  bg-light border-1 px-4 py-3" name="address" placeholder="Address" readonly>
+                                                <select id="address" style="border-radius: 15px; width: 100%;" class="bg-light border-0 px-4 py-3" name="address" placeholder="Address" readonly>
                                                     <option style="text-align: center;" selected disabled>-- Please select an address --</option>
                                                     <?php foreach ($data as $row2) : ?>
                                                         <option value="<?= htmlspecialchars($row2['CurrentAddress']) ?>">
@@ -349,7 +349,7 @@ if (isset($_POST['order'])) {
                                                         $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
                                                         $data = $sql->fetch_all(MYSQLI_ASSOC);
                                                         ?>
-                                                        <select id="barangay" style="border-radius: 15px;" class="form-control  bg-light border-1 px-4 py-3" name="barangay_1" placeholder="Barangay">
+                                                        <select id="barangay" style="border-radius: 15px; width: 100%" class="bg-light border-0 px-4 py-3" name="barangay_1" placeholder="Barangay">
                                                             <option value="" selected disabled>-- Please choose a barangay --</option>
                                                             <?php foreach ($data as $row) : ?>
                                                                 <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
