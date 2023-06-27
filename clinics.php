@@ -65,7 +65,7 @@ include('connection.php');
     <!-- Blog Start -->
     <div class="container py-5">
         <!-- Loc Test Start -->
-        <h1>Nearby Veterinary Clinics</h1>
+        <h1>Veterinary Clinics</h1>
         <br>
         <script src="script.js"></script>
         <div class="row g-5">
@@ -84,30 +84,15 @@ include('connection.php');
                 <div class="mb-5">
                     <h3 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Services</h3>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Wellness
-                            Examinations </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Vaccinations </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Spaying and
-                            Neutering </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Dental Care </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Surgery </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Laboratory and
-                            Diagnostic Testing </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;24/7 Emergency and
-                            Critical Care </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Parasite Control
-                        </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Nutrition and Diet
-                            Counseling </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Pet Boarding and
-                            Daycare </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Grooming Services
-                        </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Behavior Counseling
-                        </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Microchipping </a>
-                        <a class="h5 bg-light py-2 px-3 mb-2" href="#"><input type="checkbox">&nbsp;Hospice and
-                            Palliative Care </a>
+                        <?php
+                        $sql = mysqli_query($con, "SELECT DISTINCT ServiceName FROM services");
+                        $data = $sql->fetch_all(MYSQLI_ASSOC);
+                        foreach ($data as $row) :
+                        ?>
+                            <a class="h5 bg-light py-2 px-3 mb-2" href="#" style="border-radius: 15px;"><input type="checkbox">&nbsp;
+                                <?= htmlspecialchars($row['ServiceName']) ?>
+                            </a>
+                        <?php endforeach ?>
                     </div>
                 </div>
                 <!-- Services End -->
