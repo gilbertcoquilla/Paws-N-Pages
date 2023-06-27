@@ -337,7 +337,7 @@ if ($row_a > 0) {
                                 if ($row1 > 0) {
                                     while ($row1 = mysqli_fetch_array($ret1)) {
                                 ?>
-                                        <select name="quantity" class="form-control bg-light border-1 px-4 py-3" style="width: 15%; border-radius: 15px;">
+                                        <select name="quantity" class="bg-light border-0 px-4 py-3" style="width: 15%; border-radius: 15px;">
                                             <?php
                                             for ($i = 1; $i <= $row_c['Stocks']; $i++) {
                                             ?>
