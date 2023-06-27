@@ -133,6 +133,14 @@ if (isset($_GET['delid'])) {
             }
         }
     </script>
+      <script>
+    function calculateTotal() {
+      var price = 49; //booklet price per pet
+      var petqty = parseInt(document.getElementById("petqty").value);
+      var total = isNaN(petqty) ? 0 : price * petqty;
+      document.getElementById("total").textContent = "₱" + total.toFixed(2);
+    }
+  </script>
 </head>
 
 <body>
@@ -224,8 +232,11 @@ if (isset($_GET['delid'])) {
             <!-- START OF PET PROFILE -->
             <div class="col-xl-7">
                 <!-- ADD PET BUTTON -->
+                
+
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:100%; border-radius: 15px;"><span class="glyphicon glyphicon-plus"></span>Add Pet</button>
                 <br>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#paybooklet" style="float:right; width:100%; border-radius: 15px;"><span class="glyphicon glyphicon-plus"></span>Add More Pets</button>
                 <br>
                 <?php
                 $ret = mysqli_query($con, "SELECT * FROM pets WHERE UserID='$userID'");
@@ -359,7 +370,48 @@ if (isset($_GET['delid'])) {
     </div>
     <!-- END OF MODAL FOR EDIT PET OWNER PROFILE -->
 
-    <!-- START OF MODAL FOR ADDING NEW PET -->
+    <!-- START OF MODAL FOR PURCHASING DIGITAL PET BOOKLET -->
+    <div class="modal fade" id="paybooklet" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="border-radius: 15px;">
+                <form method="POST" enctype="multipart/form-data" runat="server">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Add Digital Pet Booklet</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="petqty">Number of Pets/Booklet:</label>
+                                <input type="number" id="petqty" name="petqty" min="1" oninput="calculateTotal()" style="border-radius: 15px;" class="form-control" required="required">
+                                <br><Strong>
+                                <label for="total">Total Price:</label>
+                                <span id="total">₱ 0.00</span></strong>
+                                <br>
+                            </div>
+                            <div class="form-group">
+                            <img src="https://media.discordapp.net/attachments/1112075552669581332/1123236171829481552/4F28300A-EFF2-4FF4-B119-6A751AC8261B.jpg?width=648&height=648" style="width:100%">
+                            <label>Kindly pay the total amount to the GCash QR code above & attach your screenshot below.</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Proof of Payment</label>
+                                <img id="proof" src="" width="100px" />
+                                <input type="file" name="proof" style="border-radius: 15px;" class="form-control" onchange="previewFile(this);" />
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="modal-footer">
+                        <button name="pay_booklet" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-save"></span>
+                            Save</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END OF MODAL FOR PURCHASING DIGITAL PET BOOKLET -->
+
+      <!-- START OF MODAL FOR ADDING NEW PET -->
     <div class="modal fade" id="form_modal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" style="border-radius: 15px;">
