@@ -211,7 +211,7 @@ if (isset($_POST['submit'])) {
 
 
                     <?php
-                            $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id'");
+                            $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id' LIMIT 4");
                             $cnt2 = 1;
                             $row2 = mysqli_num_rows($ret2);
                             if ($row2 > 0) {
