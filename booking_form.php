@@ -25,9 +25,12 @@ if (isset($_POST['submit'])) {
 
     $clinicid = $_POST['clinicID'];
 
+    date_default_timezone_set("Asia/Hong_Kong");
+    $currentDateTime = date('y-m-d h:i:s A');
+
     // foreach ($services as $listofservices) {
     // Query for data insertion
-    $query = mysqli_query($con, "INSERT INTO appointments (Notes, PreferredDate, PreferredTime, AppointmentStatus, AvailedServices, UserID, Appointment_RefNo, ClinicID) VALUES ('$notes', '$appointmentDate', '$appointmentTime', '$status', '$listofservices', '$userID', '$brefno', '$clinicid')");
+    $query = mysqli_query($con, "INSERT INTO appointments (Notes, PreferredDate, PreferredTime, AppointmentStatus, AvailedServices, UserID, Appointment_RefNo, ClinicID, DateTimeBooked) VALUES ('$notes', '$appointmentDate', '$appointmentTime', '$status', '$listofservices', '$userID', '$brefno', '$clinicid', '$currentDateTime')");
     if ($query) {
         echo "<script>alert('You have successfully booked an appointment!');</script>";
         echo "<script> document.location ='booking_form.php'; </script>";
@@ -272,9 +275,8 @@ if (isset($_POST['submit'])) {
                     <br />
                     <div class="col-12">
                         <h5>Preferred time:</h5>
-                        <input type="time" class="form-control bg-light border-0 px-4 py-3" style="border-radius: 15px;" id="timePicker" name="appointmentTime" required step="3600" oninvalid="this.setCustomValidity('Please choose a time by hour and double check the operating days and hours of the clinic')" oninput="this.setCustomValidity('')">
-                        <span style="color:red; font-style:italic;">*Please choose a time by hour and double check the operating days
-                            and hours of the clinic</span>
+                        <input type="time" class="form-control bg-light border-0 px-4 py-3" style="border-radius: 15px;" id="timePicker" name="appointmentTime" required>
+                        <span style="color:red; font-style:italic;">*Please double check the operating days and hours of the clinic</span>
                     </div>
                     <br />
                     <div class="col-12">
