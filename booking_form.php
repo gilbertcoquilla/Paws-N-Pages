@@ -247,7 +247,7 @@ if (isset($_POST['submit'])) {
                         <h5>Services to avail</h5>
 
                         <?php
-                        $ret = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id' LIMIT 4");
+                        $ret = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id'");
                         $cnt = 1;
                         $row = mysqli_num_rows($ret);
                         if ($row > 0) {
