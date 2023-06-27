@@ -211,7 +211,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                                     while ($row1 = mysqli_fetch_array($ret1)) {
                                 ?>
                             <p>
-                                <?php echo $row1['LotNo_Street'] . '<br/> Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City'] ?><br />
+                                <?php echo $row1['LotNo_Street'] . '<br/> Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City'] ?><br /><br />
                                 <?php echo '<b>Operating Hours: </b>' . date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?><br />
                                 <?php echo '<b>Operating Days: </b>' . $row1['OperatingDays'] ?>
                             </p>
