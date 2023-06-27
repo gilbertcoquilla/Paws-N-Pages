@@ -100,7 +100,12 @@ if (isset($_GET['delid'])) {
 
           <div class="col-lg-12">
             <h5 class="mb-3" style="float:left;"><a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>" style="color: rgb(102, 176, 50);"><i class="bi bi-chevron-left"></i>&nbsp;Continue shopping</a></h5>
-            <p style="float:right;">You have <b><?php echo $sum_q ?></b> item(s) in your cart</p><br />
+
+            <?php if ($sum_q != 0) { ?>
+              <p style="float:right;">You have <b><?php echo $sum_q ?></b> item(s) in your cart</p><br />
+            <?php } else { ?>
+              <p style="float:right;">You have <b>0</b> item(s) in your cart</p><br />
+            <?php } ?>
             <br>
             <div class="card mb-3" style="border-radius: 15px;">
               <div class="card-body">
