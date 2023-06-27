@@ -27,8 +27,8 @@ $ship_to_address = $_POST['address'];
 $orderStatus = 'Pending';
 
 // For proof of payment
-$file = $_FILES['proof']['name'];
-$tempfile = $_FILES['proof']['tmp_name'];
+$file = $_FILES['proofOfPayment']['name'];
+$tempfile = $_FILES['proofOfPayment']['tmp_name'];
 $folder = "image_upload/" . $file;
 move_uploaded_file($tempfile, $folder);
 
@@ -47,7 +47,17 @@ $order_refno = $code . $ymd . $sequence;
 // Insert data to DB
 if ($row_a > 0) {
     if (isset($_POST['order'])) {
-        $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus')");
+
+        // Insert to orders table
+        $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus', '$clinic_id')");
+
+        // To update stocks
+        // $stocks_query = mysqli_query($con, "UPDATE ");
+
+        // // To remove item from cart
+        // $del_query = mysqli_query($con, "DELETE FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+
+        // if ($query && $stocks_query && $del_query) {    
         if ($query) {
             echo "<script>alert('Thanks for ordering!');</script>";
             echo "<script> document.location ='clinics.php'; </script>";
@@ -146,7 +156,7 @@ if ($row_a > 0) {
     </div>
 
     <!-- Start of form -->
-    <form method="post" action="">
+    <form method="post" enctype="multipart/form-data" runat="server">
         <div class="container-xl px-4 mt-4">
             <div class="row">
                 <div class="col-xl-4">
@@ -365,7 +375,7 @@ if ($row_a > 0) {
 
                                             <div class="col-6">
                                                 <label for="proof" style="float:left; padding-bottom:15px; padding-left:23px;">Upload proof of payment</label>
-                                                <input type="file" style="border-radius: 15px;" id="proof" name="proof" class="form-control bg-light border-1 px-4 py-3" value="proof" required>
+                                                <input type="file" style="border-radius: 15px;" name="proofOfPayment" class="form-control bg-light border-1 px-4 py-3" required>
                                             </div>
 
                                             <div class="col-6" style="padding-top: 15px;">
