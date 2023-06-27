@@ -19,16 +19,10 @@ $row_q = mysqli_fetch_assoc($ret_q);
 $sum_q = $row_q['total_items'];
 
 // Details
-$od_quantity = $_REQUEST['quantity'];
-// $od_products = implode(', ', $_REQUEST['products']);
-
-// $od_details = $od_quantity . 'x' . $od_products;
-
 $totalPrice = $_POST['totalprice'];
-
+$od_products = $_POST['od_product'];
 date_default_timezone_set("Asia/Hong_Kong");
 $currentDateTime = date('y-m-d h:i:sa');
-
 $ship_to_address = $_POST['address'];
 $orderStatus = 'Pending';
 
@@ -50,33 +44,23 @@ $order_refno = $code . $ymd . $sequence;
 // 1) decrease number of stocks depending on the number of items ordered
 // 2) delete items in cart after placing order
 
-
 // Insert data to DB
-// if ($row_a > 0) {
-//     if (isset($_POST['order'])) {
-//         $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus')");
-//         if ($query) {
-//             echo "<script>alert('Thanks for ordering!');</script>";
-//             echo "<script> document.location ='clinics.php'; </script>";
-//         } else {
-//             echo "<script>alert('Something went wrong. Please try again');</script>";
-//         }
-//     }
-// } else {
-//     echo "<script>alert('Please add a product first to continue');</script>";
-// }
-
-if (isset($_POST['order'])) {
-    $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus')");
-    if ($query) {
-        echo "<script>alert('Thanks for ordering!');</script>";
-        echo "<script> document.location ='clinics.php'; </script>";
-    } else {
-        echo "<script>alert('Something went wrong. Please try again');</script>";
+if ($row_a > 0) {
+    if (isset($_POST['order'])) {
+        $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus')");
+        if ($query) {
+            echo "<script>alert('Thanks for ordering!');</script>";
+            echo "<script> document.location ='clinics.php'; </script>";
+        } else {
+            echo "<script>alert('Something went wrong. Please try again');</script>";
+        }
     }
+} else {
+    echo "<script>alert('Please add a product first to continue');</script>";
 }
-
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -170,6 +154,22 @@ if (isset($_POST['order'])) {
                     <div class="card mb-4 mb-xl-0 container" style="background-color:white; border-radius: 15px;">
                         <div class="card-body text-center">
 
+                            <!-- To save ordered products to db -->
+                            <input type="hidden" name="od_product" value="<?php
+                                                                            $ret_t = mysqli_query($con, "SELECT CONCAT('(', orderdetails.Quantity, 'x) ', petsupplies.SupplyName) AS orderedProduct FROM orderdetails, petsupplies WHERE orderdetails.SupplyID = petsupplies.SupplyID AND petsupplies.ClinicID = orderdetails.ClinicID AND orderdetails.UserID='$userID' AND orderdetails.ClinicID='$clinic_id'");
+                                                                            $cnt_t = 1;
+                                                                            $row_t = mysqli_num_rows($ret_t);
+                                                                            if ($row_t > 0) {
+                                                                                while ($row_t = mysqli_fetch_array($ret_t)) {
+
+                                                                                    $od_product = $row_t['orderedProduct'] . ', ';
+                                                                                    $_SESSION['od_product'] = $od_product;
+                                                                                    echo $od_product;
+                                                                                    $cnt_t = $cnt_t + 1;
+                                                                                }
+                                                                            }
+                                                                            ?>">
+
                             <div class="col-12" style="padding-bottom: 5px;">
                                 <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">order summary</h6>
                             </div>
@@ -196,18 +196,15 @@ if (isset($_POST['order'])) {
                                         <div class="row" style="font-size: 17px;">
                                             <div class="col-4">
                                                 <p><?php echo $row['Quantity'] ?></p>
-                                                <div style="display: none;"><input type="text" id="quantities" name="quantities[]" value="<?php echo $row['Quantity'] ?>"></div>
                                             </div>
                                             <div class="col-4">
                                                 <p><?php echo $row['SupplyName'] ?></p>
-                                                <div style="display: none;"><input type="text" id="products" name="products[]" value="<?php echo $row['SupplyName'] ?>"></div>
                                             </div>
                                             <div class="col-4">
                                                 <p>₱ <?php echo $row['Price'] ?></p>
                                             </div>
                                         </div>
                                     </div>
-
                             <?php
                                     $cnt = $cnt + 1;
                                 }
@@ -385,7 +382,11 @@ if (isset($_POST['order'])) {
 
                                             <div class="col-6">
                                                 <br><br>
-                                                <button type="submit" name="order" class="btn btn-primary py-3" style="float:right; width:50%; border-radius: 15px;">Place Order</button>
+
+                                                <?php if ($row_a > 0) { ?>
+                                                    <button type="submit" name="order" class="btn btn-primary py-3" style="float:right; width:50%; border-radius: 15px;">Place Order</button>
+                                                <?php } ?>
+
                                             </div>
 
                                             <div></div>

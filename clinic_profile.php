@@ -263,7 +263,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                         while ($row = mysqli_fetch_array($ret)) {
                     ?>
                             <div class="bg-light d-flex flex-column text-center" style="border-radius: 15px;">
-                                <div class="image-container">
+                                <div class="image-container" style="border-radius: 15px 15px 0px 0px;">
                                     <?php if ($row['SupplyImage'] != "") {
                                         echo '<a href="product.php?productid=' . $row['SupplyID'] . '"><img class="img-fluid mb-4" src="image_upload/' . $row['SupplyImage'] . '"></a>';
                                     } ?>
