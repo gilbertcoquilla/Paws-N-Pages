@@ -328,53 +328,62 @@ if ($row_a > 0) {
                             <input type="hidden" name="price" value="<?php echo $row['SupplyPrice'] ?>">
                             <br>
 
-                            <div class="quantity-container" style="padding-top: 10px; padding-bottom: 15px;">
-                                <span class="quantity-label" style="font-size: 20px;">QUANTITY</span>&nbsp;
-                                <?php
-                                $ret1 = mysqli_query($con, "SELECT * FROM orderdetails WHERE SupplyID='$supply_id' AND UserID='$userID'");
-                                $cnt1 = 1;
-                                $row1 = mysqli_num_rows($ret1);
-                                if ($row1 > 0) {
-                                    while ($row1 = mysqli_fetch_array($ret1)) {
-                                ?>
+                            <!-- Show quantity only if the stock is above 0 -->
+                            <?php if ($row_c['Stocks'] > 0) { ?>
+                                <div class="quantity-container" style="padding-top: 10px; padding-bottom: 15px;">
+                                    <span class="quantity-label" style="font-size: 20px;">QUANTITY</span>&nbsp;
+                                    <?php
+                                    $ret1 = mysqli_query($con, "SELECT * FROM orderdetails WHERE SupplyID='$supply_id' AND UserID='$userID'");
+                                    $cnt1 = 1;
+                                    $row1 = mysqli_num_rows($ret1);
+                                    if ($row1 > 0) {
+                                        while ($row1 = mysqli_fetch_array($ret1)) {
+                                    ?>
+                                            <select name="quantity" class="bg-light border-0 px-4 py-3" style="width: 20%; border-radius: 15px;">
+                                                <?php
+                                                for ($i = 1; $i <= $row_c['Stocks']; $i++) {
+                                                ?>
+                                                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                    <option value="<?php echo $row1['Quantity']; ?>" selected hidden><?php echo $row1['Quantity']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+
+                                        <?php
+                                            $cnt1 = $cnt1 + 1;
+                                        }
+                                    } else {
+                                        ?>
+
                                         <select name="quantity" class="bg-light border-0 px-4 py-3" style="width: 20%; border-radius: 15px;">
                                             <?php
                                             for ($i = 1; $i <= $row_c['Stocks']; $i++) {
                                             ?>
-                                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
-                                                <option value="<?php echo $row1['Quantity']; ?>" selected hidden><?php echo $row1['Quantity']; ?></option>
+                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                             <?php
                                             }
                                             ?>
                                         </select>
 
-                                    <?php
-                                        $cnt1 = $cnt1 + 1;
-                                    }
-                                } else {
-                                    ?>
+                                    <?php } ?>
 
-                                    <select name="quantity" class="bg-light border-0 px-4 py-3" style="width: 20%; border-radius: 15px;">
-                                        <?php
-                                        for ($i = 1; $i <= $row_c['Stocks']; $i++) {
-                                        ?>
-                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
+                                </div>
+                            <?php } ?>
 
-                                <?php } ?>
 
-                            </div>
 
                             <!-- To display status of stocks -->
                             <?php if ($row_c['Stocks'] >= 15) { ?>
                                 <p style="font-size: 18px; font-style: italic;">In stock</p>
                             <?php } ?>
 
-                            <?php if ($row_c['Stocks'] < 15) { ?>
+                            <?php if ($row_c['Stocks'] < 15 && $row_c['Stocks'] > 0) { ?>
                                 <p style="font-size: 18px; font-style: italic; color: red;">Low stock</p>
+                            <?php } ?>
+
+                            <?php if ($row_c['Stocks'] == 0) { ?>
+                                <p style="font-size: 18px; font-style: italic; color: red;">Sold out</p>
                             <?php } ?>
                             <!-- To display status of stocks -->
 
