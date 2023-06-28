@@ -40,29 +40,85 @@ $ymd = date('ymd');
 $sequence = rand(00000, 99999);
 $order_refno = $code . $ymd . $sequence;
 
+$shipToOtherAddress = $_POST['different'];
+
 // Still lacking:
 // 1) decrease number of stocks depending on the number of items ordered
 // 2) delete items in cart after placing order
 
 // Insert data to DB
 if ($row_a > 0) {
-    if (isset($_POST['order'])) {
+    if ($shipToOtherAddress == "") {
+        if (isset($_POST['order'])) {
 
-        // Insert to orders table
-        $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus', '$clinic_id')");
+            // Insert to orders table
+            $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus', '$clinic_id')");
 
-        // To update stocks
-        // $stocks_query = mysqli_query($con, "UPDATE ");
+            // To update stocks
+            $stocks_query = mysqli_query($con, "SELECT SupplyID FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+            $data = $stocks_query->fetch_all(MYSQLI_ASSOC);
+            foreach ($data as $stock) {
+                $conv_stock = implode($stock);
+                $a = mysqli_query($con, "SELECT Stocks - (SELECT Quantity FROM orderdetails WHERE SupplyID='$conv_stock' AND UserID='$userID') AS UpdatedStock FROM petsupplies WHERE SupplyID='$conv_stock'");
+                $a_row = mysqli_fetch_array($a);
 
-        // // To remove item from cart
-        // $del_query = mysqli_query($con, "DELETE FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+                $updatedStock = $a_row['UpdatedStock'];
+                $b = mysqli_query($con, "UPDATE petsupplies SET Stocks='$updatedStock' WHERE SupplyID='$conv_stock'");
+            }
 
-        // if ($query && $stocks_query && $del_query) {    
-        if ($query) {
-            echo "<script>alert('Thanks for ordering!');</script>";
-            echo "<script> document.location ='clinics.php'; </script>";
-        } else {
-            echo "<script>alert('Something went wrong. Please try again');</script>";
+            // To remove item from cart
+            $del_query = mysqli_query($con, "DELETE FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+
+            // if ($query && $stocks_query && $del_query) {
+            if ($query) {
+                // if ($query) {    
+                echo "<script>alert('Thanks for ordering!');</script>";
+                echo "<script> document.location ='clinics.php'; </script>";
+            } else {
+                echo "<script>alert('Something went wrong. Please try again');</script>";
+            }
+        }
+    } else {
+
+        $lotno_street_1 = $_POST['lotno_street_1'];
+        $province_1 = $_POST['province_1'];
+        $city_1 = $_POST['city_1'];
+        $barangay_1 = $_POST['barangay_1'];
+        $zipcode_1 = $_POST['zipcode_1'];
+
+        $address_1 = $lotno_street_1 . ', ' . $province_1 . ', ' . $city_1 . ', ' . $barangay_1 . ', ' . $zipcode_1;
+
+        if (isset($_POST['order'])) {
+
+            // Insert to address table
+            $a_query = mysqli_query($con, "INSERT INTO address (LotNo_Street, Barangay, City, Province, ZIPCode, UserID) VALUES ('$lotno_street_1', '$province_1', '$city_1', '$barangay_1', '$zipcode_1', '$userID')");
+
+            // Insert to orders table
+            $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$address_1', '$file', '$reference_no', '$orderStatus', '$clinic_id')");
+
+            // To update stocks
+            $stocks_query = mysqli_query($con, "SELECT SupplyID FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+            $data = $stocks_query->fetch_all(MYSQLI_ASSOC);
+            foreach ($data as $stock) {
+                $conv_stock = implode($stock);
+                $a = mysqli_query($con, "SELECT Stocks - (SELECT Quantity FROM orderdetails WHERE SupplyID='$conv_stock' AND UserID='$userID') AS UpdatedStock FROM petsupplies WHERE SupplyID='$conv_stock'");
+                $a_row = mysqli_fetch_array($a);
+
+                $updatedStock = $a_row['UpdatedStock'];
+                $b = mysqli_query($con, "UPDATE petsupplies SET Stocks='$updatedStock' WHERE SupplyID='$conv_stock'");
+            }
+
+            // To remove item from cart
+            $del_query = mysqli_query($con, "DELETE FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+
+            // if ($a_query && $query && $stocks_query && $del_query) {
+            if ($query) {
+                // if ($query) {    
+                echo "<script>alert('Thanks for ordering!');</script>";
+                echo "<script> document.location ='clinics.php'; </script>";
+            } else {
+                echo "<script>alert('Something went wrong. Please try again');</script>";
+            }
         }
     }
 } else {
@@ -255,8 +311,6 @@ if ($row_a > 0) {
 
                         <div class="card-body text-center">
                             <div class=" userProfile">
-
-
                                 <?php
                                 $ret = mysqli_query($con, "SELECT * FROM users, address WHERE users.UserID = address.UserID AND users.UserID='$userID' LIMIT 1");
                                 $cnt = 1;
@@ -340,15 +394,15 @@ if ($row_a > 0) {
                                                     <div class="col-12">
                                                         <h6 class="display-5 text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">Other Address</h6>
                                                     </div>
-                                                    <div class="col-6 ">
-                                                        <input type="text" style="border-radius: 15px;" name="lotno_street_1" class="form-control  bg-light border-1 px-4 py-3" placeholder="House/Lot No. & Street">
+                                                    <div class="col-12">
+                                                        <input type="text" style="border-radius: 15px; width: 100%;" name="lotno_street_1" class="form-control bg-light border-1 px-4 py-3" placeholder="House/Lot No. & Street">
                                                     </div>
 
                                                     <div class="col-6">
-                                                        <input type="text" style="border-radius: 15px;" name="province_1" class="form-control  bg-light border-0 px-4 py-3" value="NCR" readonly>
+                                                        <input type="text" style="border-radius: 15px;" name="province_1" class="form-control bg-light border-0 px-4 py-3" value="NCR" readonly>
                                                     </div>
                                                     <div class="col-6">
-                                                        <input type="text" style="border-radius: 15px;" name="city_1" class="form-control  bg-light border-0 px-4 py-3" value="Quezon City" readonly>
+                                                        <input type="text" style="border-radius: 15px;" name="city_1" class="form-control bg-light border-0 px-4 py-3" value="Quezon City" readonly>
                                                     </div>
 
                                                     <div class="col-6">
@@ -365,6 +419,9 @@ if ($row_a > 0) {
                                                             <?php endforeach ?>
                                                             <!-- <option value="'.htmlspecialchars($barangay).'"></option>' -->
                                                         </select>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input type="text" style="border-radius: 15px;" name="zipcode_1" class="form-control bg-light border-0 px-4 py-3" placeholder="ZIP Code">
                                                     </div>
                                                 </div>
                                             </div>
