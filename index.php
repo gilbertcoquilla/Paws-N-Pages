@@ -139,7 +139,7 @@ include('connection.php');
                                 <p>Click here to view your booked appointments</p>
                                 <img src="https://i.ibb.co/jZxWwSW/3.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" href="#" />
 
-                                <a class="text-primary text-uppercase" href="">View Appointments<i class="bi bi-chevron-right"></i></a>
+                                <a class="text-primary text-uppercase" href="appointments.php">View Appointments<i class="bi bi-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@ include('connection.php');
                                 <p>Click here to view your orders and to track its delivery</p>
                                 <img src="https://i.ibb.co/S5CJjnD/4.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
 
-                                <a class="text-primary text-uppercase" href="">View Orders<i class="bi bi-chevron-right"></i></a>
+                                <a class="text-primary text-uppercase" href="orders.php">View Orders<i class="bi bi-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
