@@ -6,8 +6,6 @@ include('connection.php');
 
 $userID = $_SESSION["id"];
 
-include('connection.php');
-
 ///////////////////// FOR UPDATING PET OWNER PROFILE ////////////////////////////
 
 if (isset($_POST['update'])) {
@@ -22,7 +20,7 @@ if (isset($_POST['update'])) {
     $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Username='$username' WHERE UserID='$userID'");
 
     if ($query) {
-        echo "<script>alert('You have successfully your information.');</script>";
+        echo "<script>alert('You have successfully edited your information.');</script>";
         echo "<script> document.location ='userprofile.php'; </script>";
     } else {
         echo "<script>alert('Something Went Wrong. Please try again');</script>";
