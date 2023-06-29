@@ -121,7 +121,6 @@ if (isset($_POST['add_booklet'])) {
     //     }
     // }
 
-
     $query = mysqli_query($con, "INSERT INTO petbooklet (Payment_Proof, RefNo_Input, NoOfPets, AmountToPay, PaymentStatus, UserID) VALUES ('$file1', '$ref_no', '$noOfPets', '$amountToPay', '$paymentStatus', '$userID')");
 
     if ($query) {
@@ -129,6 +128,42 @@ if (isset($_POST['add_booklet'])) {
         echo "<script> document.location ='userprofile.php'; </script>";
     } else {
         echo "<script>alert('Error buying new pet booklet.');</script>";
+    }
+}
+
+if (isset($_POST['edit_pet_details'])) {
+
+    $_file = $_FILES['petimage2']['name'];
+    $_tempfile = $_FILES['petimage2']['tmp_name'];
+    $_folder = "image_upload/" . $_file;
+
+    move_uploaded_file($tempfile, $folder);
+
+    $_petID = $_POST['petid1'];
+    $_petname = $_POST['petname1'];
+    $_species = $_POST['species1'];
+    $_breed = $_POST['breed1'];
+    $_birthdate = $_POST['birthdate1'];
+    $_color = $_POST['color1'];
+
+    if ($_file != null) {
+        $query_ep = mysqli_query($con, "UPDATE pets SET PetImage='$_file', PetName='$_petname', Species='$_species', Breed='$_breed', BirthDate='$_birthdate', Color='$_color' WHERE PetID='$_petID' AND UserID='$userID'");
+
+        if ($query_ep) {
+            echo "<script>alert('You have successfully edited your pet's details!');</script>";
+            echo "<script> document.location ='userprofile.php'; </script>";
+        } else {
+            echo "<script>alert('Error editing pet.');</script>";
+        }
+    } else {
+        $query_ep1 = mysqli_query($con, "UPDATE pets SET PetName='$_petname', Species='$_species', Breed='$_breed', BirthDate='$_birthdate', Color='$_color' WHERE PetID='$_petID' AND UserID='$userID'");
+
+        if ($query_ep1) {
+            echo "<script>alert('You have successfully edited your pet's details!');</script>";
+            echo "<script> document.location ='userprofile.php'; </script>";
+        } else {
+            echo "<script>alert('Error editing pet.');</script>";
+        }
     }
 }
 ?>
@@ -176,12 +211,6 @@ if (isset($_POST['add_booklet'])) {
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
-
-
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
-
     <script type="text/javascript">
         function preview() {
             image.src = URL.createObjectURL(event.target.files[0]);
@@ -211,7 +240,7 @@ if (isset($_POST['add_booklet'])) {
     </script>
 </head>
 
-<body>
+<body style="position:relative;">
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
         <a href="index.php" class="navbar-brand ms-lg-5">
@@ -332,7 +361,11 @@ if (isset($_POST['add_booklet'])) {
                 while ($row = mysqli_fetch_array($ret)) {
                 ?>
                     <div class="card mb-4" style="border-radius: 15px;">
-                        <div class="card-header userProfile-font">🐾 Pet Profile &nbsp;<a href="userprofile.php?delid=<?php echo ($row['PetID']); ?>" style="float:right;" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a></div>
+
+                        <!-- <div class="card-header userProfile-font">🐾 Pet Profile &nbsp;<a href="userprofile.php?delid=<?php echo ($row['PetID']); ?>" style="float:right;" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a></div> -->
+                        <div class="card-header userProfile-font">🐾 Pet Profile &nbsp;<a pet-id="<?php echo $row['PetID'] ?>" pet-image="<?php echo $row['PetImage'] ?>" pet-name="<?php echo $row['PetName'] ?>" species="<?php echo $row['Species'] ?>" breed="<?php echo $row['Breed'] ?>" birth-date="<?php echo $row['BirthDate'] ?>" pet-color="<?php echo $row['Color'] ?>" style="float:right;" title="Edit" data-toggle="modal" data-target="#edit-pet"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a></div>
+
+
                         <div class="card-body">
                             <div style="display: none;">
                                 <?php
@@ -349,9 +382,16 @@ if (isset($_POST['add_booklet'])) {
                             </center>
 
                             <br />
-                            <h6 class="text-primary text-uppercase" style="padding-top:10px;"><?php echo $row['PetUniqueID'] ?></h6>
+                            <br />
+
                             <table class="table">
                                 <tbody>
+                                    <tr>
+                                        <td><b>Pet ID: &nbsp;&nbsp;</b></td>
+                                        <td>
+                                            <span class="text-primary text-uppercase" style="padding-top:10px; font-weight: bold;"><?php echo $row['PetUniqueID'] ?></span>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td><b>Pet Name: &nbsp;&nbsp;</b></td>
                                         <td>
@@ -565,88 +605,63 @@ if (isset($_POST['add_booklet'])) {
     </div>
     <!-- END OF MODAL FOR ADDING NEW PET BOOKLET -->
 
-    <!-- START OF MODAL FOR ORDER HISTORY -->
-    <div class="modal fade" id="orders_modal<?php echo $row['userID'] ?>" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+    <!-- START OF MODAL FOR EDITING PET -->
+    <div class="modal fade" id="edit-pet" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="border-radius: 15px;">
+                <form method="POST" enctype="multipart/form-data" runat="server" id="form_edit_pet">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Edit Pet Details</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
 
-                <div class="modal-header modal-header">
-                    <h3 class="modal-title">Order History</h3>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr class="table100-head">
-                                <th class="column1"></th>
-                                <th class="column1">Order No.</th>
-                                <th class="column1">Total</th>
-                                <th class="column1">Status</th>
-                                <th class="column1">Remarks</th>
-                                <th class="column1">Edit/Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+                            <div class="form-group" style="display: none;">
+                                <label>Pet ID</label>
+                                <input type="text" id="petid1" name="petid1" style="border-radius: 15px;" class="form-control" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label>Current Pet Image</label>
+                                <input type="text" id="petimage1" name="petimage1" style="border-radius: 15px;" class="form-control" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label>Update Pet Image</label>
+                                <input type="file" id="petimage2" name="petimage2" style="border-radius: 15px;" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Pet Name</label>
+                                <input type="text" id="petname1" name="petname1" style="border-radius: 15px;" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Species</label>
+                                <input type="text" id="species1" name="species1" style="border-radius: 15px;" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Breed</label>
+                                <input type="text" id="breed1" name="breed1" style="border-radius: 15px;" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Date of Birth</label>
+                                <input type="date" id="birthdate1" name="birthdate1" style="border-radius: 15px;" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Color</label>
+                                <input type="text" id="color1" name="color1" style="border-radius: 15px;" class="form-control" />
+                            </div>
 
-                            // $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, appointments.AppointmentStatus, appointments.Remarks, services.ServiceName, clinics.ClinicName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN clinics ON services.ClinicID = clinics.ClinicID INNER JOIN users ON appointments.UserID = users.UserID ORDER BY AppointmentID ASC");
-                            $ret1 = mysqli_query($con, "SELECT * FROM appointments, clinics, users WHERE appointments.UserID = '$userID' ORDER BY AppointmentID ASC");
-
-                            $cnt1 = 1;
-                            $row1 = mysqli_num_rows($ret1);
-                            if ($row1 > 0) {
-                                while ($row1 = mysqli_fetch_array($ret1)) {
-
-                            ?>
-                                    <!--Fetch the Records -->
-                                    <tr>
-                                        <td>
-                                            <?php echo $cnt; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row1['Appointment_RefNo'] ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row1['PreferredDate'] ?>
-                                        </td>
-                                        <td>
-                                            <?php echo date('h:i A', strtotime($row1['PreferredTime'])) ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row1['AvailedServices']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row1['AppointmentStatus']; ?>
-                                        </td>
-                                        <td>
-                                            <?php echo $row1['Remarks']; ?>
-                                        </td>
-                                        <td>
-                                            <a href="appointment_edit.php?editid=<?php echo htmlentities($row1['AppointmentID']); ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
-                                            <a href="appointment.php?delid=<?php echo ($row1['AppointmentID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete appointment?');"><i class="material-icons" style="color:firebrick;">&#xE872;</i></a>
-                                        </td>
-                                    </tr>
-                                <?php
-                                    $cnt = $cnt + 1;
-                                }
-                            } else { ?>
-                                <tr>
-                                    <th style="text-align:center; color:red;" colspan="6">No Record Found</th>
-                                </tr>
-                            <?php } ?>
-
-                        </tbody>
-                    </table>
-                </div>
-                <div style="clear:both;"></div>
-                <div class="modal-footer">
-
-                    <button class="btn btn-danger" type="button" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
-                </div>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="modal-footer">
+                        <button name="edit_pet_details" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-save"></span>
+                            Save</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- END OF MODAL FOR ORDER HISTORY -->
+    <!-- END OF MODAL FOR EDITING PET -->
 
 
     <!-- Footer Start -->
@@ -707,8 +722,41 @@ if (isset($_POST['add_booklet'])) {
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
+
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- To show details when editing -->
+    <script>
+        $('#edit-pet').on('show.bs.modal', function(e) {
+            var opener = e.relatedTarget;
+
+            var pet_id = $(opener).attr('pet-id');
+            var pet_image = $(opener).attr('pet-image');
+            var petname = $(opener).attr('pet-name');
+            var species = $(opener).attr('species');
+            var breed = $(opener).attr('breed');
+            var birthdate = $(opener).attr('birth-date');
+            var color = $(opener).attr('pet-color');
+
+            $('#form_edit_pet').find('[name="petid1"]').val(pet_id);
+            $('#form_edit_pet').find('[name="petimage1"]').val(pet_image);
+            $('#form_edit_pet').find('[name="petname1"]').val(petname);
+            $('#form_edit_pet').find('[name="species1"]').val(species);
+            $('#form_edit_pet').find('[name="breed1"]').val(breed);
+            $('#form_edit_pet').find('[name="birthdate1"]').val(birthdate);
+            $('#form_edit_pet').find('[name="color1"]').val(color);
+
+            endResize();
+        });
+
+        function endResize() {
+            $(window).off("resize", resizer);
+        }
+    </script>
 </body>
 
 </html>
