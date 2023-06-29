@@ -5,7 +5,10 @@ include('config.php');
 include('connection.php');
 
 $userID = $_SESSION["id"];
-$clinic_id = $_SESSION['clinic_id'];
+
+$clinicID = $_GET['clinicid'];
+
+// $clinic_id = $_SESSION['clinic_id'];
 
 $feedback = $_POST['feedback'];
 
@@ -17,7 +20,7 @@ if (isset($_POST['submit']) && $feedback != "") {
     $currentDateTime = date('y-m-d h:i:s A');
 
     // Query for data insertion
-    $query = mysqli_query($con, "INSERT INTO feedback (Rating, OverallFeedback, DateTimeRated, ClinicID, UserID) VALUES ('$rating', '$feedback', '$currentDateTime', '$clinic_id', '$userID')");
+    $query = mysqli_query($con, "INSERT INTO feedback (Rating, OverallFeedback, DateTimeRated, ClinicID, UserID) VALUES ('$rating', '$feedback', '$currentDateTime', '$clinicID', '$userID')");
     if ($query) {
         echo "<script>alert('You have successfully sent a feedback!');</script>";
         echo "<script> document.location ='feedback.php'; </script>";
@@ -34,7 +37,7 @@ if (isset($_POST['submit']) && $feedback == "") {
     $currentDateTime = date('y-m-d h:i:s A');
 
     // Query for data insertion
-    $query = mysqli_query($con, "INSERT INTO feedback (Rating, DateTimeRated, ClinicID, UserID) VALUES ('$rating', '$currentDateTime', '$clinic_id', '$userID')");
+    $query = mysqli_query($con, "INSERT INTO feedback (Rating, DateTimeRated, ClinicID, UserID) VALUES ('$rating', '$currentDateTime', '$clinicID', '$userID')");
     if ($query) {
         echo "<script>alert('You have successfully sent a feedback!');</script>";
         echo "<script> document.location ='feedback.php'; </script>";
@@ -206,28 +209,34 @@ if (isset($_POST['submit']) && $feedback == "") {
             <div class="col-lg-3 bg-light" style="border-radius: 15px;">
                 <!-- CLINIC PROFILE START -->
                 <div class="mb-5">
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <img class="img-fluid h-100" src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1" style="width: 100%; height: 100%;">
-                    </div>
+                    </div> -->
                     <?php
                     echo $clinic_id; // for testing purposes (if the clinic id was really retrieved properly. update: successful) 
                     $_SESSION['clinic_id'] = $clinic_id;
                     ?>
 
                     <?php
-                    $ret = mysqli_query($con, "SELECT * FROM clinics WHERE ClinicID = '$clinic_id'");
+                    $ret = mysqli_query($con, "SELECT * FROM clinics WHERE ClinicID = '$clinicID'");
                     $cnt = 1;
                     $row = mysqli_num_rows($ret);
                     if ($row > 0) {
                         while ($row = mysqli_fetch_array($ret)) {
 
                     ?>
+                            <div style="padding-bottom: 25px;">
+                                <?php if ($row['ClinicImage'] != "") {
+                                    echo '<a href="clinic_profile.php?clinicid=' . $row['ClinicID'] . '"><img src=image_upload/' . $row['ClinicImage'] . ' style="object-fit: cover; width: 100%; height: 100%;"></a>';
+                                }
+                                ?>
+                            </div>
                             <p class="text-uppercase mb-3" style="font-size:20px; color:black;"><b>
                                     <?php echo $row['ClinicName'] ?>
                                 </b></br>
 
                                 <?php
-                                $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id' LIMIT 1");
+                                $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinicID' LIMIT 1");
                                 $cnt1 = 1;
                                 $row1 = mysqli_num_rows($ret1);
                                 if ($row1 > 0) {
@@ -244,7 +253,7 @@ if (isset($_POST['submit']) && $feedback == "") {
 
 
                     <?php
-                            $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id' LIMIT 4");
+                            $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinicID' LIMIT 4");
                             $cnt2 = 1;
                             $row2 = mysqli_num_rows($ret2);
                             if ($row2 > 0) {
@@ -258,7 +267,7 @@ if (isset($_POST['submit']) && $feedback == "") {
                             } ?>
                     <!-- <br /><br /><a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank" style="padding-left: 5px;"><i class="bi-facebook"></i> View Facebook</a> <br /><br> -->
                     <br><br>
-                    <a class="btn btn-primary m-1" href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>" style="border-radius: 15px; width: 95%;">Go back</a>
+                    <a class="btn btn-primary m-1" href="orders.php" style="border-radius: 15px; width: 95%;">Go back</a>
             <?php }
                     } ?>
 
@@ -277,7 +286,7 @@ if (isset($_POST['submit']) && $feedback == "") {
                     <div class="col-12">
 
                         <?php
-                        $c_query = mysqli_query($con, "SELECT ClinicName FROM clinics WHERE ClinicID='$clinic_id'");
+                        $c_query = mysqli_query($con, "SELECT ClinicName FROM clinics WHERE ClinicID='$clinicID'");
                         $c_row = mysqli_fetch_array($c_query);
                         ?>
 
