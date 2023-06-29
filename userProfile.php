@@ -95,29 +95,40 @@ if (isset($_POST['add_booklet'])) {
 
     $ref_no = $_POST['ref_no'];
     $noOfPets = $_POST['noofpets'];
+    $amountToPay = $_POST['amount'];
     $paymentStatus = 'Pending';
 
-    $ret_pb = mysqli_query($con, "SELECT NoOfPets FROM petbooklet WHERE UserID='$userID'");
-    $data = $ret_pb->fetch_all(MYSQLI_ASSOC);
+    // $ret_pb = mysqli_query($con, "SELECT NoOfPets FROM petbooklet WHERE UserID='$userID'");
+    // $data = $ret_pb->fetch_all(MYSQLI_ASSOC);
 
-    if ($data == null) {
-        $query = mysqli_query($con, "INSERT INTO petbooklet (Payment_Proof, RefNo_Input, NoOfPets, PaymentStatus, UserID) VALUES ('$file1', '$ref_no', '$noOfPets', '$paymentStatus', '$userID')");
+    // if ($data == null) {
+    //     $query = mysqli_query($con, "INSERT INTO petbooklet (Payment_Proof, RefNo_Input, NoOfPets, PaymentStatus, UserID) VALUES ('$file1', '$ref_no', '$noOfPets', '$paymentStatus', '$userID')");
 
-        if ($query) {
-            echo "<script>alert('You have successfully paid for (a) new Pet Booklet!');</script>";
-            echo "<script> document.location ='userprofile.php'; </script>";
-        } else {
-            echo "<script>alert('Error buying new pet booklet.');</script>";
-        }
+    //     if ($query) {
+    //         echo "<script>alert('You have successfully paid for (a) new Pet Booklet!');</script>";
+    //         echo "<script> document.location ='userprofile.php'; </script>";
+    //     } else {
+    //         echo "<script>alert('Error buying new pet booklet.');</script>";
+    //     }
+    // } else {
+    //     $query_pb = mysqli_query($con, "UPDATE petbooklet SET Payment_Proof='$file1', RefNo_Input='$ref_no', NoOfPets='$noOfPets', PaymentStatus='$paymentStatus' WHERE UserID='$userID'");
+
+    //     if ($query_pb) {
+    //         echo "<script>alert('You have successfully paid for (a) new Pet Booklet!');</script>";
+    //         echo "<script> document.location ='userprofile.php'; </script>";
+    //     } else {
+    //         echo "<script>alert('Error buying new pet booklet.');</script>";
+    //     }
+    // }
+
+
+    $query = mysqli_query($con, "INSERT INTO petbooklet (Payment_Proof, RefNo_Input, NoOfPets, AmountToPay, PaymentStatus, UserID) VALUES ('$file1', '$ref_no', '$noOfPets', '$amountToPay', '$paymentStatus', '$userID')");
+
+    if ($query) {
+        echo "<script>alert('You have successfully paid for (a) new Pet Booklet!');</script>";
+        echo "<script> document.location ='userprofile.php'; </script>";
     } else {
-        $query_pb = mysqli_query($con, "UPDATE petbooklet SET Payment_Proof='$file1', RefNo_Input='$ref_no', NoOfPets='$noOfPets', PaymentStatus='$paymentStatus' WHERE UserID='$userID'");
-
-        if ($query_pb) {
-            echo "<script>alert('You have successfully paid for (a) new Pet Booklet!');</script>";
-            echo "<script> document.location ='userprofile.php'; </script>";
-        } else {
-            echo "<script>alert('Error buying new pet booklet.');</script>";
-        }
+        echo "<script>alert('Error buying new pet booklet.');</script>";
     }
 }
 ?>
@@ -537,7 +548,7 @@ if (isset($_POST['add_booklet'])) {
                             </div>
                             <br>
                             <div class="form-group">
-                                <label style="font-style: italic; font-size: 18px;">*Please wait for the approval of your payment after submitting the form</label>
+                                <label style="font-style: italic; font-size: 18px;">*Please wait for the approval of your payment after submitting the form.</label>
                             </div>
 
                         </div>
