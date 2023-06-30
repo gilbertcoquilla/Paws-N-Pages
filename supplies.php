@@ -307,10 +307,10 @@ if (isset($_GET['delid'])) {
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
                         </div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px;" id="supplies">
+                            <table class="table table-striped table-hover" style="border:0px;">
                                 <thead>
                                     <tr class="table100-head">
-                                        <th class="column1" style="border:0px;"></th>
+                                        <th class="column1" style="border:0px;">ID</th>
                                         <th class="column1" style="border:0px;">Clinic</th>
                                         <th class="column1" style="border:0px;">Product Image</th>
                                         <th class="column1" style="border:0px;">Supply Name</th>
@@ -318,11 +318,6 @@ if (isset($_GET['delid'])) {
                                         <th class="column1" style="border:0px;">Price</th>
                                         <th class="column1" style="border:0px;">Stocks</th>
                                         <th class="column1" style="border:0px;">Needs Prescription</th>
-
-                                        <?php if ($usertype == 'Clinic Administrator') { ?>
-                                            <th class="column1" style="border:0px;">Action</th>
-                                        <?php } ?>
-
                                     </tr>
                                 </thead>
 
@@ -333,8 +328,7 @@ if (isset($_GET['delid'])) {
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                            $supply_id = $row['SupplyID'];
-                                            $_SESSION['supply_id'] = $supply_id;
+
                                     ?>
                                             <!--Fetch the Records -->
                                             <tr border:0px;>
@@ -350,23 +344,20 @@ if (isset($_GET['delid'])) {
                                                 <td style="border:0px;"><?php echo $row['SupplyPrice']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['Stocks']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['NeedPrescription']; ?></td>
-
-                                                <?php if ($usertype == 'Clinic Administrator') { ?>
-
-                                                    <td style="text-align: center; border:0px;">
-                                                        <a supply-id="<?php echo $row['SupplyID'] ?>" supply-image="<?php echo $row['SupplyImage'] ?>" supply-name="<?php echo $row['SupplyName'] ?>" supply-desc="<?php echo $row['SupplyDescription'] ?>" supply-price="<?php echo $row['SupplyPrice'] ?>" stocks="<?php echo $row['Stocks'] ?>" need-presc="<?php echo $row['NeedPrescription'] ?>" class="edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
-                                                        <a href="supplies.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
-                                                    </td>
-
-                                                <?php } ?>
-
                                             </tr>
                                         <?php
                                             $cnt = $cnt + 1;
                                         }
                                     } else { ?>
                                         <tr style="border:0px;">
-                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found</td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
                                         </tr>
                                     <?php } ?>
 
@@ -392,7 +383,7 @@ if (isset($_GET['delid'])) {
                             <table class="table table-striped table-hover" style="border:0px;" id="supplies">
                                 <thead>
                                     <tr class="table100-head">
-                                        <th class="column1" style="border:0px;"></th>
+                                        <th class="column1" style="border:0px;">ID</th>
                                         <th class="column1" style="border:0px;">Product Image</th>
                                         <th class="column1" style="border:0px;">Supply Name</th>
                                         <th class="column1" style="border:0px;">Description</th>
@@ -410,8 +401,7 @@ if (isset($_GET['delid'])) {
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                            $supply_id = $row['SupplyID'];
-                                            $_SESSION['supply_id'] = $supply_id;
+
                                     ?>
                                             <!--Fetch the Records -->
                                             <tr border:0px;>
@@ -436,7 +426,14 @@ if (isset($_GET['delid'])) {
                                         }
                                     } else { ?>
                                         <tr style="border:0px;">
-                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found</td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
                                         </tr>
                                     <?php } ?>
 
