@@ -135,7 +135,7 @@ if (isset($_POST['edit_pet_details'])) {
     $_tempfile = $_FILES['petimage2']['tmp_name'];
     $_folder = "image_upload/" . $_file;
 
-    move_uploaded_file($tempfile, $folder);
+    move_uploaded_file($_tempfile, $_folder);
 
     $_petID = $_POST['petid1'];
     $_petname = $_POST['petname1'];
@@ -583,7 +583,7 @@ if (isset($_POST['edit_pet_details'])) {
                                 <label>Reference Number of Payment</label>
                                 <input type="text" name="ref_no" style="border-radius: 15px;" class="form-control" required />
                             </div>
-                            
+
                             <br>
                             <div class="form-group">
                                 <label style="font-style: italic; font-size: 18px;">*Please wait for the approval of your payment after submitting the form.</label>

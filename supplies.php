@@ -38,13 +38,13 @@ if (isset($_POST['save_pet'])) {
 
 if (isset($_POST['update'])) {
 
-    $eid = $POST['update_id'];
+    $eid = $_POST['SupplyID'];
 
-    $file = $_FILES['image']['name'];
-    $tempfile = $_FILES['image']['tmp_name'];
-    $folder = "image_upload/" . $file;
+    $file1 = $_FILES['SupplyImage']['name'];
+    $tempfile1 = $_FILES['SupplyImage']['tmp_name'];
+    $folder1 = "image_upload/" . $file1;
 
-    move_uploaded_file($tempfile, $folder);
+    move_uploaded_file($tempfile1, $folder1);
 
     $Uname = $_POST['SupplyName'];
     $Udescription = $_POST['SupplyDescription'];
@@ -52,13 +52,24 @@ if (isset($_POST['update'])) {
     $Ustocks = $_POST['Stocks'];
     $Uprescription = $_POST['NeedPrescription'];
 
-    $query = mysqli_query($con, "UPDATE petsupplies SET SupplyImage = ' HI ', SupplyName = '$Uname', SupplyDescription = '$Udescription', SupplyPrice = '$Uprice', Stocks = '$Ustocks', NeedPrescription = '$Uprescription' WHERE SupplyID = '$eid' ");
+    if ($file1 != null) {
+        $query = mysqli_query($con, "UPDATE petsupplies SET SupplyImage='$file1', SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks', NeedPrescription='$Uprescription' WHERE SupplyID='$eid'");
 
-    if ($query) {
-        echo "<script>alert('You have successfully updated a new product');</script>";
-        echo "<script> document.location ='supplies.php'; </script>";
+        if ($query) {
+            echo "<script>alert('You have successfully updated a product');</script>";
+            echo "<script> document.location ='supplies.php'; </script>";
+        } else {
+            echo "<script>alert('Error updating data.');</script>";
+        }
     } else {
-        echo "<script>alert('Error updating data.');</script>";
+        $e_query = mysqli_query($con, "UPDATE petsupplies SET SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks', NeedPrescription='$Uprescription' WHERE SupplyID='$eid'");
+
+        if ($e_query) {
+            echo "<script>alert('You have successfully updated a product');</script>";
+            echo "<script> document.location ='supplies.php'; </script>";
+        } else {
+            echo "<script>alert('Error updating data.');</script>";
+        }
     }
 }
 
@@ -285,11 +296,12 @@ if (isset($_GET['delid'])) {
                 <br>
             </div>
             <ul class="nav nav-sidebar">
-                <li style="text-transform:uppercase;"><a href=""><i class="fa fa-home"></i>&nbsp;<b>Dashboard</b></a></li>
-                <li style="text-transform:uppercase;"><a href="clinicadmin.php"><i class="fa fa-user"></i>&nbsp;<b>Profile</b></a></li>
-                <li style="text-transform:uppercase;"><a href="supplies.php"><i class="fa fa-address-card"></i>&nbsp;<b>Products</b></a></li>
-                <li style="text-transform:uppercase;"><a href=""><i class="fa-solid fa-user"></i>&nbsp;<b>Customers</b></a></li>
-                <li style="text-transform:uppercase;"><a href="bookings.php"><i class="fa fa-solid fa-calendar"></i>&nbsp;<b>Bookings</b></a></li>
+                <li style="text-transform:uppercase;"><a href=""><b>Dashboard</b></a></li>
+                <li style="text-transform:uppercase;"><a href="clinicadmin.php"><b>Profile</b></a></li>
+                <li style="text-transform:uppercase;"><a href="supplies.php"><b>Products</b></a></li>
+                <li style="text-transform:uppercase;"><a href=""><b>Customers</b></a></li>
+                <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
+                <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
 
             </ul>
             <div class="social_media">
@@ -508,26 +520,14 @@ if (isset($_GET['delid'])) {
     <div class="modal fade" id="edit_modal" aria-hidden="true" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" style="border-radius: 15px;">
-                <form method="POST" runat="server" id="form_edit_supply">
+                <form method="POST" enctype="multipart/form-data" runat="server" id="form_edit_supply">
                     <div class="modal-header modal-header-success">
                         <h3 class="modal-title">Edit Product</h3>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="col-md-12">
-                            <!-- <div class="form-group">
-                                <div class="col-md-12">
-                                    <?php
 
-                                    $ret = mysqli_query($con, "SELECT * FROM petsupplies WHERE SupplyID = '$supply_id' ");
-                                    while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
-                                        <?php if ($row['SupplyImage'] != "") {
-                                            echo '<img src=image_upload/' . $row['SupplyImage'] . ' style="object-fit: cover; width: 100%; height: 100%;">';
-                                        } ?>
-                                    <?php } ?>
-                                </div>
-                            </div> -->
                             <div class="form-group" style="display: none;">
                                 <label>ID</label>
                                 <input type="text" name="SupplyID" id="SupplyID" class="form-control" />
