@@ -305,7 +305,7 @@ $_SESSION['clinic_id'] = $clinic_id;
     </div>
 
 
-    <!-- Testimonial Start -->
+    <!-- Feedback Start -->
     <div class="container-fluid bg-testimonial py-5" style="margin: 90px 0;">
         <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
             <h1 class="text-dark text-uppercase">Feedbacks</h1>
@@ -314,28 +314,45 @@ $_SESSION['clinic_id'] = $clinic_id;
             <div class="row justify-content-center">
                 <div class="col-lg-7">
                     <div class="owl-carousel testimonial-carousel bg-white p-5">
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-4">
+
+                        <?php
+                        $ret = mysqli_query($con, "SELECT * FROM feedback, users WHERE feedback.UserID = users.UserID AND feedback.ClinicID = '$clinic_id'");
+                        $cnt = 1;
+                        $row = mysqli_num_rows($ret);
+                        if ($row > 0) {
+                            while ($row = mysqli_fetch_array($ret)) {
+                        ?>
+
+                                <div class="testimonial-item text-center">
+                                    <div class="position-relative mb-4">
+                                    </div>
+                                    <p><?php echo $row['OverallFeedback'] ?></p>
+                                    <hr class="w-25 mx-auto">
+                                    <h5 class="text-uppercase"><?php echo $row['Rating'] ?>/5</h5>
+                                    <span>- <?php echo $row['FirstName'] ?></span>
+                                </div>
+
+                            <?php
+                            }
+                        } else { ?>
+
+                            <div class="testimonial-item text-center">
+                                <div class="position-relative mb-4">
+                                </div>
+                                <p>No ratings or feedback yet on this veterinary clinic.</p>
+                                <hr class="w-25 mx-auto">
+                                <h5 class="text-uppercase"></h5>
+                                <span></span>
                             </div>
-                            <p>The clinic is very responsive and clean.</p>
-                            <hr class="w-25 mx-auto">
-                            <h5 class="text-uppercase">5/5</h5>
-                            <span>- Joseph</span>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-4">
-                            </div>
-                            <p>It was okay</p>
-                            <hr class="w-25 mx-auto">
-                            <h5 class="text-uppercase">4/5</h5>
-                            <span>- Mary</span>
-                        </div>
+
+                        <?php } ?>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Testimonial End -->
+    <!-- Feedback End -->
 
 
 
