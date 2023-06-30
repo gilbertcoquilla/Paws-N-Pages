@@ -72,14 +72,15 @@ if (isset($_GET['delid'])) {
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | User Profile</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <meta content="Free HTML Templates" name="keywords">
-  
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -124,7 +125,7 @@ if (isset($_GET['delid'])) {
             if (file) {
                 var reader = new FileReader();
 
-                reader.onload = function() {
+                reader.onload = function () {
                     $("#image").attr("src", reader.result);
                 }
 
@@ -134,8 +135,7 @@ if (isset($_GET['delid'])) {
     </script>
 
     <script>
-        $(document).ready(function ()
-        {   
+        $(document).ready(function () {
             var table = $('#appointments').DataTable({
                 order: [[2, 'asc']],
             });
@@ -174,86 +174,108 @@ if (isset($_GET['delid'])) {
         <h1 class="text-primary text-uppercase">Appointments</h1>
     </div>
 
-    <div style="padding-right:30px; padding-left:30px;">   
-    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-         <div class="card-header userProfile-font"><b>⏳ Appointments</b></div>
-         <div class="card-body text-center">
-                   <table class="table table-striped table-hover" name="appointments" id="appointments" style="border:0px;">
-                        <thead>
-                            <tr class="table100-head">
-                                <th class="column1" style="border:0px;">Reference No.</th>
-                                <th class="column1" style="border:0px;">Preferred Date</th>
-                                <th class="column1" style="border:0px;">Preferred Time</th>
-                                <th class="column1" style="border:0px;">Availed Services</th>
-                                <th class="column1" style="border:0px;">Notes</th>
-                                <th class="column1" style="border:0px;">Clinic</th>
-                                <th class="column1" style="border:0px;">Status</th>
-                                <th class="column1" style="border:0px;">Remarks</th>
-                                <th class="column1" style="border:0px;">Date and Time Booked</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+    <div style="padding-right:30px; padding-left:30px;">
+        <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+            <div class="card-header userProfile-font"><b>⏳ Appointments</b></div>
+            <div class="card-body text-center">
+                <table class="table table-striped table-hover" name="appointments" id="appointments"
+                    style="border:0px;">
+                    <thead>
+                        <tr class="table100-head">
+                            <th class="column1" style="border:0px;">Reference No.</th>
+                            <th class="column1" style="border:0px;">Preferred Date</th>
+                            <th class="column1" style="border:0px;">Preferred Time</th>
+                            <th class="column1" style="border:0px;">Availed Services</th>
+                            <th class="column1" style="border:0px;">Notes</th>
+                            <th class="column1" style="border:0px;">Clinic</th>
+                            <th class="column1" style="border:0px;">Status</th>
+                            <th class="column1" style="border:0px;">Remarks</th>
+                            <th class="column1" style="border:0px;">Date and Time Booked</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
 
-                            // $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, appointments.AppointmentStatus, appointments.Remarks, services.ServiceName, clinics.ClinicName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN clinics ON services.ClinicID = clinics.ClinicID INNER JOIN users ON appointments.UserID = users.UserID ORDER BY AppointmentID ASC");
-                            $ret1 = mysqli_query($con, "SELECT * FROM appointments, clinics, users WHERE appointments.UserID = users.UserID AND appointments.ClinicID = clinics.ClinicID AND appointments.UserID = '$userID' ORDER BY appointments.AppointmentID ASC");
+                        // $ret = mysqli_query($con, "SELECT appointments.AppointmentID, appointments.Notes, appointments.PreferredDate, appointments.PreferredTime, appointments.AppointmentStatus, appointments.Remarks, services.ServiceName, clinics.ClinicName, users.FirstName, users.MiddleName, users.LastName FROM appointments INNER JOIN services ON appointments.ServiceID = services.ServiceID INNER JOIN clinics ON services.ClinicID = clinics.ClinicID INNER JOIN users ON appointments.UserID = users.UserID ORDER BY AppointmentID ASC");
+                        $ret1 = mysqli_query($con, "SELECT * FROM appointments, clinics, users WHERE appointments.UserID = users.UserID AND appointments.ClinicID = clinics.ClinicID AND appointments.UserID = '$userID' ORDER BY appointments.AppointmentID ASC");
 
-                            $cnt1 = 1;
-                            $row1 = mysqli_num_rows($ret1);
-                            if ($row1 > 0) {
-                                while ($row1 = mysqli_fetch_array($ret1)) {
+                        $cnt1 = 1;
+                        $row1 = mysqli_num_rows($ret1);
+                        if ($row1 > 0) {
+                            while ($row1 = mysqli_fetch_array($ret1)) {
 
-                                    ?>
-                                    <!--Fetch the Records -->
-                                    <tr>
-                                        <td style="border:0px;">
-                                            <?php echo $row1['Appointment_RefNo'] ?>
-                                        </td>
-                                        <td style="border:0px;">
-                                            <?php echo $row1['PreferredDate'] ?>
-                                        </td>
-                                        <td style="border:0px;">
-                                            <?php echo date('h:i A', strtotime($row1['PreferredTime'])) ?>
-                                        </td>
-                                        <td style="border:0px;">
-                                            <?php echo $row1['AvailedServices']; ?>
-                                        </td>
-                                        <td style="border:0px;">
-                                            <?php echo $row1['Notes']; ?>
-                                        </td>
-                                        <td style="border:0px;">
-                                            <?php echo $row1['ClinicName']; ?>
-                                        </td>
-                                        <td style="border:0px;">
-                                            <?php echo $row1['AppointmentStatus']; ?>
-                                           
-                                        </td>
-                                        <td style="border:0px;">
-                                            <?php echo $row1['Remarks']; ?>
-                                        </td>
-                                        <td style="border:0px;">
-                                            <?php echo $row1['DateTimeBooked']; ?>
-                                        </td>
-                                    </tr>
-                                    <?php
-                                    $cnt = $cnt + 1;
-                                }
-                            } else { ?>
+                                ?>
+                                <!--Fetch the Records -->
                                 <tr>
-                                    <th style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</th>
+                                    <td style="border:0px;">
+                                        <?php echo $row1['Appointment_RefNo'] ?>
+                                    </td>
+                                    <td style="border:0px;">
+                                        <?php echo $row1['PreferredDate'] ?>
+                                    </td>
+                                    <td style="border:0px;">
+                                        <?php echo date('h:i A', strtotime($row1['PreferredTime'])) ?>
+                                    </td>
+                                    <td style="border:0px;">
+                                        <?php echo $row1['AvailedServices']; ?>
+                                    </td>
+                                    <td style="border:0px;">
+                                        <?php echo $row1['Notes']; ?>
+                                    </td>
+                                    <td style="border:0px;">
+                                        <?php echo $row1['ClinicName']; ?>
+                                    </td>
+                                    <td style="border:0px;">
+                                        <?php $status = $row1['AppointmentStatus'];
+                                        if ($status === 'Processing') { ?>
+                                            <a
+                                                style="color:white; font-size:12px; padding: 5px 5px; border-radius:10px; background-color:#F4BB44;">
+                                                <?php echo $row1['AppointmentStatus']; ?>
+                                            </a>
+                                        <?php }
+                                        if ($status === 'Confirmed') { ?>
+                                            <a
+                                                style="color:white; font-size:12px; padding: 5px 7px; border-radius:10px; background-color:#228B22;">
+                                                <?php echo $row1['AppointmentStatus']; ?>
+                                            </a>
+                                        <?php }
+                                        if ($status === 'Denied') { ?>
+                                            <a
+                                                style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#A52A2A;">
+                                                <?php echo $row1['AppointmentStatus']; ?>
+                                            </a>
+                                        <?php }
+                                        if ($status === 'Completed') { ?>
+                                            <?php echo $row1['AppointmentStatus']; ?>
+                                        <?php } ?>
+
+                                    </td>
+                                    <td style="border:0px;">
+                                        <?php echo $row1['Remarks']; ?>
+                                    </td>
+                                    <td style="border:0px;">
+                                        <?php echo $row1['DateTimeBooked']; ?>
+                                    </td>
                                 </tr>
-                            <?php } ?>
-    
-                        </tbody>
-                    </table>
-             <br>
-       
+                                <?php
+                                $cnt = $cnt + 1;
+                            }
+                        } else { ?>
+                        <tr>
+                            <th style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</th>
+                        </tr>
+                        <?php } ?>
+
+                    </tbody>
+                </table>
+                <br>
+
+            </div>
+        </div>
+        <br />
+        <a class="btn btn-primary py-2" style="width:10%; border-radius: 15px;" href="userProfile.php">Go Back</a>
     </div>
-    </div>
-    <br/>
-     <a class="btn btn-primary py-2" style="width:10%; border-radius: 15px;" href="userProfile.php">Go Back</a>
-    </div>
-    
+
 
     <!-- END OF MODAL FOR ORDER HISTORY -->
 
@@ -265,8 +287,10 @@ if (isset($_GET['delid'])) {
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
+                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
+                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
                     <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
                         762 6162</a>
                 </div>
@@ -274,10 +298,14 @@ if (isset($_GET['delid'])) {
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="#services"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="#founders"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
@@ -309,7 +337,7 @@ if (isset($_GET['delid'])) {
     <a href="#" class="btn btn-primary py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
- 
+
 </body>
 
 </html>
