@@ -50,25 +50,49 @@ if (isset($_POST['update'])) {
     $Udescription = $_POST['SupplyDescription'];
     $Uprice = $_POST['SupplyPrice'];
     $Ustocks = $_POST['Stocks'];
-    $Uprescription = $_POST['NeedPrescription'];
+    $Uprescription = $_POST['NeedPrescription2'];
 
     if ($file1 != null) {
-        $query = mysqli_query($con, "UPDATE petsupplies SET SupplyImage='$file1', SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks', NeedPrescription='$Uprescription' WHERE SupplyID='$eid'");
 
-        if ($query) {
-            echo "<script>alert('You have successfully updated a product');</script>";
-            echo "<script> document.location ='supplies.php'; </script>";
+        if ($Uprescription != null) {
+            $query = mysqli_query($con, "UPDATE petsupplies SET SupplyImage='$file1', SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks', NeedPrescription='$Uprescription' WHERE SupplyID='$eid'");
+
+            if ($query) {
+                echo "<script>alert('You have successfully updated a product');</script>";
+                echo "<script> document.location ='supplies.php'; </script>";
+            } else {
+                echo "<script>alert('Error updating data.');</script>";
+            }
         } else {
-            echo "<script>alert('Error updating data.');</script>";
+            $query = mysqli_query($con, "UPDATE petsupplies SET SupplyImage='$file1', SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks' WHERE SupplyID='$eid'");
+
+            if ($query) {
+                echo "<script>alert('You have successfully updated a product');</script>";
+                echo "<script> document.location ='supplies.php'; </script>";
+            } else {
+                echo "<script>alert('Error updating data.');</script>";
+            }
         }
     } else {
-        $e_query = mysqli_query($con, "UPDATE petsupplies SET SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks', NeedPrescription='$Uprescription' WHERE SupplyID='$eid'");
 
-        if ($e_query) {
-            echo "<script>alert('You have successfully updated a product');</script>";
-            echo "<script> document.location ='supplies.php'; </script>";
+        if ($Uprescription != null) {
+            $e_query = mysqli_query($con, "UPDATE petsupplies SET SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks', NeedPrescription='$Uprescription' WHERE SupplyID='$eid'");
+
+            if ($e_query) {
+                echo "<script>alert('You have successfully updated a product');</script>";
+                echo "<script> document.location ='supplies.php'; </script>";
+            } else {
+                echo "<script>alert('Error updating data.');</script>";
+            }
         } else {
-            echo "<script>alert('Error updating data.');</script>";
+            $e_query = mysqli_query($con, "UPDATE petsupplies SET SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks' WHERE SupplyID='$eid'");
+
+            if ($e_query) {
+                echo "<script>alert('You have successfully updated a product');</script>";
+                echo "<script> document.location ='supplies.php'; </script>";
+            } else {
+                echo "<script>alert('Error updating data.');</script>";
+            }
         }
     }
 }
@@ -302,6 +326,7 @@ if (isset($_GET['delid'])) {
                 <li style="text-transform:uppercase;"><a href=""><b>Customers</b></a></li>
                 <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
                 <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
+                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedbacks</b></a></li>
 
             </ul>
             <div class="social_media">
@@ -558,7 +583,19 @@ if (isset($_GET['delid'])) {
                             </div>
                             <div class="form-group">
                                 <label>Needs Prescription</label>
-                                <input type="text" name="NeedPrescription" id="NeedPrescription" class="form-control" />
+
+                                <div class="row">
+                                    <div class="col-4">
+                                        <input type="text" name="NeedPrescription" id="NeedPrescription" class="form-control" style="height: 100%;" readonly />
+                                    </div>
+                                    <div class="col-8">
+                                        <select name="NeedPrescription2" id="NeedPrescription2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
+                                            <option selected disabled>-- Update Prescription --</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
 
 
