@@ -346,10 +346,16 @@ if (isset($_GET['delid'])) {
                                                 <td style="border:0px;"><?php echo $row['SupplyPrice']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['Stocks']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['NeedPrescription']; ?></td>
-                                                <td style="text-align: center; border:0px;">
-                                                    <a supply-id="<?php echo $row['SupplyID'] ?>" supply-image="<?php echo $row['SupplyImage'] ?>" supply-name="<?php echo $row['SupplyName'] ?>" supply-desc="<?php echo $row['SupplyDescription'] ?>" supply-price="<?php echo $row['SupplyPrice'] ?>" stocks="<?php echo $row['Stocks'] ?>" need-presc="<?php echo $row['NeedPrescription'] ?>" class="edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
-                                                    <a href="supplies.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
-                                                </td>
+
+                                                <?php if ($usertype == 'Clinic Administrator') { ?>
+
+                                                    <td style="text-align: center; border:0px;">
+                                                        <a supply-id="<?php echo $row['SupplyID'] ?>" supply-image="<?php echo $row['SupplyImage'] ?>" supply-name="<?php echo $row['SupplyName'] ?>" supply-desc="<?php echo $row['SupplyDescription'] ?>" supply-price="<?php echo $row['SupplyPrice'] ?>" stocks="<?php echo $row['Stocks'] ?>" need-presc="<?php echo $row['NeedPrescription'] ?>" class="edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
+                                                        <a href="supplies.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
+                                                    </td>
+
+                                                <?php } ?>
+
                                             </tr>
                                         <?php
                                             $cnt = $cnt + 1;
