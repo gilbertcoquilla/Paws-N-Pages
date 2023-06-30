@@ -115,7 +115,7 @@ if (isset($_GET['delid'])) {
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-     <style>
+    <style>
         @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
 
         * {
@@ -304,75 +304,75 @@ if (isset($_GET['delid'])) {
         </div>
 
         <!-- START OF ADMINISTRATOR -->
-            <div class="main_content">
-                <div style="padding:30px 30px 30px 30px;">
-                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                        <div class="card-header userProfile-font">
-                            <b style="padding-top:10px;">👤 Users</b>
-                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
-                        </div>
-                        <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px;" id="supplies">
-                                <thead>
-                                    <tr class="table100-head">
-                                        <th class="column1" style="border:0px;"></th>
-                                        <th class="column1" style="border:0px;">Name</th>
-                                        <th class="column1" style="border:0px;">Address</th>
-                                        <th class="column1" style="border:0px;">Contact No.</th>
-                                        <th class="column1" style="border:0px;">Age</th>
-                                        <th class="column1" style="border:0px;">UserType</th>
-                                        <th class="column1" style="border:0px;">Email</th>
-                                        <th class="column1" style="border:0px;">Username</th>
-                                        <th class="column1" style="border:0px;">Date Modified</th>
-                                        <th class="column1" style="border:0px;">Action</th>
-                                    </tr>
-                                </thead>
+        <div class="main_content">
+            <div style="padding:30px 30px 30px 30px;">
+                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                    <div class="card-header userProfile-font">
+                        <b style="padding-top:10px;">👤 Users</b>
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
+                    </div>
+                    <div class="card-body text-center">
+                        <table class="table table-striped table-hover" style="border:0px; text-align: left;" id="supplies">
+                            <thead>
+                                <tr class="table100-head">
+                                    <th class="column1" style="border:0px;">#</th>
+                                    <th class="column1" style="border:0px;">Name</th>
+                                    <th class="column1" style="border:0px;">Address</th>
+                                    <th class="column1" style="border:0px;">Contact No.</th>
+                                    <th class="column1" style="border:0px;">Age</th>
+                                    <th class="column1" style="border:0px;">UserType</th>
+                                    <th class="column1" style="border:0px;">Email</th>
+                                    <th class="column1" style="border:0px;">Username</th>
+                                    <th class="column1" style="border:0px;">Date Modified</th>
+                                    <th class="column1" style="border:0px;">Action</th>
+                                </tr>
+                            </thead>
 
-                                <tbody style="border:0px;">
-                                    <?php
-                                    $ret = mysqli_query($con, "SELECT * FROM address, users WHERE address.userID = users.userID AND users.UserType != 'Administrator'");
-                                    $cnt = 1;
-                                    $row = mysqli_num_rows($ret);
-                                    if ($row > 0) {
-                                        while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
-                                            <!--Fetch the Records -->
-                                            <tr border:0px;>
-                                                <td style="text-align: center; border:0px;"><?php echo $cnt; ?></td>
-                                                <td style="text-align: center; border:0px;"> <?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
-                                                <td style="border:0px;"><?php echo $row['LotNo_Street'] . ', Brgy. ' . $row['Barangay'] . ',  ' . $row['City']  . ',  ' . $row['ZIPCode']?><br /></td>
-                                                <td style="border:0px;"><?php echo $row['ContactNo']; ?></td>
-                                                <td style="border:0px;">₱ <?php echo $row['Age']; ?></td>
-                                                <td style="border:0px;"><?php echo $row['UserType']; ?></td>
-                                                <td style="border:0px;"><?php echo $row['Email']; ?></td>
-                                                <td style="border:0px;"><?php echo $row['Username']; ?></td>
-                                                <td style="border:0px;"><?php echo $row['DateModified']; ?></td>
-                                                <td style="text-align: center; border:0px;">
-                                                    <a user-id="<?php echo $row['UserID'] ?>" user-fname="<?php echo $row['FirstName'] ?>" user-mname="<?php echo $row['MiddleName'] ?>" user-lname="<?php echo $row['LastName'] ?>" user-lotnostreet="<?php echo $row['LotNo_Street'] ?>" user-province="<?php echo $row['Province'] ?>" user-barangay="<?php echo $row['Barangay'] ?>" user-city="<?php echo $row['City'] ?>" user-zipcode="<?php echo $row['ZIPCode'] ?>" user-cnum="<?php echo $row['ContactNo'] ?>" user-age="<?php echo $row['Age'] ?>" user-utype="<?php echo $row['UserType'] ?>" user-email="<?php echo $row['Email'] ?>" user-username="<?php echo $row['Username'] ?>" class="edit" title="Edit" data-toggle="modal" data-target="#form_edit_user"><i class="fas fa-edit"></i></a>
-                                                    <a href="supplies.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
-                                                </td>
+                            <tbody style="border:0px;">
+                                <?php
+                                $ret = mysqli_query($con, "SELECT * FROM address, users WHERE address.userID = users.userID AND users.UserType != 'Administrator'");
+                                $cnt = 1;
+                                $row = mysqli_num_rows($ret);
+                                if ($row > 0) {
+                                    while ($row = mysqli_fetch_array($ret)) {
+                                ?>
+                                        <!--Fetch the Records -->
+                                        <tr border:0px;>
+                                            <td style="border:0px;"><?php echo $cnt; ?></td>
+                                            <td style="border:0px;"> <?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
+                                            <td style="border:0px;"><?php echo $row['LotNo_Street'] . ', Brgy. ' . $row['Barangay'] . ',  ' . $row['City']  . ',  ' . $row['ZIPCode'] ?><br /></td>
+                                            <td style="border:0px;"><?php echo $row['ContactNo']; ?></td>
+                                            <td style="border:0px;"><?php echo $row['Age']; ?></td>
+                                            <td style="border:0px;"><?php echo $row['UserType']; ?></td>
+                                            <td style="border:0px;"><?php echo $row['Email']; ?></td>
+                                            <td style="border:0px;"><?php echo $row['Username']; ?></td>
+                                            <td style="border:0px;"><?php echo $row['DateModified']; ?></td>
+                                            <td style="text-align: center; border:0px;">
+                                                <a user-id="<?php echo $row['UserID'] ?>" user-fname="<?php echo $row['FirstName'] ?>" user-mname="<?php echo $row['MiddleName'] ?>" user-lname="<?php echo $row['LastName'] ?>" user-lotnostreet="<?php echo $row['LotNo_Street'] ?>" user-province="<?php echo $row['Province'] ?>" user-barangay="<?php echo $row['Barangay'] ?>" user-city="<?php echo $row['City'] ?>" user-zipcode="<?php echo $row['ZIPCode'] ?>" user-cnum="<?php echo $row['ContactNo'] ?>" user-age="<?php echo $row['Age'] ?>" user-utype="<?php echo $row['UserType'] ?>" user-email="<?php echo $row['Email'] ?>" user-username="<?php echo $row['Username'] ?>" class="edit" title="Edit" data-toggle="modal" data-target="#form_edit_user"><i class="fas fa-edit"></i></a>
+                                                <a href="supplies.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
+                                            </td>
 
-                                                
 
-                                            </tr>
-                                        <?php
-                                            $cnt = $cnt + 1;
-                                        }
-                                    } else { ?>
-                                        <tr style="border:0px;">
-                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</td>
+
                                         </tr>
-                                    <?php } ?>
+                                    <?php
+                                        $cnt = $cnt + 1;
+                                    }
+                                } else { ?>
+                                    <tr style="border:0px;">
+                                        <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</td>
+                                    </tr>
+                                <?php } ?>
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
         <!-- END OF ADMINISTRATOR -->
 
-       
+
 
 
     </div>
@@ -388,16 +388,16 @@ if (isset($_GET['delid'])) {
                     </div>
                     <div class="modal-body">
                         <div class="col-md-12">
-                            
 
-                                    <?php
 
-                                    $ret = mysqli_query($con, "SELECT * FROM address, users WHERE address.userID = users.UserID ");
-                                    while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
-                                    <?php } ?>
-                                
-                            
+                            <?php
+
+                            $ret = mysqli_query($con, "SELECT * FROM address, users WHERE address.userID = users.UserID ");
+                            while ($row = mysqli_fetch_array($ret)) {
+                            ?>
+                            <?php } ?>
+
+
                             <div class="form-group" style="display: none;">
                                 <label>ID</label>
                                 <input type="text" name="userID" id="userID" class="form-control" />
@@ -405,15 +405,15 @@ if (isset($_GET['delid'])) {
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-4">
                                     <label>First Name</label>
-                                    <input type="text" name="FirstName" id="FirstName" class="form-control" /> 
+                                    <input type="text" name="FirstName" id="FirstName" class="form-control" />
                                 </div>
                                 <div class="col-md-4">
                                     <label>Middle Name</label>
-                                    <input type="text" name="MiddleName" id="MiddleName" class="form-control" /> 
+                                    <input type="text" name="MiddleName" id="MiddleName" class="form-control" />
                                 </div>
                                 <div class="col-md-4">
                                     <label>Last Name</label>
-                                    <input type="text" name="LastName" id="LastName" class="form-control" /> 
+                                    <input type="text" name="LastName" id="LastName" class="form-control" />
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
@@ -422,17 +422,17 @@ if (isset($_GET['delid'])) {
                                 </div>
                                 <div class="col-md-4">
                                     <label>House/Lot No. Street</label>
-                                    <input type="text" name="HouseLotNo" id="HouseLotNo" class="form-control" /> 
+                                    <input type="text" name="HouseLotNo" id="HouseLotNo" class="form-control" />
                                 </div>
                                 <div class="col-md-4">
                                     <label>Barangay</label>
-                                        <input type="text" name="Barangay" id="Barangay" class="form-control" readonly/>
+                                    <input type="text" name="Barangay" id="Barangay" class="form-control" readonly />
                                 </div>
                                 <div class="col-md-4">
                                     <label></label>
                                     <?php
-                                        $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
-                                        $data = $sql->fetch_all(MYSQLI_ASSOC);
+                                    $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
+                                    $data = $sql->fetch_all(MYSQLI_ASSOC);
                                     ?>
                                     <select style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3" name="Barangay2" id="Barangay2">
                                         <option selected disabled>-- Update Barangay --</option>
@@ -443,30 +443,30 @@ if (isset($_GET['delid'])) {
                                         <?php endforeach ?>
                                     </select>
                                 </div>
-                                
+
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-4">
                                     <label>City</label>
-                                    <input type="text" name="City" id="City" class="form-control"  value="Quezon City" readonly/> 
+                                    <input type="text" name="City" id="City" class="form-control" value="Quezon City" readonly />
                                 </div>
                                 <div class="col-md-4">
                                     <label>Province</label>
-                                    <input type="text" name="Province" id="Province" class="form-control"  value="NCR" readonly/> 
+                                    <input type="text" name="Province" id="Province" class="form-control" value="NCR" readonly />
                                 </div>
                                 <div class="col-md-4">
                                     <label>ZIP Code</label>
-                                    <input type="text" name="ZIPCode" id="ZIPCode" class="form-control"/> 
+                                    <input type="text" name="ZIPCode" id="ZIPCode" class="form-control" />
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-3">
                                     <label>Phone No.</label>
-                                    <input type="text" name="ContactNo" id="ContactNo" class="form-control"/> 
+                                    <input type="text" name="ContactNo" id="ContactNo" class="form-control" />
                                 </div>
                                 <div class="col-md-1">
                                     <label>Age</label>
-                                    <input type="text" name="Age" id="" class="form-control"/> 
+                                    <input type="text" name="Age" id="" class="form-control" />
                                 </div>
                                 <div class="col-md-4">
                                     <label>User Type</label>
@@ -478,18 +478,18 @@ if (isset($_GET['delid'])) {
                                         <option selected disabled>-- Update User Type --</option>
                                         <option value="Pet Owner">Pet Owner</option>
                                         <option value="Clinic Adminstrator">Clinic Adminstrator</option>
-                                    </select> 
+                                    </select>
                                 </div>
                             </div>
-                            
+
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label>Username</label>
-                                    <input type="text" name="Username" id="Username" class="form-control"  /> 
+                                    <input type="text" name="Username" id="Username" class="form-control" />
                                 </div>
                                 <div class="col-md-6">
                                     <label>Email</label>
-                                    <input type="text" name="Email" id="Email" class="form-control"  /> 
+                                    <input type="text" name="Email" id="Email" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -543,7 +543,7 @@ if (isset($_GET['delid'])) {
             var user_utype = $(opener).attr('user-utype');
             var user_email = $(opener).attr('user-email');
             var user_username = $(opener).attr('user-username');
-            
+
 
             $('#form_edit_user').find('[name="userID"]').val(user_id);
             $('#form_edit_user').find('[name="FirstName"]').val(user_fname);

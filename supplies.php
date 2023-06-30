@@ -323,7 +323,7 @@ if (isset($_GET['delid'])) {
                 <li style="text-transform:uppercase;"><a href=""><b>Dashboard</b></a></li>
                 <li style="text-transform:uppercase;"><a href="clinicadmin.php"><b>Profile</b></a></li>
                 <li style="text-transform:uppercase;"><a href="supplies.php"><b>Products</b></a></li>
-                <li style="text-transform:uppercase;"><a href=""><b>Customers</b></a></li>
+                <li style="text-transform:uppercase;"><a href="users.php"><b>Customers</b></a></li>
                 <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
                 <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
                 <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedbacks</b></a></li>
@@ -344,7 +344,7 @@ if (isset($_GET['delid'])) {
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
                         </div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px;">
+                            <table class="table table-striped table-hover" style="border:0px; text-align: left;">
                                 <thead>
                                     <tr class="table100-head">
                                         <th class="column1" style="border:0px;">ID</th>
@@ -371,10 +371,10 @@ if (isset($_GET['delid'])) {
                                             <tr border:0px;>
                                                 <td style="text-align: center; border:0px;"><?php echo $cnt; ?></td>
                                                 <td style="text-align: center; border:0px;"><?php echo $row['ClinicName']; ?></td>
-                                                <td style="text-align: center; border:0px;"><?php if ($row['SupplyImage'] != "") {
-                                                                                                echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;';
-                                                                                            }
-                                                                                            ?>
+                                                <td style="text-align: center; border:0px;"><a href="image_upload/<?php echo $row['SupplyImage'] ?>" download><?php if ($row['SupplyImage'] != "") {
+                                                                                                                                                                    echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;>';
+                                                                                                                                                                }
+                                                                                                                                                                ?></a>
                                                 </td>
                                                 <td style="border:0px;"><?php echo $row['SupplyName']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['SupplyDescription']; ?></td>
@@ -417,7 +417,7 @@ if (isset($_GET['delid'])) {
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
                         </div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px;" id="supplies">
+                            <table class="table table-striped table-hover" style="border:0px; text-align: left;" id="supplies">
                                 <thead>
                                     <tr class="table100-head">
                                         <th class="column1" style="border:0px;">ID</th>
@@ -443,10 +443,10 @@ if (isset($_GET['delid'])) {
                                             <!--Fetch the Records -->
                                             <tr border:0px;>
                                                 <td style="text-align: center; border:0px;"><?php echo $cnt; ?></td>
-                                                <td style="text-align: center; border:0px;"><?php if ($row['SupplyImage'] != "") {
-                                                                                                echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;';
-                                                                                            }
-                                                                                            ?>
+                                                <td style="text-align: center; border:0px;"><a href="image_upload/<?php echo $row['SupplyImage'] ?>" download><?php if ($row['SupplyImage'] != "") {
+                                                                                                                                                                    echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;>';
+                                                                                                                                                                }
+                                                                                                                                                                ?></a>
                                                 </td>
                                                 <td style="border:0px;"><?php echo $row['SupplyName']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['SupplyDescription']; ?></td>

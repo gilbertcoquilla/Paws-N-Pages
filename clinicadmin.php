@@ -289,11 +289,13 @@ if (isset($_POST['update_clinic'])) {
             </div>
 
             <ul class="nav nav-sidebar">
-                <li style="text-transform:uppercase;"><a href=""><i class="fa fa-home"></i>&nbsp;<b>Dashboard</b></a></li>
-                <li style="text-transform:uppercase;"><a href="clinicadmin.php"><i class="fa fa-user"></i>&nbsp;<b>Profile</b></a></li>
-                <li style="text-transform:uppercase;"><a href="supplies.php"><i class="fa fa-address-card"></i>&nbsp;<b>Products</b></a></li>
-                <li style="text-transform:uppercase;"><a href=""><i class="fa-solid fa-user"></i>&nbsp;<b>Customers</b></a></li>
-                <li style="text-transform:uppercase;"><a href="bookings.php"><i class="fa fa-solid fa-calendar"></i>&nbsp;<b>Bookings</b></a></li>
+                <li style="text-transform:uppercase;"><a href=""><b>Dashboard</b></a></li>
+                <li style="text-transform:uppercase;"><a href="clinicadmin.php"><b>Profile</b></a></li>
+                <li style="text-transform:uppercase;"><a href="supplies.php"><b>Products</b></a></li>
+                <li style="text-transform:uppercase;"><a href="users.php"><b>Customers</b></a></li>
+                <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
+                <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
+                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedbacks</b></a></li>
 
             </ul>
             <div class="social_media">
