@@ -2,7 +2,10 @@
 session_start();
 include('config.php');
 include('connection.php');
+
 $userID = $_SESSION["id"];
+$usertype = $_SESSION['usertype'];
+
 $ret_ca = mysqli_query($con, "SELECT * FROM users, clinics WHERE users.UserID = clinics.UserID AND clinics.UserID='$userID'");
 $cnt_ca = 1;
 $row_ca = mysqli_fetch_array($ret_ca);
@@ -294,71 +297,150 @@ if (isset($_GET['delid'])) {
             </div>
         </div>
 
+        <?php if ($usertype == 'Administrator') { ?>
 
-        <div class="main_content">
-            <div style="padding-right:30px; padding-left:30px; padding-top:30px;">
-                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                    <div class="card-header userProfile-font">
-                        <b style="padding-top:10px;">🏷️ Products</b>
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
-                    </div>
-                    <div class="card-body text-center">
-                        <table class="table table-striped table-hover" style="border:0px;" id="supplies">
-                            <thead>
-                                <tr class="table100-head">
-                                    <th class="column1" style="border:0px;"></th>
-                                    <th class="column1" style="border:0px;">Product Image</th>
-                                    <th class="column1" style="border:0px;">Supply Name</th>
-                                    <th class="column1" style="border:0px;">Description</th>
-                                    <th class="column1" style="border:0px;">Price</th>
-                                    <th class="column1" style="border:0px;">Stocks</th>
-                                    <th class="column1" style="border:0px;">Needs Prescription</th>
-                                    <th class="column1" style="border:0px;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody style="border:0px;">
-                                <?php
-                                $ret = mysqli_query($con, "SELECT * FROM petsupplies WHERE ClinicID='$clinicID'");
-                                $cnt = 1;
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-                                        $supply_id = $row['SupplyID'];
-                                        $_SESSION['supply_id'] = $supply_id;
-                                ?>
-                                        <!--Fetch the Records -->
-                                        <tr border:0px;>
-                                            <td style="text-align: center; border:0px;"><?php echo $cnt; ?></td>
-                                            <td style="text-align: center; border:0px;"><?php if ($row['SupplyImage'] != "") {
-                                                                                            echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;';
-                                                                                        }
-                                                                                        ?>
-                                            </td>
-                                            <td style="border:0px;"><?php echo $row['SupplyName']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['SupplyDescription']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['SupplyPrice']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['Stocks']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['NeedPrescription']; ?></td>
-                                            <td style="text-align: center; border:0px;">
-                                                <a supply-id="<?php echo $row['SupplyID'] ?>" supply-image="<?php echo $row['SupplyImage'] ?>" supply-name="<?php echo $row['SupplyName'] ?>" supply-desc="<?php echo $row['SupplyDescription'] ?>" supply-price="<?php echo $row['SupplyPrice'] ?>" stocks="<?php echo $row['Stocks'] ?>" need-presc="<?php echo $row['NeedPrescription'] ?>" class="edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
-                                                <a href="supplies.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                        $cnt = $cnt + 1;
-                                    }
-                                } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</td>
+            <div class="main_content">
+                <div style="padding:30px 30px 30px 30px;">
+                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                        <div class="card-header userProfile-font">
+                            <b style="padding-top:10px;">🏷️ Products</b>
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
+                        </div>
+                        <div class="card-body text-center">
+                            <table class="table table-striped table-hover" style="border:0px;" id="supplies">
+                                <thead>
+                                    <tr class="table100-head">
+                                        <th class="column1" style="border:0px;"></th>
+                                        <th class="column1" style="border:0px;">Clinic</th>
+                                        <th class="column1" style="border:0px;">Product Image</th>
+                                        <th class="column1" style="border:0px;">Supply Name</th>
+                                        <th class="column1" style="border:0px;">Description</th>
+                                        <th class="column1" style="border:0px;">Price</th>
+                                        <th class="column1" style="border:0px;">Stocks</th>
+                                        <th class="column1" style="border:0px;">Needs Prescription</th>
+                                        <th class="column1" style="border:0px;">Action</th>
                                     </tr>
-                                <?php } ?>
+                                </thead>
 
-                            </tbody>
-                        </table>
+                                <tbody style="border:0px;">
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT * FROM petsupplies INNER JOIN clinics ON petsupplies.ClinicID = clinics.ClinicID");
+                                    $cnt = 1;
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+                                            $supply_id = $row['SupplyID'];
+                                            $_SESSION['supply_id'] = $supply_id;
+                                    ?>
+                                            <!--Fetch the Records -->
+                                            <tr border:0px;>
+                                                <td style="text-align: center; border:0px;"><?php echo $cnt; ?></td>
+                                                <td style="text-align: center; border:0px;"><?php echo $row['ClinicName']; ?></td>
+                                                <td style="text-align: center; border:0px;"><?php if ($row['SupplyImage'] != "") {
+                                                                                                echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;';
+                                                                                            }
+                                                                                            ?>
+                                                </td>
+                                                <td style="border:0px;"><?php echo $row['SupplyName']; ?></td>
+                                                <td style="border:0px;"><?php echo $row['SupplyDescription']; ?></td>
+                                                <td style="border:0px;"><?php echo $row['SupplyPrice']; ?></td>
+                                                <td style="border:0px;"><?php echo $row['Stocks']; ?></td>
+                                                <td style="border:0px;"><?php echo $row['NeedPrescription']; ?></td>
+                                                <td style="text-align: center; border:0px;">
+                                                    <a supply-id="<?php echo $row['SupplyID'] ?>" supply-image="<?php echo $row['SupplyImage'] ?>" supply-name="<?php echo $row['SupplyName'] ?>" supply-desc="<?php echo $row['SupplyDescription'] ?>" supply-price="<?php echo $row['SupplyPrice'] ?>" stocks="<?php echo $row['Stocks'] ?>" need-presc="<?php echo $row['NeedPrescription'] ?>" class="edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
+                                                    <a href="supplies.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                            $cnt = $cnt + 1;
+                                        }
+                                    } else { ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</td>
+                                        </tr>
+                                    <?php } ?>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        <?php } ?>
+
+        <?php if ($usertype == 'Clinic Administrator') { ?>
+
+            <div class="main_content">
+                <div style="padding:30px 30px 30px 30px;">
+                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                        <div class="card-header userProfile-font">
+                            <b style="padding-top:10px;">🏷️ Products</b>
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
+                        </div>
+                        <div class="card-body text-center">
+                            <table class="table table-striped table-hover" style="border:0px;" id="supplies">
+                                <thead>
+                                    <tr class="table100-head">
+                                        <th class="column1" style="border:0px;"></th>
+                                        <th class="column1" style="border:0px;">Product Image</th>
+                                        <th class="column1" style="border:0px;">Supply Name</th>
+                                        <th class="column1" style="border:0px;">Description</th>
+                                        <th class="column1" style="border:0px;">Price</th>
+                                        <th class="column1" style="border:0px;">Stocks</th>
+                                        <th class="column1" style="border:0px;">Needs Prescription</th>
+                                        <th class="column1" style="border:0px;">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody style="border:0px;">
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT * FROM petsupplies WHERE ClinicID='$clinicID'");
+                                    $cnt = 1;
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+                                            $supply_id = $row['SupplyID'];
+                                            $_SESSION['supply_id'] = $supply_id;
+                                    ?>
+                                            <!--Fetch the Records -->
+                                            <tr border:0px;>
+                                                <td style="text-align: center; border:0px;"><?php echo $cnt; ?></td>
+                                                <td style="text-align: center; border:0px;"><?php if ($row['SupplyImage'] != "") {
+                                                                                                echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;';
+                                                                                            }
+                                                                                            ?>
+                                                </td>
+                                                <td style="border:0px;"><?php echo $row['SupplyName']; ?></td>
+                                                <td style="border:0px;"><?php echo $row['SupplyDescription']; ?></td>
+                                                <td style="border:0px;"><?php echo $row['SupplyPrice']; ?></td>
+                                                <td style="border:0px;"><?php echo $row['Stocks']; ?></td>
+                                                <td style="border:0px;"><?php echo $row['NeedPrescription']; ?></td>
+                                                <td style="text-align: center; border:0px;">
+                                                    <a supply-id="<?php echo $row['SupplyID'] ?>" supply-image="<?php echo $row['SupplyImage'] ?>" supply-name="<?php echo $row['SupplyName'] ?>" supply-desc="<?php echo $row['SupplyDescription'] ?>" supply-price="<?php echo $row['SupplyPrice'] ?>" stocks="<?php echo $row['Stocks'] ?>" need-presc="<?php echo $row['NeedPrescription'] ?>" class="edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
+                                                    <a href="supplies.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                            $cnt = $cnt + 1;
+                                        }
+                                    } else { ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</td>
+                                        </tr>
+                                    <?php } ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <?php } ?>
+
+
+
     </div>
 
 
