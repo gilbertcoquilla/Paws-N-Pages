@@ -98,7 +98,7 @@ include('connection.php');
 
 
     <!-- Services Start -->
-    <div class="container-fluid py-5">
+    <div class="container-fluid py-5" id="services">
         <div class="container">
             <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
                 <h6 class="text-primary text-uppercase">Services</h6>
@@ -236,7 +236,7 @@ include('connection.php');
     </div>
     <!-- Team End -->
 
-    <!-- Footer Start -->
+    <!-- FINAL Footer Start -->
     <div class="container-fluid bg-light mt-5 py-5">
         <div class="container pt-5">
             <div class="row g-5">
@@ -251,9 +251,10 @@ include('connection.php');
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
+                        <a class="text-body mb-2" href="index.php"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
                         <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="index.php#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="pricing.php"><i class="bi bi-arrow-right text-primary me-2"></i>Pricing</a>
                         <a class="text-body mb-2" href="about.php"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
                         <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
@@ -280,8 +281,7 @@ include('connection.php');
             </div>
         </div>
     </div>
-    <!-- Footer End -->
-
+    <!-- FINAL Footer End -->
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>

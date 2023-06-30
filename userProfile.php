@@ -559,11 +559,18 @@ if (isset($_POST['edit_pet_details'])) {
                     </div>
                     <div class="modal-body">
                         <div class="col-md-12">
-
+                            <div class="form-group">
+                                <label>For How Many Pets</label>
+                                <input type="number" id="noofpets" name="noofpets" min="1" oninput="calculateTotal()" style="border-radius: 15px;" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label>Amount to Pay</label>
+                                <input type="text" id="amount" name="amount" style="border-radius: 15px;" class="form-control" readonly />
+                            </div>
                             <div class="form-group">
                                 <label>Paws N Pages QR Code</label><br />
                                 <center>
-                                    <img id="image" src="img/gcash_pawsnpages.jpg" width="100%" />
+                                    <img id="image" src="https://media.discordapp.net/attachments/1112075552669581332/1123236171829481552/4F28300A-EFF2-4FF4-B119-6A751AC8261B.jpg?width=630&height=630" width="100%" />
                                 </center>
                             </div>
                             <br>
@@ -576,14 +583,7 @@ if (isset($_POST['edit_pet_details'])) {
                                 <label>Reference Number of Payment</label>
                                 <input type="text" name="ref_no" style="border-radius: 15px;" class="form-control" required />
                             </div>
-                            <div class="form-group">
-                                <label>For How Many Pets</label>
-                                <input type="number" id="noofpets" name="noofpets" min="1" oninput="calculateTotal()" style="border-radius: 15px;" class="form-control" required />
-                            </div>
-                            <div class="form-group">
-                                <label>Amount to Pay</label>
-                                <input type="text" id="amount" name="amount" style="border-radius: 15px;" class="form-control" readonly />
-                            </div>
+                            
                             <br>
                             <div class="form-group">
                                 <label style="font-style: italic; font-size: 18px;">*Please wait for the approval of your payment after submitting the form.</label>
