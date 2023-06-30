@@ -87,7 +87,7 @@ include('connection.php');
                         <h6 class="text-primary text-uppercase">About Us</h6>
                         <h1 class="text-primary text-uppercase">Welcome to Paws N Pages</h1>
                     </div>
-                    <h4 class="text-body mb-4">Where we wholeheartedly welcome pet owners seeking exceptional veterinary care and convenient pet supplies. As a passionate team of pet lovers, we are driven by a deep understanding of the profound bond between humans and animals.</h4>
+                    <h4 class="text-body mb-4" style="text-align: justify;">Where we wholeheartedly welcome pet owners seeking exceptional veterinary care and convenient pet supplies. As a passionate team of pet lovers, we are driven by a deep understanding of the profound bond between humans and animals.</h4>
                     <div class="bg-light p-4" style="border-radius: 15px;">
                         <ul class="nav nav-pills justify-content-between mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item w-50" role="presentation">
@@ -99,11 +99,11 @@ include('connection.php');
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
-                                <p class="mb-0"> Our mission at Paws N Pages is to help you find exceptional veterinary care, trusted resources, and heartfelt support to pets and their owners. We connect pet owners with reputable clinics and offer convenient tools to streamline pet healthcare management.
+                                <p class="mb-0" style="text-align: justify;"> Our mission at Paws N Pages is to help you find exceptional veterinary care, trusted resources, and heartfelt support to pets and their owners. We connect pet owners with reputable clinics and offer convenient tools to streamline pet healthcare management.
                                 </p>
                             </div>
                             <div class="tab-pane fade" id="pills-2" role="tabpanel" aria-labelledby="pills-2-tab">
-                                <p class="mb-0">At Paws N Pages, we envision a world where every pet receives the love, care, and attention they deserve. We strive to be the go-to resource, ensuring your pets' well-being is our top priority. </p>
+                                <p class="mb-0" style="text-align: justify;">At Paws N Pages, we envision a world where every pet receives the love, care, and attention they deserve. We strive to be the go-to resource, ensuring your pets' well-being is our top priority. </p>
                             </div>
                         </div>
                     </div>
@@ -116,12 +116,12 @@ include('connection.php');
 
     <!-- Bianca Start -->
     <div class="container-fluid py-5">
-
         <div class="container">
-            <p>
+            <p style="text-align: justify; font-size: 22px;">
                 The journey of Paws N Pages began with our founders, Bianca and Shirley, who experienced the devastating loss of their beloved pets due to illness and inadequate veterinary care. These personal tragedies ignited an unwavering desire within them to create a platform that empowers pet owners like you to find the very best clinics and resources for your furry companions.
 
             </p>
+            <br>
             <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
                 <h6 class="text-primary text-uppercase">Bianca</h6>
             </div>
