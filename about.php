@@ -253,7 +253,7 @@ include('connection.php');
                             <p>Avoid waiting in line and find the a clinic that will cater to your pet's needs</p>
                             <img src="https://i.ibb.co/jZxWwSW/3.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" href="#" />
 
-                            <a class="text-primary text-uppercase" href="">View Appointments<i class="bi bi-chevron-right"></i></a>
+                            <a class="text-primary text-uppercase" href="clinics.php">View Appointments<i class="bi bi-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -262,11 +262,11 @@ include('connection.php');
                         <i class="display-1 text-primary me-4"></i>
                         <div>
                             <h5 class="text-uppercase mb-3">Pet Booklet</h5>
-                            <p>Digitalize your Pet Booklet and never have to loose it again!
+                            <p>Digitalize your Pet Booklet and never have to lose it again!
                             </p>
                             <img src="https://media.discordapp.net/attachments/1112075552669581332/1121348266773184552/31.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
                             <p style="padding-bottom: 40px;"></p>
-                            <a class="text-primary text-uppercase" href="contact.php">Contact Us<i class="bi bi-chevron-right"></i></a>
+                            <a class="text-primary text-uppercase" href="userProfile.php">View Profile<i class="bi bi-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
