@@ -318,7 +318,11 @@ if (isset($_GET['delid'])) {
                                         <th class="column1" style="border:0px;">Price</th>
                                         <th class="column1" style="border:0px;">Stocks</th>
                                         <th class="column1" style="border:0px;">Needs Prescription</th>
-                                        <th class="column1" style="border:0px;">Action</th>
+
+                                        <?php if ($usertype == 'Clinic Administrator') { ?>
+                                            <th class="column1" style="border:0px;">Action</th>
+                                        <?php } ?>
+
                                     </tr>
                                 </thead>
 
