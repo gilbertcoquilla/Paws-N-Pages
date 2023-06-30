@@ -74,7 +74,7 @@ include('connection.php');
                 <!-- Search Form Start -->
                 <div class="mb-5">
                     <div class="input-group">
-                        <input type="text" class="form-control p-3" placeholder="Search" style="border-radius: 15px 0px 0px 15px;">
+                        <input type="text" id="searchbar" name="search" onkeyup="search_clinics()" class="form-control p-3" placeholder="Search" style="border-radius: 15px 0px 0px 15px;">
                         <button class="btn btn-primary px-4" style="border-radius: 0px 15px 15px 0px;"><i class="bi bi-search"></i></button>
                     </div>
                 </div>
@@ -103,7 +103,7 @@ include('connection.php');
 
             <div class="col-lg-8">
                 <?php
-                $ret = mysqli_query($con, "SELECT * FROM clinics");
+                $ret = mysqli_query($con, "SELECT * FROM clinics WHERE SubscriptionStatus='Active'"); // to only include verified clinics
                 $cnt = 1;
                 $row = mysqli_num_rows($ret);
                 if ($row > 0) {
@@ -174,86 +174,7 @@ include('connection.php');
                         $cnt = $cnt + 1;
                     }
                 } ?>
-                <!-- <div class="blog-item mb-5">
-                    <div class="row g-0 bg-light overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="https://www.businesslist.ph/img/ph/e/1317541690_61200.jpg" style="object-fit: cover; width: 100%; height: 100%;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
-                            <div class="p-4">
-                                <h5 class="text-uppercase mb-3">Celebrity Pet Vet Clinic </h5>
-                                <p>691 Tandang Sora Ave, Matandang Balara, Quezon City</p>
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Check-up </span>&nbsp;
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Surgery </span>
-                                <br /><br /><a class="text-primary text-uppercase" href="">View Clinic<i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-item mb-5">
-                    <div class="row g-0 bg-light overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="https://cdn.phonebooky.com/blog/wp-content/uploads/2020/03/26163731/pendragon.jpg" style="object-fit: cover; width: 100%; height: 100%;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
-                            <div class="p-4">
-                                <h5 class="text-uppercase mb-3">Pendragon Veterinary </h5>
-                                <p>Ground Floor Amaremca Bldg. 107A Kalayaan avenue, Diliman, Quezon City </p>
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Laboratory and Diagnostic Testing </span>&nbsp;
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Microchipping </span>
-                                <br /><br /><a class="text-primary text-uppercase" href="">View Clinic<i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-item mb-5">
-                    <div class="row g-0 bg-light overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="https://s3-ap-southeast-1.amazonaws.com/practo-fabric/holy-spirit-animal-clinic-metro-manila-1487669582-58ac094ef2450.jpg" style="object-fit: cover; width: 100%; height: 100%;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
-                            <div class="p-4">
-                                <h5 class="text-uppercase mb-3">Holy Spirit Animal Clinic </h5>
-                                <p>62 Holy Spirit Dr, Don Antonio, Quezon City</p>
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Check-up </span>&nbsp;
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Surgery </span>
-                                <br /><br /><a class="text-primary text-uppercase" href="">View Clinic<i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-item mb-5">
-                    <div class="row g-0 bg-light overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="https://www.businesslist.ph/img/ph/e/1317541690_61200.jpg" style="object-fit: cover; width: 100%; height: 100%;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
-                            <div class="p-4">
-                                <h5 class="text-uppercase mb-3">Celebrity Pet Vet Clinic </h5>
-                                <p>691 Tandang Sora Ave, Matandang Balara, Quezon City</p>
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Check-up </span>&nbsp;
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Surgery </span>
-                                <br /><br /><a class="text-primary text-uppercase" href="">View Clinic<i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="blog-item mb-5">
-                    <div class="row g-0 bg-light overflow-hidden">
-                        <div class="col-12 col-sm-5 h-100">
-                            <img class="img-fluid h-100" src="https://www.businesslist.ph/img/ph/e/1317541690_61200.jpg" style="object-fit: cover; width: 100%; height: 100%;">
-                        </div>
-                        <div class="col-12 col-sm-7 h-100 d-flex flex-column justify-content-center">
-                            <div class="p-4">
-                                <h5 class="text-uppercase mb-3">Celebrity Pet Vet Clinic </h5>
-                                <p>691 Tandang Sora Ave, Matandang Balara, Quezon City</p>
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Check-up </span>&nbsp;
-                                <span style="background-color: rgb(255, 137, 137); border-radius: 2px; color:black"> Surgery </span>
-                                <br /><br /><a class="text-primary text-uppercase" href="">View Clinic<i class="bi bi-chevron-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+
                 <div class="col-12">
                     <nav aria-label="Page navigation">
                         <ul class="pagination pagination-lg m-0">
@@ -340,6 +261,22 @@ include('connection.php');
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+        // JavaScript code
+        function search_clinics() {
+            let input = document.getElementById('searchbar').value;
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('blog-item mb-5');
+
+            for (i = 0; i < x.length; i++) {
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    x[i].style.display = "none";
+                } else {
+                    x[i].style.display = "list-item";
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>
