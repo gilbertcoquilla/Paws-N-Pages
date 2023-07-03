@@ -39,6 +39,11 @@ $_SESSION['clinic_id'] = $clinic_id;
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
     <style>
         .modal-content {
             border: none;
@@ -240,7 +245,11 @@ $_SESSION['clinic_id'] = $clinic_id;
 
             <?php if ($_SESSION["id"] != "") { ?>
                 <br>
-                <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:left; border-radius: 15px;">Book an appointment
+                <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:center; border-radius: 15px;">Book an appointment
+                </a>
+
+                <br>
+                <a class="btn btn-primary m-1" data-toggle="modal" data-target="#view_services" style="text-align:center; border-radius: 15px; width: 95%;">View Services
                 </a>
             <?php } ?>
 
@@ -384,6 +393,75 @@ $_SESSION['clinic_id'] = $clinic_id;
     </div>
     <!-- Modal End -->
 
+    <!-- START OF MODAL FOR VIEW SERVICES -->
+    <div class="modal fade" id="view_services" aria-hidden="true" role="dialog" style="padding-top: 30px;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border-radius: 15px;">
+                <div class="modal-header modal-header-success">
+                    <h3 class="modal-title">View Services</h3>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- For table -->
+                    <div class="main_content" style="width: 100%;">
+                        <div style="padding-right:30px; padding-left:30px; padding-top:30px;">
+                            <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                                <div class="card-header userProfile-font"><b>List of Services</b></div>
+                                <div class="card-body text-center">
+                                    <table class="table table-striped table-hover" style="border:0px; text-align: left;" id="orders">
+                                        <thead style="border:0px;">
+                                            <tr class="table100-head" style="border:0px;">
+                                                <th class="column1" style="border:0px;">Service</th>
+                                                <th class="column1" style="border:0px;">Description</th>
+                                                <th class="column1" style="border:0px;">Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="border:0px;">
+                                            <?php
+                                            $ret = mysqli_query($con, "SELECT * FROM services, clinics WHERE services.ClinicID = clinics.ClinicID AND services.ClinicID = '$clinic_id'");
+                                            $cnt = 1;
+                                            $row = mysqli_num_rows($ret);
+                                            if ($row > 0) {
+                                                while ($row = mysqli_fetch_array($ret)) {
+
+                                            ?>
+                                                    <!--Fetch the Records -->
+                                                    <tr style="border:0px;">
+                                                        <td style="border:0px;"><?php echo $row['ServiceName'] ?></td>
+                                                        <td style="border:0px;"><?php echo $row['ServiceDescription'] ?></td>
+                                                        <td style="border:0px;"><?php echo $row['ServicePrice']; ?></td>
+                                                    </tr>
+                                                <?php
+                                                    $cnt = $cnt + 1;
+                                                }
+                                            } else { ?>
+                                                <tr style="border:0px;">
+                                                    <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- For table -->
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- END OF MODAL FOR VIEW SERVICES -->
 
     <!-- Footer Start -->
     <div class="container-fluid bg-light mt-5 py-5">
@@ -436,6 +514,17 @@ $_SESSION['clinic_id'] = $clinic_id;
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- For Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 
     <!-- Contact Form JavaScript File -->
     <script src="contactform/contactform.js"></script>
