@@ -7,6 +7,16 @@ include('connection.php');
 $supply_id = $_GET['productid'];
 $clinic_id = $_SESSION['clinic_id'];
 $userID = $_SESSION["id"];
+
+// To check if the item is added to the cart
+$ret_a = mysqli_query($con, "SELECT * FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+$cnt_a = 1;
+$row_a = mysqli_num_rows($ret_a);
+
+// To get sum of quantity
+$ret_q = mysqli_query($con, "SELECT SUM(orderdetails.Quantity) AS total_items FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
+$row_q = mysqli_fetch_assoc($ret_q);
+$sum_q = $row_q['total_items'];
 ?>
 
 
@@ -16,8 +26,7 @@ $userID = $_SESSION["id"];
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Checkout</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -52,8 +61,8 @@ $userID = $_SESSION["id"];
     </style>
 
     <script type="text/javascript">
-        $(function () {
-            $("#different").click(function () {
+        $(function() {
+            $("#different").click(function() {
                 if ($(this).is(":checked")) {
                     $("#other").show();
                     $("#address").hide();
@@ -107,23 +116,22 @@ $userID = $_SESSION["id"];
 
                             <!-- To save ordered products to db -->
                             <input type="hidden" name="od_product" value="<?php
-                            $ret_t = mysqli_query($con, "SELECT CONCAT('(', orderdetails.Quantity, 'x) ', petsupplies.SupplyName) AS orderedProduct FROM orderdetails, petsupplies WHERE orderdetails.SupplyID = petsupplies.SupplyID AND petsupplies.ClinicID = orderdetails.ClinicID AND orderdetails.UserID='$userID' AND orderdetails.ClinicID='$clinic_id'");
-                            $cnt_t = 1;
-                            $row_t = mysqli_num_rows($ret_t);
-                            if ($row_t > 0) {
-                                while ($row_t = mysqli_fetch_array($ret_t)) {
+                                                                            $ret_t = mysqli_query($con, "SELECT CONCAT('(', orderdetails.Quantity, 'x) ', petsupplies.SupplyName) AS orderedProduct FROM orderdetails, petsupplies WHERE orderdetails.SupplyID = petsupplies.SupplyID AND petsupplies.ClinicID = orderdetails.ClinicID AND orderdetails.UserID='$userID' AND orderdetails.ClinicID='$clinic_id'");
+                                                                            $cnt_t = 1;
+                                                                            $row_t = mysqli_num_rows($ret_t);
+                                                                            if ($row_t > 0) {
+                                                                                while ($row_t = mysqli_fetch_array($ret_t)) {
 
-                                    $od_product = $row_t['orderedProduct'] . ', ';
-                                    $_SESSION['od_product'] = $od_product;
-                                    echo $od_product;
-                                    $cnt_t = $cnt_t + 1;
-                                }
-                            }
-                            ?>">
+                                                                                    $od_product = $row_t['orderedProduct'] . ', ';
+                                                                                    $_SESSION['od_product'] = $od_product;
+                                                                                    echo $od_product;
+                                                                                    $cnt_t = $cnt_t + 1;
+                                                                                }
+                                                                            }
+                                                                            ?>">
 
                             <div class="col-12" style="padding-bottom: 5px;">
-                                <h6 class="display-5  text-uppercase mb-0 text-center"
-                                    style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
+                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
                                     order summary</h6>
                             </div>
                             <div class="row" style="padding-top:10px; font-size: 14px; font-weight: bold;">
@@ -143,7 +151,7 @@ $userID = $_SESSION["id"];
                             $row = mysqli_num_rows($ret);
                             if ($row > 0) {
                                 while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
+                            ?>
                                     <div class="card mb-3" style="padding-top:10px; border-radius: 15px;">
 
                                         <div class="row" style="font-size: 17px;">
@@ -164,7 +172,7 @@ $userID = $_SESSION["id"];
                                             </div>
                                         </div>
                                     </div>
-                                    <?php
+                            <?php
                                     $cnt = $cnt + 1;
                                 }
                             } ?>
@@ -194,12 +202,10 @@ $userID = $_SESSION["id"];
 
                             <?php } ?>
                             <div class="col-12">
-                                <h6 class="display-5  text-uppercase mb-0 text-center"
-                                    style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
+                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
                                     SCAN TO PAY</h6><BR />
                             </div>
-                            <img src="https://help.gcash.com/hc/article_attachments/9396039095961/3rd.png"
-                                alt="Italian Trulli" width=300; height=300;>
+                            <img src="https://help.gcash.com/hc/article_attachments/9396039095961/3rd.png" alt="Italian Trulli" width=300; height=300;>
                         </div>
                     </div>
                 </div>
@@ -215,44 +221,31 @@ $userID = $_SESSION["id"];
                                 $row = mysqli_num_rows($ret);
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
-                                        ?>
+                                ?>
 
                                         <div class="row g-3" style="background-color:#FFFFFF;">
                                             <div class="col-12">
-                                                <h6 class="display-5  text-uppercase mb-0 text-center"
-                                                    style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
+                                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
                                                     Details</h6>
                                             </div>
                                             <div class="col-6 ">
-                                                <input type="text" style="border-radius: 15px;" name="name"
-                                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Name"
-                                                    value="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>"
-                                                    readonly>
+                                                <input type="text" style="border-radius: 15px;" name="name" class="form-control  bg-light border-0 px-4 py-3" placeholder="Name" value="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>" readonly>
                                             </div>
                                             <div class="col-6">
-                                                <input type="text" style="border-radius: 15px;" name="phone"
-                                                    class="form-control  bg-light border-0 px-4 py-3"
-                                                    placeholder="Contact Number" value="<?php echo $row['ContactNo'] ?>"
-                                                    readonly>
+                                                <input type="text" style="border-radius: 15px;" name="phone" class="form-control  bg-light border-0 px-4 py-3" placeholder="Contact Number" value="<?php echo $row['ContactNo'] ?>" readonly>
                                             </div>
 
                                             <div style="display: none;">
                                                 <div class="col-6 ">
-                                                    <input type="text" name="lotno_street"
-                                                        class="form-control  bg-light border-0 px-4 py-3"
-                                                        placeholder="House/Lot No. & Street"
-                                                        value="<?php echo $row['LotNo_Street'] ?>" readonly>
+                                                    <input type="text" name="lotno_street" class="form-control  bg-light border-0 px-4 py-3" placeholder="House/Lot No. & Street" value="<?php echo $row['LotNo_Street'] ?>" readonly>
                                                 </div>
 
                                                 <div class="col-6">
-                                                    <input type="text" name="province"
-                                                        class="form-control  bg-light border-0 px-4 py-3" value="NCR" readonly>
+                                                    <input type="text" name="province" class="form-control  bg-light border-0 px-4 py-3" value="NCR" readonly>
                                                 </div>
 
                                                 <div class="col-6">
-                                                    <input type="text" name="city"
-                                                        class="form-control  bg-light border-0 px-4 py-3" value="Quezon City"
-                                                        readonly>
+                                                    <input type="text" name="city" class="form-control  bg-light border-0 px-4 py-3" value="Quezon City" readonly>
                                                 </div>
                                             </div>
 
@@ -261,10 +254,9 @@ $userID = $_SESSION["id"];
                                                 $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
                                                 $data = $sql->fetch_all(MYSQLI_ASSOC);
                                                 ?>
-                                                <select id="barangay" class="form-control  bg-light border-0 px-4 py-3"
-                                                    name="barangay" placeholder="Barangay" readonly>
+                                                <select id="barangay" class="form-control  bg-light border-0 px-4 py-3" name="barangay" placeholder="Barangay" readonly>
                                                     <option value="<?php echo $row['Barangay'] ?>" selected hidden><?php echo $row['Barangay'] ?></option>
-                                                    <?php foreach ($data as $row1): ?>
+                                                    <?php foreach ($data as $row1) : ?>
                                                         <option value="<?= htmlspecialchars($row1['BarangayName']) ?>">
                                                             <?= htmlspecialchars($row1['BarangayName']) ?>
                                                         </option>
@@ -281,13 +273,9 @@ $userID = $_SESSION["id"];
                                                 $data = $sql->fetch_all(MYSQLI_ASSOC);
                                                 ?>
 
-                                                <select id="address" style="border-radius: 15px; width: 100%;"
-                                                    class="bg-light border-0 px-4 py-3" name="address" placeholder="Address"
-                                                    required>
-                                                    <option style="text-align: center;" selected disabled>-- Please select an
-                                                        address --</option>
-                                                    <?php foreach ($data as $row2): ?>
-                                                        <option value="<?= htmlspecialchars($row2['CurrentAddress']) ?>">
+                                                <select id="address" style="border-radius: 15px; width: 100%;" class="bg-light border-0 px-4 py-3" name="address" placeholder="Address" required>
+                                                    <?php foreach ($data as $row2) : ?>
+                                                        <option value="<?= htmlspecialchars($row2['CurrentAddress']) ?>" selected>
                                                             <?= htmlspecialchars($row2['CurrentAddress']) ?>
                                                         </option>
                                                     <?php endforeach ?>
@@ -296,15 +284,11 @@ $userID = $_SESSION["id"];
                                             <!-- End of Address selection -->
 
                                             <div class="col-6" style="display: none;">
-                                                <input type="text" name="zipcode"
-                                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Zip Code"
-                                                    value="<?php echo $row['ZIPCode'] ?>" readonly>
+                                                <input type="text" name="zipcode" class="form-control  bg-light border-0 px-4 py-3" placeholder="Zip Code" value="<?php echo $row['ZIPCode'] ?>" readonly>
                                             </div>
 
-                                            <div class="col-6"
-                                                style="text-align: left; padding-top:20px; padding-bottom: 10px;">
-                                                <input type="checkbox" name="different" id="different"
-                                                    value="Ship to a different address"> Ship to a different address
+                                            <div class="col-6" style="text-align: left; padding-top:20px; padding-bottom: 10px;">
+                                                <input type="checkbox" name="different" id="different" value="Ship to a different address"> Ship to a different address
                                             </div>
 
                                             <!-- START OF HIDDEN DIV IF SHIP TO OTHER ADDRESS -->
@@ -312,26 +296,18 @@ $userID = $_SESSION["id"];
                                             <div id="other" style="display:none;">
                                                 <div class="row g-3">
                                                     <div class="col-12">
-                                                        <h6 class="display-5 text-uppercase mb-0 text-center"
-                                                            style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
+                                                        <h6 class="display-5 text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
                                                             Other Address</h6>
                                                     </div>
                                                     <div class="col-12">
-                                                        <input type="text" style="border-radius: 15px; width: 100%;"
-                                                            name="lotno_street_1"
-                                                            class="form-control bg-light border-1 px-4 py-3"
-                                                            placeholder="House/Lot No. & Street">
+                                                        <input type="text" style="border-radius: 15px; width: 100%;" name="lotno_street_1" id="lotno_street_1" class="form-control bg-light border-1 px-4 py-3" placeholder="House/Lot No. & Street">
                                                     </div>
 
                                                     <div class="col-6">
-                                                        <input type="text" style="border-radius: 15px;" name="province_1"
-                                                            class="form-control bg-light border-0 px-4 py-3" value="NCR"
-                                                            readonly>
+                                                        <input type="text" style="border-radius: 15px;" name="province_1" class="form-control bg-light border-0 px-4 py-3" value="NCR" readonly>
                                                     </div>
                                                     <div class="col-6">
-                                                        <input type="text" style="border-radius: 15px;" name="city_1"
-                                                            class="form-control bg-light border-0 px-4 py-3" value="Quezon City"
-                                                            readonly>
+                                                        <input type="text" style="border-radius: 15px;" name="city_1" class="form-control bg-light border-0 px-4 py-3" value="Quezon City" readonly>
                                                     </div>
 
                                                     <div class="col-6">
@@ -339,12 +315,10 @@ $userID = $_SESSION["id"];
                                                         $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
                                                         $data = $sql->fetch_all(MYSQLI_ASSOC);
                                                         ?>
-                                                        <select id="barangay" style="border-radius: 15px; width: 100%"
-                                                            class="bg-light border-0 px-4 py-3" name="barangay_1"
-                                                            placeholder="Barangay">
+                                                        <select id="barangay" style="border-radius: 15px; width: 100%" class="bg-light border-0 px-4 py-3" name="barangay_1" placeholder="Barangay">
                                                             <option value="" selected disabled>-- Please choose a barangay --
                                                             </option>
-                                                            <?php foreach ($data as $row): ?>
+                                                            <?php foreach ($data as $row) : ?>
                                                                 <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
                                                                     <?= htmlspecialchars($row['BarangayName']) ?>
                                                                 </option>
@@ -353,41 +327,32 @@ $userID = $_SESSION["id"];
                                                         </select>
                                                     </div>
                                                     <div class="col-6">
-                                                        <input type="text" style="border-radius: 15px;" name="zipcode_1"
-                                                            class="form-control bg-light border-0 px-4 py-3"
-                                                            placeholder="ZIP Code">
+                                                        <input type="text" style="border-radius: 15px;" name="zipcode_1" id="zipcode_1" class="form-control bg-light border-0 px-4 py-3" placeholder="ZIP Code">
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- END OF HIDDEN DIV IF SHIP TO OTHER ADDRESS -->
                                             <div class="col-12">
-                                                <h6 class="display-5  text-uppercase mb-0 text-center"
-                                                    style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
+                                                <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
                                                     PROOF OF PAYMENT</h6>
                                             </div>
 
                                             <div class="col-6">
-                                                <label for="proof"
-                                                    style="float:left; padding-bottom:15px; padding-left:23px;">Upload proof of
+                                                <label for="proof" style="float:left; padding-bottom:15px; padding-left:23px;">Upload proof of
                                                     payment</label>
-                                                <input type="file" style="border-radius: 15px;" name="proofOfPayment"
-                                                    class="form-control bg-light border-1 px-4 py-3" required>
+                                                <input type="file" style="border-radius: 15px;" name="proofOfPayment" class="form-control bg-light border-1 px-4 py-3" required>
                                             </div>
 
                                             <div class="col-6" style="padding-top: 15px;">
                                                 <label style="padding-bottom:20px;"></label>
-                                                <input type="text" name="refno" style="border-radius: 15px;"
-                                                    class="form-control bg-light border-1 px-4 py-3" placeholder="Reference No."
-                                                    required>
+                                                <input type="text" name="refno" style="border-radius: 15px;" class="form-control bg-light border-1 px-4 py-3" placeholder="Reference No." required>
                                             </div>
 
                                             <br />
 
                                             <div class="col-6">
                                                 <br><br>
-                                                <a class="btn btn-danger py-3"
-                                                    style="float:left; width:50%; border-radius: 15px;"
-                                                    href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>">Go
+                                                <a class="btn btn-danger py-3" style="float:left; width:50%; border-radius: 15px;" href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>">Go
                                                     Back</a>
                                             </div>
 
@@ -395,8 +360,7 @@ $userID = $_SESSION["id"];
                                                 <br><br>
 
                                                 <?php if ($row_a > 0) { ?>
-                                                    <button type="submit" name="order" class="btn btn-primary py-3"
-                                                        style="float:right; width:50%; border-radius: 15px;">Place Order</button>
+                                                    <button type="submit" name="order" class="btn btn-primary py-3" style="float:right; width:50%; border-radius: 15px;">Place Order</button>
                                                 <?php } ?>
 
                                             </div>
@@ -405,7 +369,7 @@ $userID = $_SESSION["id"];
 
                                         </div>
 
-                                        <?php
+                                <?php
                                     }
                                 } ?>
     </form>
@@ -413,15 +377,7 @@ $userID = $_SESSION["id"];
 
     <!-- START OF INSERTING DATA -->
     <?php
-    // To check if the item is added to the cart
-    $ret_a = mysqli_query($con, "SELECT * FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
-    $cnt_a = 1;
-    $row_a = mysqli_num_rows($ret_a);
 
-    // To get sum of quantity
-    $ret_q = mysqli_query($con, "SELECT SUM(orderdetails.Quantity) AS total_items FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
-    $row_q = mysqli_fetch_assoc($ret_q);
-    $sum_q = $row_q['total_items'];
 
     // Details
     $totalPrice = $_POST['totalprice'];
@@ -450,7 +406,7 @@ $userID = $_SESSION["id"];
     // Still lacking:
     // 1) decrease number of stocks depending on the number of items ordered
     // 2) delete items in cart after placing order
-    
+
     // Insert data to DB
     if ($row_a > 0) {
         if ($shipToOtherAddress == "") {
@@ -477,7 +433,7 @@ $userID = $_SESSION["id"];
                 // if ($query && $stocks_query && $del_query) {
                 if ($query) {
                     // if ($query) {  
-    
+
                     echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
                     echo '<script>';
                     echo 'swal({
@@ -576,10 +532,8 @@ $userID = $_SESSION["id"];
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
-                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
-                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
                     <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
                         762 6162</a>
                 </div>
@@ -587,14 +541,10 @@ $userID = $_SESSION["id"];
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="#services"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="#founders"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
@@ -635,6 +585,27 @@ $userID = $_SESSION["id"];
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+        $(function() {
+            var checkbox = $("#different");
+            var hidden = $("#other");
+            hidden.hide();
+            checkbox.change(function() {
+                if (checkbox.is(':checked')) {
+                    hidden.show();
+                    $('#lotno_street_1').prop('required', true); //to add required
+                    $('#zipcode_1').prop('required', true);
+                } else {
+                    hidden.hide();
+                    $("#lotno_street_1").val("");
+                    $("#zipcode_1").val("");
+                    $('#lotno_street_1').prop('required', false); //to remove required
+                    $('#zipcode_1').prop('required', false);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
