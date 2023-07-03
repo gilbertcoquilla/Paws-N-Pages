@@ -5,20 +5,20 @@ if (isset($_POST['submit'])) {
     $mname = $_POST['mname'];
     $lname = $_POST['lname'];
     $phone = $_POST['phone'];
-    $age = $_POST['age'];
+    $birthdate = $_POST['birthdate'];
     $username = $_POST['username'];
     $usertype = $_POST['usertype'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     //$name = $_POST['cpassword'];
 
-    $sqlquery = mysqli_query($con, "INSERT INTO users(FirstName, MiddleName, LastName, ContactNo, Age, UserType, Username, Email, Password) VALUES('$fname','$mname','$lname', '$phone', '$age', '$usertype', '$username', '$email', '$password')");
+    $sqlquery = mysqli_query($con, "INSERT INTO users(FirstName, MiddleName, LastName, ContactNo, Birth_Date, UserType, Username, Email, Password) VALUES('$fname','$mname','$lname', '$phone', '$birthdate', '$usertype', '$username', '$email', '$password')");
     if ($sqlquery) {
         echo "<script>
             alert('New record was created successfully');
         </script>";
         echo "<script>
-            document.location = 'registration-address.php';      
+            document.location = 'login.php';      
         </script>";
     } else {
         echo "<script>
@@ -37,8 +37,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -93,59 +92,48 @@ if (isset($_POST['submit'])) {
                     <form method="post">
                         <div class="row g-3 bg-dark">
                             <div class="col-6 ">
-                                <input type="button" class="btn btn-primary w-100 py-3"
-                                    onclick="window.location='registration.php'" value="SIGN UP">
+                                <input type="button" class="btn btn-primary w-100 py-3" onclick="window.location='registration.php'" value="SIGN UP">
                             </div>
                             <div class="col-6">
-                                <input type="button" class="btn btn-outline-light w-100 py-3"
-                                    onclick="window.location='login.php'" value="LOG IN">
+                                <input type="button" class="btn btn-outline-light w-100 py-3" onclick="window.location='login.php'" value="LOG IN">
                             </div>
                             <div class="col-12">
                                 <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Register Now! 🐾</h5>
                             </div>
                             <div class="col-6 ">
-                                <input type="text" name="fname" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="First Name" required>
+                                <input type="text" name="fname" class="form-control  bg-light border-0 px-4 py-3" placeholder="First Name" required>
                             </div>
                             <div class="col-6 ">
-                                <input type="text" name="mname" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="Middle Name" required>
+                                <input type="text" name="mname" class="form-control  bg-light border-0 px-4 py-3" placeholder="Middle Name" required>
                             </div>
                             <div class="col-12">
-                                <input type="text" name="lname" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="Last Name" required>
+                                <input type="text" name="lname" class="form-control  bg-light border-0 px-4 py-3" placeholder="Last Name" required>
                             </div>
                             <div class="col-6">
-                                <input type="text" name="phone" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="Contact Number" required>
+                                <input type="text" name="phone" class="form-control  bg-light border-0 px-4 py-3" placeholder="Contact Number" required>
                             </div>
                             <div class="col-6">
-                                <input type="text" name="age" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="Age" required>
+                                <input type="date" name="birthdate" class="form-control  bg-light border-0 px-4 py-3" placeholder="Birthdate" required>
                             </div>
                             <div class="col-12">
-                                <input type="text" name="username" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="Username" required>
+                                <input type="text" name="username" class="form-control  bg-light border-0 px-4 py-3" placeholder="Username" required>
                             </div>
                             <div class="col-12" style="display: none;">
-                                <select name="usertype" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="User Type" required>
+                                <select name="usertype" class="form-control  bg-light border-0 px-4 py-3" placeholder="User Type" required>
                                     <option value="Pet Owner" selected>Pet Owner</option>
                                 </select>
                             </div>
                             <div class="col-12">
-                                <input type="email" name="email" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="E-mail" required>
+                                <input type="email" name="email" class="form-control  bg-light border-0 px-4 py-3" placeholder="E-mail" required>
                             </div>
                             <div class="col-12">
-                                <input type="password" name="password" class="form-control  bg-light border-0 px-4 py-3"
-                                    placeholder="Password" required>
+                                <input type="password" name="password" class="form-control  bg-light border-0 px-4 py-3" placeholder="Password" required>
                             </div>
                             <!-- <div class="col-12">
                                 <input type="password" name="cpassword" class="form-control  bg-light border-0 px-4 py-3" placeholder="Confirm Password" required>
                             </div> -->
                             <div class="col-12">
-                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Next</button>
+                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Submit</button>
                             </div>
                             <div class="col-12"></div>
                         </div>

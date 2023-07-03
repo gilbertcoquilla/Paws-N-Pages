@@ -12,26 +12,27 @@ $row_ca = mysqli_fetch_array($ret_ca);
 
 $clinicID = $row_ca['ClinicID'];
 
-if (isset($_POST['update_booking'])) {
-    $a_status = $_POST['Status2'];
-    $a_remarks = $_POST['Remarks'];
-    $a_id = $_POST['AppointmentID'];
+if (isset($_POST['edit'])) {
 
-    if ($a_status != "") {
-        $query = mysqli_query($con, "UPDATE appointments SET AppointmentStatus='$a_status', Remarks='$a_remarks' WHERE AppointmentID='$a_id' AND UserID='$userID'");
+    $orderid = $_POST['OrderID1'];
+    $orderstatus = $_POST['OrderStatus3'];
+    $odremarks = $_POST['OrderRemarks1'];
+
+    if ($orderstatus != "") {
+        $query = mysqli_query($con, "UPDATE orders SET OrderStatus='$orderstatus', OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
 
         if ($query) {
-            echo "<script>alert('You have successfully updated an appointment.');</script>";
-            echo "<script> document.location ='bookings.php'; </script>";
+            echo "<script>alert('You have successfully updated an order.');</script>";
+            echo "<script> document.location ='orders_admin.php'; </script>";
         } else {
             echo "<script>alert('Something Went Wrong. Please try again');</script>";
         }
     } else {
-        $query = mysqli_query($con, "UPDATE appointments SET Remarks='$a_remarks' WHERE AppointmentID='$a_id' AND UserID='$userID'");
+        $query = mysqli_query($con, "UPDATE orders SET OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
 
         if ($query) {
-            echo "<script>alert('You have successfully updated an appointment.');</script>";
-            echo "<script> document.location ='bookings.php'; </script>";
+            echo "<script>alert('You have successfully updated an order.');</script>";
+            echo "<script> document.location ='orders_admin.php'; </script>";
         } else {
             echo "<script>alert('Something Went Wrong. Please try again');</script>";
         }
@@ -39,6 +40,7 @@ if (isset($_POST['update_booking'])) {
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -198,16 +200,16 @@ if (isset($_POST['update_booking'])) {
             <div class="profile">
                 <table class="profile-container" style="padding-bottom:10px;">
                     <tr>
-                        <td width="35%" style="padding-left:10px">
-                            <img src="img/user.png" alt="" width="100%" style="border-radius:50%">
+                        <td width="35%">
+                            <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="" width="100%" style="border-radius:50%">
                         </td>
                         <td width="65%" style="text-align:center; padding-top:10px">
                             <?php
                             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
                             while ($row = mysqli_fetch_array($ret)) {
                             ?>
-                                <p><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?>
-                                    <?php echo $row['Username'] ?></p>
+                                <a style="text-transform:uppercase; padding:bottom:1px;"><b><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></b></a>
+                                <a><?php echo $row['Username'] ?></a>
                             <?php } ?>
                         </td>
                     </tr>
@@ -221,11 +223,12 @@ if (isset($_POST['update_booking'])) {
                 <li style="text-transform:uppercase;"><a href="users.php"><b>Customers</b></a></li>
                 <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
                 <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
-                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedbacks</b></a></li>
+                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedback</b></a></li>
+                <li style="text-transform:uppercase;"><a href="services.php"><b>Services</b></a></li>
 
             </ul>
-            <div class="social_media">
-
+            <div style="padding-top:30px;">
+                <center><a href="logout.php" class="btn btn-primary" style="border-radius: 15px; width: 50%; height:20%;">Logout</a></center>
             </div>
         </div>
 
@@ -238,20 +241,17 @@ if (isset($_POST['update_booking'])) {
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font"><b>📦 Orders</b></div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px;" id="orders">
+                            <table class="table table-striped table-hover" style="border:0px;  text-align:left;" id="orders">
                                 <thead style="border:0px;">
-                                    <tr class="table100-head" style="border:0px; text-align:center;">
-                                        <th class="column1" style="border:0px;  text-align:center;"></th>
-                                        <th class="column1" style="border:0px; text-align:center;">Reference No.</th>
-                                        <th class="column1" style="border:0px; text-align:center;">Total Price</th>
-                                        <th class="column1" style="border:0px; text-align:center;">Customer</th>
-                                        <th class="column1" style="border:0px; text-align:center;">Date & Time Checked Out</th>
-                                        <th class="column1" style="border:0px; text-align:center;">Status</th>
-                                        <th class="column1" style="border:0px; text-align:center;">Remarks</th>
-                                        <th class="column1" style="border:0px;">Action</th>
+                                    <tr class="table100-head" style="border:0px;">
+                                        <th class="column1" style="border:0px;">Reference No.</th>
+                                        <th class="column1" style="border:0px;">Total Price</th>
+                                        <th class="column1" style="border:0px;">Customer</th>
+                                        <th class="column1" style="border:0px;">Date & Time Checked Out</th>
+                                        <th class="column1" style="border:0px;">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody style="border:0px; text-align:center;">
+                                <tbody style="border:0px;">
                                     <?php
                                     $ret = mysqli_query($con, "SELECT * FROM orders, users, clinics WHERE orders.UserID = users.UserID AND orders.ClinicID = clinics.ClinicID AND orders.ClinicID = '$clinicID'");
                                     $cnt = 1;
@@ -262,22 +262,16 @@ if (isset($_POST['update_booking'])) {
                                     ?>
                                             <!--Fetch the Records -->
                                             <tr style="border:0px;">
-                                                <td style="border:0px;"></td>
-                                                <td style="border:0px;"><?php echo $row['Order_RefNo'] ?></td>
-                                                <td style="border:0px;"><?php echo $row['TotalPrice'] ?></td>
+                                                <td style="border:0px;"><a href="" orderid="<?php echo $row['OrderID'] ?>" refno="<?php echo $row['Order_RefNo'] ?>" products="<?php $prod = $row['OrderedProducts'];
+                                                                                                                                                                                $explodedArray = explode(', ', $prod);
+                                                                                                                                                                                foreach ($explodedArray as $element) {
+                                                                                                                                                                                    echo  $element . "\n";
+                                                                                                                                                                                } ?>" user="<?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>" totalprice="<?php echo "₱ " . $row['TotalPrice']; ?>" dtcout="<?php echo $row['DateTimeCheckedOut'] ?>" address="<?php echo $row['ShippingTo'] ?>" proofpayment="<?php echo $row['ProofOfPayment']; ?>" proofrefno="<?php echo $row['Proof_RefNo']; ?>" orderstatus="<?php echo $row['OrderStatus']; ?>" odremarks="<?php echo $row['OrderRemarks']; ?>" class="edit" title="View" data-toggle="modal" data-target="#view_order"><?php echo $row['Order_RefNo'] ?></a></td>
+
+                                                <td style="border:0px;">₱ <?php echo $row['TotalPrice'] ?></td>
                                                 <td style="border:0px;"><?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
                                                 <td style="border:0px;"><?php echo $row['DateTimeCheckedOut']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['OrderStatus'] ?></td>
-                                                <td style="border:0px;"><?php echo $row['OrderRemarks']; ?></td>
-                                                <td style="border:0px;">
-                                                    <a orderid="<?php echo $row['OrderID'] ?>" refno="<?php echo $row['Order_RefNo'] ?>" products="<?php $prod = $row['OrderedProducts'];
-                                                                                                                                                    $explodedArray = explode(', ', $prod);
-                                                                                                                                                    foreach ($explodedArray as $element) {
-                                                                                                                                                        echo  $element;
-                                                                                                                                                    } ?>" user="<?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>" totalprice="<?php echo $row['TotalPrice']; ?>" dtcout="<?php echo $row['DateTimeCheckedOut'] ?>" address="<?php echo $row['ShippingTo'] ?>" proofpayment="<?php echo $row['ProofOfPayment']; ?>" proofrefno="<?php echo $row['Proof_RefNo']; ?>" orderstatus="<?php echo $row['OrderStatus']; ?>" odremarks="<?php echo $row['OrderRemarks']; ?>" class="edit" title="View" data-toggle="modal" data-target="#view_order"><i class="fa fa-eye"></i></a> <a href="inventory_management.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
-                                                </td>
-
-
                                             </tr>
                                         <?php
                                             $cnt = $cnt + 1;
@@ -294,153 +288,187 @@ if (isset($_POST['update_booking'])) {
                         </div>
                     </div>
                 </div>
-            </div><?php } ?>
+            </div>
+
+        <?php } ?>
         <!-- END OF CLINIC ADMINISTRATOR -->
 
-
-
-        <!-- START OF MODAL FOR VIEWING ORDER DETAILS -->
-        <div class="modal fade" id="view_order" aria-hidden="true" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content" style="border-radius: 15px;">
-                    <form method="POST" runat="server" id="view_order_form">
-                        <div class="modal-header modal-header-success">
-                            <h3 class="modal-title">Order Details</h3>
-                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="col-md-12">
-                                <div class="form-group" style="display: none;">
-                                    <label>ID</label>
-                                    <input type="text" name="OrderID" id="OrderID" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Order Reference No.</label>
-                                <input type="text" name="Order_RefNo" id="Order_RefNo" class="form-control" readonly />
-                            </div>
-                            <div class="form-group">
-                                <label>Customer</label>
-                                <input type="text" name="Customer" id="Customer" class="form-control" readonly />
-                            </div>
-                            <div class="form-group">
-                                <label>Ordered Products</label>
-                                <!-- <input type="textarea" name="Orders" id="Orders" class="form-control" readonly /> -->
-                                <textarea name="OrderedProducts" id="OrderedProducts" class="form-control" style="width: 100%; height: 150px;" readonly></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Total Price</label>
-                                <input type="text" name="TotalPrice" id="TotalPrice" class="form-control" readonly />
-                            </div>
-                            <div class="form-group">
-                                <label>Date & Time Checked Out</label>
-                                <input type="text" name="DTimeCO" id="DTimeCO" class="form-control" readonly />
-                            </div>
-                            <div class="form-group">
-                                <label>Shipping To</label>
-                                <textarea name="ShippingTo" id="ShippingTo" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Proof Of Payment</label>
-                                <!-- <input type="text" name="ProofOfPayment" id="ProofOfPayment" class="form-control" readonly /> -->
-                                <img src="" name="ProofOfPayment" id="ProofOfPayment" width="100%">
-                                <!-- insert download link for proof of payment here -->
-                            </div>
-                            <div class="form-group">
-                                <label>Reference No. (For Proof of Payment)</label>
-                                <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control" readonly />
-                            </div>
-                            <div class="form-group">
-                                <label>Status</label>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <input type="text" name="OrderStatus" id="OrderStatus" class="form-control" style="height: 100%;" readonly />
-                                    </div>
-                                    <div class="col-8">
-                                        <select name="OrderStatus2" id="OrderStatus2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
-                                            <option selected disabled>-- Update Status --</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Denied">Denied</option>
-                                            <option value="Order Received">Order Received</option>
-                                            <option value="To Ship">To Ship</option>
-                                            <option value="Completed">Completed</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="form-group">
-                                <label>Remarks</label>
-                                <textarea name="OrderRemarks" id="OrderRemarks" class="form-control" style=" width: 100%; height: 150px;"></textarea>
-                            </div>
-                        </div>
-                        <div style="clear:both;"></div>
-                        <div class="modal-footer">
-                            <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
-    <!--  START OF MODAL FOR VIEWING ORDER DETAILS -->
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <!-- START OF MODAL FOR VIEWING ORDER DETAILS -->
+    <div class="modal fade" id="view_order" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="border-radius: 15px;">
+                <form method="POST" runat="server" enctype="multipart/form-data" id="view_order_form">
+                    <div class="modal-header modal-header-success">
+                        <h3 class="modal-title">Order Details</h3>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="form-group" style="display: none;">
+                                <label>ID</label>
+                                <input type="text" name="OrderID" id="OrderID" class="form-control" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Order Reference No.</label>
+                                        <input type="text" name="Order_RefNo" id="Order_RefNo" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ordered Products</label>
+                                        <!-- <input type="textarea" name="Orders" id="Orders" class="form-control" readonly /> -->
+                                        <textarea name="OrderedProducts" id="OrderedProducts" class="form-control" style="width: 100%; height: 150px;" readonly></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Total Price</label>
+                                        <input type="text" name="TotalPrice" id="TotalPrice" class="form-control" readonly />
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label>Proof Of Payment</label>
+                                        <!-- <input type="text" name="ProofOfPayment" id="ProofOfPayment" class="form-control" readonly />
+                                        <img src="" name="ProofOfPayment" id="ProofOfPayment" width="100%" onclick="displayImg()"> -->
+                                        <br>
+                                        <div class="row" style="width: 100%;">
+                                            <div class="col-8">
+                                                <a href="" id="DL_ProofOfPayment" target="_blank">
+                                                    <span id="proofOP"></span>
+                                                </a>
+                                            </div>
+                                            <div class="col-4" style="text-align: right;">
+                                                <a href="" id="DL_ProofOfPayment" target="_blank" download>
+                                                    Download
+                                                </a>
+                                            </div>
 
-    <!-- For Datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
-    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+                                        </div>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+                                        <!-- insert download link for proof of payment here -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Customer</label>
+                                        <input type="text" name="Customer" id="Customer" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date & Time Checked Out</label>
+                                        <input type="text" name="DTimeCO" id="DTimeCO" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Shipping To</label>
+                                        <textarea name="ShippingTo" id="ShippingTo" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label>Reference No. (For Proof of Payment)</label>
+                                        <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <input type="text" name="OrderStatus" id="OrderStatus" class="form-control" style="height: 100%;" readonly />
+                                            </div>
+                                            <div class="col-8">
+                                                <select name="OrderStatus2" id="OrderStatus2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
+                                                    <option selected disabled>-- Update Status --</option>
+                                                    <option value="Pending">Pending</option>
+                                                    <option value="Denied">Denied</option>
+                                                    <option value="Order Received">Order Received</option>
+                                                    <option value="To Ship">To Ship</option>
+                                                    <option value="Completed">Completed</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Remarks</label>
+                                        <textarea name="OrderRemarks" id="OrderRemarks" class="form-control" style=" width: 100%; height: 150px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
 
-    <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+                        </div>
 
-    <!-- To show details when editing -->
-    <script>
-        $('#view_order').on('show.bs.modal', function(e) {
-            var opener = e.relatedTarget;
-
-            var orderid = $(opener).attr('orderid');
-            var refno = $(opener).attr('refno');
-            var user = $(opener).attr('user');
-            var products = $(opener).attr('products');
-            var totalprice = $(opener).attr('totalprice');
-            var dtcout = $(opener).attr('dtcout');
-            var address = $(opener).attr('address');
-            var proofpayment = $(opener).attr('proofpayment');
-            var proofrefno = $(opener).attr('proofrefno');
-            var orderstatus = $(opener).attr('orderstatus');
-            var odremarks = $(opener).attr('odremarks');
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="modal-footer">
+                        <button name="edit" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
+                            Update
+                        </button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <!--  END OF MODAL FOR VIEWING ORDER DETAILS -->
 
 
-            $('#view_order_form').find('[name="OrderID"]').val(orderid);
-            $('#view_order_form').find('[name="Order_RefNo"]').val(refno);
-            $('#view_order_form').find('[name="Customer"]').val(user);
-            $('#view_order_form').find('[name="OrderedProducts"]').val(products);
-            $('#view_order_form').find('[name="TotalPrice"]').val(totalprice);
-            $('#view_order_form').find('[name="DTimeCO"]').val(dtcout);
-            $('#view_order_form').find('[name="ShippingTo"]').val(address);
-            // $('#view_order_form').find('[name="ProofOfPayment"]').val(proofpayment);
-            $('#view_order_form').find('[name="ProofOfPayment"]').prop('src', 'image_upload/' + proofpayment);
-            $('#view_order_form').find('[name="Proof_RefNo"]').val(proofrefno);
-            $('#view_order_form').find('[name="OrderStatus"]').val(orderstatus);
-            $('#view_order_form').find('[name="OrderRemarks"]').val(odremarks);
+            <!-- JavaScript Libraries -->
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="lib/easing/easing.min.js"></script>
+            <script src="lib/waypoints/waypoints.min.js"></script>
+            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-            endResize();
-        });
+            <!-- For Datatable -->
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+            <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
-        function endResize() {
-            $(window).off("resize", resizer);
-        }
-    </script>
+            <!-- Template Javascript -->
+            <script src="js/main.js"></script>
+
+            <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+            <!-- To show details when editing -->
+            <script>
+                function endResize() {
+                    $(window).off("resize", resizer);
+                }
+
+                $('#view_order').on('show.bs.modal', function(e) {
+                    var opener = e.relatedTarget;
+
+                    var orderid = $(opener).attr('orderid');
+                    var refno = $(opener).attr('refno');
+                    var user = $(opener).attr('user');
+                    var products = $(opener).attr('products');
+                    var totalprice = $(opener).attr('totalprice');
+                    var dtcout = $(opener).attr('dtcout');
+                    var address = $(opener).attr('address');
+                    var proofpayment = $(opener).attr('proofpayment');
+                    var proofrefno = $(opener).attr('proofrefno');
+                    var orderstatus = $(opener).attr('orderstatus');
+                    var odremarks = $(opener).attr('odremarks');
+
+                    $('#view_order_form').find('[name="OrderID"]').val(orderid);
+                    $('#view_order_form').find('[name="Order_RefNo"]').val(refno);
+                    $('#view_order_form').find('[name="Customer"]').val(user);
+                    $('#view_order_form').find('[name="OrderedProducts"]').val(products);
+                    $('#view_order_form').find('[name="TotalPrice"]').val(totalprice);
+                    $('#view_order_form').find('[name="DTimeCO"]').val(dtcout);
+                    $('#view_order_form').find('[name="ShippingTo"]').val(address);
+
+                    $('#view_order_form').find('[name="ProofOfPayment"]').val(proofpayment);
+                    $('#view_order_form').find('[id="proofOP"]').html(proofpayment);
+                    // $('#view_order_form').find('[name="ProofOfPayment"]').prop('src', 'image_upload/' + proofpayment);
+                    $('#view_order_form').find('[id="DL_ProofOfPayment"]').prop('href', 'image_upload/' + proofpayment);
+
+                    $('#view_order_form').find('[name="Proof_RefNo"]').val(proofrefno);
+                    $('#view_order_form').find('[name="OrderStatus"]').val(orderstatus);
+                    $('#view_order_form').find('[name="OrderRemarks"]').val(odremarks);
+
+                    endResize();
+                });
+
+                function displayImg() {
+                    var img = document.getElementById("ProofOfPayment").src;
+                    window.open(img, '_blank');
+                }
+            </script>
 
 </body>
 

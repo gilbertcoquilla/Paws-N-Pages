@@ -2,7 +2,10 @@
 session_start();
 include('config.php');
 include('connection.php');
+
 $userID = $_SESSION["id"];
+$usertype = $_SESSION['usertype'];
+
 $ret_ca = mysqli_query($con, "SELECT * FROM users, clinics WHERE users.UserID = clinics.UserID AND clinics.UserID='$userID'");
 $cnt_ca = 1;
 $row_ca = mysqli_fetch_array($ret_ca);
@@ -108,7 +111,7 @@ if (isset($_POST['update_booking'])) {
         }
 
         .wrapper .sidebar {
-            width: 200px;
+            width: 250px;
             height: 100%;
             background: white;
             padding: 30px 0px;
@@ -125,7 +128,7 @@ if (isset($_POST['update_booking'])) {
         }
 
         .wrapper .sidebar ul li {
-            width: 200px;
+            width: 210px;
 
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -172,7 +175,7 @@ if (isset($_POST['update_booking'])) {
 
         .wrapper .main_content {
             width: 100%;
-            margin-left: 200px;
+            margin-left: 250px;
 
         }
     </style>
@@ -193,18 +196,22 @@ if (isset($_POST['update_booking'])) {
     <div class="wrapper">
         <div class="sidebar">
             <div class="profile">
-                <center><img src="img/user.png" alt="" width="60%" style="border-radius:50%; ">
-                    <?php
-                    $ret = mysqli_query($con, "SELECT * FROM users WHERE userID='$userID'");
-                    while ($row = mysqli_fetch_array($ret)) {
-                    ?>
-                        <p class="profile-title" style="padding-top:10px; text-transform:uppercase; color:#80b434;">
-                            <b><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></b>
-                        </p>
-                        <p class="profile-subtitle" style="padding-top:5px; color:grey;"><?php echo $row['Username'] ?></p>
-                        <p><?php echo $clinicID ?></p>
-                    <?php } ?>
-                </center>
+                <table class="profile-container" style="padding-bottom:10px;">
+                    <tr>
+                        <td width="35%">
+                            <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="" width="100%" style="border-radius:50%">
+                        </td>
+                        <td width="65%" style="text-align:center; padding-top:10px">
+                            <?php
+                            $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
+                            while ($row = mysqli_fetch_array($ret)) {
+                            ?>
+                                <a style="text-transform:uppercase; padding:bottom:1px;"><b><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></b></a>
+                                <a><?php echo $row['Username'] ?></a>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                </table>
                 <br>
             </div>
             <ul class="nav nav-sidebar">
@@ -214,80 +221,185 @@ if (isset($_POST['update_booking'])) {
                 <li style="text-transform:uppercase;"><a href="users.php"><b>Customers</b></a></li>
                 <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
                 <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
-                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedbacks</b></a></li>
+                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedback</b></a></li>
+                <li style="text-transform:uppercase;"><a href="services.php"><b>Services</b></a></li>
             </ul>
-            <div class="social_media">
-
+            <div style="padding-top:30px;">
+                <center><a href="logout.php" class="btn btn-primary" style="border-radius: 15px; width: 50%; height:20%;">Logout</a></center>
             </div>
         </div>
-        <div class="main_content">
-            <div style="padding-right:30px; padding-left:30px; padding-top:30px;">
-                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                    <div class="card-header userProfile-font"><b>⏳ Appointments</b></div>
-                    <div class="card-body text-center">
-                        <table class="table table-striped table-hover" style="border:0px; text-align: left;" id="bookings">
-                            <thead style="border:0px;">
-                                <tr class="table100-head" style="border:0px;">
-                                    <th class="column1" style="border:0px;">ID</th>
-                                    <th class="column1" style="border:0px;">Reference No.</th>
-                                    <th class="column1" style="border:0px;">Preferred Date</th>
-                                    <th class="column1" style="border:0px;">Preferred Time</th>
-                                    <th class="column1" style="border:0px;">Notes</th>
-                                    <th class="column1" style="border:0px;">Services</th>
-                                    <th class="column1" style="border:0px;">Customer</th>
-                                    <th class="column1" style="border:0px;">Status</th>
-                                    <th class="column1" style="border:0px;">Remarks</th>
-                                    <th class="column1" style="border:0px;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody style="border:0px;">
-                                <?php
-                                $ret = mysqli_query($con, "SELECT * FROM appointments, users WHERE appointments.UserID = users.UserID AND appointments.ClinicID='$clinicID'");
-                                $cnt = 1;
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
 
-                                ?>
-                                        <!--Fetch the Records -->
+
+        <!-- START OF ADMINISTRATOR -->
+        <?php if ($usertype == 'Administrator') { ?>
+
+            <div class="main_content">
+                <div style="padding-right:30px; padding-left:30px; padding-top:30px;">
+                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                        <div class="card-header userProfile-font"><b>⏳ Appointments</b></div>
+                        <div class="card-body text-center">
+                            <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="bookings">
+                                <thead style="border:0px;">
+                                    <tr class="table100-head" style="border:0px;">
+                                        <th class="column1" style="border:0px;"></th>
+                                        <th class="column1" style="border:0px;">Clinic Name</th>
+                                        <th class="column1" style="border:0px;">Reference No.</th>
+                                        <th class="column1" style="border:0px;">Preferred Date</th>
+                                        <th class="column1" style="border:0px;">Preferred Time</th>
+                                        <th class="column1" style="border:0px;">Notes</th>
+                                        <th class="column1" style="border:0px;">Services</th>
+                                        <th class="column1" style="border:0px;">Customer</th>
+                                        <th class="column1" style="border:0px;">Status</th>
+                                        <th class="column1" style="border:0px;">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="border:0px;">
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT * FROM appointments, clinics, users WHERE appointments.ClinicID = clinics.ClinicID AND appointments.UserID = users.UserID");
+                                    $cnt = 1;
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+
+                                    ?>
+                                            <!--Fetch the Records -->
+                                            <tr style="border:0px;">
+                                                <td style="border:0px;"><?php echo $cnt; ?></td>
+                                                <td style="border:0px;"><?php echo $row['ClinicName'] ?></td>
+                                                <td style="border:0px;"><?php echo $row['Appointment_RefNo'] ?></td>
+                                                <td style="border:0px;"><?php echo $row['PreferredDate'] ?></td>
+                                                <td style="border:0px;">
+                                                    <?php echo date('h:i A', strtotime($row['PreferredTime'])) ?></td>
+                                                <td style="border:0px;"><?php echo $row['Notes']; ?></td>
+                                                <td style="border:0px;"><?php echo $row['AvailedServices'] ?></td>
+                                                <td style="border:0px;">
+                                                    <?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>
+                                                </td>
+                                                <td style="border:0px;">
+                                                    <?php $status = $row['AppointmentStatus'];
+                                                    if ($status === 'Processing') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 5px; border-radius:10px; background-color:#F4BB44;"><?php echo $row['AppointmentStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Confirmed') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 7px; border-radius:10px; background-color:#228B22;"><?php echo $row['AppointmentStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Denied') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#A52A2A;"><?php echo $row['AppointmentStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Completed') { ?>
+                                                        <?php echo $row['AppointmentStatus']; ?>
+                                                    <?php } ?>
+                                                </td>
+                                                <td style="border:0px;"><?php echo $row['Remarks']; ?></td>
+                                            </tr>
+                                        <?php
+                                            $cnt = $cnt + 1;
+                                        }
+                                    } else { ?>
                                         <tr style="border:0px;">
-                                            <td style="border:0px;"><?php echo $cnt; ?></td>
-                                            <td style="border:0px;"><?php echo $row['Appointment_RefNo'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['PreferredDate'] ?></td>
-                                            <td style="border:0px;">
-                                                <?php echo date('h:i A', strtotime($row['PreferredTime'])) ?></td>
-                                            <td style="border:0px;"><?php echo $row['Notes']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['AvailedServices'] ?></td>
-                                            <td style="border:0px;">
-                                                <?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>
-                                            </td>
-                                            <td style="border:0px;"><?php echo $row['AppointmentStatus']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['Remarks']; ?></td>
-                                            <td style="border:0px;">
-                                                <a appid="<?php echo $row['AppointmentID'] ?>" refno="<?php echo $row['Appointment_RefNo'] ?>" pdate="<?php echo $row['PreferredDate'] ?>" ptime="<?php echo $row['PreferredTime'] ?>" notes="<?php echo $row['Notes']; ?>" services="<?php echo $row['AvailedServices'] ?>" customer="<?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>" astatus="<?php echo $row['AppointmentStatus']; ?>" aremarks="<?php echo $row['Remarks']; ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_modal"><i class="fas fa-edit"></i></a>
-                                                <a href="inventory_management.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found
                                             </td>
                                         </tr>
-                                    <?php
-                                        $cnt = $cnt + 1;
-                                    }
-                                } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found
-                                        </td>
-                                    </tr>
-                                <?php } ?>
+                                    <?php } ?>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div><?php } ?>
+        <!-- END OF ADMINISTRATOR -->
+
+        <!-- START OF CLINIC ADMINISTRATOR -->
+        <?php if ($usertype == 'Clinic Administrator') { ?>
+
+            <div class="main_content">
+                <div style="padding-right:30px; padding-left:30px; padding-top:30px;">
+                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                        <div class="card-header userProfile-font"><b>⏳ Appointments</b></div>
+                        <div class="card-body text-center">
+                            <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="bookings">
+                                <thead style="border:0px;">
+                                    <tr class="table100-head" style="border:0px;">
+                                        <th class="column1" style="border:0px;">Reference No.</th>
+                                        <th class="column1" style="border:0px;">Preferred Date</th>
+                                        <th class="column1" style="border:0px;">Preferred Time</th>
+                                        <th class="column1" style="border:0px;">Services</th>
+                                        <th class="column1" style="border:0px;">Customer</th>
+                                        <th class="column1" style="border:0px;">Date & Time Booked</th>
+                                        <th class="column1" style="border:0px;">Status</th>
+                                        <th class="column1" style="border:0px; text-align:center; display: none;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="border:0px;">
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT * FROM appointments, users WHERE appointments.UserID = users.UserID AND appointments.ClinicID='$clinicID'");
+                                    $cnt = 1;
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+
+                                    ?>
+                                            <!--Fetch the Records -->
+                                            <tr style="border:0px;">
+                                                <td style="border:0px;"><a href="" appid="<?php echo $row['AppointmentID'] ?>" refno="<?php echo $row['Appointment_RefNo'] ?>" pdate="<?php echo $row['PreferredDate'] ?>" ptime="<?php echo $row['PreferredTime'] ?>" notes="<?php echo $row['Notes']; ?>" services="<?php echo $row['AvailedServices'] ?>" customer="<?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>" astatus="<?php echo $row['AppointmentStatus']; ?>" aremarks="<?php echo $row['Remarks']; ?>" adtboooked="<?php echo $row['DateTimeBooked'] ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_modal"><?php echo $row['Appointment_RefNo'] ?></a></td>
+                                                <td style="border:0px;"><?php echo $row['PreferredDate'] ?></td>
+                                                <td style="border:0px;">
+                                                    <?php echo date('h:i A', strtotime($row['PreferredTime'])) ?></td>
+                                                <td style="border:0px;"><?php echo $row['AvailedServices'] ?></td>
+                                                <td style="border:0px;">
+                                                    <?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>
+                                                </td>
+                                                <td style="border:0px;">
+                                                    <?php echo $row['DateTimeBooked'] ?>
+                                                </td>
+                                                <td style="border:0px;">
+                                                    <?php $status = $row['AppointmentStatus'];
+                                                    if ($status === 'Processing') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 5px; border-radius:10px; background-color:#F4BB44;"><?php echo $row['AppointmentStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Confirmed') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 7px; border-radius:10px; background-color:#228B22;"><?php echo $row['AppointmentStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Denied' || $status === 'Cancelled') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#A52A2A;"><?php echo $row['AppointmentStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Completed') { ?>
+                                                    <?php echo $row['AppointmentStatus'];
+                                                    } ?>
+                                                </td>
+
+
+                                                <td style="border:0px; text-align:center; display: none;">
+                                                    <a appid="<?php echo $row['AppointmentID'] ?>" refno="<?php echo $row['Appointment_RefNo'] ?>" pdate="<?php echo $row['PreferredDate'] ?>" ptime="<?php echo $row['PreferredTime'] ?>" notes="<?php echo $row['Notes']; ?>" services="<?php echo $row['AvailedServices'] ?>" customer="<?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>" astatus="<?php echo $row['AppointmentStatus']; ?>" aremarks="<?php echo $row['Remarks']; ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
+                                                    <a href="inventory_management.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
+                                                </td>
+
+
+                                            </tr>
+                                        <?php
+                                            $cnt = $cnt + 1;
+                                        }
+                                    } else { ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        <?php } ?>
+        <!-- END OF CLINIC ADMINISTRATOR -->
 
         <!-- START OF MODAL FOR EDIT BOOKING -->
         <div class="modal fade" id="edit_modal" aria-hidden="true" role="dialog">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content" style="border-radius: 15px;">
                     <form method="POST" runat="server" id="form_edit_booking">
                         <div class="modal-header modal-header-success">
@@ -300,52 +412,64 @@ if (isset($_POST['update_booking'])) {
                                     <label>ID</label>
                                     <input type="text" name="AppointmentID" id="AppointmentID" class="form-control" />
                                 </div>
-                                <div class="form-group">
-                                    <label>Reference Number</label>
-                                    <input type="text" name="ReferenceNo" id="ReferenceNo" class="form-control" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label>Preferred Date</label>
-                                    <input type="date" name="PDate" id="PDate" class="form-control" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label>Preferred Time</label>
-                                    <input type="time" name="PTime" id="PTime" class="form-control" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label>Notes</label>
-                                    <textarea name="Notes" id="Notes" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Services</label>
-                                    <textarea name="Services" id="Services" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Customer</label>
-                                    <input type="text" name="Customer" id="Customer" class="form-control" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <input type="text" name="Status" id="Status" class="form-control" style="height: 100%;" readonly />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Reference Number</label>
+                                            <input type="text" name="ReferenceNo" id="ReferenceNo" class="form-control" readonly />
                                         </div>
-                                        <div class="col-8">
-                                            <select name="Status2" id="Status2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
-                                                <option selected disabled>-- Update Status --</option>
-                                                <option value="Processing">Processing</option>
-                                                <option value="Confirmed">Confirmed</option>
-                                                <option value="Denied">Denied</option>
-                                                <option value="Completed">Completed</option>
-                                            </select>
+                                        <div class="form-group">
+                                            <label>Preferred Date</label>
+                                            <input type="date" name="PDate" id="PDate" class="form-control" readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Preferred Time</label>
+                                            <input type="time" name="PTime" id="PTime" class="form-control" readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Services</label>
+                                            <textarea name="Services" id="Services" class="form-control" style=" width: 100%;" rows="3" readonly></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Notes</label>
+                                            <textarea name="Notes" id="Notes" class="form-control" style=" width: 100%;" rows="4" readonly></textarea>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Customer</label>
+                                            <input type="text" name="Customer" id="Customer" class="form-control" readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Date & Time Booked</label>
+                                            <input type="text" name="DTBooked" id="DTBooked" class="form-control" readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <input type="text" name="Status" id="Status" class="form-control" style="height: 100%;" readonly />
+                                                </div>
+                                                <div class="col-8">
+                                                    <select name="Status2" id="Status2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
+                                                        <option selected disabled>-- Update Status --</option>
+                                                        <option value="Processing">Processing</option>
+                                                        <option value="Confirmed">Confirmed</option>
+                                                        <option value="Denied">Denied</option>
+                                                        <option value="Completed">Completed</option>
+                                                    </select>
+                                                </div>
+                                            </div>
 
 
-                                </div>
-                                <div class="form-group">
-                                    <label>Remarks</label>
-                                    <textarea name="Remarks" id="Remarks" class="form-control" style=" width: 100%; height: 150px;"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Remarks</label>
+                                            <textarea name="Remarks" id="Remarks" class="form-control" style=" width: 100%; height: 150px;"></textarea>
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -395,6 +519,7 @@ if (isset($_POST['update_booking'])) {
                 var customer = $(opener).attr('customer');
                 var astatus = $(opener).attr('astatus');
                 var aremarks = $(opener).attr('aremarks');
+                var adtboooked = $(opener).attr('adtboooked');
 
                 $('#form_edit_booking').find('[name="AppointmentID"]').val(appid);
                 $('#form_edit_booking').find('[name="ReferenceNo"]').val(refno);
@@ -405,6 +530,7 @@ if (isset($_POST['update_booking'])) {
                 $('#form_edit_booking').find('[name="Customer"]').val(customer);
                 $('#form_edit_booking').find('[name="Status"]').val(astatus);
                 $('#form_edit_booking').find('[name="Remarks"]').val(aremarks);
+                $('#form_edit_booking').find('[name="DTBooked"]').val(adtboooked);
 
                 endResize();
             });

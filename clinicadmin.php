@@ -268,24 +268,23 @@ if (isset($_POST['update_clinic'])) {
     <div class="wrapper">
         <div class="sidebar">
             <div class="profile">
-
                 <table class="profile-container" style="padding-bottom:10px;">
                     <tr>
-                        <td width="35%" style="padding-left:10px">
-                            <img src="img/user.png" alt="" width="100%" style="border-radius:50%">
+                        <td width="35%">
+                            <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="" width="100%" style="border-radius:50%">
                         </td>
                         <td width="65%" style="text-align:center; padding-top:10px">
                             <?php
                             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
                             while ($row = mysqli_fetch_array($ret)) {
                             ?>
-                                <p><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?>
-                                    <?php echo $row['Username'] ?></p>
+                                <a style="text-transform:uppercase; padding:bottom:1px;"><b><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></b></a>
+                                <a><?php echo $row['Username'] ?></a>
                             <?php } ?>
                         </td>
                     </tr>
                 </table>
-                <br />
+                <br>
             </div>
 
             <ul class="nav nav-sidebar">
@@ -295,11 +294,12 @@ if (isset($_POST['update_clinic'])) {
                 <li style="text-transform:uppercase;"><a href="users.php"><b>Customers</b></a></li>
                 <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
                 <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
-                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedbacks</b></a></li>
+                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedback</b></a></li>
+                <li style="text-transform:uppercase;"><a href="services.php"><b>Services</b></a></li>
 
             </ul>
-            <div class="social_media">
-
+            <div style="padding-top:30px;">
+                <center><a href="logout.php" class="btn btn-primary" style="border-radius: 15px; width: 50%; height:20%;">Logout</a></center>
             </div>
         </div>
 
@@ -389,7 +389,7 @@ if (isset($_POST['update_clinic'])) {
                                                     <tr>
                                                         <td><b>Clinic Address: &nbsp;&nbsp;</b></td>
                                                         <td>
-                                                            <?php echo $row['LotNo_Street'] . ', Brgy. ' . $row['Barangay'] . ',  ' . $row['City'] ?><br />
+                                                            <?php echo $row['LotNo_Street'] . ', Brgy. ' . $row['Barangay'] . ',  ' . $row['City'] . '<br/>'  . $row['Province'] . ',' . $row['ZIPCode']  ?>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -468,7 +468,7 @@ if (isset($_POST['update_clinic'])) {
         </div>
 
 
-        <!-- START OF MODAL FOR EDIT PET OWNER PROFILE -->
+        <!-- START OF MODAL FOR EDIT USER PROFILE -->
         <div class="modal fade" id="update_modal<?php echo $row['userID'] ?>" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content" style="border-radius: 15px;">
@@ -537,7 +537,7 @@ if (isset($_POST['update_clinic'])) {
                 </form>
             </div>
         </div>
-        <!-- END OF MODAL FOR EDIT PET OWNER PROFILE -->
+        <!-- END OF MODAL FOR EDIT USER PROFILE -->
 
         <!-- START OF MODAL FOR EDIT CLINIC DETAILS -->
         <div class="modal fade" id="clinic_modal<?php echo $row['userID'] ?>" aria-hidden="true">
@@ -575,15 +575,15 @@ if (isset($_POST['update_clinic'])) {
                                         </div>
                                         <div class="col-md-4">
                                             <label>House/Lot No. & Street</label>
-                                            <input type="text" name="lotno_street" class="form-control  bg-light border-0 px-4 py-3" value="<?php echo $row['LotNo_Street'] ?>" required>
+                                            <input type="text" name="lotno_street" class="form-control" value="<?php echo $row['LotNo_Street'] ?>" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label>Province</label>
-                                            <input type="text" name="province" class="form-control  bg-light border-0 px-4 py-3" value="NCR" readonly>
+                                            <input type="text" name="province" class="form-control" value="NCR" readonly>
                                         </div>
                                         <div class="col-md-4">
                                             <label>City</label>
-                                            <input type="text" name="city" class="form-control  bg-light border-0 px-4 py-3" value="Quezon City" readonly>
+                                            <input type="text" name="city" class="form-control" value="Quezon City" readonly>
                                         </div>
                                     </div>
                                     <div class="row gx-3 mb-3">
@@ -605,34 +605,37 @@ if (isset($_POST['update_clinic'])) {
                                         </div>
                                         <div class="col-md-4">
                                             <label>ZIP Code</label>
-                                            <input type="text" name="zipcode" style="height: 60%;" class="form-control bg-light border-0 px-4 py-3" value="<?php echo $row['ZIPCode'] ?>" required>
+                                            <input type="text" name="zipcode" style="height: 60%;" class="form-control" value="<?php echo $row['ZIPCode'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="row gx-3 mb-3">
                                         <div class="col-md-6">
                                             <label>Opening Hours</label>
-                                            <input type="time" name="openhours" value="<?php echo $row['OpeningTime'] ?>" class="form-control  bg-light border-0 px-4 py-3" required>
+                                            <input type="time" name="openhours" value="<?php echo $row['OpeningTime'] ?>" class="form-control" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label>Closing Hours</label>
-                                            <input type="time" name="closehours" value="<?php echo $row['ClosingTime'] ?>" class="form-control  bg-light border-0 px-4 py-3" required>
+                                            <input type="time" name="closehours" value="<?php echo $row['ClosingTime'] ?>" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="row gx-3 mb-3">
                                         <div class="col-md-12">
                                             <label>Operating Days</label><br>
-                                            <?php $days = explode(",", $row['OperatingDays']); ?>
                                             <?php
-                                            $days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday');
-                                            if (!empty($days)) {
-                                                foreach ($days as $operatingdays) {
-                                                    $checked = (in_array($operatingdays, $days)) ? 'checked="checked"' : '';
-                                            ?>
-                                                    <input type="checkbox" name="opendays[]" value="<?php echo $operatingdays; ?>" size="17" <?php echo $checked; ?>><?php echo $operatingdays; ?>
-                                            <?php
-                                                }
+                                            $interest = array(); // initializing  
+                                            while ($row = mysqli_fetch_array($ret)) {
+                                                $interest[] = $row['OperatingDays']; // store in an array
                                             }
+
+
                                             ?>
+
+
+                                            <input type="checkbox" name="opendays[]" value="<?php echo $operatingdays; ?>" size="17" <?php if ($interest == 'Sunday') echo "checked='checked'"; ?> />Sunday
+
+
+
+
                                         </div>
                                     </div>
                                 <?php } ?>

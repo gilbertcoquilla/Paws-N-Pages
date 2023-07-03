@@ -50,49 +50,25 @@ if (isset($_POST['update'])) {
     $Udescription = $_POST['SupplyDescription'];
     $Uprice = $_POST['SupplyPrice'];
     $Ustocks = $_POST['Stocks'];
-    $Uprescription = $_POST['NeedPrescription2'];
+    $Uprescription = $_POST['NeedPrescription'];
 
-    if ($file1 != null) {
+    if ($file1 != "") {
+        $query = mysqli_query($con, "UPDATE petsupplies SET SupplyImage='$file1', SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks', NeedPrescription='$Uprescription' WHERE SupplyID='$eid'");
 
-        if ($Uprescription != null) {
-            $query = mysqli_query($con, "UPDATE petsupplies SET SupplyImage='$file1', SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks', NeedPrescription='$Uprescription' WHERE SupplyID='$eid'");
-
-            if ($query) {
-                echo "<script>alert('You have successfully updated a product');</script>";
-                echo "<script> document.location ='supplies.php'; </script>";
-            } else {
-                echo "<script>alert('Error updating data.');</script>";
-            }
+        if ($query) {
+            echo "<script>alert('You have successfully updated a product');</script>";
+            echo "<script> document.location ='supplies.php'; </script>";
         } else {
-            $query = mysqli_query($con, "UPDATE petsupplies SET SupplyImage='$file1', SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks' WHERE SupplyID='$eid'");
-
-            if ($query) {
-                echo "<script>alert('You have successfully updated a product');</script>";
-                echo "<script> document.location ='supplies.php'; </script>";
-            } else {
-                echo "<script>alert('Error updating data.');</script>";
-            }
+            echo "<script>alert('Error updating data.');</script>";
         }
     } else {
+        $e_query = mysqli_query($con, "UPDATE petsupplies SET SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks', NeedPrescription='$Uprescription' WHERE SupplyID='$eid'");
 
-        if ($Uprescription != null) {
-            $e_query = mysqli_query($con, "UPDATE petsupplies SET SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks', NeedPrescription='$Uprescription' WHERE SupplyID='$eid'");
-
-            if ($e_query) {
-                echo "<script>alert('You have successfully updated a product');</script>";
-                echo "<script> document.location ='supplies.php'; </script>";
-            } else {
-                echo "<script>alert('Error updating data.');</script>";
-            }
+        if ($e_query) {
+            echo "<script>alert('You have successfully updated a product');</script>";
+            echo "<script> document.location ='supplies.php'; </script>";
         } else {
-            $e_query = mysqli_query($con, "UPDATE petsupplies SET SupplyName='$Uname', SupplyDescription='$Udescription', SupplyPrice='$Uprice', Stocks='$Ustocks' WHERE SupplyID='$eid'");
-
-            if ($e_query) {
-                echo "<script>alert('You have successfully updated a product');</script>";
-                echo "<script> document.location ='supplies.php'; </script>";
-            } else {
-                echo "<script>alert('Error updating data.');</script>";
-            }
+            echo "<script>alert('Error updating data.');</script>";
         }
     }
 }
@@ -179,7 +155,7 @@ if (isset($_GET['delid'])) {
         }
 
         .wrapper .sidebar {
-            width: 200px;
+            width: 250px;
             height: 100%;
             background: white;
             padding: 30px 0px;
@@ -196,7 +172,7 @@ if (isset($_GET['delid'])) {
         }
 
         .wrapper .sidebar ul li {
-            width: 200px;
+            width: 210px;
 
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -243,7 +219,7 @@ if (isset($_GET['delid'])) {
 
         .wrapper .main_content {
             width: 100%;
-            margin-left: 200px;
+            margin-left: 250px;
 
         }
     </style>
@@ -307,16 +283,22 @@ if (isset($_GET['delid'])) {
     <div class="wrapper">
         <div class="sidebar">
             <div class="profile">
-                <center><img src="img/user.png" alt="" width="60%" style="border-radius:50%; ">
-                    <?php
-                    $ret = mysqli_query($con, "SELECT * FROM users WHERE userID='$userID'");
-                    while ($row = mysqli_fetch_array($ret)) {
-                    ?>
-                        <p class="profile-title" style="padding-top:10px; text-transform:uppercase; color:#80b434;"><b><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></b></p>
-                        <p class="profile-subtitle" style="padding-top:5px; color:grey;"><?php echo $row['Username'] ?></p>
-                        <p><?php echo $clinicID ?></p>
-                    <?php } ?>
-                </center>
+                <table class="profile-container" style="padding-bottom:10px;">
+                    <tr>
+                        <td width="35%">
+                            <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="" width="100%" style="border-radius:50%">
+                        </td>
+                        <td width="65%" style="text-align:center; padding-top:10px">
+                            <?php
+                            $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
+                            while ($row = mysqli_fetch_array($ret)) {
+                            ?>
+                                <a style="text-transform:uppercase; padding:bottom:1px;"><b><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></b></a>
+                                <a><?php echo $row['Username'] ?></a>
+                            <?php } ?>
+                        </td>
+                    </tr>
+                </table>
                 <br>
             </div>
             <ul class="nav nav-sidebar">
@@ -326,11 +308,13 @@ if (isset($_GET['delid'])) {
                 <li style="text-transform:uppercase;"><a href="users.php"><b>Customers</b></a></li>
                 <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
                 <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
-                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedbacks</b></a></li>
-
+                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedback</b></a></li>
+                <li style="text-transform:uppercase;"><a href="services.php"><b>Services</b></a></li>
             </ul>
-            <div class="social_media">
 
+
+            <div style="padding-top:30px;">
+                <center><a href="logout.php" class="btn btn-primary" style="border-radius: 15px; width: 50%; height:20%;">Logout</a></center>
             </div>
         </div>
 
@@ -344,10 +328,9 @@ if (isset($_GET['delid'])) {
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
                         </div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px; text-align: left;">
+                            <table class="table table-striped table-hover" style="border:0px;">
                                 <thead>
                                     <tr class="table100-head">
-                                        <th class="column1" style="border:0px;">ID</th>
                                         <th class="column1" style="border:0px;">Clinic</th>
                                         <th class="column1" style="border:0px;">Product Image</th>
                                         <th class="column1" style="border:0px;">Supply Name</th>
@@ -369,16 +352,15 @@ if (isset($_GET['delid'])) {
                                     ?>
                                             <!--Fetch the Records -->
                                             <tr border:0px;>
-                                                <td style="text-align: center; border:0px;"><?php echo $cnt; ?></td>
                                                 <td style="text-align: center; border:0px;"><?php echo $row['ClinicName']; ?></td>
-                                                <td style="text-align: center; border:0px;"><a href="image_upload/<?php echo $row['SupplyImage'] ?>" download><?php if ($row['SupplyImage'] != "") {
-                                                                                                                                                                    echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;>';
-                                                                                                                                                                }
-                                                                                                                                                                ?></a>
+                                                <td style="text-align: center; border:0px;"><?php if ($row['SupplyImage'] != "") {
+                                                                                                echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;';
+                                                                                            }
+                                                                                            ?>
                                                 </td>
                                                 <td style="border:0px;"><?php echo $row['SupplyName']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['SupplyDescription']; ?></td>
-                                                <td style="border:0px;"><?php echo $row['SupplyPrice']; ?></td>
+                                                <td style="border:0px;">₱ <?php echo $row['SupplyPrice']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['Stocks']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['NeedPrescription']; ?></td>
                                             </tr>
@@ -417,17 +399,16 @@ if (isset($_GET['delid'])) {
                             <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
                         </div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px; text-align: left;" id="supplies">
+                            <table class="table table-striped table-hover" style="border: 0px; text-align: left;" id="supplies">
                                 <thead>
                                     <tr class="table100-head">
-                                        <th class="column1" style="border:0px;">ID</th>
-                                        <th class="column1" style="border:0px;">Product Image</th>
-                                        <th class="column1" style="border:0px;">Supply Name</th>
-                                        <th class="column1" style="border:0px;">Description</th>
+                                        <!-- <th class="column1" style="border:0px;">Product Image</th> -->
+                                        <th class="column1" style="border:0px;">Product Name</th>
+                                        <!-- <th class="column1" style="border:0px;">Description</th> -->
                                         <th class="column1" style="border:0px;">Price</th>
                                         <th class="column1" style="border:0px;">Stocks</th>
                                         <th class="column1" style="border:0px;">Needs Prescription</th>
-                                        <th class="column1" style="border:0px;">Action</th>
+                                        <th class="column1" style="border:0px; text-align: center;">Action</th>
                                     </tr>
                                 </thead>
 
@@ -442,15 +423,8 @@ if (isset($_GET['delid'])) {
                                     ?>
                                             <!--Fetch the Records -->
                                             <tr border:0px;>
-                                                <td style="text-align: center; border:0px;"><?php echo $cnt; ?></td>
-                                                <td style="text-align: center; border:0px;"><a href="image_upload/<?php echo $row['SupplyImage'] ?>" download><?php if ($row['SupplyImage'] != "") {
-                                                                                                                                                                    echo '<img src=image_upload/' . $row['SupplyImage'] . ' height=100px; width=100px;>';
-                                                                                                                                                                }
-                                                                                                                                                                ?></a>
-                                                </td>
                                                 <td style="border:0px;"><?php echo $row['SupplyName']; ?></td>
-                                                <td style="border:0px;"><?php echo $row['SupplyDescription']; ?></td>
-                                                <td style="border:0px;"><?php echo $row['SupplyPrice']; ?></td>
+                                                <td style="border:0px;">₱ <?php echo $row['SupplyPrice']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['Stocks']; ?></td>
                                                 <td style="border:0px;"><?php echo $row['NeedPrescription']; ?></td>
                                                 <td style="text-align: center; border:0px;">
@@ -543,7 +517,7 @@ if (isset($_GET['delid'])) {
 
     <!-- START OF MODAL FOR EDIT PRODUCT -->
     <div class="modal fade" id="edit_modal" aria-hidden="true" role="dialog">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content" style="border-radius: 15px;">
                 <form method="POST" enctype="multipart/form-data" runat="server" id="form_edit_supply">
                     <div class="modal-header modal-header-success">
@@ -557,45 +531,46 @@ if (isset($_GET['delid'])) {
                                 <label>ID</label>
                                 <input type="text" name="SupplyID" id="SupplyID" class="form-control" />
                             </div>
-                            <div class="form-group">
-                                <label>Product Image (Current)</label>
-                                <input type="text" name="SupplyImage_c" id="SupplyImage_c" class="form-control" readonly />
-                            </div>
-                            <div class="form-group">
-                                <label>Update Image</label>
-                                <input type="file" name="SupplyImage" id="SupplyImage" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="SupplyName" id="SupplyName" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="SupplyDescription" id="SupplyDescription" class="form-control" style=" width: 100%;height: 150px;"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input type="text" name="SupplyPrice" id="SupplyPrice" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>Stocks</label>
-                                <input type="number" name="Stocks" id="Stocks" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label>Needs Prescription</label>
 
-                                <div class="row">
-                                    <div class="col-4">
-                                        <input type="text" name="NeedPrescription" id="NeedPrescription" class="form-control" style="height: 100%;" readonly />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Product Image (Current)</label>
+                                        <!-- <input type="text" name="SupplyImage_c" id="SupplyImage_c" class="form-control" readonly /> -->
+                                        <img src="" name="SupplyImage_c" id="SupplyImage_c" width="100%">
                                     </div>
-                                    <div class="col-8">
-                                        <select name="NeedPrescription2" id="NeedPrescription2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
-                                            <option selected disabled>-- Update Prescription --</option>
+                                    <div class="form-group">
+                                        <label>Update Image</label>
+                                        <input type="file" name="SupplyImage" id="SupplyImage" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Product Name</label>
+                                        <input type="text" name="SupplyName" id="SupplyName" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea name="SupplyDescription" id="SupplyDescription" class="form-control" style=" width: 100%;" rows="8"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Price</label>
+                                        <input type="text" name="SupplyPrice" id="SupplyPrice" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Stocks</label>
+                                        <input type="number" name="Stocks" id="Stocks" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Needs Prescription</label>
+                                        <select name="NeedPrescription" id="NeedPrescription" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
                                         </select>
                                     </div>
                                 </div>
+
+
                             </div>
 
 
@@ -605,6 +580,7 @@ if (isset($_GET['delid'])) {
                     <div class="modal-footer">
                         <button name="update" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
                             Update</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
 
                     </div>
                 </form>
@@ -645,7 +621,7 @@ if (isset($_GET['delid'])) {
             var need_presc = $(opener).attr('need-presc');
 
             $('#form_edit_supply').find('[name="SupplyID"]').val(supply_id);
-            $('#form_edit_supply').find('[name="SupplyImage_c"]').val(supply_image);
+            $('#form_edit_supply').find('[name="SupplyImage_c"]').prop('src', 'image_upload/' + supply_image);
             $('#form_edit_supply').find('[name="SupplyName"]').val(supply_name);
             $('#form_edit_supply').find('[name="SupplyDescription"]').val(supply_desc);
             $('#form_edit_supply').find('[name="SupplyPrice"]').val(supply_price);
