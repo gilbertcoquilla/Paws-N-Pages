@@ -18,43 +18,43 @@ $ret_a = mysqli_query($con, "SELECT * FROM orderdetails WHERE SupplyID='$supply_
 $cnt_a = 1;
 $row_a = mysqli_num_rows($ret_a);
 
-if ($row_a > 0) {
-    if (isset($_POST['submit'])) {
-        if ($userID != "") {
-            $quantity = $_POST['quantity'];
-            $price = $_POST['price'] * $quantity;
+// if ($row_a > 0) {
+//     if (isset($_POST['submit'])) {
+//         if ($userID != "") {
+//             $quantity = $_POST['quantity'];
+//             $price = $_POST['price'] * $quantity;
 
-            $query = mysqli_query($con, "UPDATE orderdetails SET Quantity='$quantity', Price='$price' WHERE SupplyID='$supply_id' AND UserID='$userID'");
+//             $query = mysqli_query($con, "UPDATE orderdetails SET Quantity='$quantity', Price='$price' WHERE SupplyID='$supply_id' AND UserID='$userID'");
 
-            if ($query) {
-                echo "<script>alert('Item is updated successfully');</script>";
-                echo "<script> document.location ='clinic_profile.php?clinicid=$clinic_id';</script>";
-            } else {
-                echo "<script>alert('Something went wrong. Please try again');</script>";
-            }
-        } else {
-            echo "<script>alert('Please login first to continue');</script>";
-        }
-    }
-} else {
-    if (isset($_POST['submit'])) {
-        if ($userID != "") {
-            $quantity = $_POST['quantity'];
-            $price = $_POST['price'] * $quantity;
+//             if ($query) {
+//                 echo "<script>alert('Item is updated successfully');</script>";
+//                 echo "<script> document.location ='clinic_profile.php?clinicid=$clinic_id';</script>";
+//             } else {
+//                 echo "<script>alert('Something went wrong. Please try again');</script>";
+//             }
+//         } else {
+//             echo "<script>alert('Please login first to continue');</script>";
+//         }
+//     }
+// } else {
+//     if (isset($_POST['submit'])) {
+//         if ($userID != "") {
+//             $quantity = $_POST['quantity'];
+//             $price = $_POST['price'] * $quantity;
 
-            $query = mysqli_query($con, "INSERT INTO orderdetails (SupplyID, UserID, Quantity, Price, ClinicID) VALUES ('$supply_id', '$userID', '$quantity', '$price', '$clinic_id')");
+//             $query = mysqli_query($con, "INSERT INTO orderdetails (SupplyID, UserID, Quantity, Price, ClinicID) VALUES ('$supply_id', '$userID', '$quantity', '$price', '$clinic_id')");
 
-            if ($query) {
-                echo "<script>alert('Item is added successfully');</script>";
-                echo "<script> document.location ='clinic_profile.php?clinicid=$clinic_id';</script>";
-            } else {
-                echo "<script>alert('Something went wrong. Please try adding again');</script>";
-            }
-        } else {
-            echo "<script>alert('Please login first to continue');</script>";
-        }
-    }
-}
+//             if ($query) {
+//                 echo "<script>alert('Item is added successfully');</script>";
+//                 echo "<script> document.location ='clinic_profile.php?clinicid=$clinic_id';</script>";
+//             } else {
+//                 echo "<script>alert('Something went wrong. Please try adding again');</script>";
+//             }
+//         } else {
+//             echo "<script>alert('Please login first to continue');</script>";
+//         }
+//     }
+// }
 
 ?>
 
@@ -64,7 +64,8 @@ if ($row_a > 0) {
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Product</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -282,7 +283,15 @@ if ($row_a > 0) {
 
     <br />
     <div style="padding-left: 30px;">
-        <h3 class="text-primary text-uppercase"><a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>"><i class="bi bi-chevron-left"></i> GO BACK</a><a style="float: right; padding-right: 50px;" href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i class="fa fa-shopping-cart"></i></a></h3>
+        <h3 class="text-primary text-uppercase">
+            <a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>"><i class="bi bi-chevron-left"></i> GO
+                BACK</a>
+            <?php if ($row_c['Stocks'] > 0 && $userID != 0) { ?>
+                <a style="float: right; padding-right: 50px;"
+                    href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i
+                        class="fa fa-shopping-cart"></i></a>
+            </h3>
+        <?php } ?>
     </div>
 
     <br><br>
@@ -296,7 +305,7 @@ if ($row_a > 0) {
         $row = mysqli_num_rows($ret);
         if ($row > 0) {
             while ($row = mysqli_fetch_array($ret)) {
-        ?>
+                ?>
                 <div class="product-container">
                     <?php if ($row['SupplyImage'] != "") {
                         echo '<img width="60%" src="image_upload/' . $row['SupplyImage'] . '">';
@@ -314,7 +323,8 @@ if ($row_a > 0) {
 
                             <h3>
                                 <b style="color:rgb(102, 176, 50);">
-                                    PHP <?php echo $row['SupplyPrice'] ?>
+                                    PHP
+                                    <?php echo $row['SupplyPrice'] ?>
                                 </b>
                             </h3>
 
@@ -338,35 +348,37 @@ if ($row_a > 0) {
                                     $row1 = mysqli_num_rows($ret1);
                                     if ($row1 > 0) {
                                         while ($row1 = mysqli_fetch_array($ret1)) {
-                                    ?>
-                                            <select name="quantity" class="bg-light border-0 px-4 py-3" style="width: 20%; border-radius: 15px;">
+                                            ?>
+                                            <select name="quantity" class="bg-light border-0 px-4 py-3"
+                                                style="width: 20%; border-radius: 15px;">
                                                 <?php
                                                 for ($i = 1; $i <= $row_c['Stocks']; $i++) {
-                                                ?>
+                                                    ?>
                                                     <option value="<?php echo $i ?>"><?php echo $i ?></option>
                                                     <option value="<?php echo $row1['Quantity']; ?>" selected hidden><?php echo $row1['Quantity']; ?></option>
-                                                <?php
+                                                    <?php
                                                 }
                                                 ?>
                                             </select>
 
-                                        <?php
+                                            <?php
                                             $cnt1 = $cnt1 + 1;
                                         }
                                     } else {
                                         ?>
 
-                                        <select name="quantity" class="bg-light border-0 px-4 py-3" style="width: 20%; border-radius: 15px;">
-                                            <?php
-                                            for ($i = 1; $i <= $row_c['Stocks']; $i++) {
+                                    <select name="quantity" class="bg-light border-0 px-4 py-3"
+                                        style="width: 20%; border-radius: 15px;">
+                                        <?php
+                                        for ($i = 1; $i <= $row_c['Stocks']; $i++) {
                                             ?>
-                                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                             <?php
-                                            }
-                                            ?>
-                                        </select>
+                                        }
+                                        ?>
+                                    </select>
 
-                                    <?php } ?>
+                                <?php } ?>
 
                                 </div>
                             <?php } ?>
@@ -396,15 +408,89 @@ if ($row_a > 0) {
                             ?>
 
                             <?php if ($row_b > 0) { ?>
-                                <button name="submit" class="btn btn-primary" id="addToCart" style="width: 100%; border-radius: 15px;">Update Cart</button>
-                            <?php } else { ?>
-                                <button name="submit" class="btn btn-primary" id="addToCart" style="width: 100%; border-radius: 15px;">Add to Cart</button>
-                            <?php } ?>
+                                <button name="submit" class="btn btn-primary" id="addToCart"
+                                    style="width: 100%; border-radius: 15px;">Update Cart</button>
+                            <?php } else {
+                                if ($row_c['Stocks'] > 0 && $userID != 0) { ?>
+
+                                    <button name="submit" class="btn btn-primary" id="addToCart"
+                                        style="width: 100%; border-radius: 15px;">Add to Cart</button>
+                                <?php }
+                            } ?>
+
+                            <?php
+                            if ($row_a > 0) {
+                                if (isset($_POST['submit'])) {
+                                    if ($userID != "") {
+                                        $quantity = $_POST['quantity'];
+                                        $price = $_POST['price'] * $quantity;
+
+                                        $query = mysqli_query($con, "UPDATE orderdetails SET Quantity='$quantity', Price='$price' WHERE SupplyID='$supply_id' AND UserID='$userID'");
+
+                                        if ($query) {
+
+                                            echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                                            echo '<script>';
+                                            echo 'swal({
+                                            title: "Success",
+                                            text: "Your cart has been updated",
+                                            icon: "success",
+                                            showCancelButton: true,
+                                            })
+                                                .then((willDelete) => {
+                                                    if (willDelete) {
+                                                    
+                                                        document.location ="product.php?productid=' . $supply_id . ' ";
+                                                    }
+                                                })';
+                                            echo '</script>';
+                                            // echo "<script>alert('Item is updated successfully');</script>";
+                                            // echo "<script> document.location ='clinic_profile.php?clinicid=$clinic_id';</script>";
+                                        } else {
+                                            echo "<script>alert('Something went wrong. Please try again');</script>";
+                                        }
+                                    } else {
+                                        echo "<script>alert('Please login first to continue');</script>";
+                                    }
+                                }
+                            } else {
+                                if (isset($_POST['submit'])) {
+                                    if ($userID != "") {
+                                        $quantity = $_POST['quantity'];
+                                        $price = $_POST['price'] * $quantity;
+
+                                        $query = mysqli_query($con, "INSERT INTO orderdetails (SupplyID, UserID, Quantity, Price, ClinicID) VALUES ('$supply_id', '$userID', '$quantity', '$price', '$clinic_id')");
+
+                                        if ($query) {
+                                            echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                                            echo '<script>';
+                                            echo 'swal({
+                                            title: "Success",
+                                            text: "Item has been added to your cart",
+                                            icon: "success",
+                                            showCancelButton: true,
+                                            })
+                                                .then((willDelete) => {
+                                                    if (willDelete) {
+                                                    
+                                                        document.location ="product.php?productid=' . $supply_id . ' ";
+                                                    }
+                                                })';
+                                            echo '</script>';
+                                        } else {
+                                            echo "<script>alert('Something went wrong. Please try adding again');</script>";
+                                        }
+                                    } else {
+                                        echo "<script>alert('Please login first to continue');</script>";
+                                    }
+                                }
+                            }
+                            ?>
 
                         </form>
                     </div>
                 </div>
-        <?php
+                <?php
                 $cnt = $cnt + 1;
             }
         }
@@ -417,7 +503,8 @@ if ($row_a > 0) {
 
 
     <!-- Modal Start -->
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -451,8 +538,10 @@ if ($row_a > 0) {
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
+                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
+                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
                     <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
                         762 6162</a>
                 </div>
@@ -460,10 +549,14 @@ if ($row_a > 0) {
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="index.php#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="index.php#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="index.php#services"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="index.php#founders"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
@@ -502,7 +595,7 @@ if ($row_a > 0) {
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var cartItems = [];
 
             function updateCart() {
@@ -526,7 +619,7 @@ if ($row_a > 0) {
                 $("#cartItems").html(cartContent);
             }
 
-            $(document).on("click", ".remove-btn", function() {
+            $(document).on("click", ".remove-btn", function () {
                 var index = $(this).data("index");
                 cartItems.splice(index, 1);
                 updateCart();
@@ -535,7 +628,7 @@ if ($row_a > 0) {
             // Rest of the JavaScript code remains the same
 
             function addToCart(name) {
-                var index = cartItems.findIndex(function(item) {
+                var index = cartItems.findIndex(function (item) {
                     return item.name === name;
                 });
                 if (index === -1) {
@@ -549,17 +642,17 @@ if ($row_a > 0) {
                 updateCart();
             }
 
-            $(document).on("click", "#openCartBtn", function() {
+            $(document).on("click", "#openCartBtn", function () {
                 updateCart();
                 $("#cartModal").modal("show");
             });
 
-            $(document).on("click", "#addToCart", function() {
+            $(document).on("click", "#addToCart", function () {
                 var productName = $(this).closest(".product-item").find("h6").text();
                 addToCart(productName);
             });
 
-            $(document).on("click", ".quantity-btn", function() {
+            $(document).on("click", ".quantity-btn", function () {
                 var index = $(this).data("index");
                 var action = $(this).data("action");
                 if (action === "increase") {
@@ -573,7 +666,7 @@ if ($row_a > 0) {
                 updateCart();
             });
 
-            $(document).on("click", "#checkoutBtn", function() {
+            $(document).on("click", "#checkoutBtn", function () {
                 // Handle checkout logic here
                 console.log("Checkout button clicked");
             });
@@ -582,14 +675,14 @@ if ($row_a > 0) {
     <!-- Add the JavaScript code at the bottom of your HTML file -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Close button click event
-            $('#cartModal .close').click(function() {
+            $('#cartModal .close').click(function () {
                 $('#cartModal').modal('hide');
             });
 
             // Checkout button click event
-            $('#checkoutBtn').click(function() {
+            $('#checkoutBtn').click(function () {
                 // Perform the checkout action here
                 // You can add your own code to handle the checkout process
                 alert('Checkout button clicked!');
@@ -602,7 +695,7 @@ if ($row_a > 0) {
         // var stocks = document.getElementById('stocks').value;
         // var qty = document.getElementById('quantity').value;
 
-        $('#add').on('click', function() {
+        $('#add').on('click', function () {
             var input = $('#quantity');
             var stocks = $('#stocks');
             if (input < stocks) {
