@@ -196,7 +196,18 @@ $sum_q = $row_q['total_items'];
             $sql = mysqli_query($con, "DELETE FROM orderdetails WHERE OrderDetailsID=$rid");
             echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
             echo '<script>';
-            echo 'swal("Success", "You have successfully deleted an item from your cart", "success");';
+            echo 'swal({
+                      title: "Success",
+                      text: "Item is removed from cart",
+                      icon: "success",
+                      showCancelButton: true,
+                      })
+                          .then((willDelete) => {
+                              if (willDelete) {
+                                
+                                  window.location.href = "cart.php";
+                              }
+                          })';
             echo '</script>';
 
           } ?>
