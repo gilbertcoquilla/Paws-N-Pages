@@ -23,7 +23,7 @@ if (isset($_POST['update_service'])) {
 
     if ($query) {
         echo "<script>alert('You have successfully updated a service.');</script>";
-        echo "<script> document.location ='bookings.php'; </script>";
+        echo "<script> document.location ='services.php'; </script>";
     } else {
         echo "<script>alert('Something Went Wrong. Please try again');</script>";
     }
@@ -262,7 +262,7 @@ if (isset($_GET['delid'])) {
                                                 <td style="border:0px;"><?php echo $row['ServiceDescription'] ?></td>
                                                 <td style="border:0px;">₱ <?php echo $row['ServicePrice']; ?></td>
                                                 <td style="border:0px; text-align: center;">
-                                                    <a serviceid="<?php echo $row['ServiceID'] ?>" servicename="<?php echo $row['ServiceName'] ?>" servicedescription="<?php echo $row['ServiceDescription'] ?>" serviceprice="<?php echo $row['ServicePrice']; ?>" class="edit" title="edit" data-toggle="modal" data-target="#edit_service"><i class="fa fa-edit"></i></a>
+                                                    <a href="" serviceid="<?php echo $row['ServiceID'] ?>" servicename="<?php echo $row['ServiceName'] ?>" servicedescription="<?php echo $row['ServiceDescription'] ?>" serviceprice="<?php echo $row['ServicePrice']; ?>" class="edit" title="edit" data-toggle="modal" data-target="#edit_service"><i class="fa fa-edit"></i></a>
                                                     <a href="services.php?delid=<?php echo ($row['ServiceID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
                                                 </td>
 
