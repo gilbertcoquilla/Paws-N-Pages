@@ -7,123 +7,6 @@ include('connection.php');
 $supply_id = $_GET['productid'];
 $clinic_id = $_SESSION['clinic_id'];
 $userID = $_SESSION["id"];
-
-// To check if the item is added to the cart
-$ret_a = mysqli_query($con, "SELECT * FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
-$cnt_a = 1;
-$row_a = mysqli_num_rows($ret_a);
-
-// To get sum of quantity
-$ret_q = mysqli_query($con, "SELECT SUM(orderdetails.Quantity) AS total_items FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
-$row_q = mysqli_fetch_assoc($ret_q);
-$sum_q = $row_q['total_items'];
-
-// Details
-$totalPrice = $_POST['totalprice'];
-$od_products = $_POST['od_product'];
-date_default_timezone_set("Asia/Hong_Kong");
-$currentDateTime = date('y-m-d h:i:sa');
-$ship_to_address = $_POST['address'];
-$orderStatus = 'Pending';
-
-// For proof of payment
-$file = $_FILES['proofOfPayment']['name'];
-$tempfile = $_FILES['proofOfPayment']['tmp_name'];
-$folder = "image_upload/" . $file;
-move_uploaded_file($tempfile, $folder);
-
-$reference_no = $_POST['refno'];
-
-// For Order Reference No
-$code = 'ODRN';
-$ymd = date('ymd');
-$sequence = rand(00000, 99999);
-$order_refno = $code . $ymd . $sequence;
-
-$shipToOtherAddress = $_POST['different'];
-
-// Still lacking:
-// 1) decrease number of stocks depending on the number of items ordered
-// 2) delete items in cart after placing order
-
-// Insert data to DB
-if ($row_a > 0) {
-    if ($shipToOtherAddress == "") {
-        if (isset($_POST['order'])) {
-
-            // Insert to orders table
-            $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus', '$clinic_id')");
-
-            // To update stocks
-            $stocks_query = mysqli_query($con, "SELECT SupplyID FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
-            $data = $stocks_query->fetch_all(MYSQLI_ASSOC);
-            foreach ($data as $stock) {
-                $conv_stock = implode($stock);
-                $a = mysqli_query($con, "SELECT Stocks - (SELECT Quantity FROM orderdetails WHERE SupplyID='$conv_stock' AND UserID='$userID') AS UpdatedStock FROM petsupplies WHERE SupplyID='$conv_stock'");
-                $a_row = mysqli_fetch_array($a);
-
-                $updatedStock = $a_row['UpdatedStock'];
-                $b = mysqli_query($con, "UPDATE petsupplies SET Stocks='$updatedStock' WHERE SupplyID='$conv_stock'");
-            }
-
-            // To remove item from cart
-            $del_query = mysqli_query($con, "DELETE FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
-
-            // if ($query && $stocks_query && $del_query) {
-            if ($query) {
-                // if ($query) {    
-                echo "<script>alert('Thanks for ordering!');</script>";
-                echo "<script> document.location ='clinics.php'; </script>";
-            } else {
-                echo "<script>alert('Something went wrong. Please try again');</script>";
-            }
-        }
-    } else {
-
-        $lotno_street_1 = $_POST['lotno_street_1'];
-        $province_1 = $_POST['province_1'];
-        $city_1 = $_POST['city_1'];
-        $barangay_1 = $_POST['barangay_1'];
-        $zipcode_1 = $_POST['zipcode_1'];
-
-        $address_1 = $lotno_street_1 . ', ' . $province_1 . ', ' . $city_1 . ', ' . $barangay_1 . ', ' . $zipcode_1;
-
-        if (isset($_POST['order'])) {
-
-            // Insert to address table
-            $a_query = mysqli_query($con, "INSERT INTO address (LotNo_Street, Barangay, City, Province, ZIPCode, UserID) VALUES ('$lotno_street_1', '$province_1', '$city_1', '$barangay_1', '$zipcode_1', '$userID')");
-
-            // Insert to orders table
-            $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$address_1', '$file', '$reference_no', '$orderStatus', '$clinic_id')");
-
-            // To update stocks
-            $stocks_query = mysqli_query($con, "SELECT SupplyID FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
-            $data = $stocks_query->fetch_all(MYSQLI_ASSOC);
-            foreach ($data as $stock) {
-                $conv_stock = implode($stock);
-                $a = mysqli_query($con, "SELECT Stocks - (SELECT Quantity FROM orderdetails WHERE SupplyID='$conv_stock' AND UserID='$userID') AS UpdatedStock FROM petsupplies WHERE SupplyID='$conv_stock'");
-                $a_row = mysqli_fetch_array($a);
-
-                $updatedStock = $a_row['UpdatedStock'];
-                $b = mysqli_query($con, "UPDATE petsupplies SET Stocks='$updatedStock' WHERE SupplyID='$conv_stock'");
-            }
-
-            // To remove item from cart
-            $del_query = mysqli_query($con, "DELETE FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
-
-            // if ($a_query && $query && $stocks_query && $del_query) {
-            if ($query) {
-                // if ($query) {    
-                echo "<script>alert('Thanks for ordering!');</script>";
-                echo "<script> document.location ='clinics.php'; </script>";
-            } else {
-                echo "<script>alert('Something went wrong. Please try again');</script>";
-            }
-        }
-    }
-} else {
-    echo "<script>alert('Please add a product first to continue');</script>";
-}
 ?>
 
 
@@ -368,7 +251,7 @@ if ($row_a > 0) {
                                                 $data = $sql->fetch_all(MYSQLI_ASSOC);
                                                 ?>
 
-                                                <select id="address" style="border-radius: 15px; width: 100%;" class="bg-light border-0 px-4 py-3" name="address" placeholder="Address" readonly>
+                                                <select id="address" style="border-radius: 15px; width: 100%;" class="bg-light border-0 px-4 py-3" name="address" placeholder="Address" required>
                                                     <option style="text-align: center;" selected disabled>-- Please select an address --</option>
                                                     <?php foreach ($data as $row2) : ?>
                                                         <option value="<?= htmlspecialchars($row2['CurrentAddress']) ?>">
@@ -465,6 +348,142 @@ if ($row_a > 0) {
                                 } ?>
     </form>
     <!-- End of form -->
+
+    <!-- START OF INSERTING DATA -->
+    <?php 
+    // To check if the item is added to the cart
+    $ret_a = mysqli_query($con, "SELECT * FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+    $cnt_a = 1;
+    $row_a = mysqli_num_rows($ret_a);
+
+    // To get sum of quantity
+    $ret_q = mysqli_query($con, "SELECT SUM(orderdetails.Quantity) AS total_items FROM orderdetails, users WHERE orderdetails.UserID='$userID' AND orderdetails.UserID = users.UserID AND orderdetails.ClinicID='$clinic_id'");
+    $row_q = mysqli_fetch_assoc($ret_q);
+    $sum_q = $row_q['total_items'];
+
+    // Details
+    $totalPrice = $_POST['totalprice'];
+    $od_products = $_POST['od_product'];
+    date_default_timezone_set("Asia/Hong_Kong");
+    $currentDateTime = date('y-m-d h:i:sa');
+    $ship_to_address = $_POST['address'];
+    $orderStatus = 'Pending';
+
+    // For proof of payment
+    $file = $_FILES['proofOfPayment']['name'];
+    $tempfile = $_FILES['proofOfPayment']['tmp_name'];
+    $folder = "image_upload/" . $file;
+    move_uploaded_file($tempfile, $folder);
+
+    $reference_no = $_POST['refno'];
+
+    // For Order Reference No
+    $code = 'ODRN';
+    $ymd = date('ymd');
+    $sequence = rand(00000, 99999);
+    $order_refno = $code . $ymd . $sequence;
+
+    $shipToOtherAddress = $_POST['different'];
+
+    // Still lacking:
+    // 1) decrease number of stocks depending on the number of items ordered
+    // 2) delete items in cart after placing order
+
+    // Insert data to DB
+    if ($row_a > 0) {
+        if ($shipToOtherAddress == "") {
+            if (isset($_POST['order'])) {
+
+                // Insert to orders table
+                $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus', '$clinic_id')");
+
+                // To update stocks
+                $stocks_query = mysqli_query($con, "SELECT SupplyID FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+                $data = $stocks_query->fetch_all(MYSQLI_ASSOC);
+                foreach ($data as $stock) {
+                    $conv_stock = implode($stock);
+                    $a = mysqli_query($con, "SELECT Stocks - (SELECT Quantity FROM orderdetails WHERE SupplyID='$conv_stock' AND UserID='$userID') AS UpdatedStock FROM petsupplies WHERE SupplyID='$conv_stock'");
+                    $a_row = mysqli_fetch_array($a);
+
+                    $updatedStock = $a_row['UpdatedStock'];
+                    $b = mysqli_query($con, "UPDATE petsupplies SET Stocks='$updatedStock' WHERE SupplyID='$conv_stock'");
+                }
+
+                // To remove item from cart
+                $del_query = mysqli_query($con, "DELETE FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+
+                // if ($query && $stocks_query && $del_query) {
+                if ($query) {
+                    // if ($query) {  
+                        
+                    echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                                        echo '<script>';
+                                        echo 'swal({
+                                            title: "Success",
+                                            text: "Your order was placed!",
+                                            icon: "success",
+                                            html: true,
+                                            showCancelButton: true,
+                                            })
+                                                .then((willDelete) => {
+                                                    if (willDelete) {
+                                                    
+                                                        document.location ="orders.php";
+                                                    }
+                                                })';
+                                        echo '</script>';
+                } else {
+                    echo "<script>alert('Something went wrong. Please try again');</script>";
+                }
+            }
+        } else {
+
+            $lotno_street_1 = $_POST['lotno_street_1'];
+            $province_1 = $_POST['province_1'];
+            $city_1 = $_POST['city_1'];
+            $barangay_1 = $_POST['barangay_1'];
+            $zipcode_1 = $_POST['zipcode_1'];
+
+            $address_1 = $lotno_street_1 . ', ' . $province_1 . ', ' . $city_1 . ', ' . $barangay_1 . ', ' . $zipcode_1;
+
+            if (isset($_POST['order'])) {
+
+                // Insert to address table
+                $a_query = mysqli_query($con, "INSERT INTO address (LotNo_Street, Barangay, City, Province, ZIPCode, UserID) VALUES ('$lotno_street_1', '$province_1', '$city_1', '$barangay_1', '$zipcode_1', '$userID')");
+
+                // Insert to orders table
+                $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$address_1', '$file', '$reference_no', '$orderStatus', '$clinic_id')");
+
+                // To update stocks
+                $stocks_query = mysqli_query($con, "SELECT SupplyID FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+                $data = $stocks_query->fetch_all(MYSQLI_ASSOC);
+                foreach ($data as $stock) {
+                    $conv_stock = implode($stock);
+                    $a = mysqli_query($con, "SELECT Stocks - (SELECT Quantity FROM orderdetails WHERE SupplyID='$conv_stock' AND UserID='$userID') AS UpdatedStock FROM petsupplies WHERE SupplyID='$conv_stock'");
+                    $a_row = mysqli_fetch_array($a);
+
+                    $updatedStock = $a_row['UpdatedStock'];
+                    $b = mysqli_query($con, "UPDATE petsupplies SET Stocks='$updatedStock' WHERE SupplyID='$conv_stock'");
+                }
+
+                // To remove item from cart
+                $del_query = mysqli_query($con, "DELETE FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
+
+                // if ($a_query && $query && $stocks_query && $del_query) {
+                if ($query) {
+                    // if ($query) {    
+                    echo "<script>alert('Thanks for ordering!');</script>";
+                    echo "<script> document.location ='clinics.php'; </script>";
+                } else {
+                    echo "<script>alert('Something went wrong. Please try again');</script>";
+                }
+            }
+        }
+    } else {
+        echo "<script>alert('Please add a product first to continue');</script>";
+    }
+    ?>
+    <!-- END OF INSERTING DATA -->
 
     </div>
     </div>
