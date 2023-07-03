@@ -16,8 +16,12 @@ if (isset($_POST['update'])) {
     $lname = $_POST['lname'];
     $cnum = $_POST['cnum'];
     $username = $_POST['username'];
+    $bdate = $_POST['birthdate'];
 
-    $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Username='$username' WHERE UserID='$userID'");
+    date_default_timezone_set("Asia/Hong_Kong");
+    $currentDateTime = date('y-m-d h:i:sa');
+
+    $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Birth_Date='$bdate', Username='$username', DateTimeModified='$currentDateTime' WHERE UserID='$userID'");
 
     if ($query) {
         echo "<script>alert('You have successfully edited your information.');</script>";
@@ -515,7 +519,7 @@ $row_a = mysqli_fetch_array($ret_a);
                                     </div>
                                     <div class="col-md-6">
                                         <label>Birthdate</label>
-                                        <input type="text" name="birthdate" value="<?php echo $row['Birth_Date'] ?>" class="form-control" readonly />
+                                        <input type="date" name="birthdate" value="<?php echo $row['Birth_Date'] ?>" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -524,7 +528,7 @@ $row_a = mysqli_fetch_array($ret_a);
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="text" name="email" value="<?php echo $row['Email'] ?>" class="form-control" readonly />
+                                    <input type="text" name="email" value="<?php echo $row['Email'] ?>" class="form-control" />
                                 </div>
                             <?php } ?>
                         </div>

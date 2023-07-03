@@ -12,68 +12,30 @@ $row_ca = mysqli_fetch_array($ret_ca);
 
 $clinicID = $row_ca['ClinicID'];
 
-if (isset($_POST['save_pet'])) {
+if (isset($_POST['edit_user'])) {
+    $userid = $_POST['userid'];
+    $fname = $_POST['fname'];
+    $mname = $_POST['mname'];
+    $lname = $_POST['lname'];
+    $uname = $_POST['uname'];
+    $pword = $_POST['pword'];
+    $bdate = $_POST['bdate'];
+    $contactno = $_POST['contactno'];
+    $email = $_POST['email'];
+    $utype = $_POST['utype'];
 
-    $file = $_FILES['image']['name'];
-    $tempfile = $_FILES['image']['tmp_name'];
-    $folder = "image_upload/" . $file;
-
-    move_uploaded_file($tempfile, $folder);
-
-    $name = $_POST['name'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-    $stocks = $_POST['stocks'];
-    $prescription = $_POST['prescription'];
-
-    $query = mysqli_query($con, "INSERT INTO petsupplies (SupplyImage, SupplyName, SupplyDescription, SupplyPrice, Stocks, NeedPrescription, ClinicID) VALUES ('$file', '$name', '$description', '$price', '$stocks', '$prescription', '$clinicID')");
+    $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$contactno', Birth_Date='$bdate', UserType='$utype', Email='$email', Password='$pword' WHERE UserID='$userid'");
 
     if ($query) {
-        echo "<script>alert('You have successfully added a new product');</script>";
-        echo "<script> document.location ='supplies.php'; </script>";
+        echo "<script>alert('You have successfully updated a user!');</script>";
+        echo "<script> document.location ='users.php'; </script>";
     } else {
-        echo "<script>alert('Error adding new pet.');</script>";
+        echo "<script> alert('Error updating a user.'); </script>";
     }
 }
-
-if (isset($_POST['update'])) {
-
-    $eid = $POST['update_id'];
-
-    $file = $_FILES['image']['name'];
-    $tempfile = $_FILES['image']['tmp_name'];
-    $folder = "image_upload/" . $file;
-
-    move_uploaded_file($tempfile, $folder);
-
-    $Uname = $_POST['SupplyName'];
-    $Udescription = $_POST['SupplyDescription'];
-    $Uprice = $_POST['SupplyPrice'];
-    $Ustocks = $_POST['Stocks'];
-    $Uprescription = $_POST['NeedPrescription'];
-
-    $query = mysqli_query($con, "UPDATE petsupplies SET SupplyImage = ' HI ', SupplyName = '$Uname', SupplyDescription = '$Udescription', SupplyPrice = '$Uprice', Stocks = '$Ustocks', NeedPrescription = '$Uprescription' WHERE SupplyID = '$eid' ");
-
-    if ($query) {
-        echo "<script>alert('You have successfully updated a new product');</script>";
-        echo "<script> document.location ='supplies.php'; </script>";
-    } else {
-        echo "<script>alert('Error updating data.');</script>";
-    }
-}
-
-
-
-///////////////////// FOR DELETING PET ////////////////////////////  
-if (isset($_GET['delid'])) {
-    $rid = intval($_GET['delid']);
-    $sql = mysqli_query($con, "DELETE FROM petsupplies WHERE SupplyID=$rid");
-    echo "<script>alert('You have successfully deleted a record.');</script>";
-    echo "<script>window.location.href = 'supplies.php'</script>";
-}
-
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,15 +43,17 @@ if (isset($_GET['delid'])) {
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <meta content="Free HTML Templates" name="keywords">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
@@ -212,60 +176,18 @@ if (isset($_GET['delid'])) {
 
         }
     </style>
+
     <script>
         $(document).ready(function() {
-            var table = $('#supplies').DataTable({
+            var table = $('#users').DataTable({
                 order: [
                     [2, 'asc']
                 ],
+
             });
         });
     </script>
 
-    <script type="text/javascript">
-        function preview() {
-            image.src = URL.createObjectURL(event.target.files[0]);
-        }
-
-        function previewFile(input) {
-            var file = $("input[type=file]").get(0).files[0];
-
-            if (file) {
-                var reader = new FileReader();
-
-                reader.onload = function() {
-                    $("#image").attr("src", reader.result);
-                }
-
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
-
-    <script>
-        $(document).ready(function() {
-
-            $('.edit').on('click', function() {
-
-                $('#edit_modal').modal('show');
-
-                $tr = $(this).closest('tr');
-
-                var data = $tr.children("td").map(function() {
-                    return $(this).text();
-                }).get();
-
-                console.log(data);
-
-                $('#update_id').val(data[1]);
-                $('#SupplyName').val(data[2]);
-                $('#SupplyDescription').val(data[3]);
-                $('#SupplyPrice').val(data[4]);
-                $('#Stocks').val(data[5]);
-                $('#NeedPrescription').val(data[6]);
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -274,16 +196,16 @@ if (isset($_GET['delid'])) {
             <div class="profile">
                 <table class="profile-container" style="padding-bottom:10px;">
                     <tr>
-                        <td width="35%" style="padding-left:10px">
-                            <img src="img/user.png" alt="" width="100%" style="border-radius:50%">
+                        <td width="35%">
+                            <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="" width="100%" style="border-radius:50%">
                         </td>
                         <td width="65%" style="text-align:center; padding-top:10px">
                             <?php
                             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
                             while ($row = mysqli_fetch_array($ret)) {
                             ?>
-                                <p><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?>
-                                    <?php echo $row['Username'] ?></p>
+                                <a style="text-transform:uppercase; padding:bottom:1px;"><b><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></b></a>
+                                <a><?php echo $row['Username'] ?></a>
                             <?php } ?>
                         </td>
                     </tr>
@@ -291,283 +213,228 @@ if (isset($_GET['delid'])) {
                 <br>
             </div>
             <ul class="nav nav-sidebar">
-                <li style="text-transform:uppercase;"><a href=""><i class="fa fa-home"></i>&nbsp;<b>Dashboard</b></a></li>
-                <li style="text-transform:uppercase;"><a href="clinicadmin.php"><i class="fa fa-user"></i>&nbsp;<b>Profile</b></a></li>
-                <li style="text-transform:uppercase;"><a href="supplies.php"><i class="fa fa-address-card"></i>&nbsp;<b>Products</b></a></li>
-                <li style="text-transform:uppercase;"><a href="users.php"><i class="fa-solid fa-user"></i>&nbsp;<b>Customers</b></a></li>
-                <li style="text-transform:uppercase;"><a href="bookings.php"><i class="fa fa-solid fa-calendar"></i>&nbsp;<b>Bookings</b></a></li>
+                <li style="text-transform:uppercase;"><a href=""><b>Dashboard</b></a></li>
+                <li style="text-transform:uppercase;"><a href="clinicadmin.php"><b>Profile</b></a></li>
+                <li style="text-transform:uppercase;"><a href="supplies.php"><b>Products</b></a></li>
+                <li style="text-transform:uppercase;"><a href="users.php"><b>Customers</b></a></li>
+                <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
+                <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
+                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedback</b></a></li>
+                <li style="text-transform:uppercase;"><a href="services.php"><b>Services</b></a></li>
 
             </ul>
-            <div class="social_media">
-
+            <div style="padding-top:30px;">
+                <center><a href="logout.php" class="btn btn-primary" style="border-radius: 15px; width: 50%; height:20%;">Logout</a></center>
             </div>
         </div>
 
+
         <!-- START OF ADMINISTRATOR -->
-        <div class="main_content">
-            <div style="padding:30px 30px 30px 30px;">
-                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                    <div class="card-header userProfile-font">
-                        <b style="padding-top:10px;">👤 Users</b>
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
-                    </div>
-                    <div class="card-body text-center">
-                        <table class="table table-striped table-hover" style="border:0px; text-align: left;" id="supplies">
-                            <thead>
-                                <tr class="table100-head">
-                                    <th class="column1" style="border:0px;">#</th>
-                                    <th class="column1" style="border:0px;">Name</th>
-                                    <th class="column1" style="border:0px;">Address</th>
-                                    <th class="column1" style="border:0px;">Contact No.</th>
-                                    <th class="column1" style="border:0px;">Age</th>
-                                    <th class="column1" style="border:0px;">UserType</th>
-                                    <th class="column1" style="border:0px;">Email</th>
-                                    <th class="column1" style="border:0px;">Username</th>
-                                    <th class="column1" style="border:0px;">Date Modified</th>
-                                    <th class="column1" style="border:0px;">Action</th>
-                                </tr>
-                            </thead>
+        <?php if ($usertype == 'Clinic Administrator') { ?>
 
-                            <tbody style="border:0px;">
-                                <?php
-                                $ret = mysqli_query($con, "SELECT * FROM address, users WHERE address.userID = users.userID AND users.UserType != 'Administrator'");
-                                $cnt = 1;
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-                                ?>
-                                        <!--Fetch the Records -->
-                                        <tr border:0px;>
-                                            <td style="border:0px;"><?php echo $cnt; ?></td>
-                                            <td style="border:0px;"> <?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['LotNo_Street'] . ', Brgy. ' . $row['Barangay'] . ',  ' . $row['City']  . ',  ' . $row['ZIPCode'] ?><br /></td>
-                                            <td style="border:0px;"><?php echo $row['ContactNo']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['Age']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['UserType']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['Email']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['Username']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['DateModified']; ?></td>
-                                            <td style="text-align: center; border:0px;">
-                                                <a user-id="<?php echo $row['UserID'] ?>" user-fname="<?php echo $row['FirstName'] ?>" user-mname="<?php echo $row['MiddleName'] ?>" user-lname="<?php echo $row['LastName'] ?>" user-lotnostreet="<?php echo $row['LotNo_Street'] ?>" user-province="<?php echo $row['Province'] ?>" user-barangay="<?php echo $row['Barangay'] ?>" user-city="<?php echo $row['City'] ?>" user-zipcode="<?php echo $row['ZIPCode'] ?>" user-cnum="<?php echo $row['ContactNo'] ?>" user-age="<?php echo $row['Age'] ?>" user-utype="<?php echo $row['UserType'] ?>" user-email="<?php echo $row['Email'] ?>" user-username="<?php echo $row['Username'] ?>" class="edit" title="Edit" data-toggle="modal" data-target="#form_edit_user"><i class="fas fa-edit"></i></a>
-                                                <a href="supplies.php?delid=<?php echo ($row['SupplyID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
-                                            </td>
-
-
-
-                                        </tr>
-                                    <?php
-                                        $cnt = $cnt + 1;
-                                    }
-                                } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</td>
+            <div class="main_content">
+                <div style="padding-right:30px; padding-left:30px; padding-top:30px;">
+                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                        <div class="card-header userProfile-font"><b>👤 Users</b></div>
+                        <div class="card-body text-center">
+                            <table class="table table-striped table-hover" style="border:0px;  text-align:left;" id="users">
+                                <thead style="border:0px;">
+                                    <tr class="table100-head" style="border:0px;">
+                                        <th class="column1" style="border:0px;">Name</th>
+                                        <th class="column1" style="border:0px;">Username</th>
+                                        <th class="column1" style="border:0px;">User Type</th>
+                                        <th class="column1" style="border:0px;">Email</th>
+                                        <th class="column1" style="border:0px; text-align: center;">Action</th>
                                     </tr>
-                                <?php } ?>
+                                </thead>
+                                <tbody style="border:0px;">
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT * FROM users");
+                                    $cnt = 1;
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
 
-                            </tbody>
-                        </table>
+                                    ?>
+                                            <!--Fetch the Records -->
+                                            <tr style="border:0px;">
+                                                <td style="border:0px;"><?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
+                                                <td style="border:0px;"><?php echo $row['Username']; ?></td>
+                                                <td style="border:0px;"><?php echo $row['UserType'] ?></td>
+                                                <td style="border:0px;"><?php echo $row['Email'] ?></td>
+                                                <td style="border:0px; text-align: center;">
+                                                    <a href="" data-toggle="modal" data-target="#view_user" userid="<?php echo $row['UserID'] ?>" fname="<?php echo $row['FirstName'] ?>" mname="<?php echo $row['MiddleName'] ?>" lname="<?php echo $row['LastName'] ?>" contactno="<?php echo $row['ContactNo'] ?>" bdate="<?php echo $row['Birth_Date'] ?>" utype="<?php echo $row['UserType'] ?>" uname="<?php echo $row['Username'] ?>" email="<?php echo $row['Email'] ?>" pword="<?php echo $row['Password'] ?>" dtmod="<?php echo $row['DateTimeModified'] ?>"><i class="fa fa-edit"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                            $cnt = $cnt + 1;
+                                        }
+                                    } else { ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+        <?php } ?>
         <!-- END OF ADMINISTRATOR -->
-
-
-
 
     </div>
 
-    <!-- START OF MODAL FOR EDIT PRODUCT -->
-    <div class="modal fade" id="edit_modal" aria-hidden="true" role="dialog">
+    <!-- START OF MODAL FOR VIEWING USER DETAILS -->
+    <div class="modal fade" id="view_user" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content" style="border-radius: 15px;">
-                <form method="POST" runat="server" id="form_edit_user">
+                <form method="POST" runat="server" enctype="multipart/form-data" id="view_user_form">
                     <div class="modal-header modal-header-success">
-                        <h3 class="modal-title">Edit User</h3>
+                        <h3 class="modal-title">User Details</h3>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="col-md-12">
-
-
-                            <?php
-
-                            $ret = mysqli_query($con, "SELECT * FROM address, users WHERE address.userID = users.UserID ");
-                            while ($row = mysqli_fetch_array($ret)) {
-                            ?>
-                            <?php } ?>
-
-
                             <div class="form-group" style="display: none;">
                                 <label>ID</label>
-                                <input type="text" name="userID" id="userID" class="form-control" />
+                                <input type="text" name="userid" id="userid" class="form-control" />
                             </div>
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-4">
-                                    <label>First Name</label>
-                                    <input type="text" name="FirstName" id="FirstName" class="form-control" />
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Middle Name</label>
-                                    <input type="text" name="MiddleName" id="MiddleName" class="form-control" />
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Last Name</label>
-                                    <input type="text" name="LastName" id="LastName" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-12">
-                                    <label>Address</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <label>House/Lot No. Street</label>
-                                    <input type="text" name="HouseLotNo" id="HouseLotNo" class="form-control" />
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Barangay</label>
-                                    <input type="text" name="Barangay" id="Barangay" class="form-control" readonly />
-                                </div>
-                                <div class="col-md-4">
-                                    <label></label>
-                                    <?php
-                                    $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
-                                    $data = $sql->fetch_all(MYSQLI_ASSOC);
-                                    ?>
-                                    <select style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3" name="Barangay2" id="Barangay2">
-                                        <option selected disabled>-- Update Barangay --</option>
-                                        <?php foreach ($data as $row) : ?>
-                                            <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
-                                                <?= htmlspecialchars($row['BarangayName']) ?>
-                                            </option>
-                                        <?php endforeach ?>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-4">
-                                    <label>City</label>
-                                    <input type="text" name="City" id="City" class="form-control" value="Quezon City" readonly />
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Province</label>
-                                    <input type="text" name="Province" id="Province" class="form-control" value="NCR" readonly />
-                                </div>
-                                <div class="col-md-4">
-                                    <label>ZIP Code</label>
-                                    <input type="text" name="ZIPCode" id="ZIPCode" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="row gx-3 mb-3">
-                                <div class="col-md-3">
-                                    <label>Phone No.</label>
-                                    <input type="text" name="ContactNo" id="ContactNo" class="form-control" />
-                                </div>
-                                <div class="col-md-1">
-                                    <label>Age</label>
-                                    <input type="text" name="Age" id="" class="form-control" />
-                                </div>
-                                <div class="col-md-4">
-                                    <label>User Type</label>
-                                    <input type="text" name="UserType" id="UserType" class="form-control" readonly>
-                                </div>
-                                <div class="col-md-4">
-                                    <label></label>
-                                    <select name="UserType2" id="UserType2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
-                                        <option selected disabled>-- Update User Type --</option>
-                                        <option value="Pet Owner">Pet Owner</option>
-                                        <option value="Clinic Adminstrator">Clinic Adminstrator</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row gx-3 mb-3">
+                            <div class="row">
                                 <div class="col-md-6">
-                                    <label>Username</label>
-                                    <input type="text" name="Username" id="Username" class="form-control" />
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input type="text" name="fname" id="fname" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Middle Name</label>
+                                        <input type="text" name="mname" id="mname" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" name="lname" id="lname" class="form-control" />
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input type="text" name="uname" id="uname" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" name="pword" id="pword" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Last Modified By User</label>
+                                        <input type="text" name="dtmod" id="dtmod" class="form-control" readonly />
+                                    </div>
+
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Email</label>
-                                    <input type="text" name="Email" id="Email" class="form-control" />
+                                    <div class="form-group">
+                                        <label>Birthdate</label>
+                                        <input type="date" name="bdate" id="bdate" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contact Number</label>
+                                        <input type="text" name="contactno" id="contactno" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" name="email" id="email" class="form-control" />
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="form-group">
+                                        <label>User Type</label>
+                                        <select name="utype" id="utype" style="border-radius: 5px; width: 100%; height: 60%;" class="bg-light border-0 px-4 py-3">
+                                            <option value="Pet Owner">Pet Owner</option>
+                                            <option value="Clinic Administrator">Clinic Administrator</option>
+                                            <option value="Administrator">Administrator</option>
+                                        </select>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
+
                     </div>
-
+                    <div style="clear:both;"></div>
                     <div class="modal-footer">
-                        <button name="update" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
-                            Update</button>
-
+                        <button name="edit_user" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
+                            Update
+                        </button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                     </div>
                 </form>
             </div>
-
-        </div>
-    </div>
-    <!-- END OF MODAL FOR EDIT PRODUCT -->
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
-    <!-- For Datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
-    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
-    <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <!-- To show details when editing -->
-    <script>
-        $('#form_edit_user').on('show.bs.modal', function(e) {
-            var opener = e.relatedTarget;
-
-            var user_id = $(opener).attr('user-id');
-            var user_fname = $(opener).attr('user-fname');
-            var user_mname = $(opener).attr('user-mname');
-            var user_lname = $(opener).attr('user-lname');
-            var user_lotnostreet = $(opener).attr('user-lotnostreet');
-            var user_province = $(opener).attr('user-province');
-            var user_barangay = $(opener).attr('user-barangay');
-            var user_city = $(opener).attr('user-city');
-            var user_zipcode = $(opener).attr('user-zipcode');
-            var user_cnum = $(opener).attr('user-cnum');
-            var user_age = $(opener).attr('user-age');
-            var user_utype = $(opener).attr('user-utype');
-            var user_email = $(opener).attr('user-email');
-            var user_username = $(opener).attr('user-username');
+            <!--  END OF MODAL FOR VIEWING USER DETAILS -->
 
 
-            $('#form_edit_user').find('[name="userID"]').val(user_id);
-            $('#form_edit_user').find('[name="FirstName"]').val(user_fname);
-            $('#form_edit_user').find('[name="MiddleName"]').val(user_mname);
-            $('#form_edit_user').find('[name="LastName"]').val(user_lname);
-            $('#form_edit_user').find('[name="HouseLotNo"]').val(user_lotnostreet);
-            $('#form_edit_user').find('[name="Barangay"]').val(user_barangay);
-            $('#form_edit_user').find('[name="City"]').val(user_city);
-            $('#form_edit_user').find('[name="ZIPCode"]').val(user_zipcode);
-            $('#form_edit_user').find('[name="Province"]').val(user_province);
-            $('#form_edit_user').find('[name="ContactNo"]').val(user_cnum);
-            $('#form_edit_user').find('[name="Age"]').val(user_age);
-            $('#form_edit_user').find('[name="UserType"]').val(user_utype);
-            $('#form_edit_user').find('[name="Email"]').val(user_email);
-            $('#form_edit_user').find('[name="Username"]').val(user_username);
+            <!-- JavaScript Libraries -->
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="lib/easing/easing.min.js"></script>
+            <script src="lib/waypoints/waypoints.min.js"></script>
+            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+            <!-- For Datatable -->
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+            <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+            <!-- Template Javascript -->
+            <script src="js/main.js"></script>
+
+            <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+            <!-- To show details when editing -->
+            <script>
+                function endResize() {
+                    $(window).off("resize", resizer);
+                }
+
+                $('#view_user').on('show.bs.modal', function(e) {
+                    var opener = e.relatedTarget;
+
+                    var userid = $(opener).attr('userid');
+                    var fname = $(opener).attr('fname');
+                    var mname = $(opener).attr('mname');
+                    var lname = $(opener).attr('lname');
+                    var contactno = $(opener).attr('contactno');
+                    var bdate = $(opener).attr('bdate');
+                    var utype = $(opener).attr('utype');
+                    var uname = $(opener).attr('uname');
+                    var email = $(opener).attr('email');
+                    var pword = $(opener).attr('pword');
+                    var dtmod = $(opener).attr('dtmod');
+
+                    $('#view_user_form').find('[name="userid"]').val(userid);
+                    $('#view_user_form').find('[name="fname"]').val(fname);
+                    $('#view_user_form').find('[name="mname"]').val(mname);
+                    $('#view_user_form').find('[name="lname"]').val(lname);
+                    $('#view_user_form').find('[name="contactno"]').val(contactno);
+                    $('#view_user_form').find('[name="bdate"]').val(bdate);
+                    $('#view_user_form').find('[name="utype"]').val(utype);
+                    $('#view_user_form').find('[name="uname"]').val(uname);
+                    $('#view_user_form').find('[name="email"]').val(email);
+                    $('#view_user_form').find('[name="pword"]').val(pword);
+                    $('#view_user_form').find('[name="dtmod"]').val(dtmod);
 
 
-            endResize();
-        });
+                    endResize();
+                });
 
-        function endResize() {
-            $(window).off("resize", resizer);
-        }
-    </script>
+                function displayImg() {
+                    var img = document.getElementById("ProofOfPayment").src;
+                    window.open(img, '_blank');
+                }
+            </script>
 
 </body>
 

@@ -39,8 +39,6 @@ if (isset($_POST['edit'])) {
                 echo "<script>alert('Something Went Wrong. Please try again');</script>";
             }
         }
-
-        
     } else {
         if ($odremarks != "") {
             $query = mysqli_query($con, "UPDATE orders SET OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
@@ -53,8 +51,6 @@ if (isset($_POST['edit'])) {
             }
         }
     }
-
-    
 }
 
 ?>
@@ -365,6 +361,11 @@ if (isset($_POST['edit'])) {
 
                                         <!-- insert download link for proof of payment here -->
                                     </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label>Reference No. (For Proof of Payment)</label>
+                                        <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control" readonly />
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -380,10 +381,6 @@ if (isset($_POST['edit'])) {
                                         <textarea name="ShippingTo" id="ShippingTo" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
                                     </div>
                                     <hr />
-                                    <div class="form-group">
-                                        <label>Reference No. (For Proof of Payment)</label>
-                                        <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control" readonly />
-                                    </div>
                                     <div class="form-group">
                                         <label>Status</label>
                                         <div class="row">

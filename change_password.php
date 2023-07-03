@@ -1,20 +1,23 @@
 <?php
-        include('connection.php');
+include('connection.php');
 
 if (isset($_POST['submit'])) {
 
     $username = $_POST['username'];
     $password = $_POST['newpass'];
 
-    // Query for updating data
-    $query = mysqli_query($con, "UPDATE users SET Password='$password' WHERE Username='$username'");
+    date_default_timezone_set("Asia/Hong_Kong");
+    $currentDateTime = date('y-m-d h:i:sa');
 
-        if ($query) {
-            echo "<script>alert('You have successfully updated your password');</script>";
-            echo "<script> document.location ='login.php'; </script>";
-        } else {
-            echo "<script>alert('Something Went Wrong. Please try again');</script>";
-        }
+    // Query for updating data
+    $query = mysqli_query($con, "UPDATE users SET Password='$password', DateTimeModified='$currentDateTime' WHERE Username='$username'");
+
+    if ($query) {
+        echo "<script>alert('You have successfully updated your password');</script>";
+        echo "<script> document.location ='login.php'; </script>";
+    } else {
+        echo "<script>alert('Something Went Wrong. Please try again');</script>";
+    }
 }
 
 ?>
@@ -27,9 +30,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages</title>
-    <link rel = "icon" href = 
-        "https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" 
-        type = "image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -84,7 +85,7 @@ if (isset($_POST['submit'])) {
                     <form method="post" action="">
                         <div class="row g-3 bg-dark">
                             <div class="col-6 ">
-                                <input type="button" class="btn btn-primary w-100 py-3" onclick="window.location='registration.php'" value="SIGN UP">                      
+                                <input type="button" class="btn btn-primary w-100 py-3" onclick="window.location='registration.php'" value="SIGN UP">
                             </div>
                             <div class="col-6">
                                 <input type="button" class="btn btn-outline-light w-100 py-3" onclick="window.location='login.php'" value="LOG IN">
@@ -99,7 +100,7 @@ if (isset($_POST['submit'])) {
                                 <input type="password" name="newpass" id="newpass" class="form-control  bg-light border-0 px-4 py-3" placeholder="New Password" required>
                             </div>
                             <div class="col-12">
-                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Submit</button>                            
+                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Submit</button>
                             </div>
                             <div class="col-12"></div>
                         </div>
