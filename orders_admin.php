@@ -14,29 +14,47 @@ $clinicID = $row_ca['ClinicID'];
 
 if (isset($_POST['edit'])) {
 
-    $orderid = $_POST['OrderID1'];
+    $orderid = $_POST['OrderID'];
     $orderstatus = $_POST['OrderStatus2'];
     $odremarks = $_POST['OrderRemarks1'];
 
     if ($orderstatus != "") {
-        $query = mysqli_query($con, "UPDATE orders SET OrderStatus='$orderstatus', OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
 
-        if ($query) {
-            echo "<script>alert('You have successfully updated an order.');</script>";
-            echo "<script> document.location ='orders_admin.php'; </script>";
+        if ($odremarks != "") {
+            $query = mysqli_query($con, "UPDATE orders SET OrderStatus='$orderstatus', OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
+
+            if ($query) {
+                echo "<script>alert('You have successfully updated an order.');</script>";
+                echo "<script> document.location ='orders_admin.php'; </script>";
+            } else {
+                echo "<script>alert('Something Went Wrong. Please try again');</script>";
+            }
         } else {
-            echo "<script>alert('Something Went Wrong. Please try again');</script>";
+            $query = mysqli_query($con, "UPDATE orders SET OrderStatus='$orderstatus' WHERE OrderID='$orderid'");
+
+            if ($query) {
+                echo "<script>alert('You have successfully updated an order.');</script>";
+                echo "<script> document.location ='orders_admin.php'; </script>";
+            } else {
+                echo "<script>alert('Something Went Wrong. Please try again');</script>";
+            }
         }
-    } else {
-        $query = mysqli_query($con, "UPDATE orders SET OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
 
-        if ($query) {
-            echo "<script>alert('You have successfully updated an order.');</script>";
-            echo "<script> document.location ='orders_admin.php'; </script>";
-        } else {
-            echo "<script>alert('Something Went Wrong. Please try again');</script>";
+        
+    } else {
+        if ($odremarks != "") {
+            $query = mysqli_query($con, "UPDATE orders SET OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
+
+            if ($query) {
+                echo "<script>alert('You have successfully updated an order.');</script>";
+                echo "<script> document.location ='orders_admin.php'; </script>";
+            } else {
+                echo "<script>alert('Something Went Wrong. Please try again');</script>";
+            }
         }
     }
+
+    
 }
 
 ?>
@@ -369,10 +387,10 @@ if (isset($_POST['edit'])) {
                                     <div class="form-group">
                                         <label>Status</label>
                                         <div class="row">
-                                            <div class="col-4">
+                                            <div class="col-6">
                                                 <input type="text" name="OrderStatus" id="OrderStatus" class="form-control" style="height: 100%;" readonly />
                                             </div>
-                                            <div class="col-8">
+                                            <div class="col-6">
                                                 <select name="OrderStatus2" id="OrderStatus2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
                                                     <option selected disabled>-- Update Status --</option>
                                                     <option value="Pending">Pending</option>
