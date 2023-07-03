@@ -15,7 +15,7 @@ $clinicID = $row_ca['ClinicID'];
 if (isset($_POST['edit'])) {
 
     $orderid = $_POST['OrderID1'];
-    $orderstatus = $_POST['OrderStatus3'];
+    $orderstatus = $_POST['OrderStatus2'];
     $odremarks = $_POST['OrderRemarks1'];
 
     if ($orderstatus != "") {
