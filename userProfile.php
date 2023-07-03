@@ -164,6 +164,14 @@ if (isset($_POST['edit_pet_details'])) {
         }
     }
 }
+
+
+
+// For pet booklet validation
+// $ret_a = mysqli_query($con, "SELECT * FROM petbooklet WHERE UserID='$userID' AND NoOfPets > 0 AND PaymentStatus != 'Pending' ORDER BY BookletID DESC LIMIT 1");
+$ret_a = mysqli_query($con, "SELECT * FROM petbooklet WHERE UserID='$userID' ORDER BY BookletID DESC LIMIT 1");
+$row_a = mysqli_fetch_array($ret_a);
+
 ?>
 
 
@@ -272,7 +280,7 @@ if (isset($_POST['edit_pet_details'])) {
             <!-- START OF PET OWNER PROFILE -->
             <div class="col-xl-5">
                 <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                    <div class="card-header userProfile-font">👤 Pet Owner Profile &nbsp; <a href="" data-toggle="modal" title="Delete" style="float:right;" data-target="#update_modal<?php echo $row['userID'] ?>"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a></div>
+                    <div class="card-header userProfile-font">👤 Pet Owner Profile &nbsp; <a href="" data-toggle="modal" title="Delete" style="float:right;" data-target="#update_modal"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a></div>
                     <div class="card-body text-center">
                         <!-- Profile picture help block-->
                         <div class="userProfile">
@@ -296,9 +304,9 @@ if (isset($_POST['edit_pet_details'])) {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><b>Age: &nbsp;&nbsp;</b></td>
+                                                <td><b>Birthdate: &nbsp;&nbsp;</b></td>
                                                 <td>
-                                                    <?php echo $row['Age'] ?>
+                                                    <?php echo $row['Birth_Date'] ?>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -331,27 +339,61 @@ if (isset($_POST['edit_pet_details'])) {
             <div class="col-xl-7">
                 <!-- ADD PET BUTTON -->
 
-                <?php
-                $ret_a = mysqli_query($con, "SELECT * FROM petbooklet WHERE UserID='$userID' AND NoOfPets > 0 AND PaymentStatus != 'Pending'");
-                $cnt_a = 1;
-                $row_a = mysqli_num_rows($ret_a);
-                if ($row_a > 0) {
-                    while ($row_a = mysqli_fetch_array($ret_a)) {
-                ?>
+                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                    <div class="card-header userProfile-font">💸 Pet Booklet Transaction Status </div>
+                    <div class="card-body text-center">
+                        <!-- Profile picture help block-->
+                        <div class="userProfile">
+                            <center>
+                                <table class="table">
+                                    <tbody>
+                                        <?php
+                                        $ret = mysqli_query($con, "SELECT * FROM petbooklet WHERE UserID='$userID' ORDER BY BookletID DESC LIMIT 1");
+                                        while ($row = mysqli_fetch_array($ret)) {
+                                        ?>
+                                            <tr>
+                                                <td><b>Status: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['PaymentStatus'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>For How Many Pets: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['NoOfPets'] ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Amount Paid: &nbsp;&nbsp;</b></td>
+                                                <td>
+                                                    <?php echo $row['AmountToPay'] ?>
+                                                </td>
+                                            </tr>
 
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:100%; border-radius: 15px;"><span class="glyphicon glyphicon-plus"></span>Add Pet</button>
-                        <br>
-                        <br>
-                    <?php
-                        $cnt_a = $cnt_a + 1;
-                    }
-                } else {
-                    ?>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
 
-                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#booklet_modal" style="float:right; width:100%; border-radius: 15px;"><span class="glyphicon glyphicon-plus"></span>Buy a Pet Booklet</button>
-                    <br>
-                    <br>
-                <?php } ?>
+                                <?php
+                                if ($row_a['NoOfPets'] > 0 && $row_a['PaymentStatus'] != 'Pending') {
+                                ?>
+
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:100%; border-radius: 15px;"><span class="glyphicon glyphicon-plus"></span>Add Pet</button>
+                                    <br>
+                                <?php
+                                } else {
+                                ?>
+
+                                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#booklet_modal" style="float:right; width:100%; border-radius: 15px;"><span class="glyphicon glyphicon-plus"></span>Buy a Pet Booklet</button>
+                                    <br>
+                                <?php } ?>
+
+
+                            </center>
+                        </div>
+                    </div>
+                </div>
+                <br>
 
 
                 <?php
@@ -437,7 +479,7 @@ if (isset($_POST['edit_pet_details'])) {
     <!-- END OF PROFILE -->
 
     <!-- START OF MODAL FOR EDIT PET OWNER PROFILE -->
-    <div class="modal fade" id="update_modal<?php echo $row['userID'] ?>" aria-hidden="true">
+    <div class="modal fade" id="update_modal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" style="border-radius: 15px;">
                 <form method="POST">
@@ -472,8 +514,8 @@ if (isset($_POST['edit_pet_details'])) {
                                         <input type="text" name="cnum" value="<?php echo $row['ContactNo'] ?>" class="form-control" />
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Age</label>
-                                        <input type="text" name="age" value="<?php echo $row['Age'] ?>" class="form-control" readonly />
+                                        <label>Birthdate</label>
+                                        <input type="text" name="birthdate" value="<?php echo $row['Birth_Date'] ?>" class="form-control" readonly />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -748,6 +790,18 @@ if (isset($_POST['edit_pet_details'])) {
             $('#form_edit_pet').find('[name="birthdate1"]').val(birthdate);
             $('#form_edit_pet').find('[name="color1"]').val(color);
 
+            endResize();
+        });
+
+        $('#update_modal').on('show.bs.modal', function(e) {
+            endResize();
+        });
+
+        $('#form_modal').on('show.bs.modal', function(e) {
+            endResize();
+        });
+
+        $('#booklet_modal').on('show.bs.modal', function(e) {
             endResize();
         });
 
