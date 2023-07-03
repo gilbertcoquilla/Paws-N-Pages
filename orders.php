@@ -85,9 +85,6 @@ if (isset($_GET['delid'])) {
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
-    <!-- For Datatable -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css" />
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <!-- Favicon -->
@@ -201,8 +198,11 @@ if (isset($_GET['delid'])) {
                         ?>
                                 <!--Fetch the Records -->
                                 <tr>
-                                    <td style="border:0px;">
-                                        <?php echo $row1['Order_RefNo'] ?>
+                                    <td style="border:0px;"><a href="" orderid="<?php echo $row1['OrderID'] ?>" refno="<?php echo $row1['Order_RefNo'] ?>" products="<?php $prod = $row1['OrderedProducts'];
+                                                                                                                                                                        $explodedArray = explode(', ', $prod);
+                                                                                                                                                                        foreach ($explodedArray as $element) {
+                                                                                                                                                                            echo  $element . "\n";
+                                                                                                                                                                        } ?>" user="<?php echo $row1['FirstName'] . ' ' .  $row1['MiddleName'] . ' ' . $row1['LastName'] ?>" totalprice="<?php echo "₱ " . $row1['TotalPrice']; ?>" dtcout="<?php echo $row1['DateTimeCheckedOut'] ?>" address="<?php echo $row1['ShippingTo'] ?>" proofpayment="<?php echo $row1['ProofOfPayment']; ?>" proofrefno="<?php echo $row1['Proof_RefNo']; ?>" orderstatus="<?php echo $row1['OrderStatus']; ?>" odremarks="<?php echo $row1['OrderRemarks']; ?>" class="edit" title="View" data-toggle="modal" data-target="#view_order"><?php echo $row1['Order_RefNo'] ?></a>
                                     </td>
                                     <td style="border:0px;">
                                         PHP <?php echo $row1['TotalPrice'] ?>
@@ -218,7 +218,7 @@ if (isset($_GET['delid'])) {
                                     </td>
 
                                     <?php
-                                                                     
+
                                     if ($row1['OrderStatus'] != 'Completed') {
                                     ?>
 
@@ -302,10 +302,170 @@ if (isset($_GET['delid'])) {
     <!-- Footer End -->
 
 
+    <!-- START OF MODAL FOR VIEWING ORDER DETAILS -->
+    <div class="modal fade" id="view_order" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="border-radius: 15px;">
+                <form method="POST" runat="server" enctype="multipart/form-data" id="view_order_form">
+                    <div class="modal-header modal-header-success">
+                        <h3 class="modal-title">Order Details</h3>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="form-group" style="display: none;">
+                                <label>ID</label>
+                                <input type="text" name="OrderID" id="OrderID" class="form-control" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Order Reference No.</label>
+                                        <input type="text" name="Order_RefNo" id="Order_RefNo" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ordered Products</label>
+                                        <!-- <input type="textarea" name="Orders" id="Orders" class="form-control" readonly /> -->
+                                        <textarea name="OrderedProducts" id="OrderedProducts" class="form-control" style="width: 100%; height: 150px;" readonly></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Total Price</label>
+                                        <input type="text" name="TotalPrice" id="TotalPrice" class="form-control" readonly />
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label>Proof Of Payment</label>
+                                        <!-- <input type="text" name="ProofOfPayment" id="ProofOfPayment" class="form-control" readonly />
+                                        <img src="" name="ProofOfPayment" id="ProofOfPayment" width="100%" onclick="displayImg()"> -->
+                                        <br>
+                                        <div class="row" style="width: 100%;">
+                                            <div class="col-8">
+                                                <a href="" id="DL_ProofOfPayment" target="_blank">
+                                                    <span id="proofOP"></span>
+                                                </a>
+                                            </div>
+                                            <div class="col-4" style="text-align: right;">
+                                                <a href="" id="DL_ProofOfPayment" target="_blank" download>
+                                                    Download
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- insert download link for proof of payment here -->
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label>Reference No. (For Proof of Payment)</label>
+                                        <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Customer</label>
+                                        <input type="text" name="Customer" id="Customer" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date & Time Checked Out</label>
+                                        <input type="text" name="DTimeCO" id="DTimeCO" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Shipping To</label>
+                                        <textarea name="ShippingTo" id="ShippingTo" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <input type="text" name="OrderStatus" id="OrderStatus" class="form-control" style="height: 100%;" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Remarks</label>
+                                        <textarea name="OrderRemarks" id="OrderRemarks" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  END OF MODAL FOR VIEWING ORDER DETAILS -->
+
+
+
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary py-3 fs-4 back-to-top"><i class="bi bi-arrow-up"></i></a>
 
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
+    <!-- For Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- To show details when editing -->
+    <script>
+        function endResize() {
+            $(window).off("resize", resizer);
+        }
+
+        $('#view_order').on('show.bs.modal', function(e) {
+            var opener = e.relatedTarget;
+
+            var orderid = $(opener).attr('orderid');
+            var refno = $(opener).attr('refno');
+            var user = $(opener).attr('user');
+            var products = $(opener).attr('products');
+            var totalprice = $(opener).attr('totalprice');
+            var dtcout = $(opener).attr('dtcout');
+            var address = $(opener).attr('address');
+            var proofpayment = $(opener).attr('proofpayment');
+            var proofrefno = $(opener).attr('proofrefno');
+            var orderstatus = $(opener).attr('orderstatus');
+            var odremarks = $(opener).attr('odremarks');
+
+            $('#view_order_form').find('[name="OrderID"]').val(orderid);
+            $('#view_order_form').find('[name="Order_RefNo"]').val(refno);
+            $('#view_order_form').find('[name="Customer"]').val(user);
+            $('#view_order_form').find('[name="OrderedProducts"]').val(products);
+            $('#view_order_form').find('[name="TotalPrice"]').val(totalprice);
+            $('#view_order_form').find('[name="DTimeCO"]').val(dtcout);
+            $('#view_order_form').find('[name="ShippingTo"]').val(address);
+
+            $('#view_order_form').find('[name="ProofOfPayment"]').val(proofpayment);
+            $('#view_order_form').find('[id="proofOP"]').html(proofpayment);
+            // $('#view_order_form').find('[name="ProofOfPayment"]').prop('src', 'image_upload/' + proofpayment);
+            $('#view_order_form').find('[id="DL_ProofOfPayment"]').prop('href', 'image_upload/' + proofpayment);
+
+            $('#view_order_form').find('[name="Proof_RefNo"]').val(proofrefno);
+            $('#view_order_form').find('[name="OrderStatus"]').val(orderstatus);
+            $('#view_order_form').find('[name="OrderRemarks"]').val(odremarks);
+
+            endResize();
+        });
+
+        function displayImg() {
+            var img = document.getElementById("ProofOfPayment").src;
+            window.open(img, '_blank');
+        }
+    </script>
 
 </body>
 
