@@ -382,8 +382,14 @@ if (isset($_POST['update_booking'])) {
                                         }
                                     } else { ?>
                                         <tr style="border:0px;">
-                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found
-                                            </td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
                                         </tr>
                                     <?php } ?>
 

@@ -292,8 +292,11 @@ if (isset($_POST['edit'])) {
                                         }
                                     } else { ?>
                                         <tr style="border:0px;">
-                                            <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found
-                                            </td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found</td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
                                         </tr>
                                     <?php } ?>
 

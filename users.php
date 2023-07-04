@@ -230,7 +230,7 @@ if (isset($_POST['edit_user'])) {
 
 
         <!-- START OF ADMINISTRATOR -->
-        <?php if ($usertype == 'Clinic Administrator') { ?>
+        <?php if ($usertype == 'Clinic Administrator') { ?> <!-- change to administrator -->
 
             <div class="main_content">
                 <div style="padding-right:30px; padding-left:30px; padding-top:30px;">
@@ -271,8 +271,11 @@ if (isset($_POST['edit_user'])) {
                                         }
                                     } else { ?>
                                         <tr style="border:0px;">
-                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found
-                                            </td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found</td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
                                         </tr>
                                     <?php } ?>
 

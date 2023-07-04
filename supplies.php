@@ -310,6 +310,7 @@ if (isset($_GET['delid'])) {
                 <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
                 <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedback</b></a></li>
                 <li style="text-transform:uppercase;"><a href="services.php"><b>Services</b></a></li>
+                <li style="text-transform:uppercase;"><a href="petsearch.php"><b>Pet Search</b></a></li>
             </ul>
 
 
@@ -369,14 +370,11 @@ if (isset($_GET['delid'])) {
                                         }
                                     } else { ?>
                                         <tr style="border:0px;">
-                                            <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found</td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found</td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
                                         </tr>
                                     <?php } ?>
 
@@ -437,14 +435,11 @@ if (isset($_GET['delid'])) {
                                         }
                                     } else { ?>
                                         <tr style="border:0px;">
-                                            <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found</td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found</td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
                                         </tr>
                                     <?php } ?>
 
