@@ -6,6 +6,46 @@ include('connection.php');
 
 $userID = $_SESSION["id"];
 $clinic_id = $_SESSION['clinic_id'];
+
+if (isset($_POST['submit'])) {
+
+    // For booking an appointment
+    $userID = $_POST['userID'];
+    //$services = $_POST['service'];
+    $listofservices = implode(', ', $_REQUEST['service']);
+    $appointmentDate = $_POST['appointmentDate'];
+    $appointmentTime = $_POST['appointmentTime'];
+    $notes = $_POST['notes'];
+    $status = $_POST['status'];
+    $code = 'PNP';
+    $ymd = date('ymd');
+
+    $squence = rand(00000, 99999);
+    $brefno = $code . $ymd . $squence;
+
+    $clinicid = $_POST['clinicID'];
+
+    date_default_timezone_set("Asia/Hong_Kong");
+    $currentDateTime = date('y-m-d h:i:s A');
+
+    // foreach ($services as $listofservices) {
+    // Query for data insertion
+    $query = mysqli_query($con, "INSERT INTO appointments (Notes, PreferredDate, PreferredTime, AppointmentStatus, AvailedServices, UserID, Appointment_RefNo, ClinicID, DateTimeBooked) VALUES ('$notes', '$appointmentDate', '$appointmentTime', '$status', '$listofservices', '$userID', '$brefno', '$clinicid', '$currentDateTime')");
+    if ($query) {
+        echo "<script>alert('You have successfully booked an appointment!');</script>";
+        echo "<script> document.location ='booking_form.php'; </script>";
+    } else {
+        echo "<script>alert('Something went wrong. Please try again');</script>";
+    }
+    // }
+    // Check if the terms checkbox is checked
+    if (!isset($_POST['acceptTerms'])) {
+        echo "<script>alert('Please accept the Terms & Conditions.');</script>";
+    } else {
+        // Form submission code
+        // ...
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +54,7 @@ $clinic_id = $_SESSION['clinic_id'];
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Booking</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -104,15 +143,12 @@ $clinic_id = $_SESSION['clinic_id'];
             border: none;
             text-align-last: center;
         }
-
-        /* input[type="time"]::-webkit-calendar-picker-indicator {
-    display: none;
-  }
-
-  input[type="time"]::-webkit-inner-spin-button,
-  input[type="time"]::-webkit-clear-button {
-    display: none;
-  } */
+        strong {
+      font-weight: bold;
+        }
+        em {
+        font-style: italic;
+        }
     </style>
 </head>
 
@@ -145,9 +181,7 @@ $clinic_id = $_SESSION['clinic_id'];
                 <!-- CLINIC PROFILE START -->
                 <div class="mb-5">
                     <div class="col-12">
-                        <img class="img-fluid h-100"
-                            src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1"
-                            style="width: 100%; height: 100%;">
+                        <img class="img-fluid h-100" src="https://lh3.googleusercontent.com/p/AF1QipNu4IbaEEZtYkNfglU92mJyrBES4RVcUgqzKIIa=w768-h768-n-o-k-v1" style="width: 100%; height: 100%;">
                     </div>
                     <?php
                     echo $clinic_id; // for testing purposes (if the clinic id was really retrieved properly. update: successful) 
@@ -161,7 +195,7 @@ $clinic_id = $_SESSION['clinic_id'];
                     if ($row > 0) {
                         while ($row = mysqli_fetch_array($ret)) {
 
-                            ?>
+                    ?>
                             <p class="text-uppercase mb-3" style="font-size:20px; color:black;"><b>
                                     <?php echo $row['ClinicName'] ?>
                                 </b></br>
@@ -172,37 +206,34 @@ $clinic_id = $_SESSION['clinic_id'];
                                 $row1 = mysqli_num_rows($ret1);
                                 if ($row1 > 0) {
                                     while ($row1 = mysqli_fetch_array($ret1)) {
-                                        ?>
-                                    <p>
-                                        <?php echo $row1['LotNo_Street'] . '<br/> Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City'] ?><br />
-                                        <?php echo '<b>Opening Hours: </b>' . date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?><br />
-                                        <?php echo '<b>Opening Days: </b>' . $row1['OperatingDays'] ?>
-                                    </p>
-                                    <?php
+                                ?>
+                            <p>
+                                <?php echo $row1['LotNo_Street'] . '<br/> Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City'] ?><br />
+                                <?php echo '<b>Opening Hours: </b>' . date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?><br />
+                                <?php echo '<b>Opening Days: </b>' . $row1['OperatingDays'] ?>
+                            </p>
+                    <?php
                                     }
                                 } ?>
 
 
-                            <?php
+                    <?php
                             $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id' LIMIT 4");
                             $cnt2 = 1;
                             $row2 = mysqli_num_rows($ret2);
                             if ($row2 > 0) {
                                 while ($row2 = mysqli_fetch_array($ret2)) {
-                                    ?>
-                                    <span
-                                        style="background-color: rgb(102, 176, 50); border-radius: 6px; color:white; padding-top: 2px; padding-bottom: 3px;">
-                                        &nbsp;
-                                        <?php echo ' ' . $row2['ServiceName'] . ' ' ?> &nbsp;
-                                    </span>&nbsp;
-                                    <?php
+                    ?>
+                            <span style="background-color: rgb(102, 176, 50); border-radius: 6px; color:white; padding-top: 2px; padding-bottom: 3px;">
+                                &nbsp; <?php echo ' ' . $row2['ServiceName'] . ' ' ?> &nbsp;
+                            </span>&nbsp;
+                    <?php
                                 }
                             } ?>
-                            <!-- <br /><br /><a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank" style="padding-left: 5px;"><i class="bi-facebook"></i> View Facebook</a> <br /><br> -->
-                            <br><br>
-                            <a class="btn btn-primary m-1" href="feedback.php" style="border-radius: 15px; width: 95%;">Leave a
-                                review</a>
-                        <?php }
+                    <!-- <br /><br /><a href="https://www.facebook.com/AnimalVeterinaryPetClinicOpen24Hours/" target="_blank" style="padding-left: 5px;"><i class="bi-facebook"></i> View Facebook</a> <br /><br> -->
+                    <br><br>
+                    <a class="btn btn-primary m-1" href="feedback.php" style="border-radius: 15px; width: 95%;">Leave a review</a>
+            <?php }
                     } ?>
 
                 </div>
@@ -213,8 +244,7 @@ $clinic_id = $_SESSION['clinic_id'];
             <div class="col-lg-9">
                 <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
                     <h2 class="display-6 text-uppercase mb-0">Booking Form</h2>
-                    <h6 class="text-primary text-uppercase" style="font-size: 18px;">NOTE: Booking an appointment is NOT
-                        guaranteed, it is yet
+                    <h6 class="text-primary text-uppercase" style="font-size: 18px;">NOTE: Booking an appointment is NOT guaranteed, it is yet
                         to be approved by the Veterinary Clinic</h6>
                 </div>
 
@@ -229,14 +259,13 @@ $clinic_id = $_SESSION['clinic_id'];
                         $row = mysqli_num_rows($ret);
                         if ($row > 0) {
                             while ($row = mysqli_fetch_array($ret)) {
-                                ?>
+                        ?>
 
-                                <input type="checkbox" id="service" name="service[]"
-                                    value="<?php echo $row['ServiceName'] ?>">&nbsp; <?php echo $row['ServiceName'] ?>
+                                <input type="checkbox" id="service" name="service[]" value="<?php echo $row['ServiceName'] ?>">&nbsp; <?php echo $row['ServiceName'] ?>
                                 &nbsp;
 
 
-                                <?php
+                        <?php
 
                                 $cnt = $cnt + 1;
                             }
@@ -245,104 +274,130 @@ $clinic_id = $_SESSION['clinic_id'];
                     <br />
                     <div class="col-12">
                         <h5>Preferred date:</h5>
-                        <input type="date" class="form-control bg-light border-0 px-4 py-3" style="border-radius: 15px;"
-                            id="datePicker" name="appointmentDate" required>
+                        <input type="date" class="form-control bg-light border-0 px-4 py-3" style="border-radius: 15px;" id="datePicker" name="appointmentDate" required>
                     </div>
                     <br />
                     <div class="col-12">
                         <h5>Preferred time:</h5>
-                        <input type="time" class="form-control bg-light border-0 px-4 py-3" style="border-radius: 15px;"
-                            id="timePicker" name="appointmentTime" required>
-                        <span style="color:red; font-style:italic;">*Please double check the operating days and hours of
-                            the clinic</span>
+                        <input type="time" class="form-control bg-light border-0 px-4 py-3" style="border-radius: 15px;" id="timePicker" name="appointmentTime" required>
+                        <span style="color:red; font-style:italic;">*Please double check the operating days and hours of the clinic</span>
                     </div>
                     <br />
                     <div class="col-12">
                         <h5>Notes:</h5>
-                        <input type="name" name="notes" style="border-radius: 15px;"
-                            class="form-control bg-light border-0 px-4 py-3"
-                            placeholder="For example: my pet has a fever">
+                        <input type="name" name="notes" style="border-radius: 15px;" class="form-control bg-light border-0 px-4 py-3" placeholder="For example: my pet has a fever">
                     </div>
                     <br />
                     <div class="col-12" style="display: none;">
                         <h5>Status:</h5>
-                        <input type="name" name="status" class="form-control  bg-light border-0 px-4 py-3"
-                            value="Processing">
+                        <input type="name" name="status" class="form-control  bg-light border-0 px-4 py-3" value="Processing">
                     </div>
 
                     <div class="col-12" style="display: none;">
                         <h5>User ID:</h5>
-                        <input type="text" name="userID" class="form-control  bg-light border-0 px-4 py-3"
-                            value="<?php echo $userID ?>" required>
+                        <input type="text" name="userID" class="form-control  bg-light border-0 px-4 py-3" value="<?php echo $userID ?>" required>
                     </div>
 
                     <div class="col-12" style="display: none;">
                         <h5>Clinic ID:</h5>
-                        <input type="text" name="clinicID" class="form-control  bg-light border-0 px-4 py-3"
-                            value="<?php echo $clinic_id ?>" required>
+                        <input type="text" name="clinicID" class="form-control  bg-light border-0 px-4 py-3" value="<?php echo $clinic_id ?>" required>
                     </div>
+              
+                    <h5 class="text-primary" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#termsModal"><input type="checkbox" id="acceptTerms" required>    I accept the <u>Terms & Conditions</u></h5>
+
 
                     <div class="col-12">
-                        <input type="submit" name="submit" value="Submit" style="border-radius: 15px;"
-                            class="btn btn-primary w-100 py-3" />
+                        <input type="submit" name="submit" value="Submit" style="border-radius: 15px;" class="btn btn-primary w-100 py-3" />
                     </div>
                 </form>
+                    
             </div>
         </div>
         <!-- BOOKING FORM END -->
-
-        <!-- START OF INSERTING DATA -->
-        <?php
-        if (isset($_POST['submit'])) {
-
-            // For booking an appointment
-            $userID = $_POST['userID'];
-            //$services = $_POST['service'];
-            $listofservices = implode(', ', $_REQUEST['service']);
-            $appointmentDate = $_POST['appointmentDate'];
-            $appointmentTime = $_POST['appointmentTime'];
-            $notes = $_POST['notes'];
-            $status = $_POST['status'];
-            $code = 'PNP';
-            $ymd = date('ymd');
-
-            $squence = rand(00000, 99999);
-            $brefno = $code . $ymd . $squence;
-
-            $clinicid = $_POST['clinicID'];
-
-            date_default_timezone_set("Asia/Hong_Kong");
-            $currentDateTime = date('y-m-d h:i:s A');
-
-            // foreach ($services as $listofservices) {
-            // Query for data insertion
-            $query = mysqli_query($con, "INSERT INTO appointments (Notes, PreferredDate, PreferredTime, AppointmentStatus, AvailedServices, UserID, Appointment_RefNo, ClinicID, DateTimeBooked) VALUES ('$notes', '$appointmentDate', '$appointmentTime', '$status', '$listofservices', '$userID', '$brefno', '$clinicid', '$currentDateTime')");
-            if ($query) {
-                echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                echo '<script>';
-                echo 'swal({
-                                            title: "Success",
-                                            text: "You have successfully booked an appointment",
-                                            icon: "success",
-                                            html: true,
-                                            showCancelButton: true,
-                                            })
-                                                .then((willDelete) => {
-                                                    if (willDelete) {
-                                                    
-                                                        document.location ="appointments.php";
-                                                    }
-                                                })';
-                echo '</script>';
-
-            } else {
-                echo "<script>alert('Something went wrong. Please try again');</script>";
-            }
-            // }
-        }
-        ?>
-        <!-- END OF INSERTING DATA -->
     </div>
+
+
+    <!-- START OF MODAL FOR ADDING NEW PET BOOKLET -->
+   
+<!-- START Modal for Terms & Conditions -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 15px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="termsModalLabel">Terms & Conditions</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Add your terms and conditions text here -->
+        <div class="col-md-12"> 
+        <h5>1. Acceptance of Terms</h5>
+                <p>
+                    By accessing and using our online pet booking system, you acknowledge that you have read, understood, and <em>agree to comply with</em> the following terms and conditions. These terms govern your use of the system and your responsibilities as a user.
+                </p>
+
+                <h5>2. Booking Appointments</h5>
+                <p>
+                    <strong>Availability:</strong> Paws N Pages allows you to schedule appointments for various pet-related services.
+                </p>
+                <p>
+                    <strong>Accuracy:</strong> You are responsible for providing <em>accurate and up-to-date information</em> while booking appointments, including your contact details, pet information, and service requirements.
+                </p>
+
+                <h5>3. Appointment Cancellation Policy</h5>
+                <p>
+                    <strong>Cancellation Notice:</strong> Once an appointment is confirmed, <strong><em>cancellation is NOT allowed within three (3) days prior</em> </strong>to the scheduled appointment date.
+                </p>
+                <p>
+                    <strong>No-Shows:</strong> Failure to show up for a scheduled appointment without prior notice or cancellation within the specified timeframe may result in <em>penalties or restrictions</em> for future bookings.
+                </p>
+
+                <h5>4. Payment and Refunds</h5>
+                <p>
+                    <strong>Fees:</strong> The fees for pet services will be clearly displayed during the booking process. You are responsible for <em>paying the specified amount</em> for the selected services on your chosen clinic.
+                </p>
+                <p>
+                    <strong>Payment Methods:</strong> Payments are made directly to the Veterinary Clinic you chose.
+                </p>
+                <p>
+                    <strong>Refunds:</strong> Refunds will be issued depending on the clinic’s refund policy, which may vary based on the service and cancellation circumstances. Please refer to their refund policy for details.
+                </p>
+
+                <h5>5. User Responsibilities</h5>
+                <p>
+                    <strong>User Conduct:</strong> You agree to use Paws N Pages in a <em>responsible and lawful</em> manner. Do not engage in any activities that may disrupt the system's operation or compromise its security.
+                </p>
+                <p>
+                    <strong>Account Security:</strong> You are responsible for <em>maintaining the confidentiality</em> of your account credentials and preventing unauthorized access.
+                </p>
+                <p>
+                    <strong>Pet Health and Behavior:</strong> Provide accurate information about your pet's health, behavior, and any special requirements. You are solely responsible for your pet's well-being during the service.
+                </p>
+
+                <h5>6. Limitation of Liability</h5>
+                <p>
+                    <strong>Disclaimer:</strong> Our online pet booking system is provided on an "as is" basis, without warranties, expressed or implied. We do not guarantee availability, accuracy, or reliability of the system or services provided.
+                </p>
+                <p>
+                    <strong>Indemnification:</strong> You agree to indemnify and hold us harmless from any claims, damages, or losses arising from your use of the system, including disputes or issues related to scheduled appointments.
+                </p>
+                <p>
+                    <strong>Limitation of Liability:</strong> We shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from the use or inability to use the online pet booking system.
+                </p>
+
+                <p>
+                    By using Paws N Pages, you agree to abide by these terms and conditions. If you do not agree with any part of these terms, please refrain from using the system.
+                </p>
+         </div>      
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- END Modal for Terms & Conditions -->
 
 
 
@@ -381,8 +436,7 @@ $clinic_id = $_SESSION['clinic_id'];
 
 
     <!-- Modal Start -->
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -417,10 +471,8 @@ $clinic_id = $_SESSION['clinic_id'];
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
-                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
-                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
                     <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
                         762 6162</a>
                 </div>
@@ -428,14 +480,10 @@ $clinic_id = $_SESSION['clinic_id'];
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="index.php#services"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="index.php#founders"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="index.php#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="index.php#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
@@ -474,7 +522,7 @@ $clinic_id = $_SESSION['clinic_id'];
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        $(function () {
+        $(function() {
             var dtToday = new Date();
 
             var month = dtToday.getMonth() + 1;
