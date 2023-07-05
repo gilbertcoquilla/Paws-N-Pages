@@ -54,7 +54,7 @@ $clinicID = $row_ca['ClinicID'];
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-       <style>
+    <style>
         @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
 
         * {
@@ -197,7 +197,7 @@ $clinicID = $row_ca['ClinicID'];
             <div class="profile">
                 <table class="profile-container" style="padding-bottom:10px;">
                     <tr>
-                        <td width="35%" >
+                        <td width="35%">
                             <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="" width="100%" style="border-radius:50%">
                         </td>
                         <td width="65%" style="text-align:center; padding-top:10px">
@@ -206,7 +206,7 @@ $clinicID = $row_ca['ClinicID'];
                             while ($row = mysqli_fetch_array($ret)) {
                             ?>
                                 <a style="text-transform:uppercase; padding:bottom:1px;"><b><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></b></a>
-                                    <a><?php echo $row['Username'] ?></a>
+                                <a><?php echo $row['Username'] ?></a>
                             <?php } ?>
                         </td>
                     </tr>
@@ -217,11 +217,14 @@ $clinicID = $row_ca['ClinicID'];
                 <li style="text-transform:uppercase;"><a href=""><b>Dashboard</b></a></li>
                 <li style="text-transform:uppercase;"><a href="clinicadmin.php"><b>Profile</b></a></li>
                 <li style="text-transform:uppercase;"><a href="supplies.php"><b>Products</b></a></li>
-                <li style="text-transform:uppercase;"><a href="users.php"><b>Customers</b></a></li>
+                <?php if ($usertype == 'Administrator') { ?>
+                    <li style="text-transform:uppercase;"><a href="users.php"><b>Users</b></a></li>
+                <?php } ?>
                 <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
                 <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
                 <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedback</b></a></li>
                 <li style="text-transform:uppercase;"><a href="services.php"><b>Services</b></a></li>
+                <li style="text-transform:uppercase;"><a href="petsearch.php"><b>Pet Records</b></a></li>
             </ul>
             <div style="padding-top:30px;">
                 <center><a href="logout.php" class="btn btn-primary" style="border-radius: 15px; width: 50%; height:20%;">Logout</a></center>
@@ -289,7 +292,7 @@ $clinicID = $row_ca['ClinicID'];
 
         <?php if ($usertype == 'Clinic Administrator') { ?>
 
-           <div class="main_content">
+            <div class="main_content">
                 <div style="padding:30px 30px 30px 30px;">
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font">

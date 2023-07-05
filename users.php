@@ -216,11 +216,14 @@ if (isset($_POST['edit_user'])) {
                 <li style="text-transform:uppercase;"><a href=""><b>Dashboard</b></a></li>
                 <li style="text-transform:uppercase;"><a href="clinicadmin.php"><b>Profile</b></a></li>
                 <li style="text-transform:uppercase;"><a href="supplies.php"><b>Products</b></a></li>
-                <li style="text-transform:uppercase;"><a href="users.php"><b>Customers</b></a></li>
+                <?php if ($usertype == 'Administrator') { ?>
+                    <li style="text-transform:uppercase;"><a href="users.php"><b>Users</b></a></li>
+                <?php } ?>
                 <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
                 <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
                 <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedback</b></a></li>
                 <li style="text-transform:uppercase;"><a href="services.php"><b>Services</b></a></li>
+                <li style="text-transform:uppercase;"><a href="petsearch.php"><b>Pet Records</b></a></li>
 
             </ul>
             <div style="padding-top:30px;">
