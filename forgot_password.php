@@ -137,8 +137,8 @@ require 'src/SMTP.php';
                             <br/><br/>If you require any further assistance or have any questions, please contact our team at <b>pawsnpages.site@gmail.com.</b>  
                             <br>We are available to help you.
 
-                            <br/><br/><BR/>Best regards,
-                            Paws N Pages';
+                            <br/><br/>Best regards,
+                            <br/>Paws N Pages';
             $conn = mysqli_connect("localhost", "root", "", "pawsnpages_db") or die('Unable to connect');
             $verifyQuery = $conn->query("SELECT * FROM users WHERE email = '$email'");
             if ($verifyQuery->num_rows) {
