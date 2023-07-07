@@ -1,25 +1,6 @@
 <?php
 include('connection.php');
 
-if (isset($_POST['submit'])) {
-
-    $username = $_POST['username'];
-    $password = $_POST['newpass'];
-
-    date_default_timezone_set("Asia/Hong_Kong");
-    $currentDateTime = date('y-m-d h:i:sa');
-
-    // Query for updating data
-    $query = mysqli_query($con, "UPDATE users SET Password='$password', DateTimeModified='$currentDateTime' WHERE Username='$username'");
-
-    if ($query) {
-        echo "<script>alert('You have successfully updated your password');</script>";
-        echo "<script> document.location ='login.php'; </script>";
-    } else {
-        echo "<script>alert('Something Went Wrong. Please try again');</script>";
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +11,8 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -85,19 +67,24 @@ if (isset($_POST['submit'])) {
                     <form method="post" action="">
                         <div class="row g-3 bg-dark">
                             <div class="col-6 ">
-                                <input type="button" class="btn btn-primary w-100 py-3" onclick="window.location='registration.php'" value="SIGN UP">
+                                <input type="button" class="btn btn-primary w-100 py-3"
+                                    onclick="window.location='registration.php'" value="SIGN UP">
                             </div>
                             <div class="col-6">
-                                <input type="button" class="btn btn-outline-light w-100 py-3" onclick="window.location='login.php'" value="LOG IN">
+                                <input type="button" class="btn btn-outline-light w-100 py-3"
+                                    onclick="window.location='login.php'" value="LOG IN">
                             </div>
                             <div class="col-12">
                                 <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Change Password</h5>
                             </div>
                             <div class="col-12">
-                                <input type="text" name="username" id="username" class="form-control  bg-light border-0 px-4 py-3" placeholder="Username" required>
+                                <input type="text" name="username" id="username"
+                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Username" required>
                             </div>
                             <div class="col-12">
-                                <input type="password" name="newpass" id="newpass" class="form-control  bg-light border-0 px-4 py-3" placeholder="New Password" required>
+                                <input type="password" name="newpass" id="newpass"
+                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="New Password"
+                                    required>
                             </div>
                             <div class="col-12">
                                 <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Submit</button>
@@ -135,7 +122,38 @@ if (isset($_POST['submit'])) {
     </div>
     <!-- Contact End -->
 
+    <?php
+    if (isset($_POST['submit'])) {
 
+        $username = $_POST['username'];
+        $password = $_POST['newpass'];
+        $dateupdated = date_create('now')->format('Y-m-d H:i:s');
+
+        // Query for updating data
+        $query = mysqli_query($con, "UPDATE users SET DateTimeModified = '$dateupdated', Password='$password' WHERE Username='$username'");
+
+        if ($query) {
+            echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+            echo '<script>';
+            echo 'swal({
+                                                title: "Success",
+                                                text: "You have successfully updated your password",
+                                                icon: "success",
+                                                html: true,
+                                                showCancelButton: true,
+                                                })
+                                                    .then((willDelete) => {
+                                                        if (willDelete) {
+                                                        
+                                                            document.location ="login.php";
+                                                        }
+                                                    })';
+            echo '</script>';
+        } else {
+            echo "<script>alert('Something Went Wrong. Please try again');</script>";
+        }
+    }
+    ?>
 
 
 
