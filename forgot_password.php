@@ -1,52 +1,11 @@
 <?php
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-    require 'src/Exception.php';
-    require 'src/PHPMailer.php';
-    require 'src/SMTP.php';
+require 'src/Exception.php';
+require 'src/PHPMailer.php';
+require 'src/SMTP.php';
 
-    if(isset($_POST['reset'])) {
-        $email = $_POST['email'];
-    
-    // Instantiation and passing `true` enables exceptions
-    $mail = new PHPMailer(true);
-    
-    try {
-        //Server settings
-        $mail->isSMTP();                                            // Send using SMTP
-        $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = 'pawsnpages.site@gmail.com';                     // SMTP username
-        $mail->Password   = 'zbytxxyfahbtjojr';                               // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;        // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-    
-        //Recipients
-        $mail->setFrom('pawsnpages.site@gmail.com', 'Admin');
-        $mail->addAddress($email);     // Add a recipient
-        $dateupdated = date_create('now')->format('Y-m-d H:i:s');
-        // Content
-        $mail->isHTML(true);                                  // Set email format to HTML
-        $mail->Subject = 'Password Reset';
-        $mail->Body    = 'To reset your password click <a href="http://localhost:1234/PawsNPages/change_password.php"> here </a> . ';
-        $conn = mysqli_connect("localhost", "root", "", "pawsnpages_db") or die('Unable to connect');
-        $verifyQuery = $conn->query("SELECT * FROM users WHERE email = '$email'");
-        if($verifyQuery->num_rows) {
-            $codeQuery = $conn->query("UPDATE users SET date_updated = '$dateupdated' WHERE email = '$email'");
-                
-            $mail->send();
-            echo "<script>alert('Message has been sent, check your email');</script>";
-            echo "<script>window.location.href = 'login.php'</script>";
-        }else{
-            echo "<script>alert('Message has been sent, check your email');</script>";
-        }
-        $conn->close();
-    
-    } catch (Exception $e) {
-        echo "<script>alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}');</script>";
-    }    
-}
 ?>
 
 <!DOCTYPE html>
@@ -55,9 +14,8 @@
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages</title>
-    <link rel = "icon" href = 
-        "https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" 
-        type = "image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -112,19 +70,23 @@
                     <form method="post" action="">
                         <div class="row g-3 bg-dark">
                             <div class="col-6 ">
-                                <input type="button" class="btn btn-primary w-100 py-3" onclick="window.location='registration.php'" value="SIGN UP">                      
+                                <input type="button" class="btn btn-primary w-100 py-3"
+                                    onclick="window.location='registration.php'" value="SIGN UP">
                             </div>
                             <div class="col-6">
-                                <input type="button" class="btn btn-outline-light w-100 py-3" onclick="window.location='login.php'" value="LOG IN">
+                                <input type="button" class="btn btn-outline-light w-100 py-3"
+                                    onclick="window.location='login.php'" value="LOG IN">
                             </div>
                             <div class="col-12">
                                 <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Password Reset</h5>
                             </div>
                             <div class="col-6">
-                                <input type="text" name="email" id="email" class="form-control  bg-light border-0 px-4 py-3" placeholder="Email Address" required>
+                                <input type="text" name="email" id="email"
+                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Email Address"
+                                    required>
                             </div>
                             <div class="col-6">
-                                <button type="submit" name="reset" class="btn btn-primary w-100 py-3">Reset</button>                            
+                                <button type="submit" name="reset" class="btn btn-primary w-100 py-3">Reset</button>
                             </div>
                             <div class="col-12"></div>
                         </div>
@@ -139,6 +101,89 @@
     </div>
     <!-- Contact End -->
 
+    <?php
+    if (isset($_POST['reset'])) {
+        $email = $_POST['email'];
+
+        // Instantiation and passing `true` enables exceptions
+        $mail = new PHPMailer(true);
+
+        try {
+            //Server settings
+            $mail->isSMTP(); // Send using SMTP
+            $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
+            $mail->SMTPAuth = true; // Enable SMTP authentication
+            $mail->Username = 'pawsnpages.site@gmail.com'; // SMTP username
+            $mail->Password = 'zbytxxyfahbtjojr'; // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port = 465; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+    
+            //Recipients
+            $mail->setFrom('pawsnpages.site@gmail.com', 'Paws N Pages');
+            $mail->addAddress($email); // Add a recipient
+            // Content
+            $mail->isHTML(true); // Set email format to HTML
+            $mail->Subject = 'Password Reset';
+            $mail->Body = 'Dear ' . $email . ',
+                            <br/><br/>We have received a request to reset the password for your account on Paws N Pages. To proceed with the password reset, please follow the instructions below:
+
+                            <br/><br/>1. Click the  <a href="http://localhost:1234/PawsNPages/change_password.php">link</a> 
+                            <br/>2. You will be redirected to a secure page where you can create a new password.
+                            <br/>3. Enter your new password in the designated fields. 
+                            <br/>4. Once you have entered your new password, click on the <b>Submit</b> button.
+
+                            <br/><br/>If you did not request a password reset, please disregard this email. Your account remains secure, and no changes have been made.
+
+                            <br/><br/>If you require any further assistance or have any questions, please contact our team at <b>pawsnpages.site@gmail.com.</b>  
+                            <br>We are available to help you.
+
+                            <br/><br/><BR/>Best regards,
+                            Paws N Pages';
+            $conn = mysqli_connect("localhost", "root", "", "pawsnpages_db") or die('Unable to connect');
+            $verifyQuery = $conn->query("SELECT * FROM users WHERE email = '$email'");
+            if ($verifyQuery->num_rows) {
+                $mail->send();
+                echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                echo '<script>';
+                echo 'swal({
+                                                title: "Success",
+                                                text: "Message has been sent. Please check your email",
+                                                icon: "success",
+                                                html: true,
+                                                showCancelButton: true,
+                                                })
+                                                    .then((willDelete) => {
+                                                        if (willDelete) {
+                                                        
+                                                            document.location ="login.php";
+                                                        }
+                                                    })';
+                echo '</script>';
+            } else {
+                echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                echo '<script>';
+                echo 'swal({
+                                                title: "Error",
+                                                text: "Account not found",
+                                                icon: "error",
+                                                html: true,
+                                                showCancelButton: true,
+                                                })
+                                                    .then((willDelete) => {
+                                                        if (willDelete) {
+                                                        
+                                                            document.location ="forgot_password.php";
+                                                        }
+                                                    })';
+                echo '</script>';
+            }
+            $conn->close();
+
+        } catch (Exception $e) {
+            echo "<script>alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}');</script>";
+        }
+    }
+    ?>
 
 
 
