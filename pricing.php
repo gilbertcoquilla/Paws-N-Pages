@@ -83,7 +83,7 @@ include('connection.php');
             </div>
             <div class="row g-5">
                 <div class="col-lg-6">
-                    <div class="bg-light text-center pt-5 mt-lg-5">
+                    <div class="bg-light text-center pt-5 mt-lg-5" style="border-radius: 15px;">
                         <h2 class="text-uppercase">Monthly</h2>
                         <h6 class="text-body mb-5">Standard</h6>
                         <div class="text-center bg-primary p-4 mb-2">
@@ -113,17 +113,17 @@ include('connection.php');
                                 <span>List of Services Available</span>
                                 <i class="bi bi-check2 fs-4 text-primary"></i>
                             </div>
-                            <a href="vet-registration.php" class="btn btn-primary text-uppercase py-2 px-4 my-3">Join Us</a>
+                            <a href="vet-registration.php" class="btn btn-primary text-uppercase py-2 px-4 my-3" style="border-radius: 15px;">Join Us</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="bg-light text-center pt-5">
+                    <div class="bg-light text-center pt-5 mt-lg-5" style="border-radius: 15px;">
                         <h2 class="text-uppercase">Yearly</h2>
                         <h6 class="text-body mb-5">The Best Choice</h6>
                         <div class="text-center bg-dark p-4 mb-2">
                             <h1 class="display-4 text-white mb-0">
-                                <small class="align-top" style="font-size: 22px; line-height: 45px;">₱</small>1,999<small class="align-bottom" style="font-size: 16px; line-height: 40px;">/
+                            <small class="align-top" style="font-size: 22px; line-height: 45px;">₱</small>1,999<small class="align-bottom" style="font-size: 16px; line-height: 40px;">/
                                     year</small>
                             </h1>
                         </div>
@@ -153,10 +153,12 @@ include('connection.php');
                                 <span>List of Services Available</span>
                                 <i class="bi bi-check2 fs-4 text-primary"></i>
                             </div>
-                            <a href="vet-registration.php" class="btn btn-primary text-uppercase py-2 px-4 my-3">Join Us</a>
+                            <a href="vet-registration.php" class="btn btn-primary text-uppercase py-2 px-4 my-3" style="border-radius: 15px;">Join Us</a>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
