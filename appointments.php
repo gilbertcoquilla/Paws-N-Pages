@@ -8,6 +8,7 @@ $userID = $_SESSION["id"];
 
 include('connection.php');
 
+
 ///////////////////// FOR UPDATING PET OWNER PROFILE ////////////////////////////
 
 if (isset($_POST['update'])) {
@@ -63,6 +64,27 @@ if (isset($_GET['delid'])) {
     echo "<script>alert('You have successfully deleted a record.');</script>";
     echo "<script>window.location.href = 'userprofile.php'</script>";
 }
+
+
+if (isset($_POST['cancel'])) {
+    $app_ID = $_POST['AppointmentID'];
+    $pref_date = $_POST['PDate'];
+
+    date_default_timezone_set("Asia/Hong_Kong");
+    $now = date('Y-m-d');
+
+    $dateDifference = (new DateTime($now))->diff(new DateTime($pref_date))->days;
+
+    if ($dateDifference >= 3) {
+        $query = mysqli_query($con, "UPDATE appointments SET AppointmentStatus='Cancelled' WHERE AppointmentID='$app_ID'");
+        echo "<script>alert('You have successfully cancelled an appointment');</script>";
+        echo "<script> window.location.href ='appointments.php'; </script>";
+    } else {
+        echo "<script>alert('Please review the terms and conditions for the cancellation of appointments');</script>";
+        echo "<script> window.location.href ='appointments.php'; </script>";
+    }
+}
+
 ?>
 
 
@@ -238,6 +260,11 @@ if (isset($_GET['delid'])) {
                                         <?php }
                                         if ($status === 'Completed') { ?>
                                             <?php echo $row1['AppointmentStatus']; ?>
+                                        <?php }
+                                        if ($status === 'Cancelled') { ?>
+                                            <a style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#000000;">
+                                                <?php echo $row1['AppointmentStatus']; ?>
+                                            </a>
                                         <?php } ?>
 
                                     </td>
@@ -383,7 +410,7 @@ if (isset($_GET['delid'])) {
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                        <button type="submit" name="cancel" class="btn btn-danger" style="border-radius: 15px;" data-toggle="tooltip" onclick="return confirm('Cancel appointment?');"><span class="glyphicon glyphicon-remove"></span> Cancel Booking</a>
                     </div>
                 </form>
             </div>
@@ -440,6 +467,9 @@ if (isset($_GET['delid'])) {
             $('#form_edit_booking').find('[name="Status"]').val(astatus);
             $('#form_edit_booking').find('[name="Remarks"]').val(aremarks);
             $('#form_edit_booking').find('[name="DTBooked"]').val(adtboooked);
+
+
+            // $('#form_edit_booking').find('[name="cancel"]').prop('href', 'appointments.php?appid=' + appid);
 
             endResize();
         });
