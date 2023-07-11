@@ -20,7 +20,7 @@ $clinicID = $row_ca['ClinicID'];
 
 <head>
     <meta charset="UTF-8">
-     <title>Paws N Pages | Services</title>
+     <title>Paws N Pages | Reports</title>
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -59,136 +59,132 @@ $clinicID = $row_ca['ClinicID'];
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-            text-decoration: none;
-            list-style: none;
-            font-family: 'Montserrat', sans-serif;
-        }
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	text-decoration: none;
+	list-style: none;
+	font-family: 'Montserrat', sans-serif;
+}
 
-        .wrapper {
-            background: white;
-            display: flex;
-        }
+.wrapper{
+	background: white;
+	display: flex;
+}
 
-        .side_bar {
-            width: 250px;
-            height: 100vh;
-        }
+.side_bar{
+	width: 250px;
+}
 
 
-        .main_container {
-            width: calc(100% - 250px);
-            padding: 30px;
-            height: 100vh;
-        }
+.main_container{
+	width: calc(100% - 250px);
+	padding: 30px;
+}
 
 
 
-        .side_bar .side_bar_top .profile_pic {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+.side_bar .side_bar_top .profile_pic{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;	
+}
 
-        .side_bar .side_bar_top .profile_pic img {
-            width: 100px;
-            height: 100px;
-            padding: 5px;
-            border: 2px solid white;
-            border-radius: 50%;
-        }
+.side_bar .side_bar_top .profile_pic img{
+	width: 100px;
+	height: 100px;
+	padding: 5px;
+	border: 2px solid white;
+    border-radius: 50%;
+}
 
-        .side_bar .side_bar_top .profile_info {
-            text-align: center;
-            color: #fff;
-        }
+.side_bar .side_bar_top .profile_info{
+	text-align: center;
+	color: #fff;
+}
 
-        .side_bar .side_bar_top .profile_info p {
-            margin-top: 5px;
-            font-size: 12px;
-        }
+.side_bar .side_bar_top .profile_info p{
+	margin-top: 5px;
+	font-size: 12px;	
+}
 
-        .side_bar .side_bar_bottom {
-            background: #80b434;
-            padding: 20px 0;
-            padding-left: 15px;
-            height: 100%;
+.side_bar .side_bar_bottom{
+	background: #80b434;
+	padding: 20px 0;
+	padding-left: 15px;		
+}
 
-        }
+.side_bar .side_bar_bottom ul li{
+	position: relative;
+}
 
-        .side_bar .side_bar_bottom ul li {
-            position: relative;
-        }
+.side_bar .side_bar_bottom ul li a{
+	display: block;
+	padding: 15px;		
+	font-size: 14px;
+	color: white;
+	margin-bottom: 5px;				
+}
 
-        .side_bar .side_bar_bottom ul li a {
-            display: block;
-            padding: 15px;
-            font-size: 14px;
-            color: white;
-            margin-bottom: 5px;
-        }
+.side_bar .side_bar_bottom ul li a .icon{
+	margin-right: 8px;
+}
 
-        .side_bar .side_bar_bottom ul li a .icon {
-            margin-right: 8px;
-        }
+.side_bar .side_bar_bottom ul li.active a{
+	background: white;
+	color: #80b434;
+	border-top-left-radius: 25px;
+	border-bottom-left-radius: 25px;
+}
 
-        .side_bar .side_bar_bottom ul li.active a {
-            background: white;
-            color: #80b434;
-            border-top-left-radius: 25px;
-            border-bottom-left-radius: 25px;
-        }
+.side_bar .side_bar_bottom ul li.active .top_curve,
+.side_bar .side_bar_bottom ul li.active .bottom_curve{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 20px;
+	background: white;
+}
 
-        .side_bar .side_bar_bottom ul li.active .top_curve,
-        .side_bar .side_bar_bottom ul li.active .bottom_curve {
-            position: absolute;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            background: white;
-        }
+.side_bar .side_bar_bottom ul li.active .top_curve{
+	top: -20px;
+}
 
-        .side_bar .side_bar_bottom ul li.active .top_curve {
-            top: -20px;
-        }
+.side_bar .side_bar_bottom ul li.active .bottom_curve{
+	bottom: -20px;	
+}
 
-        .side_bar .side_bar_bottom ul li.active .bottom_curve {
-            bottom: -20px;
-        }
+.side_bar .side_bar_bottom ul li.active .top_curve:before,
+.side_bar .side_bar_bottom ul li.active .bottom_curve:before{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #80b434;	
+}
 
-        .side_bar .side_bar_bottom ul li.active .top_curve:before,
-        .side_bar .side_bar_bottom ul li.active .bottom_curve:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #80b434;
-        }
+.side_bar .side_bar_bottom ul li.active .top_curve:before{
+	border-bottom-right-radius: 25px;
+}
 
-        .side_bar .side_bar_bottom ul li.active .top_curve:before {
-            border-bottom-right-radius: 25px;
-        }
+.side_bar .side_bar_bottom ul li.active .bottom_curve:before{
+	border-top-right-radius: 25px;
+}
 
-        .side_bar .side_bar_bottom ul li.active .bottom_curve:before {
-            border-top-right-radius: 25px;
-        }
-
-        .side_bar .side_bar_bottom .sidebar-footer {
-            height: 50px;
-            position: absolute;
-            width: 100%;
-            bottom: 0;
-            list-style-type: none;
-            padding-bottom: 5.5em;
-        }
+.side_bar .side_bar_bottom .sidebar-footer{
+height: 50px;
+position: absolute;
+width: 100%;
+bottom: 0;
+list-style-type: none;
+padding-bottom:5.5em;
+}
     </style>
 
             <!-- FOR DIGITAL TIME AND DATE -->
@@ -254,7 +250,7 @@ $clinicID = $row_ca['ClinicID'];
             <?php } ?>
     </div>
     <div class="wrapper">
-        <div class="side_bar" >
+        <div class="side_bar"  style="height:100%;">
 
             <div class="side_bar_bottom">
                 <ul>
@@ -300,7 +296,7 @@ $clinicID = $row_ca['ClinicID'];
                         <span class="bottom_curve"></span>
                     </li>
 
-                    <li  class="active">
+                    <li>
                         <span class="top_curve"></span>
                         <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
                         <span class="item">Services</span></a>
@@ -327,8 +323,8 @@ $clinicID = $row_ca['ClinicID'];
                             <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
                             <span class="item">Clinics</span></a>
                             <span class="bottom_curve"></span>
-                        </li>
-
+                        </li> 
+                        
                         <li>
                             <span class="top_curve"></span>
                             <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
@@ -336,12 +332,12 @@ $clinicID = $row_ca['ClinicID'];
                             <span class="bottom_curve"></span>
                         </li>
 
-                         <li >
+                         <li class="active">
                             <span class="top_curve"></span>
                             <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
                             <span class="item">Reports</span></a>
                             <span class="bottom_curve"></span>
-                        </li>     
+                        </li>
                     <?php } ?>
                 </ul>
                     <!--digital clock start-->
@@ -363,108 +359,48 @@ $clinicID = $row_ca['ClinicID'];
             </div>
         </div>
 
-
-        <!-- START OF CLINIC ADMINISTRATOR -->
-        <?php if ($usertype == 'Clinic Administrator') { ?>
-        <div class="main_container">
-            <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
-                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                    <div class="card-header userProfile-font"><b>🛎️ Services</b>
-                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button></div>
-                    <div class="card-body text-center">
-
-                        <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="orders">
-                            <thead style="border:0px;">
-                                <tr class="table100-head" style="border:0px;">
-                                    <th class="column1" style="border:0px; color:#80b434;">Name</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Description</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Price</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Action</th>                    
-                                </tr>
-                            </thead>
-                            <tbody style="border:0px;">
-                                <?php
-                                $ret = mysqli_query($con, "SELECT * FROM services, clinics WHERE services.ClinicID = clinics.ClinicID AND services.ClinicID = '$clinicID'");
-                                $cnt = 1;
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-
-                                ?>
-                                        <!--Fetch the Records -->
-                                        <tr style="border:0px;">
-                                            <td style="border:0px;"><?php echo $row['ServiceName'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['ServiceDescription'] ?></td>
-                                            <td style="border:0px;">₱ <?php echo $row['ServicePrice']; ?></td>
-                                            <td style="border:0px;">
-                                                <a href="" serviceid="<?php echo $row['ServiceID'] ?>" 
-                                                servicename="<?php echo $row['ServiceName'] ?>" 
-                                                servicedescription ="<?php echo $row['ServiceDescription'] ?>" 
-                                                serviceprice="<?php echo $row['ServicePrice']; ?>" class="edit" title="edit" data-toggle="modal" data-target="#edit_service"><i class="fa fa-edit"></i></a>                                                
-                                                <a href="services.php?delid=<?php echo ($row['ServiceID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
-                                            </td>
-
-                                            
-                                        </tr>
-                                    <?php
-                                        $cnt = $cnt + 1;
-                                    }
-                                } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="4">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                    </tr>
-                                <?php } ?>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php } ?>
-        <!-- END OF CLINIC ADMINISTRATOR -->     
         
         <!-- START OF ADMINISTRATOR -->
         <?php if ($usertype == 'Administrator') { ?>
         <div class="main_container">
             <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
                 <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                    <div class="card-header userProfile-font"><b>🛎️ Services</b></div>
+                    <div class="card-header userProfile-font"><b>⚠️ Reports</b></div>
                     <div class="card-body text-center">
                         <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="orders">
                             <thead style="border:0px;">
                                 <tr class="table100-head" style="border:0px;">
-                                    <th class="column1" style="border:0px; color:#80b434;">Clinic</th>
                                     <th class="column1" style="border:0px; color:#80b434;">Name</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Description</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Price</th>                   
+                                    <th class="column1" style="border:0px; color:#80b434;">Email</th>
+                                    <th class="column1" style="border:0px; color:#80b434;">Subject</th>
+                                    <th class="column1" style="border:0px; color:#80b434;">Message</th>                   
+                                    <th class="column1" style="border:0px; color:#80b434;">Date & Time Reported</th>                   
                                 </tr>
                             </thead>
                             <tbody style="border:0px;">
                                 <?php
-                                $ret = mysqli_query($con, "SELECT * FROM services, clinics WHERE services.ClinicID = clinics.ClinicID AND services.ClinicID = clinics.clinicID");
+                                $ret = mysqli_query($con, "SELECT * FROM reports");
                                 $cnt = 1;
                                 $row = mysqli_num_rows($ret);
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
-
+                                        $date = new DateTime($row['DateTimeReported']);
                                 ?>
                                         <!--Fetch the Records -->
                                         <tr style="border:0px;">
-                                            <td style="border:0px;"><?php echo $row['ClinicName'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['ServiceName'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['ServiceDescription'] ?></td>
-                                            <td style="border:0px;">₱ <?php echo $row['ServicePrice']; ?></td>
+                                            <td style="border:0px;"><?php echo $row['Sender'] ?></td>
+                                            <td style="border:0px;"><?php echo $row['Email'] ?></td>
+                                            <td style="border:0px;"><?php echo $row['Title'] ?></td>
+                                            <td style="border:0px;"><?php echo $row['Message']; ?></td>
+                                            <td style="border:0px;"><?php echo $date->format('Y-m-d h:i A'); ?></td>
                                         </tr>
                                     <?php
                                         $cnt = $cnt + 1;
                                     }
                                 } else { ?>
                                     <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="4">No Record Found</td>
+                                        <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found</td>
+                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
                                         <td style="text-align:center; color:red; display:none;">No Record Found</td>
                                         <td style="text-align:center; color:red; display:none;">No Record Found</td>
                                         <td style="text-align:center; color:red; display:none;">No Record Found</td>

@@ -12,46 +12,7 @@ $row_ca = mysqli_fetch_array($ret_ca);
 
 $clinicID = $row_ca['ClinicID'];
 
-if (isset($_POST['edit'])) {
 
-    $orderid = $_POST['OrderID'];
-    $orderstatus = $_POST['OrderStatus2'];
-    $odremarks = $_POST['OrderRemarks1'];
-
-    if ($orderstatus != "") {
-
-        if ($odremarks != "") {
-            $query = mysqli_query($con, "UPDATE orders SET OrderStatus='$orderstatus', OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
-
-            if ($query) {
-                echo "<script>alert('You have successfully updated an order.');</script>";
-                echo "<script> document.location ='orders_admin.php'; </script>";
-            } else {
-                echo "<script>alert('Something Went Wrong. Please try again');</script>";
-            }
-        } else {
-            $query = mysqli_query($con, "UPDATE orders SET OrderStatus='$orderstatus' WHERE OrderID='$orderid'");
-
-            if ($query) {
-                echo "<script>alert('You have successfully updated an order.');</script>";
-                echo "<script> document.location ='orders_admin.php'; </script>";
-            } else {
-                echo "<script>alert('Something Went Wrong. Please try again');</script>";
-            }
-        }
-    } else {
-        if ($odremarks != "") {
-            $query = mysqli_query($con, "UPDATE orders SET OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
-
-            if ($query) {
-                echo "<script>alert('You have successfully updated an order.');</script>";
-                echo "<script> document.location ='orders_admin.php'; </script>";
-            } else {
-                echo "<script>alert('Something Went Wrong. Please try again');</script>";
-            }
-        }
-    }
-}
 
 ?>
 
@@ -61,6 +22,7 @@ if (isset($_POST['edit'])) {
 
 <head>
     <meta charset="UTF-8">
+     <title>Paws N Pages | Orders</title>
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -98,104 +60,179 @@ if (isset($_POST['edit'])) {
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            list-style: none;
+            outline: none;
             text-decoration: none;
-
-        }
-
-        body {
-            background-color: white;
-
-        }
-
-        .profile {
-            border-bottom: 1px solid #e0e4e8;
-
+            list-style: none;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .wrapper {
-            display: flex;
-            position: relative;
-            border-right: 1.5px solid rgb(235, 235, 235);
-        }
-
-        .wrapper .sidebar {
-            width: 250px;
-            height: 100%;
             background: white;
-            padding: 30px 0px;
-            position: fixed;
-            border-right: 1px solid #e0e4e8;
-        }
-
-        .wrapper .sidebar h2 {
-            color: #fff;
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 30px;
-            border-left: 1px solid #e0e4e8;
-        }
-
-        .wrapper .sidebar ul li {
-            width: 210px;
-
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 10px;
-        }
-
-        .wrapper .sidebar ul li a {
-            color: #80b434;
-            display: block;
-        }
-
-        .wrapper .sidebar ul li a .fas {
-            width: 25px;
-        }
-
-        .wrapper .sidebar ul li:hover {
-            background-color: #80b434;
-        }
-
-        .wrapper .sidebar ul li:hover a {
-            color: white;
-        }
-
-        .wrapper .sidebar .wrapper .sidebar .social_media {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
             display: flex;
         }
 
-        .wrapper .sidebar .social_media a {
-            display: block;
-            width: 40px;
-            background: #80b434;
-            height: 40px;
-            line-height: 45px;
+        .side_bar {
+            width: 250px;
+            height: 100vh;
+        }
+
+
+        .main_container {
+            width: calc(100% - 250px);
+            padding: 30px;
+            height: 100vh;
+        }
+
+
+
+        .side_bar .side_bar_top .profile_pic {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .side_bar .side_bar_top .profile_pic img {
+            width: 100px;
+            height: 100px;
+            padding: 5px;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+
+        .side_bar .side_bar_top .profile_info {
             text-align: center;
-            margin: 0 5px;
-            color: #bdb8d7;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
+            color: #fff;
         }
 
-        .wrapper .main_content {
+        .side_bar .side_bar_top .profile_info p {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .side_bar .side_bar_bottom {
+            background: #80b434;
+            padding: 20px 0;
+            padding-left: 15px;
+            height: 100%;
+
+        }
+
+        .side_bar .side_bar_bottom ul li {
+            position: relative;
+        }
+
+        .side_bar .side_bar_bottom ul li a {
+            display: block;
+            padding: 15px;
+            font-size: 14px;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .side_bar .side_bar_bottom ul li a .icon {
+            margin-right: 8px;
+        }
+
+        .side_bar .side_bar_bottom ul li.active a {
+            background: white;
+            color: #80b434;
+            border-top-left-radius: 25px;
+            border-bottom-left-radius: 25px;
+        }
+
+        .side_bar .side_bar_bottom ul li.active .top_curve,
+        .side_bar .side_bar_bottom ul li.active .bottom_curve {
+            position: absolute;
+            left: 0;
             width: 100%;
-            margin-left: 250px;
-
+            height: 20px;
+            background: white;
         }
-    </style>
 
+        .side_bar .side_bar_bottom ul li.active .top_curve {
+            top: -20px;
+        }
+
+        .side_bar .side_bar_bottom ul li.active .bottom_curve {
+            bottom: -20px;
+        }
+
+        .side_bar .side_bar_bottom ul li.active .top_curve:before,
+        .side_bar .side_bar_bottom ul li.active .bottom_curve:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #80b434;
+        }
+
+        .side_bar .side_bar_bottom ul li.active .top_curve:before {
+            border-bottom-right-radius: 25px;
+        }
+
+        .side_bar .side_bar_bottom ul li.active .bottom_curve:before {
+            border-top-right-radius: 25px;
+        }
+
+        .side_bar .side_bar_bottom .sidebar-footer {
+            height: 50px;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            list-style-type: none;
+            padding-bottom: 5.5em;
+        }   
+    </style>
+            <!-- FOR DIGITAL TIME AND DATE -->
+        <script type="text/javascript">
+        function updateClock(){
+        var now = new Date();
+        var dname = now.getDay(),
+            mo = now.getMonth(),
+            dnum = now.getDate(),
+            yr = now.getFullYear(),
+            hou = now.getHours(),
+            min = now.getMinutes(),
+            sec = now.getSeconds(),
+            pe = "AM";
+
+            if(hou >= 12){
+                pe = "PM";
+            }
+            if(hou == 0){
+                hou = 12;
+            }
+            if(hou > 12){
+                hou = hou - 12;
+            }
+
+            Number.prototype.pad = function(digits){
+                for(var n = this.toString(); n.length < digits; n = 0 + n);
+                return n;
+            }
+
+            var months = ["January", "February", "March", "April", "May", "June", "July", "Augest", "September", "October", "November", "December"];
+            var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
+            var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
+            for(var i = 0; i < ids.length; i++)
+            document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+        }
+
+        function initClock(){
+        updateClock();
+        window.setInterval("updateClock()", 1);
+        }
+        </script>
     <script>
         $(document).ready(function() {
             var table = $('#orders').DataTable({
@@ -207,65 +244,141 @@ if (isset($_POST['edit'])) {
         });
     </script>
 </head>
-
-<body>
+<body onload="initClock()">
+    <div style="width:100%; height:50px; background-color:#73a22e;">
+            <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
+            <?php
+            $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
+            while ($row = mysqli_fetch_array($ret)) {
+            ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;</p>
+            <?php } ?>
+    </div>
     <div class="wrapper">
-        <div class="sidebar">
-            <div class="profile">
-                <table class="profile-container" style="padding-bottom:10px;">
-                    <tr>
-                        <td width="35%">
-                            <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="" width="100%" style="border-radius:50%">
-                        </td>
-                        <td width="65%" style="text-align:center; padding-top:10px">
-                            <?php
-                            $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
-                            while ($row = mysqli_fetch_array($ret)) {
-                            ?>
-                                <a style="text-transform:uppercase; padding:bottom:1px;"><b><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></b></a>
-                                <a><?php echo $row['Username'] ?></a>
-                            <?php } ?>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-            </div>
-            <ul class="nav nav-sidebar">
-                <li style="text-transform:uppercase;"><a href=""><b>Dashboard</b></a></li>
-                <li style="text-transform:uppercase;"><a href="clinicadmin.php"><b>Profile</b></a></li>
-                <li style="text-transform:uppercase;"><a href="supplies.php"><b>Products</b></a></li>
-                <?php if ($usertype == 'Administrator') { ?>
-                    <li style="text-transform:uppercase;"><a href="users.php"><b>Users</b></a></li>
-                <?php } ?>
-                <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
-                <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
-                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedback</b></a></li>
-                <li style="text-transform:uppercase;"><a href="services.php"><b>Services</b></a></li>
-                <li style="text-transform:uppercase;"><a href="petsearch.php"><b>Pet Records</b></a></li>
+        <div class="side_bar" >
 
-            </ul>
-            <div style="padding-top:30px;">
-                <center><a href="logout.php" class="btn btn-primary" style="border-radius: 15px; width: 50%; height:20%;">Logout</a></center>
+            <div class="side_bar_bottom">
+                <ul>
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="dashboard.php"><span class="icon"><i class="fa fa-home"></i></span>
+                        <span class="item">Dashboard</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
+                        <span class="item">Profile</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
+                        <span class="item">Products</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
+                        <span class="item">Bookings</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li class="active">
+                        <span class="top_curve"></span>
+                        <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
+                        <span class="item">Orders</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li >
+                        <span class="top_curve"></span>
+                        <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
+                        <span class="item">Feedback</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
+                        <span class="item">Services</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+                
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
+                        <span class="item">Pet Records</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <?php if ($usertype == 'Administrator') { ?>
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
+                            <span class="item">Users</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
+                            <span class="item">Clinics</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
+                            <span class="item">Pet Booklet</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                         <li >
+                            <span class="top_curve"></span>
+                            <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
+                            <span class="item">Reports</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>     
+                    <?php } ?>
+                </ul>
+                    <!--digital clock start-->
+                    <div class="datetime" style="color:white;  text-align:center;">
+                        <div class="date">
+                            <span id="dayname">Day</span>,
+                            <span id="month">Month</span>
+                            <span id="daynum">00</span>,
+                            <span id="year">Year</span>
+                        </div>
+                        <div class="time">
+                            <span id="hour">00</span>:
+                            <span id="minutes">00</span>:
+                            <span id="seconds">00</span>
+                            <span id="period">AM</span>
+                        </div>
+                    </div>
+                    <!--digital clock end-->
             </div>
         </div>
 
-
         <!-- START OF CLINIC ADMINISTRATOR -->
         <?php if ($usertype == 'Clinic Administrator') { ?>
-
-            <div class="main_content">
-                <div style="padding-right:30px; padding-left:30px; padding-top:30px;">
+            <div class="main_container">
+                <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font"><b>📦 Orders</b></div>
                         <div class="card-body text-center">
                             <table class="table table-striped table-hover" style="border:0px;  text-align:left;" id="orders">
                                 <thead style="border:0px;">
                                     <tr class="table100-head" style="border:0px;">
-                                        <th class="column1" style="border:0px;">Reference No.</th>
-                                        <th class="column1" style="border:0px;">Total Price</th>
-                                        <th class="column1" style="border:0px;">Customer</th>
-                                        <th class="column1" style="border:0px;">Date & Time Checked Out</th>
-                                        <th class="column1" style="border:0px;">Status</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Reference No.</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Total Price</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Customer</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Date & Time Checked Out</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody style="border:0px;">
@@ -275,7 +388,7 @@ if (isset($_POST['edit'])) {
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-
+                                        $date = new DateTime($row['DateTimeCheckedOut']);
                                     ?>
                                             <!--Fetch the Records -->
                                             <tr style="border:0px;">
@@ -283,12 +396,29 @@ if (isset($_POST['edit'])) {
                                                                                                                                                                                 $explodedArray = explode(', ', $prod);
                                                                                                                                                                                 foreach ($explodedArray as $element) {
                                                                                                                                                                                     echo  $element . "\n";
-                                                                                                                                                                                } ?>" user="<?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>" totalprice="<?php echo "₱ " . $row['TotalPrice']; ?>" dtcout="<?php echo $row['DateTimeCheckedOut'] ?>" address="<?php echo $row['ShippingTo'] ?>" proofpayment="<?php echo $row['ProofOfPayment']; ?>" proofrefno="<?php echo $row['Proof_RefNo']; ?>" orderstatus="<?php echo $row['OrderStatus']; ?>" odremarks="<?php echo $row['OrderRemarks']; ?>" class="edit" title="View" data-toggle="modal" data-target="#view_order"><?php echo $row['Order_RefNo'] ?></a></td>
+                                                                                                                                                                                } ?>" user="<?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>" totalprice="<?php echo "₱ " . $row['TotalPrice']; ?>" dtcout="<?php echo $date->format('Y-m-d h:i A'); ?>" address="<?php echo $row['ShippingTo'] ?>" proofpayment="<?php echo $row['ProofOfPayment']; ?>" proofrefno="<?php echo $row['Proof_RefNo']; ?>" orderstatus="<?php echo $row['OrderStatus']; ?>" odremarks="<?php echo $row['OrderRemarks']; ?>" class="edit" title="View" data-toggle="modal" data-target="#view_order"><?php echo $row['Order_RefNo'] ?></a></td>
 
                                                 <td style="border:0px;">₱ <?php echo $row['TotalPrice'] ?></td>
                                                 <td style="border:0px;"><?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
-                                                <td style="border:0px;"><?php echo $row['DateTimeCheckedOut']; ?></td>
-                                                <td style="border:0px;"><?php echo $row['OrderStatus'] ?></td>
+                                                <td style="border:0px;"><?php echo $date->format('Y-m-d h:i A'); ?></td>
+                                                <td style="border:0px;">
+                                                <?php $status = $row['OrderStatus'];
+                                                    if ($status === 'Pending') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 25px; border-radius:10px; background-color:#F4BB44;"><?php echo $row['OrderStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'To Ship') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 30px; border-radius:10px; background-color:#228B22;"><?php echo $row['OrderStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Denied') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 30px;  border-radius:10px; background-color:#A52A2A;"><?php echo $row['OrderStatus']; ?></a>
+                                                    <?php }
+                                                    if ( $status === 'Order Received') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 7px;  border-radius:10px; background-color:#0096FF;"><?php echo $row['OrderStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Completed') { ?>
+                                                    <?php echo $row['OrderStatus'];
+                                                    } ?>
+                                                </td>
                                             </tr>
                                         <?php
                                             $cnt = $cnt + 1;
@@ -309,9 +439,90 @@ if (isset($_POST['edit'])) {
                     </div>
                 </div>
             </div>
-
         <?php } ?>
         <!-- END OF CLINIC ADMINISTRATOR -->
+
+        <!-- START OF ADMINISTRATOR -->
+        <?php if ($usertype == 'Administrator') { ?>
+            <div class="main_container">
+                <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
+                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                        <div class="card-header userProfile-font"><b>📦 Orders</b></div>
+                        <div class="card-body text-center">
+                            <table class="table table-striped table-hover" style="border:0px;  text-align:left;" id="orders">
+                                <thead style="border:0px;">
+                                    <tr class="table100-head" style="border:0px;">
+                                        <th class="column1" style="border:0px; color:#80b434;">Reference No.</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Clinic Name</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Total Price</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Customer</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Date & Time Checked Out</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="border:0px;">
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT * FROM orders, users, clinics WHERE orders.UserID = users.UserID AND orders.ClinicID = clinics.ClinicID AND orders.ClinicID = clinics.ClinicID");
+                                    $cnt = 1;
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+                                            $date = new DateTime($row['DateTimeCheckedOut']);
+                                    ?>
+                                            <!--Fetch the Records -->
+                                            <tr style="border:0px;">
+                                                <td style="border:0px;"><a href="" aorderid="<?php echo $row['OrderID'] ?>" aclinic="<?php echo $row['ClinicName'] ?>" arefno="<?php echo $row['Order_RefNo'] ?>" aproducts="<?php $prod = $row['OrderedProducts'];
+                                                                                                                                                                                $explodedArray = explode(', ', $prod);
+                                                                                                                                                                                foreach ($explodedArray as $element) {
+                                                                                                                                                                                    echo  $element . "\n";
+                                                                                                                                                                                } ?>" auser="<?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?>" atotalprice="<?php echo "₱ " . $row['TotalPrice']; ?>" adtcout="<?php echo $date->format('Y-m-d h:i A'); ?>" aaddress="<?php echo $row['ShippingTo'] ?>" aproofpayment="<?php echo $row['ProofOfPayment']; ?>" aproofrefno="<?php echo $row['Proof_RefNo']; ?>" aorderstatus="<?php echo $row['OrderStatus']; ?>" aodremarks="<?php echo $row['OrderRemarks']; ?>" class="edit" title="View" data-toggle="modal" data-target="#admin_order"><?php echo $row['Order_RefNo'] ?></a></td>
+
+                                                <td style="border:0px;"><?php echo $row['ClinicName'] ?></td>
+                                                <td style="border:0px;">₱ <?php echo $row['TotalPrice'] ?></td>
+                                                <td style="border:0px;"><?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
+                                                <td style="border:0px;"><?php echo $date->format('Y-m-d h:i A'); ?></td>
+                                                <td style="border:0px;">
+                                                <?php $status = $row['OrderStatus'];
+                                                    if ($status === 'Pending') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 25px; border-radius:10px; background-color:#F4BB44;"><?php echo $row['OrderStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'To Ship') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 30px; border-radius:10px; background-color:#228B22;"><?php echo $row['OrderStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Denied') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 30px;  border-radius:10px; background-color:#A52A2A;"><?php echo $row['OrderStatus']; ?></a>
+                                                    <?php }
+                                                    if ( $status === 'Order Received') { ?>
+                                                        <a style="color:white; font-size:12px; padding: 5px 7px;  border-radius:10px; background-color:#0096FF;"><?php echo $row['OrderStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Completed') { ?>
+                                                    <?php echo $row['OrderStatus'];
+                                                    } ?>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                            $cnt = $cnt + 1;
+                                        }
+                                    } else { ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found</td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                        </tr>
+                                    <?php } ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+        <!-- END OF ADMINISTRATOR -->
+
+        
 
     </div>
 
@@ -424,7 +635,195 @@ if (isset($_POST['edit'])) {
                     </div>
                 </form>
             </div>
-            <!--  END OF MODAL FOR VIEWING ORDER DETAILS -->
+        </div>
+    </div>
+    <!--  END OF MODAL FOR VIEWING ORDER DETAILS -->
+
+    <!-- START OF MODAL FOR ADMINSTRATOR VIEWING ORDER DETAILS -->
+    <div class="modal fade" id="admin_order" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="border-radius: 15px;">
+                <form method="POST" runat="server" enctype="multipart/form-data" id="admin_order_form">
+                    <div class="modal-header modal-header-success">
+                        <h3 class="modal-title">Order Details</h3>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="form-group" style="display: none;">
+                                <label>ID</label>
+                                <input type="text" name="OrderID" id="OrderID" class="form-control" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Order Reference No.</label>
+                                        <input type="text" name="Order_RefNo" id="Order_RefNo" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Clinic Name</label>
+                                        <input type="text" name="ClinicName" id="ClinicName" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ordered Products</label>
+                                        <!-- <input type="textarea" name="Orders" id="Orders" class="form-control" readonly /> -->
+                                        <textarea name="OrderedProducts" id="OrderedProducts" class="form-control" style="width: 100%; height: 150px;" readonly></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Total Price</label>
+                                        <input type="text" name="TotalPrice" id="TotalPrice" class="form-control" readonly />
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label>Proof Of Payment</label>
+                                        <!-- <input type="text" name="ProofOfPayment" id="ProofOfPayment" class="form-control" readonly />
+                                        <img src="" name="ProofOfPayment" id="ProofOfPayment" width="100%" onclick="displayImg()"> -->
+                                        <br>
+                                        <div class="row" style="width: 100%;">
+                                            <div class="col-8">
+                                                <a href="" id="DL_ProofOfPayment" target="_blank">
+                                                    <span id="proofOP"></span>
+                                                </a>
+                                            </div>
+                                            <div class="col-4" style="text-align: right;">
+                                                <a href="" id="DL_ProofOfPayment" target="_blank" download>
+                                                    Download
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- insert download link for proof of payment here -->
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label>Reference No. (For Proof of Payment)</label>
+                                        <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Customer</label>
+                                        <input type="text" name="Customer" id="Customer" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date & Time Checked Out</label>
+                                        <input type="text" name="DTimeCO" id="DTimeCO" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Shipping To</label>
+                                        <textarea name="ShippingTo" id="ShippingTo" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <input type="text" name="OrderStatus" id="OrderStatus" class="form-control" style="height: 100%;" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Remarks</label>
+                                        <textarea name="OrderRemarks" id="OrderRemarks" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  END OF MODAL FOR ADMINSTRATOR VIEWING ORDER DETAILS -->
+
+    <!-- FOR INSERTING DATA -->
+    <?php
+    if (isset($_POST['edit'])) {
+
+        $orderid = $_POST['OrderID'];
+        $orderstatus = $_POST['OrderStatus2'];
+        $odremarks = $_POST['OrderRemarks'];
+
+        if ($orderstatus != "") {
+
+            if ($odremarks != "") {
+                $query = mysqli_query($con, "UPDATE orders SET OrderStatus='$orderstatus', OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
+
+                if ($query) {
+                     echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                                        echo '<script>';
+                                        echo 'swal({
+                                            title: "Success",
+                                            text: "You have successfully updated an order",
+                                            icon: "success",
+                                            html: true,
+                                            showCancelButton: true,
+                                            })
+                                                .then((willDelete) => {
+                                                    if (willDelete) {
+                                                    
+                                                        document.location ="orders_admin.php";
+                                                    }
+                                                })';
+                                        echo '</script>';
+                } else {
+                    echo "<script>alert('Something Went Wrong. Please try again');</script>";
+                }
+            } else {
+                $query = mysqli_query($con, "UPDATE orders SET OrderStatus='$orderstatus' WHERE OrderID='$orderid'");
+
+                if ($query) {
+                    echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                                        echo '<script>';
+                                        echo 'swal({
+                                            title: "Success",
+                                            text: "You have successfully updated an order",
+                                            icon: "success",
+                                            html: true,
+                                            showCancelButton: true,
+                                            })
+                                                .then((willDelete) => {
+                                                    if (willDelete) {
+                                                    
+                                                        document.location ="orders_admin.php";
+                                                    }
+                                                })';
+                                        echo '</script>';
+                } else {
+                    echo "<script>alert('Something Went Wrong. Please try again');</script>";
+                }
+            }
+        } else {
+            if ($odremarks != "") {
+                $query = mysqli_query($con, "UPDATE orders SET OrderRemarks='$odremarks' WHERE OrderID='$orderid'");
+
+                if ($query) {
+                    echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                                        echo '<script>';
+                                        echo 'swal({
+                                            title: "Success",
+                                            text: "You have successfully updated an order",
+                                            icon: "success",
+                                            html: true,
+                                            showCancelButton: true,
+                                            })
+                                                .then((willDelete) => {
+                                                    if (willDelete) {
+                                                    
+                                                        document.location ="orders_admin.php";
+                                                    }
+                                                })';
+                    echo '</script>';
+                } else {
+                    echo "<script>alert('Something Went Wrong. Please try again');</script>";
+                }
+            }
+        }
+    }
+    ?>
 
 
             <!-- JavaScript Libraries -->
@@ -481,6 +880,42 @@ if (isset($_POST['edit'])) {
                     $('#view_order_form').find('[name="Proof_RefNo"]').val(proofrefno);
                     $('#view_order_form').find('[name="OrderStatus"]').val(orderstatus);
                     $('#view_order_form').find('[name="OrderRemarks"]').val(odremarks);
+
+                    endResize();
+                });
+
+                $('#admin_order').on('show.bs.modal', function(e) {
+                    var opener = e.relatedTarget;
+
+                    var aorderid = $(opener).attr('aorderid');
+                    var aclinic = $(opener).attr('aclinic');
+                    var arefno = $(opener).attr('arefno');
+                    var auser = $(opener).attr('auser');
+                    var aproducts = $(opener).attr('aproducts');
+                    var atotalprice = $(opener).attr('atotalprice');
+                    var adtcout = $(opener).attr('adtcout');
+                    var aaddress = $(opener).attr('aaddress');
+                    var aproofpayment = $(opener).attr('aproofpayment');
+                    var aproofrefno = $(opener).attr('aproofrefno');
+                    var aorderstatus = $(opener).attr('aorderstatus');
+                    var aodremarks = $(opener).attr('aodremarks');
+
+                    $('#admin_order_form').find('[name="OrderID"]').val(aorderid);
+                    $('#admin_order_form').find('[name="ClinicName"]').val(aclinic);
+                    $('#admin_order_form').find('[name="Order_RefNo"]').val(arefno);
+                    $('#admin_order_form').find('[name="Customer"]').val(auser);
+                    $('#admin_order_form').find('[name="OrderedProducts"]').val(aproducts);
+                    $('#admin_order_form').find('[name="TotalPrice"]').val(atotalprice);
+                    $('#admin_order_form').find('[name="DTimeCO"]').val(adtcout);
+                    $('#admin_order_form').find('[name="ShippingTo"]').val(aaddress);
+
+                    $('#admin_order_form').find('[name="ProofOfPayment"]').val(aproofpayment);
+                    $('#admin_order_form').find('[id="proofOP"]').html(aproofpayment);
+                    $('#admin_order_form').find('[id="DL_ProofOfPayment"]').prop('href', 'image_upload/' + aproofpayment);
+
+                    $('#admin_order_form').find('[name="Proof_RefNo"]').val(aproofrefno);
+                    $('#admin_order_form').find('[name="OrderStatus"]').val(aorderstatus);
+                    $('#admin_order_form').find('[name="OrderRemarks"]').val(aodremarks);
 
                     endResize();
                 });

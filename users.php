@@ -12,48 +12,24 @@ $row_ca = mysqli_fetch_array($ret_ca);
 
 $clinicID = $row_ca['ClinicID'];
 
-if (isset($_POST['edit_user'])) {
-    $userid = $_POST['userid'];
-    $fname = $_POST['fname'];
-    $mname = $_POST['mname'];
-    $lname = $_POST['lname'];
-    $uname = $_POST['uname'];
-    $pword = $_POST['pword'];
-    $bdate = $_POST['bdate'];
-    $contactno = $_POST['contactno'];
-    $email = $_POST['email'];
-    $utype = $_POST['utype'];
-
-    $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$contactno', Birth_Date='$bdate', UserType='$utype', Email='$email', Password='$pword' WHERE UserID='$userid'");
-
-    if ($query) {
-        echo "<script>alert('You have successfully updated a user!');</script>";
-        echo "<script> document.location ='users.php'; </script>";
-    } else {
-        echo "<script> alert('Error updating a user.'); </script>";
-    }
-}
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+     <title>Paws N Pages | Users</title>
     <meta charset="UTF-8">
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
-
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
     <meta content="Free HTML Templates" name="keywords">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
@@ -80,367 +56,1144 @@ if (isset($_POST['edit_user'])) {
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            list-style: none;
-            text-decoration: none;
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	text-decoration: none;
+	list-style: none;
+	font-family: 'Montserrat', sans-serif;
+}
 
+.wrapper{
+	background: white;
+	display: flex;
+}
+
+.side_bar{
+	width: 250px;
+}
+
+
+.main_container{
+	width: calc(100% - 250px);
+	padding: 30px;
+}
+
+
+
+.side_bar .side_bar_top .profile_pic{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;	
+}
+
+.side_bar .side_bar_top .profile_pic img{
+	width: 100px;
+	height: 100px;
+	padding: 5px;
+	border: 2px solid white;
+    border-radius: 50%;
+}
+
+.side_bar .side_bar_top .profile_info{
+	text-align: center;
+	color: #fff;
+}
+
+.side_bar .side_bar_top .profile_info p{
+	margin-top: 5px;
+	font-size: 12px;	
+}
+
+.side_bar .side_bar_bottom{
+	background: #80b434;
+	padding: 20px 0;
+	padding-left: 15px;		
+}
+
+.side_bar .side_bar_bottom ul li{
+	position: relative;
+}
+
+.side_bar .side_bar_bottom ul li a{
+	display: block;
+	padding: 15px;		
+	font-size: 14px;
+	color: white;
+	margin-bottom: 5px;				
+}
+
+.side_bar .side_bar_bottom ul li a .icon{
+	margin-right: 8px;
+}
+
+.side_bar .side_bar_bottom ul li.active a{
+	background: white;
+	color: #80b434;
+	border-top-left-radius: 25px;
+	border-bottom-left-radius: 25px;
+}
+
+.side_bar .side_bar_bottom ul li.active .top_curve,
+.side_bar .side_bar_bottom ul li.active .bottom_curve{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 20px;
+	background: white;
+}
+
+.side_bar .side_bar_bottom ul li.active .top_curve{
+	top: -20px;
+}
+
+.side_bar .side_bar_bottom ul li.active .bottom_curve{
+	bottom: -20px;	
+}
+
+.side_bar .side_bar_bottom ul li.active .top_curve:before,
+.side_bar .side_bar_bottom ul li.active .bottom_curve:before{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #80b434;	
+}
+
+.side_bar .side_bar_bottom ul li.active .top_curve:before{
+	border-bottom-right-radius: 25px;
+}
+
+.side_bar .side_bar_bottom ul li.active .bottom_curve:before{
+	border-top-right-radius: 25px;
+}
+
+.side_bar .side_bar_bottom .sidebar-footer{
+height: 50px;
+position: absolute;
+width: 100%;
+bottom: 0;
+list-style-type: none;
+padding-bottom:5.5em;
+}
+ /* Style the tab */
+        .tab {
+            overflow: auto;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            border-radius: 15px 15px 0px 0px;
         }
 
-        body {
-            background-color: white;
-
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
         }
 
-        .profile {
-            border-bottom: 1px solid #e0e4e8;
-
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
         }
 
-        .wrapper {
-            display: flex;
-            position: relative;
-            border-right: 1.5px solid rgb(235, 235, 235);
-        }
-
-        .wrapper .sidebar {
-            width: 250px;
-            height: 100%;
-            background: white;
-            padding: 30px 0px;
-            position: fixed;
-            border-right: 1px solid #e0e4e8;
-        }
-
-        .wrapper .sidebar h2 {
-            color: #fff;
-            text-transform: uppercase;
-            text-align: center;
-            margin-bottom: 30px;
-            border-left: 1px solid #e0e4e8;
-        }
-
-        .wrapper .sidebar ul li {
-            width: 210px;
-
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 10px;
-        }
-
-        .wrapper .sidebar ul li a {
-            color: #80b434;
-            display: block;
-        }
-
-        .wrapper .sidebar ul li a .fas {
-            width: 25px;
-        }
-
-        .wrapper .sidebar ul li:hover {
+        /* Create an active/current tablink class */
+        .tab button.active {
             background-color: #80b434;
-        }
-
-        .wrapper .sidebar ul li:hover a {
             color: white;
         }
 
-        .wrapper .sidebar .wrapper .sidebar .social_media {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
         }
-
-        .wrapper .sidebar .social_media a {
-            display: block;
-            width: 40px;
-            background: #80b434;
-            height: 40px;
-            line-height: 45px;
-            text-align: center;
-            margin: 0 5px;
-            color: #bdb8d7;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-        }
-
-        .wrapper .main_content {
-            width: 100%;
-            margin-left: 250px;
-
+          .card-body {
+            display: none;
         }
     </style>
-
     <script>
         $(document).ready(function() {
-            var table = $('#users').DataTable({
+            var table = $('#clients').DataTable({
                 order: [
-                    [2, 'asc']
+                    [0, 'asc']
                 ],
-
+            });
+            var table = $('#admins').DataTable({
+                order: [
+                    [0, 'asc']
+                ],
             });
         });
     </script>
 
+    <script type="text/javascript">
+        function preview() {
+            image.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        function previewFile(input) {
+            var file = $("input[type=file]").get(0).files[0];
+
+            if (file) {
+                var reader = new FileReader();
+
+                reader.onload = function() {
+                    $("#image").attr("src", reader.result);
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.edit').on('click', function() {
+
+                $('#edit_modal').modal('show');
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children("td").map(function() {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+
+                $('#update_id').val(data[1]);
+                $('#SupplyName').val(data[2]);
+                $('#SupplyDescription').val(data[3]);
+                $('#SupplyPrice').val(data[4]);
+                $('#Stocks').val(data[5]);
+                $('#NeedPrescription').val(data[6]);
+            });
+        });
+    </script>
+
+    <!-- FOR DIGITAL TIME AND DATE -->
+        <script type="text/javascript">
+        function updateClock(){
+        var now = new Date();
+        var dname = now.getDay(),
+            mo = now.getMonth(),
+            dnum = now.getDate(),
+            yr = now.getFullYear(),
+            hou = now.getHours(),
+            min = now.getMinutes(),
+            sec = now.getSeconds(),
+            pe = "AM";
+
+            if(hou >= 12){
+                pe = "PM";
+            }
+            if(hou == 0){
+                hou = 12;
+            }
+            if(hou > 12){
+                hou = hou - 12;
+            }
+
+            Number.prototype.pad = function(digits){
+                for(var n = this.toString(); n.length < digits; n = 0 + n);
+                return n;
+            }
+
+            var months = ["January", "February", "March", "April", "May", "June", "July", "Augest", "September", "October", "November", "December"];
+            var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
+            var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
+            for(var i = 0; i < ids.length; i++)
+            document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+        }
+
+        function initClock(){
+        updateClock();
+        window.setInterval("updateClock()", 1);
+        }
+        </script>
+    
 </head>
 
-<body>
+<body onload="initClock()">
+    <div style="width:100%; height:50px; background-color:#73a22e;">
+            <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
+            <?php
+            $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
+            while ($row = mysqli_fetch_array($ret)) {
+            ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;</p>
+            <?php } ?>
+    </div>
     <div class="wrapper">
-        <div class="sidebar">
-            <div class="profile">
-                <table class="profile-container" style="padding-bottom:10px;">
-                    <tr>
-                        <td width="35%">
-                            <img src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=" alt="" width="100%" style="border-radius:50%">
-                        </td>
-                        <td width="65%" style="text-align:center; padding-top:10px">
-                            <?php
-                            $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
-                            while ($row = mysqli_fetch_array($ret)) {
-                            ?>
-                                <a style="text-transform:uppercase; padding:bottom:1px;"><b><?php echo $row['FirstName'] . ' ' . $row['LastName'] ?></b></a>
-                                <a><?php echo $row['Username'] ?></a>
-                            <?php } ?>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-            </div>
-            <ul class="nav nav-sidebar">
-                <li style="text-transform:uppercase;"><a href=""><b>Dashboard</b></a></li>
-                <li style="text-transform:uppercase;"><a href="clinicadmin.php"><b>Profile</b></a></li>
-                <li style="text-transform:uppercase;"><a href="supplies.php"><b>Products</b></a></li>
-                <?php if ($usertype == 'Administrator') { ?>
-                    <li style="text-transform:uppercase;"><a href="users.php"><b>Users</b></a></li>
-                <?php } ?>
-                <li style="text-transform:uppercase;"><a href="bookings.php"><b>Bookings</b></a></li>
-                <li style="text-transform:uppercase;"><a href="orders_admin.php"><b>Orders</b></a></li>
-                <li style="text-transform:uppercase;"><a href="feedbacks_admin.php"><b>Feedback</b></a></li>
-                <li style="text-transform:uppercase;"><a href="services.php"><b>Services</b></a></li>
-                <li style="text-transform:uppercase;"><a href="petsearch.php"><b>Pet Records</b></a></li>
+        <div class="side_bar" >
 
-            </ul>
-            <div style="padding-top:30px;">
-                <center><a href="logout.php" class="btn btn-primary" style="border-radius: 15px; width: 50%; height:20%;">Logout</a></center>
+            <div class="side_bar_bottom" style="height:100%;">
+                <ul>
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="dashboard.php"><span class="icon"><i class="fa fa-home"></i></span>
+                        <span class="item">Dashboard</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
+                        <span class="item">Profile</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
+                        <span class="item">Products</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
+                        <span class="item">Bookings</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
+                        <span class="item">Orders</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
+                        <span class="item">Feedback</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
+                        <span class="item">Services</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+                
+                    <li>
+                        <span class="top_curve"></span>
+                        <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
+                        <span class="item">Pet Records</span></a>
+                        <span class="bottom_curve"></span>
+                    </li>
+
+                    <?php if ($usertype == 'Administrator') { ?>
+                        <li class="active">
+                            <span class="top_curve"></span>
+                            <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
+                            <span class="item">Users</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
+                            <span class="item">Clinics</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
+                            <span class="item">Pet Booklet</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                         <li >
+                            <span class="top_curve"></span>
+                            <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
+                            <span class="item">Reports</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>     
+                    <?php } ?>
+                </ul>
+                    <!--digital clock start-->
+                    <div class="datetime" style="color:white;  text-align:center;">
+                        <div class="date">
+                            <span id="dayname">Day</span>,
+                            <span id="month">Month</span>
+                            <span id="daynum">00</span>,
+                            <span id="year">Year</span>
+                        </div>
+                        <div class="time">
+                            <span id="hour">00</span>:
+                            <span id="minutes">00</span>:
+                            <span id="seconds">00</span>
+                            <span id="period">AM</span>
+                        </div>
+                    </div>
+                    <!--digital clock end-->
             </div>
         </div>
+        
+        <div class="main_container">
+            <div style="padding-right:30px; padding-left:30px; padding-top:10px;">                
+            <div class="row">
+                    <div class="col-xl-12">
 
-
-        <!-- START OF ADMINISTRATOR -->
-        <?php if ($usertype == 'Clinic Administrator') { ?> <!-- change to administrator -->
-
-            <div class="main_content">
-                <div style="padding-right:30px; padding-left:30px; padding-top:30px;">
-                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                        <div class="card-header userProfile-font"><b>👤 Users</b></div>
-                        <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px;  text-align:left;" id="users">
-                                <thead style="border:0px;">
-                                    <tr class="table100-head" style="border:0px;">
-                                        <th class="column1" style="border:0px;">Name</th>
-                                        <th class="column1" style="border:0px;">Username</th>
-                                        <th class="column1" style="border:0px;">User Type</th>
-                                        <th class="column1" style="border:0px;">Email</th>
-                                        <th class="column1" style="border:0px; text-align: center;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody style="border:0px;">
-                                    <?php
-                                    $ret = mysqli_query($con, "SELECT * FROM users");
-                                    $cnt = 1;
-                                    $row = mysqli_num_rows($ret);
-                                    if ($row > 0) {
-                                        while ($row = mysqli_fetch_array($ret)) {
-
-                                    ?>
-                                            <!--Fetch the Records -->
-                                            <tr style="border:0px;">
-                                                <td style="border:0px;"><?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
-                                                <td style="border:0px;"><?php echo $row['Username']; ?></td>
-                                                <td style="border:0px;"><?php echo $row['UserType'] ?></td>
-                                                <td style="border:0px;"><?php echo $row['Email'] ?></td>
-                                                <td style="border:0px; text-align: center;">
-                                                    <a href="" data-toggle="modal" data-target="#view_user" userid="<?php echo $row['UserID'] ?>" fname="<?php echo $row['FirstName'] ?>" mname="<?php echo $row['MiddleName'] ?>" lname="<?php echo $row['LastName'] ?>" contactno="<?php echo $row['ContactNo'] ?>" bdate="<?php echo $row['Birth_Date'] ?>" utype="<?php echo $row['UserType'] ?>" uname="<?php echo $row['Username'] ?>" email="<?php echo $row['Email'] ?>" pword="<?php echo $row['Password'] ?>" dtmod="<?php echo $row['DateTimeModified'] ?>"><i class="fa fa-edit"></i></a>
-                                                </td>
-                                            </tr>
-                                        <?php
-                                            $cnt = $cnt + 1;
-                                        }
-                                    } else { ?>
-                                        <tr style="border:0px;">
-                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found</td>
-                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                        <!-- START OF VACCINE RECORD -->
+                        <div class="card mb-4 mb-xl-0" style="border-radius: 15px;" id="vaccine_tab" name="tab">
+                            <!-- <div class="card-header userProfile-font"><b>💉 Vaccine Record</b>
+                            </div> -->
+                            <div class="tab">
+                                <button id="v_tab" class="tablinks active" onclick="showContent('content1', this)">Clients</button>
+                                <button id="ha_tab" class="tablinks" onclick="showContent('content2', this)">Admins</button>
+                                <button class="tablinks" data-toggle="modal" data-target="#add_modal" style="float:right; background-color:#80b434; color:white;">Add</button>
+                            </div>
+                            <div class="card-body text-center" id="content1">
+                                <table class="table table-striped table-hover" id="clients" style="text-align: left; border: 0;">
+                                    <thead>
+                                        <tr class="table100-head">
+                                            <th class="column1" style="border:0px; color:#80b434; ">Name</th>
+                                            <th class="column1" style="border:0px; color:#80b434; ">Username</th>
+                                            <th class="column1" style="border:0px; color:#80b434;  display: none;">Address</th>
+                                            <th class="column1" style="border:0px; color:#80b434;  display: none;">Age</th>
+                                            <th class="column1" style="border:0px; color:#80b434; ">User Type</th>
+                                            <th class="column1" style="border:0px; color:#80b434;  display: none;">Email</th>
+                                            <th class="column1" style="border:0px; color:#80b434;  display: none;">Contact No.</th>
+                                            <th class="column1" style="border:0px; color:#80b434; ">Date Modified</th>
+                                            <th class="column1" style="border:0px; color:#80b434;  text-align: center;">Action</th>
                                         </tr>
-                                    <?php } ?>
+                                    </thead>
+                                    <tbody>
+<?php
+                                $ret = mysqli_query($con, "SELECT * FROM users WHERE userType != 'Administrator'");
+                                $cnt = 1;
+                                $row = mysqli_num_rows($ret);
+                                if ($row > 0) {
+                                    while ($row = mysqli_fetch_array($ret)) {
+                                    $date = new DateTime($row['DateTimeModified']);
+                                ?>
 
-                                </tbody>
-                            </table>
+
+                                        <?php
+                                        $user_id = $row['UserID'];
+                                        $ret1 = mysqli_query($con, "SELECT * FROM address WHERE UserID='$user_id'");
+                                        $row1 = mysqli_fetch_array($ret1);
+                                        ?>
+
+                                        <!--Fetch the Records -->
+                                        <tr border:0px;>
+
+                                            <td style="border:0px;"> <?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
+                                            <td style="border:0px;"><?php echo $row['Username']; ?></td>
+
+                                            <?php if ($row1 > 0) { ?>
+                                                <td style="border:0px; display: none;"><?php echo $row1['LotNo_Street'] . ', Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City']  . ',  ' . $row1['ZIPCode'] ?><br /></td>
+                                            <?php } else { ?>
+                                                <td style="border:0px; display: none;"></td>
+                                            <?php } ?>
+
+                                            <td style="border:0px; display: none;"><?php echo $row['Birth_Date']; ?></td>
+                                            <td style="border:0px;"><?php echo $row['UserType']; ?></td>
+                                            <td style="border:0px; display: none;"><?php echo $row['Email']; ?></td>
+                                            <td style="border:0px; display: none;"><?php echo $row['ContactNo']; ?></td>
+                                            <td style="border:0px;"><?php echo $date->format('Y-m-d h:i A');; ?></td>
+                                            <td style="text-align: center; border:0px;">
+                                                <a href="" user-id="<?php echo $row['UserID'] ?>" user-fname="<?php echo $row['FirstName'] ?>" user-mname="<?php echo $row['MiddleName'] ?>" user-lname="<?php echo $row['LastName'] ?>" user-lotnostreet="<?php echo $row1['LotNo_Street'] ?>" user-province="<?php echo $row1['Province'] ?>" user-barangay="<?php echo $row1['Barangay'] ?>" user-city="<?php echo $row1['City'] ?>" user-zipcode="<?php echo $row1['ZIPCode'] ?>" user-cnum="<?php echo $row['ContactNo'] ?>" user-bdate="<?php echo $row['Birth_Date'] ?>" user-utype="<?php echo $row['UserType'] ?>" user-email="<?php echo $row['Email'] ?>" user-username="<?php echo $row['Username'] ?>" user-password="<?php echo $row['Password'] ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
+                                                <a href="users.php?delid=<?php echo ($row['UserID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red; display: none;"></i></a>
+                                            </td>
+                                        </tr>
+
+                                    <?php
+                                        $cnt = $cnt + 1;
+                                    }
+                                } else { ?>
+                                    <tr style="border:0px;">
+                                        <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found</td>
+                                    </tr>
+                                <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- END OF CLIENTS -->
+
+                            <!-- START OF ADMINISTRATOR -->
+                        <div class="card-body text-center" id="content2">
+                                <table class="table table-striped table-hover" id="admins" style="text-align: left; border: 0px;">
+                                    <thead>
+                                        <tr class="table100-head">
+                                            <th class="column1" style="border:0px; color:#80b434;">Name</th>
+                                            <th class="column1" style="border:0px; color:#80b434;">Username</th>
+                                            <th class="column1" style="border:0px; color:#80b434;">Email</th>
+                                            <th class="column1" style="border:0px; color:#80b434;">Contact No.</th>
+                                            <th class="column1" style="border:0px; color:#80b434;">Date Modified</th>
+                                            <th class="column1" style="border:0px; color:#80b434;  text-align: center;">Action</th>
+                                            <!-- <th class="column1">Edit/Delete</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $ret = mysqli_query($con, "SELECT * FROM users WHERE userType ='Administrator'");
+                                        $cnt = 1;
+                                        $row = mysqli_num_rows($ret);
+                                        if ($row > 0) {
+                                            while ($row = mysqli_fetch_array($ret)) {
+                                            $date = new DateTime($row['DateTimeModified']);
+                                        ?>
+                                                <!--Fetch the Records -->
+                                                <tr>
+                                                    <td style="border:0px;"><?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
+                                                    <td style="border:0px;"><?php echo $row['Username']; ?></td>
+                                                    <td style="border:0px;"><?php echo $row['Email']; ?></td>
+                                                    <td style="border:0px;"><?php echo $row['ContactNo']; ?></td>
+                                                    <td style="border:0px;"><?php echo $date->format('Y-m-d h:i A'); ?></td>
+                                                    <td style="border:0px;">
+                                                        <a href="" auser-id="<?php echo $row['UserID'] ?>" auser-fname="<?php echo $row['FirstName'] ?>" auser-mname="<?php echo $row['MiddleName'] ?>" auser-lname="<?php echo $row['LastName'] ?>"  auser-cnum="<?php echo $row['ContactNo'] ?>" auser-bdate="<?php echo $row['Birth_Date'] ?>" auser-utype="<?php echo $row['UserType'] ?>" auser-email="<?php echo $row['Email'] ?>" auser-username="<?php echo $row['Username'] ?>" auser-password="<?php echo $row['Password'] ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_admin"><i class="fa fa-edit"></i></a>
+                                                        <a href="users.php?delid=<?php echo ($row['UserID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red; display: none;"></i></a>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                                $cnt = $cnt + 1;
+                                            }
+                                        } else { ?>
+                                            <tr>
+                                                <th style="text-align:center; border:0; color:red;" colspan="6">No Record Found</th>
+                                                <th style="text-align:center; border:0; display:none;"></th>
+                                                <th style="text-align:center; border:0; display:none;"></th>
+                                                <th style="text-align:center; border:0; display:none;"></th>
+                                                <th style="text-align:center; border:0; display:none;"></th>
+                                                <th style="text-align:center; border:0; display:none;"></th>
+                                            </tr>
+                                        <?php } ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        <!-- END OF ADMINISTRATOR -->
+
                         </div>
+                        
+
                     </div>
                 </div>
             </div>
-
-        <?php } ?>
-        <!-- END OF ADMINISTRATOR -->
-
+            <!-- END OF USERS -->
+        </div>
     </div>
 
-    <!-- START OF MODAL FOR VIEWING USER DETAILS -->
-    <div class="modal fade" id="view_user" aria-hidden="true">
+
+
+
+    <!-- START OF MODAL FOR ADD USER -->
+    <div class="modal fade" id="add_modal" aria-hidden="true" role="dialog">
         <div class="modal-dialog modal-xl">
             <div class="modal-content" style="border-radius: 15px;">
-                <form method="POST" runat="server" enctype="multipart/form-data" id="view_user_form">
+                <form method="POST" runat="server" id="form_add_user">
                     <div class="modal-header modal-header-success">
-                        <h3 class="modal-title">User Details</h3>
+                        <h3 class="modal-title">Add User</h3>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="col-md-12">
                             <div class="form-group" style="display: none;">
                                 <label>ID</label>
-                                <input type="text" name="userid" id="userid" class="form-control" />
+                                <input type="text" name="userID1" id="userID1" class="form-control" />
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>First Name</label>
-                                        <input type="text" name="fname" id="fname" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Middle Name</label>
-                                        <input type="text" name="mname" id="mname" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Last Name</label>
-                                        <input type="text" name="lname" id="lname" class="form-control" />
-                                    </div>
-
-                                    <hr />
-
-                                    <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" name="uname" id="uname" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" name="pword" id="pword" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Last Modified By User</label>
-                                        <input type="text" name="dtmod" id="dtmod" class="form-control" readonly />
-                                    </div>
-
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-4">
+                                    <label>First Name</label>
+                                    <input type="text" name="FirstName1" id="FirstName1" class="form-control" required />
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Birthdate</label>
-                                        <input type="date" name="bdate" id="bdate" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Contact Number</label>
-                                        <input type="text" name="contactno" id="contactno" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="text" name="email" id="email" class="form-control" />
-                                    </div>
+                                <div class="col-md-4">
+                                    <label>Middle Name</label>
+                                    <input type="text" name="MiddleName1" id="MiddleName1" class="form-control" required />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Last Name</label>
+                                    <input type="text" name="LastName1" id="LastName1" class="form-control" required />
+                                </div>
+                            </div>
 
-                                    <hr />
+                            <!-- Start address -->
+                            <div class="row gx-3 mb-3" style="display: none;">
+                                <div class="col-md-12">
+                                    <label>Address</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>House/Lot No./Street</label>
+                                    <input type="text" name="HouseLotNo" id="HouseLotNo" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Barangay</label>
+                                    <input type="text" name="Barangay" id="Barangay" class="form-control" readonly />
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color: white;">Update Barangay</label>
+                                    <?php
+                                    $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
+                                    $data = $sql->fetch_all(MYSQLI_ASSOC);
+                                    ?>
+                                    <select style="border-radius: 5px; width: 100%; height: 47px;" class="bg-light border-0" name="Barangay2" id="Barangay2">
+                                        <option selected disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- Update Barangay --</option>
+                                        <?php foreach ($data as $row) : ?>
+                                            <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
+                                                &nbsp;&nbsp;&nbsp;<?= htmlspecialchars($row['BarangayName']) ?>
+                                            </option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3" style="display: none;">
+                                <div class="col-md-4">
+                                    <label>City</label>
+                                    <input type="text" name="City" id="City" class="form-control" value="Quezon City" readonly />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Province</label>
+                                    <input type="text" name="Province" id="Province" class="form-control" value="NCR" readonly />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>ZIP Code</label>
+                                    <input type="text" name="ZIPCode" id="ZIPCode" class="form-control" />
+                                </div>
+                            </div>
+                            <!-- End address -->
 
-                                    <div class="form-group">
-                                        <label>User Type</label>
-                                        <select name="utype" id="utype" style="border-radius: 5px; width: 100%; height: 60%;" class="bg-light border-0 px-4 py-3">
-                                            <option value="Pet Owner">Pet Owner</option>
-                                            <option value="Clinic Administrator">Clinic Administrator</option>
-                                            <option value="Administrator">Administrator</option>
-                                        </select>
-                                    </div>
 
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-4">
+                                    <label>Birthdate</label>
+                                    <input type="date" name="bdate1" id="bdate1" class="form-control" required />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Email</label>
+                                    <input type="text" name="Email1" id="Email1" class="form-control" required />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Contact Number</label>
+                                    <input type="text" name="ContactNo1" id="ContactNo1" class="form-control" required />
+                                </div>
+                            </div>
+
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-4">
+                                    <label>User Type</label>
+                                    <select name="UserType1" id="UserType1" style="border-radius: 5px; width: 100%; height: 47px;" class="bg-light border-0" required>
+                                        <option value="Pet Owner">&nbsp;&nbsp;&nbsp;Pet Owner</option>
+                                        <option value="Clinic Administrator">&nbsp;&nbsp;&nbsp;Clinic Administrator</option>
+                                        <option value="Administrator">&nbsp;&nbsp;&nbsp;Administrator</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Username</label>
+                                    <input type="text" name="Username1" id="Username1" class="form-control" required />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Password</label>
+                                    <input type="password" name="Password1" id="Password1" class="form-control" required /><br>
+                                    <input type="checkbox" onclick="showPassword()">&nbsp;Show Password
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div style="clear:both;"></div>
+
                     <div class="modal-footer">
-                        <button name="edit_user" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
-                            Update
+                        <button type="submit" name="add" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
+                            Submit
                         </button>
-                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                     </div>
                 </form>
             </div>
-            <!--  END OF MODAL FOR VIEWING USER DETAILS -->
+
+        </div>
+    </div>
+    <!-- END OF MODAL FOR ADD USER -->
 
 
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="lib/easing/easing.min.js"></script>
-            <script src="lib/waypoints/waypoints.min.js"></script>
-            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <!-- START OF MODAL FOR EDIT ADMIN -->
+    <div class="modal fade" id="edit_admin" aria-hidden="true" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="border-radius: 15px;">
+                <form method="POST" runat="server" id="form_edit_admin">
+                    <div class="modal-header modal-header-success">
+                        <h3 class="modal-title">Edit User</h3>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="form-group" style="display: none;">
+                                <label>ID</label>
+                                <input type="text" name="auserID" id="auserID" class="form-control" />
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-4">
+                                    <label>First Name</label>
+                                    <input type="text" name="aFirstName" id="aFirstName" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Middle Name</label>
+                                    <input type="text" name="aMiddleName" id="aMiddleName" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Last Name</label>
+                                    <input type="text" name="aLastName" id="aLastName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-4">
+                                    <label>Birthdate</label>
+                                    <input type="date" name="abdate" id="abdate" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>User Type</label>
+                                    <input type="text" name="aUserType" id="aUserType" class="form-control" readonly>
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color: white;">Update User Type</label>
+                                    <select name="aUserType2" id="aUserType2" style="border-radius: 5px; width: 100%; height: 47px;" class="bg-light border-0">
+                                        <option selected disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- Update User Type --</option>
+                                        <option value="Pet Owner">&nbsp;&nbsp;&nbsp;Pet Owner</option>
+                                        <option value="Clinic Administrator">&nbsp;&nbsp;&nbsp;Clinic Administrator</option>
+                                        <option value="Administrator">&nbsp;&nbsp;&nbsp;Administrator</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-4">
+                                    <label>Email</label>
+                                    <input type="text" name="aEmail" id="aEmail" class="form-control" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Contact No.</label>
+                                    <input type="text" name="aContactNo" id="aContactNo" class="form-control" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Username</label>
+                                    <input type="text" name="aUsername" id="aUsername" class="form-control" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Password</label>
+                                    <input type="password" name="aPassword" id="aPassword" class="form-control" /><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- For Datatable -->
-            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
-            <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+                    <div class="modal-footer">
+                        <button name="update_admin" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
+                            Update
+                        </button>
 
-            <!-- Template Javascript -->
-            <script src="js/main.js"></script>
+                    </div>
+                </form>
+            </div>
 
-            <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        </div>
+    </div>
+    <!-- END OF MODAL FOR EDIT ADMIN -->
 
-            <!-- To show details when editing -->
-            <script>
-                function endResize() {
-                    $(window).off("resize", resizer);
-                }
+    <!-- START OF MODAL FOR EDIT CLIENTS -->
+    <div class="modal fade" id="edit_modal" aria-hidden="true" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="border-radius: 15px;">
+                <form method="POST" runat="server" id="form_edit_user">
+                    <div class="modal-header modal-header-success">
+                        <h3 class="modal-title">Edit User</h3>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="form-group" style="display: none;">
+                                <label>ID</label>
+                                <input type="text" name="userID" id="userID" class="form-control" />
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-4">
+                                    <label>First Name</label>
+                                    <input type="text" name="FirstName" id="FirstName" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Middle Name</label>
+                                    <input type="text" name="MiddleName" id="MiddleName" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Last Name</label>
+                                    <input type="text" name="LastName" id="LastName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-4">
+                                    <label>Birthdate</label>
+                                    <input type="date" name="bdate" id="bdate" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>User Type</label>
+                                    <input type="text" name="UserType" id="UserType" class="form-control" readonly>
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color: white;">Update User Type</label>
+                                    <select name="UserType2" id="UserType2" style="border-radius: 5px; width: 100%; height: 47px;" class="bg-light border-0">
+                                        <option selected disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- Update User Type --</option>
+                                        <option value="Pet Owner">&nbsp;&nbsp;&nbsp;Pet Owner</option>
+                                        <option value="Clinic Administrator">&nbsp;&nbsp;&nbsp;Clinic Administrator</option>
+                                        <option value="Administrator">&nbsp;&nbsp;&nbsp;Administrator</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-4">
+                                    <label>Email</label>
+                                    <input type="text" name="Email" id="Email" class="form-control" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Contact No.</label>
+                                    <input type="text" name="ContactNo" id="ContactNo" class="form-control" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Username</label>
+                                    <input type="text" name="Username" id="Username" class="form-control" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Password</label>
+                                    <input type="password" name="Password" id="Password" class="form-control" /><br>
+                                </div>
+                            </div>
+                                                        <div class="row gx-3 mb-3">
+                                <div class="col-md-12">
+                                    <label>Address</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>House/Lot No./Street</label>
+                                    <input type="text" name="HouseLotNo" id="HouseLotNo" class="form-control" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Barangay</label>
+                                    <input type="text" name="Barangay" id="Barangay" class="form-control" readonly />
+                                </div>
+                                <div class="col-md-4">
+                                    <label style="color: white;">Update Barangay</label>
+                                    <?php
+                                    $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
+                                    $data = $sql->fetch_all(MYSQLI_ASSOC);
+                                    ?>
+                                    <select style="border-radius: 5px; width: 100%; height: 47px;" class="bg-light border-0" name="Barangay2" id="Barangay2">
+                                        <option selected disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- Update Barangay --</option>
+                                        <?php foreach ($data as $row) : ?>
+                                            <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
+                                                &nbsp;&nbsp;&nbsp;<?= htmlspecialchars($row['BarangayName']) ?>
+                                            </option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
 
-                $('#view_user').on('show.bs.modal', function(e) {
-                    var opener = e.relatedTarget;
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-4">
+                                    <label>City</label>
+                                    <input type="text" name="City" id="City" class="form-control" value="Quezon City" readonly />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Province</label>
+                                    <input type="text" name="Province" id="Province" class="form-control" value="NCR" readonly />
+                                </div>
+                                <div class="col-md-4">
+                                    <label>ZIP Code</label>
+                                    <input type="text" name="ZIPCode" id="ZIPCode" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    var userid = $(opener).attr('userid');
-                    var fname = $(opener).attr('fname');
-                    var mname = $(opener).attr('mname');
-                    var lname = $(opener).attr('lname');
-                    var contactno = $(opener).attr('contactno');
-                    var bdate = $(opener).attr('bdate');
-                    var utype = $(opener).attr('utype');
-                    var uname = $(opener).attr('uname');
-                    var email = $(opener).attr('email');
-                    var pword = $(opener).attr('pword');
-                    var dtmod = $(opener).attr('dtmod');
+                    <div class="modal-footer">
+                        <button name="update" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
+                            Update
+                        </button>
 
-                    $('#view_user_form').find('[name="userid"]').val(userid);
-                    $('#view_user_form').find('[name="fname"]').val(fname);
-                    $('#view_user_form').find('[name="mname"]').val(mname);
-                    $('#view_user_form').find('[name="lname"]').val(lname);
-                    $('#view_user_form').find('[name="contactno"]').val(contactno);
-                    $('#view_user_form').find('[name="bdate"]').val(bdate);
-                    $('#view_user_form').find('[name="utype"]').val(utype);
-                    $('#view_user_form').find('[name="uname"]').val(uname);
-                    $('#view_user_form').find('[name="email"]').val(email);
-                    $('#view_user_form').find('[name="pword"]').val(pword);
-                    $('#view_user_form').find('[name="dtmod"]').val(dtmod);
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- END OF MODAL FOR EDIT CLIENTS -->
+
+    <?php
+    if (isset($_POST['add'])) {
+        $fname1 = $_POST['FirstName1'];
+        $mname1 = $_POST['MiddleName1'];
+        $lname1 = $_POST['LastName1'];
+        $bdate1 = $_POST['bdate1'];
+        $utype1 = $_POST['UserType1'];
+        $email1 = $_POST['Email1'];
+        $contactno1 = $_POST['ContactNo1'];
+        $uname1 = $_POST['Username1'];
+        $pword1 = $_POST['Password1'];
+
+        $query = mysqli_query($con, "INSERT INTO users (FirstName, MiddleName, LastName, ContactNo, Birth_Date, UserType, Username, Email, Password) VALUES ('$fname1', '$mname1', '$lname1', '$contactno1', '$bdate1', '$utype1', '$uname1', '$email1', '$pword1')");
+
+        if ($query) {
+            echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                                        echo '<script>';
+                                        echo 'swal({
+                                            title: "Success",
+                                            text: "You have successfully added a user",
+                                            icon: "success",
+                                            html: true,
+                                            showCancelButton: true,
+                                            })
+                                                .then((willDelete) => {
+                                                    if (willDelete) {
+                                                    
+                                                        document.location ="users.php";
+                                                    }
+                                                })';
+                                        echo '</script>';
+        } else {
+            echo "<script> alert('Error adding a user.'); </script>";
+        }
+    }
 
 
-                    endResize();
-                });
+    if (isset($_POST['update'])) {
+        $userid = $_POST['userID'];
+        $fname = $_POST['FirstName'];
+        $mname = $_POST['MiddleName'];
+        $lname = $_POST['LastName'];
+        $bdate = $_POST['bdate'];
+        $utype = $_POST['UserType2'];
+        $email = $_POST['Email'];
+        $contactno = $_POST['ContactNo'];
+        $uname = $_POST['Username'];
+        $pword = $_POST['Password'];
 
-                function displayImg() {
-                    var img = document.getElementById("ProofOfPayment").src;
-                    window.open(img, '_blank');
-                }
-            </script>
+        //For address
+        $lotno_street = $_POST['HouseLotNo'];
+        $barangay = $_POST['Barangay2'];
+        $zipcode = $_POST['ZIPCode'];
+
+        if ($utype == "")
+            $utype = $_POST['UserType'];
+
+        if ($barangay == "")
+            $barangay = $_POST['Barangay'];
+
+        $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$contactno', Birth_Date='$bdate', UserType='$utype', Email='$email', Password='$pword' WHERE UserID='$userid'");
+        $address_query = mysqli_query($con, "UPDATE address SET LotNo_Street='$lotno_street', Barangay='$barangay', ZIPCode='$zipcode' WHERE UserID='$userid'");
+
+        if ($query && $address_query) {
+            echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                                        echo '<script>';
+                                        echo 'swal({
+                                            title: "Success",
+                                            text: "You have successfully updated a user",
+                                            icon: "success",
+                                            html: true,
+                                            showCancelButton: true,
+                                            })
+                                                .then((willDelete) => {
+                                                    if (willDelete) {
+                                                    
+                                                        document.location ="users.php";
+                                                    }
+                                                })';
+                                        echo '</script>';
+        } else {
+            echo "<script> alert('Error updating a user.'); </script>";
+        }
+    }
+    if (isset($_POST['update_admin'])) {
+        $auserid = $_POST['auserID'];
+        $afname = $_POST['aFirstName'];
+        $amname = $_POST['aMiddleName'];
+        $alname = $_POST['aLastName'];
+        $abdate = $_POST['abdate'];
+        $autype = $_POST['aUserType2'];
+        $aemail = $_POST['aEmail'];
+        $acontactno = $_POST['aContactNo'];
+        $auname = $_POST['aUsername'];
+        $apword = $_POST['aPassword'];
+
+        if ($autype == "")
+            $autype = $_POST['aUserType'];
+
+        if ($barangay == "")
+            $barangay = $_POST['Barangay'];
+
+        $query = mysqli_query($con, "UPDATE users SET FirstName='$afname', MiddleName='$amname', LastName='$alname', ContactNo='$acontactno', Birth_Date='$abdate', UserType='$autype', Email='$aemail', Password='$apword' WHERE UserID='$auserid'");
+
+        if ($query) {
+            echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                                        echo '<script>';
+                                        echo 'swal({
+                                            title: "Success",
+                                            text: "You have successfully updated a user",
+                                            icon: "success",
+                                            html: true,
+                                            showCancelButton: true,
+                                            })
+                                                .then((willDelete) => {
+                                                    if (willDelete) {
+                                                    
+                                                        document.location ="users.php";
+                                                    }
+                                                })';
+                                        echo '</script>';
+        } else {
+            echo "<script> alert('Error updating a user.'); </script>";
+        }
+    }
+    ?>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- For Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- To show details when editing -->
+    <script>
+        $('#edit_modal').on('show.bs.modal', function(e) {
+            var opener = e.relatedTarget;
+
+            var user_id = $(opener).attr('user-id');
+            var user_fname = $(opener).attr('user-fname');
+            var user_mname = $(opener).attr('user-mname');
+            var user_lname = $(opener).attr('user-lname');
+            var user_lotnostreet = $(opener).attr('user-lotnostreet');
+            var user_province = $(opener).attr('user-province');
+            var user_barangay = $(opener).attr('user-barangay');
+            var user_city = $(opener).attr('user-city');
+            var user_zipcode = $(opener).attr('user-zipcode');
+            var user_cnum = $(opener).attr('user-cnum');
+            var user_bdate = $(opener).attr('user-bdate');
+            var user_utype = $(opener).attr('user-utype');
+            var user_email = $(opener).attr('user-email');
+            var user_username = $(opener).attr('user-username');
+            var user_password = $(opener).attr('user-password');
+
+            $('#form_edit_user').find('[name="userID"]').val(user_id);
+            $('#form_edit_user').find('[name="FirstName"]').val(user_fname);
+            $('#form_edit_user').find('[name="MiddleName"]').val(user_mname);
+            $('#form_edit_user').find('[name="LastName"]').val(user_lname);
+            $('#form_edit_user').find('[name="HouseLotNo"]').val(user_lotnostreet);
+            $('#form_edit_user').find('[name="Barangay"]').val(user_barangay);
+            $('#form_edit_user').find('[name="City"]').val(user_city);
+            $('#form_edit_user').find('[name="ZIPCode"]').val(user_zipcode);
+            $('#form_edit_user').find('[name="Province"]').val(user_province);
+            $('#form_edit_user').find('[name="ContactNo"]').val(user_cnum);
+            $('#form_edit_user').find('[name="bdate"]').val(user_bdate);
+            $('#form_edit_user').find('[name="UserType"]').val(user_utype);
+            $('#form_edit_user').find('[name="Email"]').val(user_email);
+            $('#form_edit_user').find('[name="Username"]').val(user_username);
+            $('#form_edit_user').find('[name="Password"]').val(user_password);
+
+            endResize();
+        });
+
+        $('#edit_admin').on('show.bs.modal', function(e) {
+            var opener = e.relatedTarget;
+
+            var auser_id = $(opener).attr('auser-id');
+            var auser_fname = $(opener).attr('auser-fname');
+            var auser_mname = $(opener).attr('auser-mname');
+            var auser_lname = $(opener).attr('auser-lname');
+            var auser_cnum = $(opener).attr('auser-cnum');
+            var auser_bdate = $(opener).attr('auser-bdate');
+            var auser_utype = $(opener).attr('auser-utype');
+            var auser_email = $(opener).attr('auser-email');
+            var auser_username = $(opener).attr('auser-username');
+            var auser_password = $(opener).attr('auser-password');
+
+            $('#form_edit_admin').find('[name="auserID"]').val(auser_id);
+            $('#form_edit_admin').find('[name="aFirstName"]').val(auser_fname);
+            $('#form_edit_admin').find('[name="aMiddleName"]').val(auser_mname);
+            $('#form_edit_admin').find('[name="aLastName"]').val(auser_lname);
+            $('#form_edit_admin').find('[name="aContactNo"]').val(auser_cnum);
+            $('#form_edit_admin').find('[name="abdate"]').val(auser_bdate);
+            $('#form_edit_admin').find('[name="aUserType"]').val(auser_utype);
+            $('#form_edit_admin').find('[name="aEmail"]').val(auser_email);
+            $('#form_edit_admin').find('[name="aUsername"]').val(auser_username);
+            $('#form_edit_admin').find('[name="aPassword"]').val(auser_password);
+
+            endResize();
+        });
+
+        function endResize() {
+            $(window).off("resize", resizer);
+        }
+
+        function showPassword() {
+            var x = document.getElementById("Password1");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+
+        function showPassword_edit() {
+            var x = document.getElementById("Password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+
+        <script>
+
+    // FOR TAB LINKS
+    function showContent(contentId) {
+        // Hide all content elements
+        var contentElements = document.getElementsByClassName('card-body');
+        for (var i = 0; i < contentElements.length; i++) {
+        contentElements[i].style.display = 'none';
+        }
+        // Show the selected content element
+        var selectedContent = document.getElementById(contentId);
+        if (selectedContent) {
+        selectedContent.style.display = 'block';
+        selectedContent.add('active');
+        }
+        // Add active class to the clicked tab
+        tabElement.classList.add('active');
+    }
+
+    document.getElementById('content1').style.display = 'block';
+
+    $(document).ready(function(){
+        $('.tablinks').on('click', function(){
+            $('.tablinks').removeClass('active');
+            $(this).addClass('active');
+        })
+    });
+    </script>
 
 </body>
 
