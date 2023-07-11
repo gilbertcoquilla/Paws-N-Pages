@@ -1,4 +1,5 @@
 <?php
+include('config.php');
 include('connection.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -16,8 +17,9 @@ require 'src/SMTP.php';
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Contact Us</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel = "icon" href = 
+        "https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" 
+        type = "image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -57,8 +59,26 @@ require 'src/SMTP.php';
                 <a href="index.php" class="nav-item nav-link">Home</a>
                 <a href="clinics.php" class="nav-item nav-link">Clinics</a>
                 <a href="contact.php" class="nav-item nav-link active">Contact Us</a>
-                <a href="#" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">Profile
-                    <i class="bi bi-arrow-right"></i></a>
+                <a href="about.php" class="nav-item nav-link">About Us</a>
+
+                <?php if ($_SESSION["id"] > 0) { ?>
+                    <a href="userProfile.php" class="nav-item nav-link active">Profile</a>
+                    <a href="logout.php" class="nav-item nav-link">Logout
+                        <i class="bi bi-arrow-right"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+
+
+                <?php } else { ?>
+
+                    <a href="login.php" class="nav-item nav-link">Login</a>
+                    <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN US
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                <?php } ?>
+
+
             </div>
         </div>
     </nav>
@@ -68,9 +88,11 @@ require 'src/SMTP.php';
     <!-- Contact Start -->
     <div class="container-fluid pt-5">
         <div class="container">
-            <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
+            <div class="col-12">
+            <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 100%;">
                 <h6 class="text-primary text-uppercase">Contact Us</h6>
-                <h1 class="display-5 text-uppercase mb-0">Please Feel Free To Contact Us</h1>
+                <h1 class="display-5 text-uppercase mb-0">Feel Free To Contact Us</h1>
+            </div>
             </div>
             <div class="row g-5">
                 <div class="col-lg-7">
@@ -79,38 +101,32 @@ require 'src/SMTP.php';
 
                         <div class="row g-3">
                             <div class="col-12">
-                                <input type="text" style="border-radius: 10px;" name="name"
-                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Your Name" required>
+                                <input type="text" style="border-radius: 10px;" name="name" class="form-control  bg-light border-3 px-4 py-3" placeholder="Your Name" required>
                             </div>
                             <div class="col-12">
-                                <input type="email" style="border-radius: 10px;" name="email"
-                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Your Email" required>
+                                <input type="email" style="border-radius: 10px;" name="email" class="form-control  bg-light border-3 px-4 py-3" placeholder="Your Email" required>
                             </div>
                             <div class="col-12">
-                                <input type="text" style="border-radius: 10px;" name="subject"
-                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Subject" required>
+                                <input type="text" style="border-radius: 10px;" name="subject" class="form-control  bg-light border-3 px-4 py-3" placeholder="Subject" required>
                             </div>
                             <div class="col-12">
-                                <textarea name="message" style="border-radius: 10px;"
-                                    class="form-control bg-light border-0 px-4 py-3" rows="6" placeholder="Message"
-                                    required></textarea>
+                                <textarea name="message" style="border-radius: 10px;" class="form-control bg-light border-3 px-4 py-3" rows="6" placeholder="Message" required></textarea>
                             </div>
                             <div class="col-12">
                                 <!-- <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Send
                                     Message</button> -->
 
-                                <input type="submit" name="submit" value="Send Message"
-                                    class="btn btn-primary w-100 py-3" style="border-radius: 15px;" />
+                                <input type="submit" name="submit" value="Send Message" class="btn btn-primary w-100 py-3" style="border-radius: 15px;" />
                             </div>
                         </div>
                     </form>
-                    <?php if (!empty($message)): ?>
+                   <?php if (!empty($message)) : ?>
                         <br>
-                        <?php if (strpos($message, 'Error') !== false): ?>
+                        <?php if (strpos($message, 'Error') !== false) : ?>
                             <div class="alert alert-danger">
                                 <?php echo $message; ?>
                             </div>
-                        <?php else: ?>
+                        <?php else : ?>
                             <div class="alert alert-success">
                                 <?php echo $message; ?>
                             </div>
@@ -120,7 +136,7 @@ require 'src/SMTP.php';
 
                 </div>
                 <div class="col-lg-5">
-                    <div class="bg-light mb-5 p-5" style="border-radius: 15px;">
+                    <div class="bg-light mb-5 p-1" style="border-radius: 15px;">
                         <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-geo-alt fs-1 text-primary me-3"></i>
                             <div class="text-start">
@@ -143,20 +159,18 @@ require 'src/SMTP.php';
                             </div>
                         </div>
                         <div>
-                            <iframe class="position-relative w-100"
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123504.11646190527!2d120.97961697226576!3d14.684087222501244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ba0942ef7375%3A0x4a9a32d9fe083d40!2sQuezon%20City%2C%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1685214080447!5m2!1sen!2sph"
-                                frameborder="0" style="height: 205px; border:0;" allowfullscreen="" aria-hidden="false"
-                                tabindex="0"></iframe>
+                            <iframe class="position-relative w-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d123504.11646190527!2d120.97961697226576!3d14.684087222501244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ba0942ef7375%3A0x4a9a32d9fe083d40!2sQuezon%20City%2C%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1685214080447!5m2!1sen!2sph" frameborder="0" style="height: 205px; border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                         </div>
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
             <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
                 <h6 class="text-primary text-uppercase">Vet clinics</h6>
                 <h1 class="display-5 text-uppercase mb-0">Want to showcase your clinic?</h1><br>
                 <div class="col-6">
-                    <a href="vet-registration.php"><button type="button" name="submit" class="btn btn-primary py-3"
-                            style="border-radius: 15px; width: 80%;">Sign Me Up!</button></a>
+                    <a href="vet-registration.php"><button type="button" name="submit" class="btn btn-primary py-3" style="border-radius: 15px; width: 80%;">Sign Me Up!</button></a>
                 </div>
             </div>
         </div>
@@ -164,8 +178,7 @@ require 'src/SMTP.php';
     <!-- Contact End -->
 
 
-
-    <!-- FINAL Footer Start -->
+    <!-- Footer Start -->
     <div class="container-fluid bg-light mt-5 py-5">
         <div class="container pt-5">
             <div class="row g-5">
@@ -174,17 +187,15 @@ require 'src/SMTP.php';
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
                     <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
                     <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
-                    <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
-                        762 6162</a>
+                    <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961 762 6162</a>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-body mb-2" href="index.php"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
+                        <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
                         <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
                         <a class="text-body mb-2" href="index.php#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="pricing.php"><i class="bi bi-arrow-right text-primary me-2"></i>Pricing</a>
-                        <a class="text-body mb-2" href="about.php"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
+                        <a class="text-body mb-2" href="index.php#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
                         <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
@@ -210,9 +221,9 @@ require 'src/SMTP.php';
             </div>
         </div>
     </div>
-    <!-- FINAL Footer End -->
-
-    <?php
+    <!-- Footer End -->
+    
+    <?php 
     if (isset($_POST['submit'])) {
         $mail = new PHPMailer(true);
         try {
@@ -223,21 +234,21 @@ require 'src/SMTP.php';
             $message = $_POST['message'];
             date_default_timezone_set("Asia/Hong_Kong");
             $dateupdated = date('y-m-d h:i:sa');
-            $datetime = date('Y-m-d h:i A');
+            $datetime = date( 'Y-m-d h:i A' );
 
             //Server settings
-            $mail->isSMTP(); //Send using SMTP
-            $mail->Host = 'smtp.gmail.com'; //Set the SMTP server to send through
-            $mail->SMTPAuth = true; //Enable SMTP authentication
-            $mail->Username = 'pawsnpages.site@gmail.com'; //SMTP username
-            $mail->Password = 'zbytxxyfahbtjojr'; //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-            $mail->Port = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-    
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'pawsnpages.site@gmail.com';                     //SMTP username
+            $mail->Password   = 'zbytxxyfahbtjojr';                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
             //Recipients
             $mail->setFrom('pawsnpages.site@gmail.com', 'Paws N Pages');
-            $mail->addAddress($email, $name); //Add a recipient
-    
+            $mail->addAddress($email, $name);     //Add a recipient
+
             //Content
             $mail->isHTML(true);
             $mail->Subject = $subject;
@@ -248,12 +259,12 @@ require 'src/SMTP.php';
                             <br/><br/>Inquiry Details:
 
                             <br/><b>Name: </b>' . $name .
-                '<br/> <b>Email: </b>' . $email .
-                '<br/> <b>Subject: </b>' . $subject .
-                '<br/> <b>Message: </b>' . $message .
-                '<br/> <b>Date and Time of Contact: </b>' . $datetime .
+                            '<br/> <b>Email: </b>' . $email .
+                            '<br/> <b>Subject: </b>' . $subject .
+                            '<br/> <b>Message: </b>' . $message .
+                            '<br/> <b>Date and Time of Contact: </b>' . $datetime .
 
-                '<br/><br/>Please retain this information for your reference. If you need to provide any additional details or have further questions, please reply to this email.
+                            '<br/><br/>Please retain this information for your reference. If you need to provide any additional details or have further questions, please reply to this email.
 
                             <br/><br/>Our dedicated support team is committed to providing you with the assistance you need. We strive to address all inquiries promptly and with the utmost care.
 
@@ -261,14 +272,14 @@ require 'src/SMTP.php';
 
                             <br/><br/><br/>Best regards,
 
-                            <br/>Paws N Pages';
-
+                            <br/>Paws N Pages';             
+           
 
             $query = mysqli_query($con, "INSERT INTO reports (Sender, Email, Title, Message, DateTimeReported) VALUES ('$name', '$email', '$subject', '$message', '$dateupdated')");
             if ($query) {
                 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                echo '<script>';
-                echo 'swal({
+                                                echo '<script>';
+                                                echo 'swal({
                                                     title: "Success",
                                                     text: "Message has been sent & will get back to you as soon as poosible",
                                                     icon: "success",
@@ -284,10 +295,10 @@ require 'src/SMTP.php';
                 echo '</script>';
                 $mail->send();
             } else {
-                echo "<script>alert('Something Went Wrong. Please try again');</script>";
+                    echo "<script>alert('Something Went Wrong. Please try again');</script>";
             }
-
-
+            
+           
         } catch (Exception $e) {
             // Set error message
             $message = "<span style='color: red'>Message could not be sent. Mailer Error: {$mail->ErrorInfo}</span>";

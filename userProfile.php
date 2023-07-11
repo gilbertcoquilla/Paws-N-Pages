@@ -105,7 +105,7 @@ $row_a = mysqli_fetch_array($ret_a);
 </head>
 
 <body style="position:relative;">
-    <!-- Navbar Start -->
+<!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
         <a href="index.php" class="navbar-brand ms-lg-5">
             <img src="https://i.ibb.co/vmrbJ34/logo-black.png" alt="Paws N Pages Logo" width="70" height="70" />
@@ -115,14 +115,29 @@ $row_a = mysqli_fetch_array($ret_a);
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="index.php" class="nav-item nav-link active">Home</a>
+                <a href="index.php" class="nav-item nav-link">Home</a>
                 <a href="clinics.php" class="nav-item nav-link">Clinics</a>
-                <a href="inventory_management.php" class="nav-item nav-link">Inventory</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
-                <a href="logout.php" class="nav-item nav-link">Logout</a>
-                <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
-                    US
-                    <i class="bi bi-arrow-right"></i></a>
+                <a href="about.php" class="nav-item nav-link">About Us</a>
+
+                <?php if ($_SESSION["id"] > 0) { ?>
+                    <a href="userProfile.php" class="nav-item nav-link active">Profile</a>
+                    <a href="logout.php" class="nav-item nav-link">Logout
+                        <i class="bi bi-arrow-right"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+
+
+                <?php } else { ?>
+
+                    <a href="login.php" class="nav-item nav-link">Login</a>
+                    <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN US
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                <?php } ?>
+
+
             </div>
         </div>
     </nav>
