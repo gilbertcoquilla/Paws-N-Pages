@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Paws N Pages</title>
+    <title>Paws N Pages | Login </title>
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
         type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -59,25 +59,12 @@
     <div class="container-fluid pt-5">
         <div class="container">
 
-            <div class="row g-5">
-                <div class="col-lg-3">
-                </div>
-                <div class="col-lg-6 ">
-
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
                     <form method="post" action="">
-                        <div class="row g-3 bg-dark">
-                            <div class="col-6 ">
-                                <input type="button" class="btn btn-primary w-100 py-3"
-                                    onclick="window.location='vet-or-pet.php'" value="SIGN UP">
-                            </div>
-                            <div class="col-6">
-                                <input type="button" class="btn btn-outline-light w-100 py-3"
-                                    onclick="window.location='login.php'" value="LOG IN">
-                            </div>
-                            <div class="col-12">
-                                <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Welcome Back! 🫶</h5>
-                            </div>
-
+                        <div class="row g-3 bg-light" style=" border-radius: 15px; padding:30px 30px;">
+                            <center><img src="img/logo_black.png" style="height:150px; width:150px;"></center>
                             <?php
                             session_start();
                             $message = "";
@@ -92,7 +79,7 @@
                                     $_SESSION["usertype"] = $row['UserType'];
 
                                 } else {
-                                    echo '<div class="alert alert-danger"><i class="fa fa-times-circle"></i>&nbsp; Invalid Username or Password!</div>';
+                                    echo '<div class="alert alert-danger" style="border-radius:15px;"><i class="fa fa-times-circle"></i>&nbsp; Invalid Username or Password!</div>';
                                 }
                             }
 
@@ -102,35 +89,40 @@
                                 }
 
                                 if ($_SESSION["usertype"] == "Clinic Administrator" || $_SESSION["usertype"] == "Administrator") {
-                                    header("Location:supplies.php"); // redirects the user to the defined page
+                                    header("Location:dashboard.php"); // redirects the user to the defined page
                                 }
                             }
                             ?>
-
-
                             <div class="col-12">
                                 <input type="text" name="username" id="username"
-                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Username">
+                                    class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;"
+                                    placeholder="Username">
                             </div>
                             <div class="col-12">
                                 <input type="password" name="password" id="password"
-                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Password">
+                                    class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;"
+                                    placeholder="Password">
                             </div>
                             <div class="col-6 ">
-                                <input type="button" class="btn btn-danger w-100 py-1"
-                                    onclick="window.location='forgot_password.php'" value="FORGOT PASSWORD?">
+                                <a href="forgot_password.php">Forgot Password?</a>
                             </div>
                             <div class="col-12">
-                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Submit</button>
-                            </div><br />
-                            <div class="col-12"></div>
+                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3"
+                                    style="border-radius:15px;">Submit</button>
+                            </div>
+                            <center>
+                                <div class="col-12" style="padding-top:30px;">Don't have an account? <a
+                                        href="vet-or-pet.php">Sign Up</a></div>
+                            </center>
 
                         </div>
                     </form>
                 </div>
+                <div class="col-md-4"></div>
+            </div>
 
-                <!-- validation for empty field -->
-                <!-- <script>
+            <!-- validation for empty field -->
+            <!-- <script>
                     function validation() {
                         var id = document.f1.username.value;
                         var ps = document.f1.password.value;
@@ -150,10 +142,10 @@
                     }
                 </script> -->
 
-                <div class="col-lg-3">
-                </div>
+            <div class="col-lg-3">
             </div>
         </div>
+    </div>
     </div>
     <!-- Contact End -->
 
