@@ -51,7 +51,7 @@ include('connection.php');
                 <a href="about.php" class="nav-item nav-link active">About Us</a>
 
                 <?php if ($_SESSION["id"] > 0) { ?>
-                    <a href="userProfile.php" class="nav-item nav-link active">Profile</a>
+                    <a href="userProfile.php" class="nav-item nav-link">Profile</a>
                     <a href="logout.php" class="nav-item nav-link">Logout
                         <i class="bi bi-arrow-right"></i>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
