@@ -10,7 +10,8 @@ include('connection.php');
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Home</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <!-- Favicon -->
@@ -49,12 +50,7 @@ include('connection.php');
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
                 <a href="index.php" class="nav-item nav-link active">Home</a>
-                <a href="list_of_users.php" class="nav-item nav-link">Users</a>
-                <a href="list_of_pets.php" class="nav-item nav-link">Pets</a>
                 <a href="clinics.php" class="nav-item nav-link">Clinics</a>
-                <a href="inventory_management.php" class="nav-item nav-link">Inventory</a>
-                <a href="clinic_services.php" class="nav-item nav-link">Services</a>
-                <a href="appointment.php" class="nav-item nav-link">Appointments</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
                 <a href="about.php" class="nav-item nav-link">About Us</a>
                 <a href="userProfile.php" class="nav-item nav-link">Profile</a>
@@ -70,7 +66,8 @@ include('connection.php');
                 <?php } else { ?>
 
                     <a href="login.php" class="nav-item nav-link">Login</a>
-                    <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN US
+                    <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
+                        US
                         <i class="bi bi-arrow-right"></i>
                     </a>
 
@@ -88,8 +85,10 @@ include('connection.php');
         <div class="container py-5">
             <div class="row justify-content-start">
                 <div class="col-lg-8 text-center text-lg-start">
-                    <h1 class="display-2 text-uppercase text-white bg-primary mb-lg-4" style="border-radius: 5px;">&nbsp;Paws N Pages</h1>
-                    <h3 class="text-uppercase text-dark bg-white mb-lg-4" style="border-radius: 5px;">&nbsp;&nbsp;&nbsp;Find the right vet clinic for you</h3>
+                    <h1 class="display-2 text-uppercase text-white bg-primary mb-lg-4" style="border-radius: 15px;">
+                        &nbsp;Paws N Pages</h1>
+                    <h3 class="text-uppercase text-dark bg-white mb-lg-4" style="border-radius: 15px;">
+                        &nbsp;&nbsp;&nbsp;Find the right vet clinic for you</h3>
                 </div>
             </div>
         </div>
@@ -111,8 +110,10 @@ include('connection.php');
                         <div>
                             <h5 class="text-uppercase mb-3">Browse Veterinary Clinics </h5>
                             <p>Find the best clinic for your pets, book an appointment, or purchase pet supplies</p>
-                            <img src="https://i.ibb.co/6Pmq9Bc/1.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
-                            <a class="text-primary text-uppercase" href="clinics.php">View Nearby Clinics<i class="bi bi-chevron-right"></i></a>
+                            <img src="https://i.ibb.co/6Pmq9Bc/1.png"
+                                style="max-width: 100%; height: auto; padding-bottom: 25px;" />
+                            <a class="text-primary text-uppercase" href="clinics.php">View Nearby Clinics<i
+                                    class="bi bi-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -121,10 +122,12 @@ include('connection.php');
                         <i class="display-1 text-primary me-4"></i>
                         <div>
                             <h5 class="text-uppercase mb-3">Contact Us</h5>
-                            <p>We provide a system for Veterinary Clinics to showcase their services and supplies available.
+                            <p>Click here to report your concerns
                             </p>
-                            <img src="https://i.ibb.co/TgT3HxN/2.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
-                            <a class="text-primary text-uppercase" href="contact.php">Contact Us<i class="bi bi-chevron-right"></i></a>
+                            <img src="https://i.ibb.co/TgT3HxN/2.png"
+                                style="max-width: 100%; height: auto; padding-bottom: 25px;" />
+                            <a class="text-primary text-uppercase" href="contact.php">Contact Us<i
+                                    class="bi bi-chevron-right"></i></a>
                         </div>
                     </div>
                 </div>
@@ -137,9 +140,11 @@ include('connection.php');
                             <div>
                                 <h5 class="text-uppercase mb-3">Appointments</h5>
                                 <p>Click here to view your booked appointments</p>
-                                <img src="https://i.ibb.co/jZxWwSW/3.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" href="#" />
+                                <img src="https://i.ibb.co/jZxWwSW/3.png"
+                                    style="max-width: 100%; height: auto; padding-bottom: 25px;" href="#" />
 
-                                <a class="text-primary text-uppercase" href="appointments.php">View Appointments<i class="bi bi-chevron-right"></i></a>
+                                <a class="text-primary text-uppercase" href="appointments.php">View Appointments<i
+                                        class="bi bi-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -149,9 +154,11 @@ include('connection.php');
                             <div>
                                 <h5 class="text-uppercase mb-3">Orders</h5>
                                 <p>Click here to view your orders and to track its delivery</p>
-                                <img src="https://i.ibb.co/S5CJjnD/4.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
+                                <img src="https://i.ibb.co/S5CJjnD/4.png"
+                                    style="max-width: 100%; height: auto; padding-bottom: 25px;" />
 
-                                <a class="text-primary text-uppercase" href="orders.php">View Orders<i class="bi bi-chevron-right"></i></a>
+                                <a class="text-primary text-uppercase" href="orders.php">View Orders<i
+                                        class="bi bi-chevron-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -175,10 +182,15 @@ include('connection.php');
             <div class="owl-carousel team-carousel position-relative" style="padding-right: 25px;">
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;" src="https://media.discordapp.net/attachments/1112075552669581332/1113440500536582234/1.png" alt="">
+                        <img class="img-fluid w-100  h-100"
+                            style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;"
+                            src="https://media.discordapp.net/attachments/1112075552669581332/1113440500536582234/1.png"
+                            alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
-                                <a class="btn btn-light btn-square mx-1" href="https://www.linkedin.com/in/gilbert-coquilla-63529a210" target=”_blank”><i class="bi bi-linkedin"></i></a>
+                                <a class="btn btn-light btn-square mx-1"
+                                    href="https://www.linkedin.com/in/gilbert-coquilla-63529a210" target=”_blank”><i
+                                        class="bi bi-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
@@ -189,10 +201,15 @@ include('connection.php');
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100 h-100" style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;" src="https://media.discordapp.net/attachments/1112075552669581332/1113440500796620810/2.png" alt="">
+                        <img class="img-fluid w-100 h-100"
+                            style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;"
+                            src="https://media.discordapp.net/attachments/1112075552669581332/1113440500796620810/2.png"
+                            alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
-                                <a class="btn btn-light btn-square mx-1" href="https://www.linkedin.com/in/bianca-ongkingco-557727262" target=”_blank”><i class="bi bi-linkedin"></i></a>
+                                <a class="btn btn-light btn-square mx-1"
+                                    href="https://www.linkedin.com/in/bianca-ongkingco-557727262" target=”_blank”><i
+                                        class="bi bi-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
@@ -203,10 +220,15 @@ include('connection.php');
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;" src="https://media.discordapp.net/attachments/1112075552669581332/1113440501060878397/3.png" alt="">
+                        <img class="img-fluid w-100  h-100"
+                            style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;"
+                            src="https://media.discordapp.net/attachments/1112075552669581332/1113440501060878397/3.png"
+                            alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
-                                <a class="btn btn-light btn-square mx-1" href="https://guillemanzano.my.canva.site/gm-portfolio" target=”_blank”><i class="bi bi-globe"></i></a>
+                                <a class="btn btn-light btn-square mx-1"
+                                    href="https://guillemanzano.my.canva.site/gm-portfolio" target=”_blank”><i
+                                        class="bi bi-globe"></i></a>
                             </div>
                         </div>
                     </div>
@@ -217,11 +239,17 @@ include('connection.php');
                 </div>
                 <div class="team-item">
                     <div class="position-relative overflow-hidden">
-                        <img class="img-fluid w-100  h-100" style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;" src="https://media.discordapp.net/attachments/1112075552669581332/1113440501308334110/4.png" alt="">
+                        <img class="img-fluid w-100  h-100"
+                            style="width:200px;height:200px;overflow:hidden; border-radius: 15px 15px 0px 0px;"
+                            src="https://media.discordapp.net/attachments/1112075552669581332/1113440501308334110/4.png"
+                            alt="">
                         <div class="team-overlay">
                             <div class="d-flex align-items-center justify-content-start">
-                                <a class="btn btn-light btn-square mx-1" href="https://shirpaz.xyz"><i class="bi bi-globe" target=”_blank”></i></a>
-                                <a class="btn btn-light btn-square mx-1" href="https://www.linkedin.com/in/shirley-paz-9069b91aa/" target=”_blank”><i class="bi bi-linkedin"></i></a>
+                                <a class="btn btn-light btn-square mx-1" href="https://shirpaz.xyz"><i
+                                        class="bi bi-globe" target=”_blank”></i></a>
+                                <a class="btn btn-light btn-square mx-1"
+                                    href="https://www.linkedin.com/in/shirley-paz-9069b91aa/" target=”_blank”><i
+                                        class="bi bi-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
@@ -243,20 +271,28 @@ include('connection.php');
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
+                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
+                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
                     <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
                         762 6162</a>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-body mb-2" href="index.php"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="index.php#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="pricing.php"><i class="bi bi-arrow-right text-primary me-2"></i>Pricing</a>
-                        <a class="text-body mb-2" href="about.php"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
-                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="index.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Home</a>
+                        <a class="text-body mb-2" href="clinics.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="index.php#services"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="pricing.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Pricing</a>
+                        <a class="text-body mb-2" href="about.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
+                        <a class="text-body" href="contact.php"><i
+                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
