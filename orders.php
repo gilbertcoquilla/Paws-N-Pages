@@ -6,61 +6,8 @@ include('connection.php');
 
 $userID = $_SESSION["id"];
 
-///////////////////// FOR UPDATING PET OWNER PROFILE ////////////////////////////
+$clinicID = $_GET['clinicid'];
 
-if (isset($_POST['update'])) {
-
-    $userID = $_POST['userID'];
-    $fname = $_POST['fname'];
-    $mname = $_POST['mname'];
-    $lname = $_POST['lname'];
-    $cnum = $_POST['cnum'];
-    $username = $_POST['username'];
-
-    $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Username='$username' WHERE UserID='$userID'");
-
-    if ($query) {
-        echo "<script>alert('You have successfully your information.');</script>";
-        echo "<script> document.location ='userprofile.php'; </script>";
-    } else {
-        echo "<script>alert('Something Went Wrong. Please try again');</script>";
-    }
-}
-
-///////////////////// FOR ADDING NEW PET ////////////////////////////  
-
-if (isset($_POST['save_pet'])) {
-
-    $file = $_FILES['image']['name'];
-    $tempfile = $_FILES['image']['tmp_name'];
-    $folder = "image_upload/" . $file;
-
-    move_uploaded_file($tempfile, $folder);
-
-    $userID = $_POST['userID'];
-    $petname = $_POST['petname'];
-    $species = $_POST['species'];
-    $breed = $_POST['breed'];
-    $age = $_POST['age'];
-    $color = $_POST['color'];
-
-    $query = mysqli_query($con, "INSERT INTO pets (PetImage, PetName, Species, Breed, Age, Color, UserID) VALUES ('$file', '$petname', '$species', '$breed', '$age', '$color', '$userID')");
-
-    if ($query) {
-        echo "<script>alert('You have successfully added a new Pet');</script>";
-        echo "<script> document.location ='userprofile.php'; </script>";
-    } else {
-        echo "<script>alert('Error adding new pet.');</script>";
-    }
-}
-
-///////////////////// FOR DELETING PET ////////////////////////////  
-if (isset($_GET['delid'])) {
-    $rid = intval($_GET['delid']);
-    $sql = mysqli_query($con, "DELETE FROM pets WHERE PetID=$rid");
-    echo "<script>alert('You have successfully deleted a record.');</script>";
-    echo "<script>window.location.href = 'userprofile.php'</script>";
-}
 ?>
 
 
@@ -69,7 +16,7 @@ if (isset($_GET['delid'])) {
 
 <head>
     <meta charset="utf-8">
-    <title>Paws N Pages | User Profile</title>
+    <title>Paws N Pages | Orders</title>
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -107,6 +54,43 @@ if (isset($_GET['delid'])) {
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        .rating {
+            display: inline-block;
+            font-size: 55px;
+            cursor: pointer;
+        }
+
+        .rating-star {
+            color: #ddd;
+        }
+
+        .rating-star:hover,
+        .rating-star:hover~.rating-star {
+            color: orange;
+        }
+
+        .rating-star.checked {
+            color: orange;
+        }
+    </style>
+    <script>
+        function handleStarClick(star) {
+            const stars = document.querySelectorAll('.rating-star');
+            const starValue = star.getAttribute('data-value');
+
+            stars.forEach((s) => {
+                if (s.getAttribute('data-value') <= starValue) {
+                    s.classList.add('checked');
+                } else {
+                    s.classList.remove('checked');
+                }
+            });
+
+            document.getElementById('ratingInput').value = starValue;
+        }
+    </script>
 
     <script type="text/javascript">
         function preview() {
@@ -150,14 +134,28 @@ if (isset($_GET['delid'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="index.php" class="nav-item nav-link active">Home</a>
+                <a href="index.php" class="nav-item nav-link">Home</a>
                 <a href="clinics.php" class="nav-item nav-link">Clinics</a>
-                <a href="inventory_management.php" class="nav-item nav-link">Inventory</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
-                <a href="logout.php" class="nav-item nav-link">Logout</a>
-                <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
-                    US
-                    <i class="bi bi-arrow-right"></i></a>
+                <a href="about.php" class="nav-item nav-link">About Us</a>
+
+                <?php if ($_SESSION["id"] > 0) { ?>
+                    <a href="userProfile.php" class="nav-item nav-link active">Profile</a>
+                    <a href="logout.php" class="nav-item nav-link">Logout
+                        <i class="bi bi-arrow-right"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+
+
+                <?php } else { ?>
+
+                    <a href="login.php" class="nav-item nav-link">Login</a>
+                    <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
+                        US
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                <?php } ?>
             </div>
         </div>
     </nav>
@@ -172,7 +170,7 @@ if (isset($_GET['delid'])) {
     <div style="padding-right:30px; padding-left:30px;">
         <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
             <div class="card-header userProfile-font"><b>📦 Orders</b></div>
-            <div class="card-body text-center">
+            <div class="card-body">
                 <table class="table table-striped table-hover" name="order" id="order" style="border:0px;">
                     <thead>
                         <tr class="table100-head">
@@ -181,7 +179,7 @@ if (isset($_GET['delid'])) {
                             <th class="column1" style="border:0px;">Clinic</th>
                             <th class="column1" style="border:0px;">Checkout Date & Time</th>
                             <th class="column1" style="border:0px;">Status</th>
-                            <th class="column1" style="border:0px;">Remarks</th>
+                            <th class="column1" style="border:0px;">Feedback</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -202,10 +200,10 @@ if (isset($_GET['delid'])) {
                                                                                                                                                                         $explodedArray = explode(', ', $prod);
                                                                                                                                                                         foreach ($explodedArray as $element) {
                                                                                                                                                                             echo  $element . "\n";
-                                                                                                                                                                        } ?>" user="<?php echo $row1['FirstName'] . ' ' .  $row1['MiddleName'] . ' ' . $row1['LastName'] ?>" totalprice="<?php echo "₱ " . $row1['TotalPrice']; ?>" dtcout="<?php echo $row1['DateTimeCheckedOut'] ?>" address="<?php echo $row1['ShippingTo'] ?>" proofpayment="<?php echo $row1['ProofOfPayment']; ?>" proofrefno="<?php echo $row1['Proof_RefNo']; ?>" orderstatus="<?php echo $row1['OrderStatus']; ?>" odremarks="<?php echo $row1['OrderRemarks']; ?>" class="edit" title="View" data-toggle="modal" data-target="#view_order"><?php echo $row1['Order_RefNo'] ?></a>
+                                                                                                                                                                        } ?>" user="<?php echo $row1['FirstName'] . ' ' .  $row1['MiddleName'] . ' ' . $row1['LastName'] ?>" totalprice="<?php echo "₱ " . $row1['TotalPrice']; ?>" dtcout="<?php echo $row1['DateTimeCheckedOut'] ?>" address="<?php echo $row1['ShippingTo'] ?>" proofpayment="<?php echo $row1['ProofOfPayment']; ?>" proofrefno="<?php echo $row1['Proof_RefNo']; ?>" prescription="<?php echo $row1['OrderPrescription'] ?>" orderstatus="<?php echo $row1['OrderStatus']; ?>" odremarks="<?php echo $row1['OrderRemarks']; ?>" class="edit" title="View" data-toggle="modal" data-target="#view_order"><?php echo $row1['Order_RefNo'] ?></a>
                                     </td>
                                     <td style="border:0px;">
-                                        PHP <?php echo $row1['TotalPrice'] ?>
+                                        ₱ <?php echo $row1['TotalPrice'] ?>
                                     </td>
                                     <td style="border:0px;">
                                         <?php echo $row1['ClinicName'] ?>
@@ -218,19 +216,33 @@ if (isset($_GET['delid'])) {
                                     </td>
 
                                     <?php
-
                                     if ($row1['OrderStatus'] != 'Completed') {
                                     ?>
-
                                         <td style="border:0px;">
-                                            <?php echo $row1['OrderRemarks']; ?>
+
                                         </td>
 
                                     <?php } else { ?>
 
-                                        <td style="border:0px;">
-                                            <a href="feedback.php?clinicid=<?php echo $row1['ClinicID'] ?>">Leave a Review</a>
-                                        </td>
+                                        <?php
+                                        $order_id = $row1['OrderID'];
+                                        $sql_fb = mysqli_query($con, "SELECT * FROM feedback WHERE UserID='$userID' AND OrderID='$order_id'");
+                                        $row_fb = mysqli_num_rows($sql_fb);
+
+                                        if ($row_fb < 1) {
+                                        ?>
+
+                                            <td style="border:0px;">
+                                                <a href="" data-toggle="modal" onclick="<?php $order_id = $row1['OrderID']; ?>" data-target="#feedback_modal" id="<?php echo $row1['ClinicID'] ?>" orderid="<?php echo $row1['OrderID'] ?>">Leave a Review</a>
+                                            </td>
+
+                                        <?php } else { ?>
+
+                                            <td style="border:0px;">
+                                                <p>Feedback submitted</p>
+                                            </td>
+
+                                        <?php } ?>
 
                                     <?php } ?>
 
@@ -240,7 +252,12 @@ if (isset($_GET['delid'])) {
                             }
                         } else { ?>
                             <tr>
-                                <th style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px;" colspan="6">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
                             </tr>
                         <?php } ?>
 
@@ -335,8 +352,6 @@ if (isset($_GET['delid'])) {
                                     <hr />
                                     <div class="form-group">
                                         <label>Proof Of Payment</label>
-                                        <!-- <input type="text" name="ProofOfPayment" id="ProofOfPayment" class="form-control" readonly />
-                                        <img src="" name="ProofOfPayment" id="ProofOfPayment" width="100%" onclick="displayImg()"> -->
                                         <br>
                                         <div class="row" style="width: 100%;">
                                             <div class="col-8">
@@ -349,16 +364,29 @@ if (isset($_GET['delid'])) {
                                                     Download
                                                 </a>
                                             </div>
-
                                         </div>
-
-                                        <!-- insert download link for proof of payment here -->
                                     </div>
-                                    <br>
+                                    <div class="form-group">
+                                        <label>Prescription</label>
+                                        <br>
+                                        <div class="row" style="width: 100%;">
+                                            <div class="col-8">
+                                                <a href="" id="DL_Presc" target="_blank">
+                                                    <span id="presc"></span>
+                                                </a>
+                                            </div>
+                                            <div class="col-4" style="text-align: right;">
+                                                <a href="" id="DL_Presc" target="_blank" download>
+                                                    Download
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label>Reference No. (For Proof of Payment)</label>
                                         <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control" readonly />
                                     </div>
+
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -398,6 +426,94 @@ if (isset($_GET['delid'])) {
     </div>
     <!--  END OF MODAL FOR VIEWING ORDER DETAILS -->
 
+    <!-- START OF MODAL FOR FEEDBACK -->
+    <div class="modal fade" id="feedback_modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border-radius: 15px;">
+                <form method="POST" runat="server" enctype="multipart/form-data" id="add_feedback">
+                    <div class="modal-header modal-header-success">
+                        <h3 class="modal-title">Customer Feedback</h3>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div style="display:none;">
+                                <label>ID</label>
+                                <input type="text" name="ClinicID" id="ClinicID" class="form-control" />
+                            </div>
+                            <div class="col-12">
+
+                                <h5>How's your experience?</h5>
+                                <div style="text-align: center;">
+                                    <span style="font-size: 75px;" class="rating-star" data-value="1" onclick="handleStarClick(this)">☆</span>
+                                    <span style="font-size: 75px;" class="rating-star" data-value="2" onclick="handleStarClick(this)">☆</span>
+                                    <span style="font-size: 75px;" class="rating-star" data-value="3" onclick="handleStarClick(this)">☆</span>
+                                    <span style="font-size: 75px;" class="rating-star" data-value="4" onclick="handleStarClick(this)">☆</span>
+                                    <span style="font-size: 75px;" class="rating-star" data-value="5" onclick="handleStarClick(this)">☆</span>
+                                    <input type="hidden" id="ratingInput" name="rating" value="">
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="col-12">
+                                <h5 style="padding-bottom: 10px;">Comments/Suggestions</h5>
+                                <textarea name="feedback" class="form-control bg-light border-3 px-4 py-3" style="border-radius: 15px;" rows="5"></textarea>
+
+                                <input type="hidden" name="orderid" value="">
+                            </div>
+                            <br />
+                        </div>
+                        <div style="clear:both;"></div>
+                        <div class="modal-footer">
+                            <input type="submit" name="submit" value="Submit" style="border-radius: 15px;" class="btn btn-primary" />
+                            <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--  END OF MODAL FOR FEEDBACK -->
+
+
+    <?php
+
+    if (isset($_POST['submit'])) {
+
+        $clinicID = $_POST['ClinicID'];
+        $feedback = $_POST['feedback'];
+        $orderID = $_POST['orderid'];
+        $rating = $_POST['rating'];
+
+        date_default_timezone_set("Asia/Hong_Kong");
+        $currentDateTime = date('y-m-d h:i:s A');
+
+        if ($feedback != null)
+            $query = mysqli_query($con, "INSERT INTO feedback (Rating, OverallFeedback, DateTimeRated, ClinicID, UserID, OrderID) VALUES ('$rating', '$feedback', '$currentDateTime', '$clinicID', '$userID', '$orderID')");
+        else
+            $query = mysqli_query($con, "INSERT INTO feedback (Rating, DateTimeRated, ClinicID, UserID, OrderID) VALUES ('$rating', '$currentDateTime', '$clinicID', '$userID', '$orderID')");
+
+
+        if ($query) {
+            echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+            echo '<script>';
+            echo 'swal({
+                                            title: "Success",
+                                            text: "You have successfully sent a feedback",
+                                            icon: "success",
+                                            showCancelButton: true,
+                                            })
+                                                .then((willDelete) => {
+                                                    if (willDelete) {
+                                                    
+                                                        document.location ="orders.php";
+                                                    }
+                                                })';
+            echo '</script>';
+        } else {
+            echo "<script>alert('Something went wrong. Please try again');</script>";
+        }
+    }
+
+    ?>
 
 
     <!-- Back to Top -->
@@ -436,8 +552,14 @@ if (isset($_GET['delid'])) {
             var totalprice = $(opener).attr('totalprice');
             var dtcout = $(opener).attr('dtcout');
             var address = $(opener).attr('address');
+
             var proofpayment = $(opener).attr('proofpayment');
+            var proofpaymentName = jQuery.trim(proofpayment).substring(0, 20) + "...";
             var proofrefno = $(opener).attr('proofrefno');
+
+            var prescription = $(opener).attr('prescription');
+            var prescriptionName = jQuery.trim(prescription).substring(0, 20) + "...";
+
             var orderstatus = $(opener).attr('orderstatus');
             var odremarks = $(opener).attr('odremarks');
 
@@ -449,10 +571,11 @@ if (isset($_GET['delid'])) {
             $('#view_order_form').find('[name="DTimeCO"]').val(dtcout);
             $('#view_order_form').find('[name="ShippingTo"]').val(address);
 
-            $('#view_order_form').find('[name="ProofOfPayment"]').val(proofpayment);
-            $('#view_order_form').find('[id="proofOP"]').html(proofpayment);
-            // $('#view_order_form').find('[name="ProofOfPayment"]').prop('src', 'image_upload/' + proofpayment);
+            $('#view_order_form').find('[id="proofOP"]').html(proofpaymentName);
             $('#view_order_form').find('[id="DL_ProofOfPayment"]').prop('href', 'image_upload/' + proofpayment);
+
+            $('#view_order_form').find('[id="presc"]').html(prescriptionName);
+            $('#view_order_form').find('[id="DL_Presc"]').prop('href', 'image_upload/' + prescription);
 
             $('#view_order_form').find('[name="Proof_RefNo"]').val(proofrefno);
             $('#view_order_form').find('[name="OrderStatus"]').val(orderstatus);
@@ -461,10 +584,17 @@ if (isset($_GET['delid'])) {
             endResize();
         });
 
-        function displayImg() {
-            var img = document.getElementById("ProofOfPayment").src;
-            window.open(img, '_blank');
-        }
+        $('#feedback_modal').on('show.bs.modal', function(e) {
+            var opener = e.relatedTarget;
+
+            var id = $(opener).attr('id');
+            var orderid = $(opener).attr('orderid');
+
+            $('#add_feedback').find('[name="ClinicID"]').val(id);
+            $('#add_feedback').find('[name="orderid"]').val(orderid);
+
+            endResize();
+        });
     </script>
 
 </body>
