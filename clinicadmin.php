@@ -286,7 +286,7 @@ $row_cb = mysqli_num_rows($ret_cb);
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
-                ?>
+            ?>
                 <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;
         </p>
     <?php } ?>
@@ -356,30 +356,30 @@ $row_cb = mysqli_num_rows($ret_cb);
                         <li>
                             <span class="top_curve"></span>
                             <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
-                            <span class="item">Users</span></a>
+                                <span class="item">Users</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
-                            <span class="item">Clinics</span></a>
+                                <span class="item">Clinics</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
-                            <span class="item">Pet Booklet</span></a>
+                                <span class="item">Pet Booklet</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
-                         <li >
+                        <li>
                             <span class="top_curve"></span>
                             <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
-                            <span class="item">Reports</span></a>
+                                <span class="item">Reports</span></a>
                             <span class="bottom_curve"></span>
-                        </li>     
+                        </li>
                     <?php } ?>
                 </ul>
                 <!--digital clock start-->
@@ -419,7 +419,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                                                     <?php
                                                     $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
                                                     while ($row = mysqli_fetch_array($ret)) {
-                                                        ?>
+                                                    ?>
                                                         <tr>
                                                             <td style="color:#80b434;"><b>Name: &nbsp;&nbsp;</b></td>
                                                             <td>
@@ -467,7 +467,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                             <?php
                             $ret = mysqli_query($con, "SELECT * FROM address, clinics, users WHERE address.UserID = users.UserID AND clinics.UserID = users.UserID AND users.UserID='$userID'");
                             while ($row = mysqli_fetch_array($ret)) {
-                                ?>
+                            ?>
                                 <div class="card mb-4" style="border-radius: 15px;">
                                     <div class="card-header userProfile-font">🔔 <b>Subscription Details</b> &nbsp;</div>
                                     <div class="card-body">
@@ -524,7 +524,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                                                     <?php
                                                     $ret = mysqli_query($con, "SELECT * FROM address, clinics, users WHERE address.UserID = users.UserID AND clinics.UserID = users.UserID AND users.UserID='$userID'");
                                                     while ($row = mysqli_fetch_array($ret)) {
-                                                        ?>
+                                                    ?>
                                                         <center style="display: none;">
                                                             <?php if ($row['ClinicImage'] != "") {
                                                                 echo '<img class="img-fluid" src=image_upload/' . $row['ClinicImage'] . ' height=200px; width=200px;';
@@ -568,13 +568,13 @@ $row_cb = mysqli_num_rows($ret_cb);
                         </div>
                         <div class="col-md-5">
                             <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                                <div class="card-header userProfile-font"> <b>GCash QR</b> &nbsp; 
-                                <?php if ($row_cb < 1) { ?>
-                                    <button class="btn btn-primary" style="float:right; border-radius:15px;" data-toggle="modal" data-target="#billing_upload">Add</button>
-                                <?php } else { ?> 
-                                    <a href="" data-toggle="modal" title="Edit" style="float:right;" data-target="#billing_modal"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>                       
-                                <?php } ?>                        
-                            </div>
+                                <div class="card-header userProfile-font"> <b>GCash QR</b> &nbsp;
+                                    <?php if ($row_cb < 1) { ?>
+                                        <button class="btn btn-primary" style="float:right; border-radius:15px;" data-toggle="modal" data-target="#billing_upload">Add</button>
+                                    <?php } else { ?>
+                                        <a href="" data-toggle="modal" title="Edit" style="float:right;" data-target="#billing_modal"><i class="material-icons" style="color:dodgerblue;">&#xE254;</i></a>
+                                    <?php } ?>
+                                </div>
                                 <div class="card-body text-center">
                                     <div class="userProfile">
                                         <center>
@@ -583,7 +583,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                                                     <?php
                                                     $ret = mysqli_query($con, "SELECT * FROM clinic_billing WHERE ClinicID = '$clinicID'");
                                                     while ($row = mysqli_fetch_array($ret)) {
-                                                        ?>
+                                                    ?>
                                                         <center>
                                                             <?php if ($row['BillingImage'] != "") {
                                                                 echo '<img class="img-fluid" src="image_upload/' . $row['BillingImage'] . '" height=300px; width=300px;';
@@ -597,7 +597,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                                     </div>
                                 </div>
                             </div>
-                        </div>                                
+                        </div>
                     </div>
                 </div>
             </div>
@@ -617,37 +617,37 @@ $row_cb = mysqli_num_rows($ret_cb);
                                                 <?php
                                                 $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
                                                 while ($row = mysqli_fetch_array($ret)) {
-                                                    ?>
+                                                ?>
                                                     <tr>
-                                                            <td style="color:#80b434;"><b>Name: &nbsp;&nbsp;</b></td>
-                                                            <td>
-                                                                <?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="color:#80b434;"><b>Contact No: &nbsp;&nbsp;</b></td>
-                                                            <td>
-                                                                <?php echo $row['ContactNo'] ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="color:#80b434;"><b>Birthdate: &nbsp;&nbsp;</b></td>
-                                                            <td>
-                                                                <?php echo $row['Birth_Date'] ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="color:#80b434;"><b>Username: &nbsp;&nbsp;</b></td>
-                                                            <td>
-                                                                <?php echo $row['Username'] ?>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="color:#80b434;"><b>Email: &nbsp;&nbsp;</b></td>
-                                                            <td>
-                                                                <?php echo $row['Email'] ?>
-                                                            </td>
-                                                        </tr>
+                                                        <td style="color:#80b434;"><b>Name: &nbsp;&nbsp;</b></td>
+                                                        <td>
+                                                            <?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="color:#80b434;"><b>Contact No: &nbsp;&nbsp;</b></td>
+                                                        <td>
+                                                            <?php echo $row['ContactNo'] ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="color:#80b434;"><b>Birthdate: &nbsp;&nbsp;</b></td>
+                                                        <td>
+                                                            <?php echo $row['Birth_Date'] ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="color:#80b434;"><b>Username: &nbsp;&nbsp;</b></td>
+                                                        <td>
+                                                            <?php echo $row['Username'] ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="color:#80b434;"><b>Email: &nbsp;&nbsp;</b></td>
+                                                        <td>
+                                                            <?php echo $row['Email'] ?>
+                                                        </td>
+                                                    </tr>
 
                                                 <?php } ?>
                                             </tbody>
@@ -675,48 +675,48 @@ $row_cb = mysqli_num_rows($ret_cb);
                                 <?php
                                 $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
                                 while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
+                                ?>
                                     <div class="row gx-3 mb-3">
-                                            <div class="col-md-4">
-                                                <label>First Name</label>
-                                                <input type="hidden" name="userID" value="<?php echo $row['UserID'] ?>" />
-                                                <input type="text" name="fname" value="<?php echo $row['FirstName'] ?>" class="form-control" />
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Middle Name</label>
-                                                <input type="text" name="mname" value="<?php echo $row['MiddleName'] ?>" class="form-control" />
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label>Last Name</label>
-                                                <input type="text" name="lname" value="<?php echo $row['LastName'] ?>" class="form-control" />
-                                            </div>
+                                        <div class="col-md-4">
+                                            <label>First Name</label>
+                                            <input type="hidden" name="userID" value="<?php echo $row['UserID'] ?>" />
+                                            <input type="text" name="fname" value="<?php echo $row['FirstName'] ?>" class="form-control" />
                                         </div>
-                                        <div class="row gx-3 mb-3">
-                                            <div class="col-md-6">
-                                                <label>Contact No.</label>
-                                                <input type="text" name="cnum" value="<?php echo $row['ContactNo'] ?>" class="form-control" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Birthdate</label>
-                                                <input type="date" name="bdate" value="<?php echo $row['Birth_Date'] ?>" class="form-control" />
-                                            </div>
+                                        <div class="col-md-4">
+                                            <label>Middle Name</label>
+                                            <input type="text" name="mname" value="<?php echo $row['MiddleName'] ?>" class="form-control" />
                                         </div>
-                                        <div class="form-group">
-                                            <label>Username</label>
-                                            <input type="text" name="username" value="<?php echo $row['Username'] ?>" class="form-control" />
+                                        <div class="col-md-4">
+                                            <label>Last Name</label>
+                                            <input type="text" name="lname" value="<?php echo $row['LastName'] ?>" class="form-control" />
                                         </div>
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input type="text" name="email" value="<?php echo $row['Email'] ?>" class="form-control" readonly />
+                                    </div>
+                                    <div class="row gx-3 mb-3">
+                                        <div class="col-md-6">
+                                            <label>Contact No.</label>
+                                            <input type="text" name="cnum" value="<?php echo $row['ContactNo'] ?>" class="form-control" />
                                         </div>
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="password" name="password" value="<?php echo $row['Password'] ?>" class="form-control" readonly />
+                                        <div class="col-md-6">
+                                            <label>Birthdate</label>
+                                            <input type="date" name="bdate" value="<?php echo $row['Birth_Date'] ?>" class="form-control" />
                                         </div>
-                                        <div class="form-group">
-                                            <label>New Password</label>
-                                            <input type="password" name="newpassword" class="form-control" />
-                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Username</label>
+                                        <input type="text" name="username" value="<?php echo $row['Username'] ?>" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" name="email" value="<?php echo $row['Email'] ?>" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" name="password" value="<?php echo $row['Password'] ?>" class="form-control" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>New Password</label>
+                                        <input type="password" name="newpassword" class="form-control" />
+                                    </div>
                                 <?php } ?>
                             </div>
                         </div>
@@ -745,7 +745,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                                 <?php
                                 $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
                                 while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
+                                ?>
                                     <div class="row gx-3 mb-3">
                                         <div class="col-md-4">
                                             <label>First Name</label>
@@ -817,7 +817,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                                 <?php
                                 $ret = mysqli_query($con, "SELECT * FROM address, clinics, users WHERE address.UserID = users.UserID AND clinics.UserID = users.UserID AND clinics.UserID='$userID'");
                                 while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
+                                ?>
                                     <div class="row gx-3 mb-3">
 
                                         <input type="hidden" name="id_clinic" value="<?php echo $row['ClinicID'] ?>" />
@@ -834,7 +834,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                                         </div>
                                         <div class="col-md-6">
                                             <label>Update Clinic Profile Picture</label>
-                                            <input type="file" id="cliniclogo" name="cliniclogo" class="form-control" style="width: 100%;"  accept="image/*">
+                                            <input type="file" id="cliniclogo" name="cliniclogo" class="form-control" style="width: 100%;" accept="image/*">
                                         </div>
 
                                     </div>
@@ -891,7 +891,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                                             ?>
                                             <select id="barangay" style="height: 48px; width: 100%; border-radius: 5px;" class="bg-light border-0" name="barangay" placeholder="Barangay" required>
                                                 <option value="<?php echo $row['Barangay'] ?>" selected hidden>&nbsp;&nbsp;<?php echo $row['Barangay'] ?></option>
-                                                <?php foreach ($data as $row1): ?>
+                                                <?php foreach ($data as $row1) : ?>
                                                     <option value="<?= htmlspecialchars($row1['BarangayName']) ?>">
                                                         &nbsp;&nbsp;<?= htmlspecialchars($row1['BarangayName']) ?>
                                                     </option>
@@ -951,23 +951,23 @@ $row_cb = mysqli_num_rows($ret_cb);
                                 <?php
                                 $ret = mysqli_query($con, "SELECT * FROM clinic_billing WHERE clinicID ='$clinicID'");
                                 while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
-                                        <input type="hidden" name="id_clinic" value="<?php echo $row['ClinicID'] ?>" />
-                                        <input type="hidden" name="id_user" value="<?php echo $row['ClinicID'] ?>" />
+                                ?>
+                                    <input type="hidden" name="id_clinic" value="<?php echo $row['ClinicID'] ?>" />
+                                    <input type="hidden" name="id_user" value="<?php echo $row['ClinicID'] ?>" />
 
-                                        <div class="col-md-12">
-                                            <label style="padding-bottom: 5px;">Clinic Profile Picture (Current)</label><br>
-                                            <a href="image_upload/<?php echo $row['BillingImage']; ?>" target="_blank">
-                                                <span name="old" value="<?php echo $row['BillingImage']; ?>">
-                                                    <?php echo $row['BillingImage']; ?>
-                                                </span>
-                                            </a>&nbsp;<a href="image_upload/<?php echo $row['BillingImage']; ?>" target="_blank" download>(Download)</a></span>
-                                        </div>
-                                        <br><br>
-                                        <div class="col-md-12">
-                                            <label>Update Clinic Profile Picture</label>
-                                            <input type="file" id="uClinicQR" name="uClinicQR" class="form-control" style="width: 100%;"  accept="image/*" required="required">
-                                        </div>
+                                    <div class="col-md-12">
+                                        <label style="padding-bottom: 5px;">Clinic Profile Picture (Current)</label><br>
+                                        <a href="image_upload/<?php echo $row['BillingImage']; ?>" target="_blank">
+                                            <span name="old" value="<?php echo $row['BillingImage']; ?>">
+                                                <?php echo $row['BillingImage']; ?>
+                                            </span>
+                                        </a>&nbsp;<a href="image_upload/<?php echo $row['BillingImage']; ?>" target="_blank" download>(Download)</a></span>
+                                    </div>
+                                    <br><br>
+                                    <div class="col-md-12">
+                                        <label>Update Clinic Profile Picture</label>
+                                        <input type="file" id="uClinicQR" name="uClinicQR" class="form-control" style="width: 100%;" accept="image/*" required="required">
+                                    </div>
                                 <?php } ?>
                             </div>
                         </div>
@@ -995,13 +995,13 @@ $row_cb = mysqli_num_rows($ret_cb);
                         <div class="modal-body">
                             <div class="col-md-2"></div>
                             <div class="col-md-12">
-                                        <input type="hidden" name="id_clinic" value="<?php echo $row['ClinicID'] ?>" />
-                                        <input type="hidden" name="id_user" value="<?php echo $row['ClinicID'] ?>" />
+                                <input type="hidden" name="id_clinic" value="<?php echo $row['ClinicID'] ?>" />
+                                <input type="hidden" name="id_user" value="<?php echo $row['ClinicID'] ?>" />
 
-                                        <div class="col-md-12">
-                                            <label>Upload GCash QR</label>
-                                            <input type="file" id="ClinicQR" name="ClinicQR" class="form-control" style="width: 100%;" required="required">
-                                        </div>
+                                <div class="col-md-12">
+                                    <label>Upload GCash QR</label>
+                                    <input type="file" id="ClinicQR" name="ClinicQR" class="form-control" style="width: 100%;" required="required">
+                                </div>
                             </div>
                         </div>
                         <div style="clear:both;"></div>
@@ -1023,7 +1023,7 @@ $row_cb = mysqli_num_rows($ret_cb);
 
         <?php
         //FOR EDITING CLINIC QR
-        
+
         if (isset($_POST['update_qr'])) {
             $ufile_cb = $_FILES['uClinicQR']['name'];
             $utempfile_cb = $_FILES['uClinicQR']['tmp_name'];
@@ -1150,7 +1150,6 @@ $row_cb = mysqli_num_rows($ret_cb);
             } else {
                 echo "<script>alert('Something Went Wrong. Please try again');</script>";
             }
-
         }
 
         ?>
@@ -1161,13 +1160,16 @@ $row_cb = mysqli_num_rows($ret_cb);
         /////////////////////////////////////// FOR UPDATING USER PROFILE (ADMIN) ///////////////////////////////////////
         $anewpass = $_POST['anewpassword'];
 
-        if (isset($_POST['update_admin']) && $anewpass != "") {
+        // Hashed password
+        $ah_pword = password_hash($anewpass, PASSWORD_DEFAULT);
+
+        if (isset($_POST['update_admin']) && $ah_pword != "") {
 
             $ausername = $_POST['ausername'];
             $aemail = $_POST['aemail'];
 
 
-            $query = mysqli_query($con, "UPDATE users SET  Username='$ausername', Password='$anewpass', Email='$aemail' WHERE UserID='$userID'");
+            $query = mysqli_query($con, "UPDATE users SET  Username='$ausername', Password='$ah_pword', Email='$aemail' WHERE UserID='$userID'");
 
             if ($query) {
                 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
@@ -1190,7 +1192,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                 echo "<script>alert('Something Went Wrong. Please try again');</script>";
             }
         }
-        if (isset($_POST['update_admin']) && $anewpass == "") {
+        if (isset($_POST['update_admin']) && $ah_pword == "") {
 
             $username = $_POST['ausername'];
             $aemail = $_POST['aemail'];
@@ -1222,6 +1224,9 @@ $row_cb = mysqli_num_rows($ret_cb);
         /////////////////////////////////////// FOR UPDATING USER PROFILE (CLINIC ADMIN) ///////////////////////////////////////
         $newpass = $_POST['newpassword'];
 
+        // Hashed password
+        $h_pword = password_hash($newpass, PASSWORD_DEFAULT);
+
         if (isset($_POST['update']) && $newpass != "") {
 
             $userID = $_POST['userID'];
@@ -1233,7 +1238,7 @@ $row_cb = mysqli_num_rows($ret_cb);
             $bdate = $_POST['bdate'];
 
 
-            $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Birth_Date='$bdate', Username='$username', Password='$newpass' WHERE UserID='$userID'");
+            $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Birth_Date='$bdate', Username='$username', Password='$h_pword' WHERE UserID='$userID'");
 
             if ($query) {
                 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
@@ -1257,7 +1262,7 @@ $row_cb = mysqli_num_rows($ret_cb);
             }
         }
 
-        if (isset($_POST['update']) && $newpass == "") {
+        if (isset($_POST['update']) && $h_pword == "") {
 
             $userID = $_POST['userID'];
             $fname = $_POST['fname'];

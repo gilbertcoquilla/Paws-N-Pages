@@ -11,8 +11,7 @@ include('connection.php');
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -71,18 +70,13 @@ include('connection.php');
                                 <br>
                             </div>
                             <div class="col-12" style="padding-bottom: 10px;">
-                                <input type="text" name="username" id="username"
-                                    class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;"
-                                    placeholder="Username" required>
+                                <input type="text" name="username" id="username" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Username" required>
                             </div>
                             <div class="col-12" style="padding-bottom: 10px;">
-                                <input type="password" name="newpass" id="newpass"
-                                    class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;"
-                                    placeholder="New Password" required>
+                                <input type="password" name="newpass" id="newpass" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="New Password" required>
                             </div>
                             <div class="col-12">
-                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3"
-                                    style="border-radius:15px;">Submit</button>
+                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3" style="border-radius:15px;">Submit</button>
                             </div>
                             <div class="col-12"></div>
                         </div>
@@ -122,10 +116,15 @@ include('connection.php');
 
         $username = $_POST['username'];
         $password = $_POST['newpass'];
+
+        // Hashed password
+        $h_pword = password_hash($password, PASSWORD_DEFAULT);
+
+        date_default_timezone_set("Asia/Hong_Kong");
         $dateupdated = date_create('now')->format('Y-m-d H:i:s');
 
         // Query for updating data
-        $query = mysqli_query($con, "UPDATE users SET DateTimeModified = '$dateupdated', Password='$password' WHERE Username='$username'");
+        $query = mysqli_query($con, "UPDATE users SET DateTimeModified = '$dateupdated', Password='$h_pword' WHERE Username='$username'");
 
         if ($query) {
             echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';

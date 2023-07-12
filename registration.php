@@ -376,6 +376,9 @@ include("connection.php");
         $email = $_POST['email'];
         $pword = $_POST['password'];
 
+        // Hashed password
+        $h_pword = password_hash($pword, PASSWORD_DEFAULT);
+
         // For address
         $lotno_street = $_POST['lotno_street'];
         $barangay = $_POST['barangay'];
@@ -387,7 +390,7 @@ include("connection.php");
 
         $sqlTable1 = "INSERT INTO users (FirstName, MiddleName, LastName, ContactNo, Birth_Date, UserType, Username, Email, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmtTable1 = $con->prepare($sqlTable1);
-        $stmtTable1->bind_param("sssssssss", $fname, $mname, $lname, $contactno, $bdate, $utype, $uname, $email, $pword);
+        $stmtTable1->bind_param("sssssssss", $fname, $mname, $lname, $contactno, $bdate, $utype, $uname, $email, $h_pword);
         $stmtTable1->execute();
 
         $primaryKey = $con->insert_id;

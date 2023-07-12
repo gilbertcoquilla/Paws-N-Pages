@@ -1,3 +1,8 @@
+<?php
+include('connection.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <!--- NO BACKGROUND YET
@@ -7,8 +12,7 @@
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Login </title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -26,6 +30,8 @@
 
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
 
     <!-- Libraries Stylesheet -->
@@ -50,6 +56,18 @@
             margin: 0;
             padding: 0;
         }
+
+        .password-container {
+            position: relative;
+        }
+
+        .fa-eye {
+            position: absolute;
+            top: 28px;
+            right: 7%;
+            cursor: pointer;
+            color: lightgray;
+        }
     </style>
 </head>
 
@@ -64,23 +82,29 @@
                 <div class="col-md-4">
                     <form method="post" action="">
                         <div class="row g-3 bg-light" style=" border-radius: 15px; padding:30px 30px;">
-                            <center><a href="index.php"><img src="img/logo_black.png"
-                                        style="height:150px; width:150px;"></a></center>
+                            <center><img src="img/logo_black.png" style="height:150px; width:150px;"></center>
+
                             <?php
-                            session_start();
-                            $message = "";
-                            if (count($_POST) > 0) {
-                                $con = mysqli_connect("localhost", "root", "", "pawsnpages_db") or die('Unable to connect');
-                                $result = mysqli_query($con, "SELECT * FROM users WHERE Username='" . $_POST["username"] . "' and Password = '" . $_POST["password"] . "'");
-                                $row = mysqli_fetch_array($result);
 
-                                if (is_array($row)) {
-                                    $_SESSION["id"] = $row['UserID'];
-                                    $_SESSION["name"] = $row['Username'];
-                                    $_SESSION["usertype"] = $row['UserType'];
+                            if (isset($_POST['submit'])) {
 
-                                } else {
-                                    echo '<div class="alert alert-danger" style="border-radius:15px;"><i class="fa fa-times-circle"></i>&nbsp; Invalid Username or Password!</div>';
+                                $user = $_POST['username'];
+                                $pass = $_POST['password'];
+
+                                $sql = mysqli_query($con, "SELECT * FROM users WHERE Username='$user'");
+                                $row = mysqli_num_rows($sql);
+
+                                if ($row == 1) {
+                                    while ($row = mysqli_fetch_assoc($sql)) {
+                                        if (password_verify($pass, $row['Password'])) {
+                                            session_start();
+                                            $_SESSION["id"] = $row['UserID'];
+                                            $_SESSION["name"] = $row['Username'];
+                                            $_SESSION["usertype"] = $row['UserType'];
+                                        } else {
+                                            echo '<div class="alert alert-danger" style="border-radius:15px;"><i class="fa fa-times-circle"></i>&nbsp; Invalid Username or Password!</div>';
+                                        }
+                                    }
                                 }
                             }
 
@@ -93,27 +117,27 @@
                                     header("Location:dashboard.php"); // redirects the user to the defined page
                                 }
                             }
+
                             ?>
+
+
                             <div class="col-12">
-                                <input type="text" name="username" id="username"
-                                    class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;"
-                                    placeholder="Username">
+                                <input type="text" name="username" id="username" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Username">
                             </div>
                             <div class="col-12">
-                                <input type="password" name="password" id="password"
-                                    class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;"
-                                    placeholder="Password">
+                                <div class="password-container">
+                                    <input type="password" name="password" id="password" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Password">
+                                    <i class="fa-solid fa-eye" id="eye"></i>
+                                </div>
                             </div>
                             <div class="col-6 ">
                                 <a href="forgot_password.php">Forgot Password?</a>
                             </div>
                             <div class="col-12">
-                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3"
-                                    style="border-radius:15px;">Submit</button>
+                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3" style="border-radius:15px;">Submit</button>
                             </div>
                             <center>
-                                <div class="col-12" style="padding-top:30px;">Don't have an account? <a
-                                        href="vet-or-pet.php">Sign Up</a></div>
+                                <div class="col-12" style="padding-top:30px;">Don't have an account? <a href="vet-or-pet.php">Sign Up</a></div>
                             </center>
 
                         </div>
@@ -163,6 +187,19 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+        // Show password
+        const passwordInput = document.querySelector("#password");
+        const eye = document.querySelector("#eye");
+
+        eye.addEventListener("click", function() {
+            this.classList.toggle("fa-eye-slash")
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
+            passwordInput.setAttribute("type", type)
+        });
+    </script>
+
 </body>
 
 </html>
