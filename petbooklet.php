@@ -498,8 +498,8 @@ padding-bottom:5.5em;
                                                     <select name="Status2" id="Status2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
                                                         <option selected disabled>-- Update Status --</option>
                                                         <option value="Pending">Pending</option>
+                                                        <option value="Approved">Approved</option>
                                                         <option value="Denied">Denied</option>
-                                                        <option value="Confirmed">Confirmed</option>
                                                     </select>
                                                 </div>
                                             </div>
