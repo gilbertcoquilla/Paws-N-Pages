@@ -12,8 +12,7 @@ include("connection.php");
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Registration</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -30,8 +29,7 @@ include("connection.php");
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css'>
     <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- Newly added -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -126,66 +124,48 @@ include("connection.php");
                             <br>
 
                             <!-- Content 1 -->
-                            <div class="samples row g-3 bg-light" id="content1"
-                                style=" border-radius: 15px;  padding-left:30px; padding-right:10px;">
-                                <ul id="tabs" role="tablist" class="nav nav-underline nav-fill "
-                                    style="padding-bottom:30px;">
+                            <div class="samples row g-3 bg-light" id="content1" style=" border-radius: 15px;  padding-left:30px; padding-right:10px;">
+                                <ul id="tabs" role="tablist" class="nav nav-underline nav-fill " style="padding-bottom:30px;">
                                     <li class="nav-link active"><b><i class="fa fa-user"></i>&nbsp;&nbsp;Personal
                                             Infromation</b></li>
-                                    <li class="nav-link" disabled><b><i
-                                                class="fa fa-map-pin"></i>&nbsp;&nbsp;Address</b></li>
+                                    <li class="nav-link" disabled><b><i class="fa fa-map-pin"></i>&nbsp;&nbsp;Address</b></li>
                                 </ul>
                                 <div class="row" style="padding-bottom:10px;">
                                     <div class="col-4 ">
                                         <p>&nbsp;&nbsp;First Name</p>
-                                        <input type="text" name="fname"
-                                            class="form-control  bg-light border-3 px-4 py-3"
-                                            style="border-radius:15px;" placeholder="Enter First Name" required>
+                                        <input type="text" name="fname" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Enter First Name" required>
                                     </div>
                                     <div class="col-4 ">
                                         <p>&nbsp;&nbsp;Middle Name</p>
-                                        <input type="text" name="mname"
-                                            class="form-control  bg-light border-3 px-4 py-3"
-                                            style="border-radius:15px;" placeholder="Enter Middle Name" required>
+                                        <input type="text" name="mname" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Enter Middle Name" required>
                                     </div>
                                     <div class="col-4">
                                         <p>&nbsp;&nbsp;Last Name</p>
-                                        <input type="text" name="lname"
-                                            class="form-control  bg-light border-3 px-4 py-3"
-                                            style="border-radius:15px;" placeholder="Enter Last Name" required>
+                                        <input type="text" name="lname" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Enter Last Name" required>
                                     </div>
                                 </div>
                                 <div class="row" style="padding-bottom:10px;">
                                     <div class="col-6">
                                         <p>&nbsp;&nbsp;Phone No.</p>
-                                        <input type="text" name="phone" pattern="^(09|\+639)\d{9}$" minlength="11"
-                                            maxlength="11" class="form-control  bg-light border-3 px-4 py-3"
-                                            style="border-radius:15px;" placeholder="09XX XXX XXXX" required>
+                                        <input type="text" name="phone" pattern="^(09|\+639)\d{9}$" minlength="11" maxlength="11" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="09XX XXX XXXX" required>
                                     </div>
                                     <div class="col-6">
                                         <p>&nbsp;&nbsp;Birthdate</p>
-                                        <input type="date" name="birthdate"
-                                            class="form-control  bg-light border-3 px-4 py-3"
-                                            style="border-radius:15px;" placeholder="Birthdate" required>
+                                        <input type="date" name="birthdate" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Birthdate" required>
                                     </div>
                                 </div>
                                 <div class="row" style="padding-bottom:10px;">
                                     <div class="col-5">
                                         <p>&nbsp;&nbsp;Username</p>
-                                        <input type="text" name="username"
-                                            class="form-control  bg-light border-3 px-4 py-3"
-                                            style="border-radius:15px;" placeholder="Enter Username" required>
+                                        <input type="text" name="username" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Enter Username" required>
                                     </div>
                                     <div class="col-7">
-                                        <p>&nbsp;&nbsp;Username</p>
-                                        <input type="email" name="email"
-                                            class="form-control  bg-light border-3 px-4 py-3"
-                                            style="border-radius:15px;" placeholder="Enter Email" required>
+                                        <p>&nbsp;&nbsp;Email</p>
+                                        <input type="email" name="email" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Enter Email" required>
                                     </div>
                                 </div>
                                 <div class="col-12" style="display: none;">
-                                    <select name="usertype" class="form-control  bg-light border-3 px-4 py-3"
-                                        style="border-radius:15px;" placeholder="User Type" required>
+                                    <select name="usertype" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="User Type" required>
                                         <option value="Pet Owner" selected>Pet Owner</option>
                                     </select>
                                 </div>
@@ -194,14 +174,10 @@ include("connection.php");
                                     <div class="col-12">
                                         <!-- Minimum eight characters, at least one uppercase letter, one lowercase letter and one number: -->
                                         <div class="password-container">
-                                            <input type="password" name="password" id="pword" minlength="8"
-                                                maxlength="16" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
-                                                class="form-control  bg-light border-3 px-4 py-3"
-                                                style="border-radius:15px;" placeholder="Enter Password" required>
+                                            <input type="password" name="password" id="pword" minlength="8" maxlength="16" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Enter Password" required>
                                             <i class="fa-solid fa-eye" id="eye"></i>
                                         </div>
-                                        <p id="message"
-                                            style="display: none;font-style: italic; font-size: 15px; padding-top: 10px;">
+                                        <p id="message" style="display: none;font-style: italic; font-size: 15px; padding-top: 10px;">
                                             &nbsp;&nbsp;&nbsp;&nbsp;<span id="length" class="invalid">*Minimum of (8)
                                                 characters</span>, <span id="capital" class="invalid">at least (1)
                                                 uppercase letter</span>, <span id="letter" class="invalid">(1) lowercase
@@ -209,16 +185,11 @@ include("connection.php");
                                         </p>
                                     </div>
                                     <div class="col-12">
-                                        <div class="row"
-                                            style="padding-top: 20px; padding-bottom: 30px; padding-left: 10px;">
+                                        <div class="row" style="padding-top: 20px; padding-bottom: 30px; padding-left: 10px;">
                                             <div class="col-md-8">
                                             </div>
                                             <div class="col-md-4">
-                                                <button type="button" class="bts btn btn-primary"
-                                                    onclick="showContent('content2')"
-                                                    style="border-radius: 10px; width:100%; height: 60px; float: right;"
-                                                    id="nextbtn">Next&nbsp;&nbsp;<i
-                                                        class="bi bi-chevron-right"></i></button>
+                                                <button type="button" class="bts btn btn-primary" onclick="showContent('content2')" style="border-radius: 10px; width:100%; height: 60px; float: right;" id="nextbtn">Next&nbsp;&nbsp;<i class="bi bi-chevron-right"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -228,22 +199,16 @@ include("connection.php");
 
 
                             <!-- Content 2 -->
-                            <div class="samples row g-3 bg-light" id="content2"
-                                style="border-radius: 15px; padding-left:30px; padding-right:10px;">
-                                <ul id="tabs" role="tablist" class="nav nav-underline nav-fill "
-                                    style="padding-bottom:30px;">
+                            <div class="samples row g-3 bg-light" id="content2" style="border-radius: 15px; padding-left:30px; padding-right:10px;">
+                                <ul id="tabs" role="tablist" class="nav nav-underline nav-fill " style="padding-bottom:30px;">
                                     <li class="nav-link" disabled><b><i class="fa fa-user"></i>&nbsp;&nbsp;Personal
                                             Infromation</b></li>
-                                    <li class="nav-link active" disabled><b><i
-                                                class="fa fa-map-pin"></i>&nbsp;&nbsp;Address</b></li>
+                                    <li class="nav-link active" disabled><b><i class="fa fa-map-pin"></i>&nbsp;&nbsp;Address</b></li>
                                 </ul>
                                 <div class="row" style="padding-bottom:10px;">
                                     <div class="col-12">
                                         <p>&nbsp;&nbsp;House/Lot No. & Street</p>
-                                        <input type="text" name="lotno_street"
-                                            class="form-control  bg-light border-3 px-4 py-3"
-                                            style="border-radius:15px;" placeholder="Enter House/Lot No. & Street"
-                                            required>
+                                        <input type="text" name="lotno_street" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Enter House/Lot No. & Street" required>
                                     </div>
                                 </div>
 
@@ -254,11 +219,9 @@ include("connection.php");
                                         $sql = mysqli_query($con, "SELECT BarangayName FROM Barangay");
                                         $data = $sql->fetch_all(MYSQLI_ASSOC);
                                         ?>
-                                        <select id="barangay" class="bg-light border-3 px-4 py-3"
-                                            style="border-radius:15px; border-color:#ced4da; height:60%; width: 100%;"
-                                            name="barangay" placeholder="Barangay" required>
+                                        <select id="barangay" class="bg-light border-3 px-4 py-3" style="border-radius:15px; border-color:#ced4da; height:60%; width: 100%;" name="barangay" placeholder="Barangay" required>
                                             <option selected disabled>Please choose a barangay</option>
-                                            <?php foreach ($data as $row): ?>
+                                            <?php foreach ($data as $row) : ?>
                                                 <option value="<?= htmlspecialchars($row['BarangayName']) ?>">
                                                     <?= htmlspecialchars($row['BarangayName']) ?>
                                                 </option>
@@ -267,37 +230,27 @@ include("connection.php");
                                     </div>
                                     <div class="col-6">
                                         <p>&nbsp;&nbsp;City</p>
-                                        <input type="text" name="city" class="form-control bg-light border-3 px-4 py-3"
-                                            style="border-radius:15px;" value="Quezon City" readonly>
+                                        <input type="text" name="city" class="form-control bg-light border-3 px-4 py-3" style="border-radius:15px;" value="Quezon City" readonly>
                                     </div>
                                 </div>
                                 <div class="row" style="padding-bottom:30px;">
                                     <div class="col-6">
                                         <p>&nbsp;&nbsp;Province</p>
-                                        <input type="text" name="province"
-                                            class="form-control bg-light border-3 px-4 py-3" style="border-radius:15px;"
-                                            value="NCR" readonly>
+                                        <input type="text" name="province" class="form-control bg-light border-3 px-4 py-3" style="border-radius:15px;" value="NCR" readonly>
                                     </div>
                                     <div class="col-6">
                                         <p>&nbsp;&nbsp;ZIP Code</p>
-                                        <input type="text" name="zipcode"
-                                            class="form-control bg-light border-3 px-4 py-3" style="border-radius:15px;"
-                                            placeholder="Enter ZIP Code" required>
+                                        <input type="text" name="zipcode" class="form-control bg-light border-3 px-4 py-3" style="border-radius:15px;" placeholder="Enter ZIP Code" required>
                                     </div>
                                 </div>
 
                                 <div class="row" style="padding-bottom:30px; padding-left:10px; padding-right:10px;">
                                     <div class="col-md-4">
-                                        <button type="button" onclick="showContent('content1')"
-                                            class="btss btn btn-primary"
-                                            style="border-radius: 10px; width:100%; height: 60px;" id="nextbtn"><i
-                                                class="bi bi-chevron-left"></i>&nbsp;&nbsp;Previous</button>
+                                        <button type="button" onclick="showContent('content1')" class="btss btn btn-primary" style="border-radius: 10px; width:100%; height: 60px;" id="nextbtn"><i class="bi bi-chevron-left"></i>&nbsp;&nbsp;Previous</button>
                                     </div>
                                     <div class="col-md-4"></div>
                                     <div class="col-md-4">
-                                        <button type="submit" class="btn btn-primary"
-                                            style="border-radius: 10px; width:100%; height:60px;" id="submitbtn"
-                                            name="submitbtn">Submit</button>
+                                        <button type="submit" class="btn btn-primary" style="border-radius: 10px; width:100%; height:60px;" id="submitbtn" name="submitbtn">Submit</button>
                                     </div>
                                 </div>
                             </div>
@@ -336,7 +289,7 @@ include("connection.php");
         const passwordInput = document.querySelector("#pword");
         const eye = document.querySelector("#eye");
 
-        eye.addEventListener("click", function () {
+        eye.addEventListener("click", function() {
             this.classList.toggle("fa-eye-slash")
             const type = passwordInput.getAttribute("type") === "password" ? "text" : "password"
             passwordInput.setAttribute("type", type)
@@ -350,17 +303,17 @@ include("connection.php");
         var length = document.getElementById("length");
 
         // When the user clicks on the password field, show the message box
-        myInput.onfocus = function () {
+        myInput.onfocus = function() {
             document.getElementById("message").style.display = "block";
         }
 
         // When the user clicks outside of the password field, hide the message box
-        myInput.onblur = function () {
+        myInput.onblur = function() {
             document.getElementById("message").style.display = "none";
         }
 
         // When the user starts to type something inside the password field
-        myInput.onkeyup = function () {
+        myInput.onkeyup = function() {
             // Validate lowercase letters
             var lowerCaseLetters = /[a-z]/g;
             if (myInput.value.match(lowerCaseLetters)) {
