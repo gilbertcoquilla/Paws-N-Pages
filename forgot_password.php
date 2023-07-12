@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -68,25 +69,19 @@ require 'src/SMTP.php';
                 <div class="col-lg-6 ">
 
                     <form method="post" action="">
-                        <div class="row g-3 bg-dark">
-                            <div class="col-6 ">
-                                <input type="button" class="btn btn-primary w-100 py-3"
-                                    onclick="window.location='registration.php'" value="SIGN UP">
-                            </div>
-                            <div class="col-6">
-                                <input type="button" class="btn btn-outline-light w-100 py-3"
-                                    onclick="window.location='login.php'" value="LOG IN">
-                            </div>
+                        <div class="row g-3 bg-light" style="border-radius: 15px; padding: 30px 30px;">
                             <div class="col-12">
                                 <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Password Reset</h5>
+                                <br>
                             </div>
-                            <div class="col-6">
-                                <input type="text" name="email" id="email"
-                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Email Address"
-                                    required>
+
+                            <div class="col-8">
+                                <input type="text" name="email" id="email" class="form-control  bg-light border-3 px-4"
+                                    style="border-radius: 15px; height: 60px;" placeholder="Email Address" required>
                             </div>
-                            <div class="col-6">
-                                <button type="submit" name="reset" class="btn btn-primary w-100 py-3">Reset</button>
+                            <div class="col-4">
+                                <button type="submit" style="border-radius: 15px; height: 60px;" name="reset"
+                                    class="btn btn-primary w-100 ">Reset</button>
                             </div>
                             <div class="col-12"></div>
                         </div>
@@ -137,8 +132,8 @@ require 'src/SMTP.php';
                             <br/><br/>If you require any further assistance or have any questions, please contact our team at <b>pawsnpages.site@gmail.com.</b>  
                             <br>We are available to help you.
 
-                            <br/><br/>Best regards,
-                            <br/>Paws N Pages';
+                            <br/><br/><BR/>Best regards,
+                            Paws N Pages';
             $conn = mysqli_connect("localhost", "root", "", "pawsnpages_db") or die('Unable to connect');
             $verifyQuery = $conn->query("SELECT * FROM users WHERE email = '$email'");
             if ($verifyQuery->num_rows) {
