@@ -65,29 +65,24 @@ include('connection.php');
                 <div class="col-lg-6 ">
 
                     <form method="post" action="">
-                        <div class="row g-3 bg-dark">
-                            <div class="col-6 ">
-                                <input type="button" class="btn btn-primary w-100 py-3"
-                                    onclick="window.location='registration.php'" value="SIGN UP">
-                            </div>
-                            <div class="col-6">
-                                <input type="button" class="btn btn-outline-light w-100 py-3"
-                                    onclick="window.location='login.php'" value="LOG IN">
-                            </div>
+                        <div class="row g-3 bg-light" style="border-radius: 15px; padding:30px 30px;">
                             <div class="col-12">
                                 <h5 class="display-5 text-primary text-uppercase mb-0 text-center">Change Password</h5>
+                                <br>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12" style="padding-bottom: 10px;">
                                 <input type="text" name="username" id="username"
-                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="Username" required>
+                                    class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;"
+                                    placeholder="Username" required>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12" style="padding-bottom: 10px;">
                                 <input type="password" name="newpass" id="newpass"
-                                    class="form-control  bg-light border-0 px-4 py-3" placeholder="New Password"
-                                    required>
+                                    class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;"
+                                    placeholder="New Password" required>
                             </div>
                             <div class="col-12">
-                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3">Submit</button>
+                                <button type="submit" name="submit" class="btn btn-primary w-100 py-3"
+                                    style="border-radius:15px;">Submit</button>
                             </div>
                             <div class="col-12"></div>
                         </div>
