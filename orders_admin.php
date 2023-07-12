@@ -451,7 +451,7 @@ $clinicID = $row_ca['ClinicID'];
                                                     <?php }
                                                     if ($status === 'Approved') { ?>
                                                         <a
-                                                            style="color:white; font-size:12px; padding: 5px 7px;  border-radius:10px; background-color:#0096FF;">
+                                                            style="color:white; font-size:12px; padding: 5px 22px;  border-radius:10px; background-color:#0096FF;">
                                                             <?php echo $row['OrderStatus']; ?>
                                                         </a>
                                                     <?php }
@@ -565,7 +565,7 @@ $clinicID = $row_ca['ClinicID'];
                                                     <?php }
                                                     if ($status === 'Approved') { ?>
                                                         <a
-                                                            style="color:white; font-size:12px; padding: 5px 7px;  border-radius:10px; background-color:#0096FF;">
+                                                            style="color:white; font-size:12px; padding: 5px 22px;  border-radius:10px; background-color:#0096FF;">
                                                             <?php echo $row['OrderStatus']; ?>
                                                         </a>
                                                     <?php }
@@ -693,7 +693,7 @@ $clinicID = $row_ca['ClinicID'];
                                                     <option selected disabled>-- Update Status --</option>
                                                     <option value="Pending">Pending</option>
                                                     <option value="Denied">Denied</option>
-                                                    <option value="Order Received">Approved</option>
+                                                    <option value="Approved">Approved</option>
                                                     <option value="To Ship">To Ship</option>
                                                     <option value="Completed">Completed</option>
                                                 </select>
