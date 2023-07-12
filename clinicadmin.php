@@ -788,7 +788,7 @@ $clinicID = $row_ca['ClinicID'];
                                         <input type="hidden" name="id_user" value="<?php echo $row['ClinicID'] ?>" />
 
                                         <div class="col-md-6">
-                                            <label style="padding-bottom: 5px;">Clinic Logo (Current)</label><br>
+                                            <label style="padding-bottom: 5px;">Clinic Profile Picture (Current)</label><br>
                                             <a href="clinic_verification/<?php echo $row['ClinicImage']; ?>" target="_blank">
                                                 <span name="old" value="<?php echo $row['ClinicImage']; ?>">
                                                     <?php echo $row['ClinicImage']; ?>
@@ -797,8 +797,8 @@ $clinicID = $row_ca['ClinicID'];
 
                                         </div>
                                         <div class="col-md-6">
-                                            <label>Update Clinic Logo</label>
-                                            <input type="file" id="cliniclogo" name="cliniclogo" class="form-control" style="width: 100%;" />
+                                            <label>Update Clinic Profile Picture</label>
+                                            <input type="file" id="cliniclogo" name="cliniclogo" class="form-control" style="width: 100%;"  accept="image/*">
                                         </div>
 
                                     </div>
