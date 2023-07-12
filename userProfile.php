@@ -450,6 +450,15 @@ $row_a = mysqli_fetch_array($ret_a);
                                     <input type="text" name="email" value="<?php echo $row['Email'] ?>"
                                         class="form-control" />
                                 </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" name="password" value="<?php echo $row['Password'] ?>"
+                                        class="form-control" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label>New Password</label>
+                                    <input type="password" name="newpass" class="form-control" />
+                                </div>
                             <?php } ?>
                         </div>
                     </div>
@@ -679,28 +688,32 @@ $row_a = mysqli_fetch_array($ret_a);
         $cnum = $_POST['cnum'];
         $username = $_POST['username'];
         $bdate = $_POST['birthdate'];
+        $newpass = $_POST['newpass'];
 
         date_default_timezone_set("Asia/Hong_Kong");
         $currentDateTime = date('y-m-d h:i:sa');
 
-        $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Birth_Date='$bdate', Username='$username', DateTimeModified='$currentDateTime' WHERE UserID='$userID'");
+        if ($newpass == null)
+            $newpass = $_POST['password'];
+
+        $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Birth_Date='$bdate', Username='$username', DateTimeModified='$currentDateTime', Password='$newpass' WHERE UserID='$userID'");
 
         if ($query) {
             echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
             echo '<script>';
             echo 'swal({
-                                            title: "Success",
-                                            text: "You have successfully updated your information",
-                                            icon: "success",
-                                            html: true,
-                                            showCancelButton: true,
-                                            })
-                                                .then((willDelete) => {
-                                                    if (willDelete) {
-                                                    
-                                                        document.location ="userprofile.php";
-                                                    }
-                                                })';
+                                        title: "Success",
+                                        text: "You have successfully updated your information",
+                                        icon: "success",
+                                        html: true,
+                                        showCancelButton: true,
+                                        })
+                                            .then((willDelete) => {
+                                                if (willDelete) {
+                                                
+                                                    document.location ="userprofile.php";
+                                                }
+                                            })';
             echo '</script>';
         } else {
             echo "<script>alert('Something Went Wrong. Please try again');</script>";
