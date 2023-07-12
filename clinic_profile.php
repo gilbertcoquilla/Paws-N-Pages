@@ -15,8 +15,7 @@ $_SESSION['clinic_id'] = $clinic_id;
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Clinic</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -169,11 +168,28 @@ $_SESSION['clinic_id'] = $clinic_id;
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="index.php" class="nav-item nav-link active">Home</a>
-                <a href="clinics.php" class="nav-item nav-link">Clinics</a>
-                <a href="contact.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">Profile
-                    <i class="bi bi-arrow-right"></i></a>
+                <a href="index.php" class="nav-item nav-link">Home</a>
+                <a href="clinics.php" class="nav-item nav-link active">Clinics</a>
+                <a href="contact.php" class="nav-item nav-link">Contact Us</a>
+                <a href="about.php" class="nav-item nav-link">About Us</a>
 
+                <?php if ($_SESSION["id"] > 0) { ?>
+                    <a href="userProfile.php" class="nav-item nav-link">Profile</a>
+                    <a href="logout.php" class="nav-item nav-link">Logout
+                        <i class="bi bi-arrow-right"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+
+
+                <?php } else { ?>
+
+                    <a href="login.php" class="nav-item nav-link">Login</a>
+                    <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
+                        US
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                <?php } ?>
             </div>
         </div>
         <!-- <button type="button" class="btn" id="openCartBtn"><i class="bi bi-cart"></i></button> -->
@@ -197,7 +213,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                     if ($row > 0) {
                         while ($row = mysqli_fetch_array($ret)) {
 
-                            ?>
+                    ?>
                             <div style="padding-bottom: 25px;">
                                 <?php if ($row['ClinicImage'] != "") {
                                     echo '<a href="clinic_profile.php?clinicid=' . $row['ClinicID'] . '"><img src=image_upload/' . $row['ClinicImage'] . ' style="object-fit: cover; width: 100%; height: 100%;"></a>';
@@ -215,49 +231,44 @@ $_SESSION['clinic_id'] = $clinic_id;
                                 $row1 = mysqli_num_rows($ret1);
                                 if ($row1 > 0) {
                                     while ($row1 = mysqli_fetch_array($ret1)) {
-                                        ?>
-                                    <p>
-                                        <?php echo $row1['LotNo_Street'] . '<br/> Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City'] ?><br /><br />
-                                        <?php echo '<b>Operating Hours: </b>' . date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?><br />
-                                        <?php echo '<b>Operating Days: </b>' . $row1['OperatingDays'] ?>
-                                    </p>
-                                    <?php
+                                ?>
+                            <p>
+                                <?php echo $row1['LotNo_Street'] . '<br/> Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City'] ?><br /><br />
+                                <?php echo '<b>Operating Hours: </b>' . date('h:i A', strtotime($row['OpeningTime'])) . ' - ' . date('h:i A', strtotime($row['ClosingTime'])) ?><br />
+                                <?php echo '<b>Operating Days: </b>' . $row1['OperatingDays'] ?>
+                            </p>
+                    <?php
                                     }
                                 } ?>
 
 
-                            <?php
+                    <?php
                             $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id' LIMIT 4");
                             $cnt2 = 1;
                             $row2 = mysqli_num_rows($ret2);
                             if ($row2 > 0) {
                                 while ($row2 = mysqli_fetch_array($ret2)) {
-                                    ?>
-                                    <span
-                                        style="background-color: rgb(102, 176, 50); border-radius: 6px; color:white; padding-top: 2px; padding-bottom: 3px;">
-                                        &nbsp;
-                                        <?php echo ' ' . $row2['ServiceName'] . ' ' ?> &nbsp;
-                                    </span>&nbsp;
-                                    <?php
+                    ?>
+                            <span style="background-color: rgb(102, 176, 50); border-radius: 6px; color:white; padding-top: 2px; padding-bottom: 3px;">
+                                &nbsp; <?php echo ' ' . $row2['ServiceName'] . ' ' ?> &nbsp;
+                            </span>&nbsp;
+            <?php
                                 }
                             }
                         }
                     } ?>
-                    <br />
-                    <br />
+            <br />
+            <br />
 
-                    <?php if ($_SESSION["id"] != "") { ?>
-                        <br>
-                        <a class="btn btn-primary m-1"
-                            href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>"
-                            style="text-align:center; border-radius: 15px;">Book an appointment
-                        </a>
+            <?php if ($_SESSION["id"] != "") { ?>
+                <br>
+                <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:center; border-radius: 15px;">Book an appointment
+                </a>
 
-                        <br>
-                        <a class="btn btn-primary m-1" data-toggle="modal" data-target="#view_services"
-                            style="text-align:center; border-radius: 15px; width: 73%;">View Services
-                        </a>
-                    <?php } ?>
+                <br>
+                <a class="btn btn-primary m-1" data-toggle="modal" data-target="#view_services" style="text-align:center; border-radius: 15px; width: 95%;">View Services
+                </a>
+            <?php } ?>
 
                 </div>
             </div>
@@ -266,9 +277,7 @@ $_SESSION['clinic_id'] = $clinic_id;
             <!-- PRODUCTS START -->
             <div class="col-lg-9">
                 <div class="border-start border-5 border-primary ps-5 mb-5" style="width: 112%;">
-                    <h2 class="text-primary text-uppercase">Products <a style="float: right;"
-                            href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i
-                                class="fa fa-shopping-cart"></i></a></h2>
+                    <h2 class="text-primary text-uppercase">Products <a style="float: right;" href="cart.php?clinicid='<?php echo htmlentities($clinic_id); ?>"><i class="fa fa-shopping-cart"></i></a></h2>
                 </div>
 
                 <div class="pcards">
@@ -278,7 +287,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                     $row = mysqli_num_rows($ret);
                     if ($row > 0) {
                         while ($row = mysqli_fetch_array($ret)) {
-                            ?>
+                    ?>
                             <div class="bg-light d-flex flex-column text-center" style="border-radius: 15px;">
                                 <div class="image-container" style="border-radius: 15px 15px 0px 0px;">
                                     <?php if ($row['SupplyImage'] != "") {
@@ -286,8 +295,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                                     } ?>
                                 </div>
                                 <br>
-                                <a style="color: black;"
-                                    href="product.php?productid=<?php echo htmlentities($row['SupplyID']); ?>">
+                                <a style="color: black;" href="product.php?productid=<?php echo htmlentities($row['SupplyID']); ?>">
                                     <div class="product-info">
                                         <h6 class="text-uppercase">
 
@@ -311,7 +319,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                                     </div>
                                 </a>
                             </div>
-                            <?php
+                    <?php
                             $cnt = $cnt + 1;
                         }
                     }
@@ -339,24 +347,18 @@ $_SESSION['clinic_id'] = $clinic_id;
                         $row = mysqli_num_rows($ret);
                         if ($row > 0) {
                             while ($row = mysqli_fetch_array($ret)) {
-                                ?>
+                        ?>
 
                                 <div class="testimonial-item text-center">
                                     <div class="position-relative mb-4">
                                     </div>
-                                    <p>
-                                        <?php echo $row['OverallFeedback'] ?>
-                                    </p>
+                                    <p><?php echo $row['OverallFeedback'] ?></p>
                                     <hr class="w-25 mx-auto">
-                                    <h5 class="text-uppercase">
-                                        <?php echo $row['Rating'] ?>/5
-                                    </h5>
-                                    <span>-
-                                        <?php echo $row['FirstName'] ?>
-                                    </span>
+                                    <h5 class="text-uppercase"><?php echo $row['Rating'] ?>/5</h5>
+                                    <span>- <?php echo $row['FirstName'] ?></span>
                                 </div>
 
-                                <?php
+                            <?php
                             }
                         } else { ?>
 
@@ -381,8 +383,7 @@ $_SESSION['clinic_id'] = $clinic_id;
 
 
     <!-- Modal Start -->
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -425,8 +426,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                             <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                                 <div class="card-header userProfile-font"><b>List of Services</b></div>
                                 <div class="card-body text-center">
-                                    <table class="table table-striped table-hover" style="border:0px; text-align: left;"
-                                        id="orders">
+                                    <table class="table table-striped table-hover" style="border:0px; text-align: left;" id="orders">
                                         <thead style="border:0px;">
                                             <tr class="table100-head" style="border:0px;">
                                                 <th class="column1" style="border:0px;">Service</th>
@@ -442,28 +442,21 @@ $_SESSION['clinic_id'] = $clinic_id;
                                             if ($row > 0) {
                                                 while ($row = mysqli_fetch_array($ret)) {
 
-                                                    ?>
+                                            ?>
                                                     <!--Fetch the Records -->
                                                     <tr style="border:0px;">
-                                                        <td style="border:0px;">
-                                                            <?php echo $row['ServiceName'] ?>
-                                                        </td>
-                                                        <td style="border:0px;">
-                                                            <?php echo $row['ServiceDescription'] ?>
-                                                        </td>
-                                                        <td style="border:0px;">
-                                                            <?php echo $row['ServicePrice']; ?>
-                                                        </td>
+                                                        <td style="border:0px;"><?php echo $row['ServiceName'] ?></td>
+                                                        <td style="border:0px;"><?php echo $row['ServiceDescription'] ?></td>
+                                                        <td style="border:0px;"><?php echo $row['ServicePrice']; ?></td>
                                                     </tr>
-                                                    <?php
+                                                <?php
                                                     $cnt = $cnt + 1;
                                                 }
                                             } else { ?>
-                                            <tr style="border:0px;">
-                                                <td style="text-align:center; color:red; border:0px;" colspan="8">No
-                                                    Record Found
-                                                </td>
-                                            </tr>
+                                                <tr style="border:0px;">
+                                                    <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found
+                                                    </td>
+                                                </tr>
                                             <?php } ?>
 
                                         </tbody>
@@ -478,8 +471,7 @@ $_SESSION['clinic_id'] = $clinic_id;
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span
-                            class="glyphicon glyphicon-remove"></span> Close</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
                 </div>
 
             </div>
@@ -495,10 +487,8 @@ $_SESSION['clinic_id'] = $clinic_id;
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
-                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
-                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
                     <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
                         762 6162</a>
                 </div>
@@ -506,14 +496,10 @@ $_SESSION['clinic_id'] = $clinic_id;
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="index.php#services"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="index.php#founders"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="index.php#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="index.php#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
@@ -554,9 +540,7 @@ $_SESSION['clinic_id'] = $clinic_id;
     <script src="js/main.js"></script>
 
     <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
     <!-- Contact Form JavaScript File -->
@@ -565,7 +549,7 @@ $_SESSION['clinic_id'] = $clinic_id;
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var cartItems = [];
 
             function updateCart() {
@@ -589,7 +573,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                 $("#cartItems").html(cartContent);
             }
 
-            $(document).on("click", ".remove-btn", function () {
+            $(document).on("click", ".remove-btn", function() {
                 var index = $(this).data("index");
                 cartItems.splice(index, 1);
                 updateCart();
@@ -601,7 +585,7 @@ $_SESSION['clinic_id'] = $clinic_id;
 
 
             function addToCart(name) {
-                var index = cartItems.findIndex(function (item) {
+                var index = cartItems.findIndex(function(item) {
                     return item.name === name;
                 });
                 if (index === -1) {
@@ -615,17 +599,17 @@ $_SESSION['clinic_id'] = $clinic_id;
                 updateCart();
             }
 
-            $(document).on("click", "#openCartBtn", function () {
+            $(document).on("click", "#openCartBtn", function() {
                 updateCart();
                 $("#cartModal").modal("show");
             });
 
-            $(document).on("click", "#addToCart", function () {
+            $(document).on("click", "#addToCart", function() {
                 var productName = $(this).closest(".product-item").find("h6").text();
                 addToCart(productName);
             });
 
-            $(document).on("click", ".quantity-btn", function () {
+            $(document).on("click", ".quantity-btn", function() {
                 var index = $(this).data("index");
                 var action = $(this).data("action");
                 if (action === "increase") {
@@ -639,7 +623,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                 updateCart();
             });
 
-            $(document).on("click", "#checkoutBtn", function () {
+            $(document).on("click", "#checkoutBtn", function() {
                 // Handle checkout logic here
                 console.log("Checkout button clicked");
             });
@@ -648,14 +632,14 @@ $_SESSION['clinic_id'] = $clinic_id;
     <!-- Add the JavaScript code at the bottom of your HTML file -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Close button click event
-            $('#cartModal .close').click(function () {
+            $('#cartModal .close').click(function() {
                 $('#cartModal').modal('hide');
             });
 
             // Checkout button click event
-            $('#checkoutBtn').click(function () {
+            $('#checkoutBtn').click(function() {
                 // Perform the checkout action here
                 // You can add your own code to handle the checkout process
                 alert('Checkout button clicked!');

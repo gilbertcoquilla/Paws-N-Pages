@@ -25,8 +25,7 @@ $sum_q = $row_q['total_items'];
 <head>
   <meta charset="utf-8">
   <title>Paws N Pages | Cart</title>
-  <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-    type="image/x-icon">
+  <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="Free HTML Templates" name="keywords">
   <meta content="Free HTML Templates" name="description">
@@ -65,13 +64,28 @@ $sum_q = $row_q['total_items'];
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <div class="navbar-nav ms-auto py-0">
-        <a href="index.php" class="nav-item nav-link active">Home</a>
-        <a href="clinics.php" class="nav-item nav-link">Clinics</a>
-        <a href="inventory_management.php" class="nav-item nav-link">Inventory</a>
+        <a href="index.php" class="nav-item nav-link">Home</a>
+        <a href="clinics.php" class="nav-item nav-link active">Clinics</a>
         <a href="contact.php" class="nav-item nav-link">Contact Us</a>
-        <a href="logout.php" class="nav-item nav-link">Logout</a>
-        <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN US
-          <i class="bi bi-arrow-right"></i></a>
+        <a href="about.php" class="nav-item nav-link">About Us</a>
+
+        <?php if ($_SESSION["id"] > 0) { ?>
+          <a href="userProfile.php" class="nav-item nav-link">Profile</a>
+          <a href="logout.php" class="nav-item nav-link">Logout
+            <i class="bi bi-arrow-right"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </a>
+
+
+        <?php } else { ?>
+
+          <a href="login.php" class="nav-item nav-link">Login</a>
+          <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
+            US
+            <i class="bi bi-arrow-right"></i>
+          </a>
+
+        <?php } ?>
       </div>
     </div>
   </nav>
@@ -93,8 +107,7 @@ $sum_q = $row_q['total_items'];
         <div class="card-body p-4">
 
           <div class="col-lg-12">
-            <h5 class="mb-3" style="float:left;"><a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>"
-                style="color: rgb(102, 176, 50);"><i class="bi bi-chevron-left"></i>&nbsp;Continue shopping</a></h5>
+            <h5 class="mb-3" style="float:left;"><a href="clinic_profile.php?clinicid=<?php echo $clinic_id ?>" style="color: rgb(102, 176, 50);"><i class="bi bi-chevron-left"></i>&nbsp;Continue shopping</a></h5>
 
             <?php if ($sum_q != 0) { ?>
               <p style="float:right;">You have <b>
@@ -138,7 +151,7 @@ $sum_q = $row_q['total_items'];
             if ($row > 0) {
               while ($row = mysqli_fetch_array($ret)) {
 
-                ?>
+            ?>
                 <div class="card mb-3" style="border-radius: 15px;">
                   <div class="card-body">
                     <div class="d-flex justify-content-between">
@@ -171,21 +184,20 @@ $sum_q = $row_q['total_items'];
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div style="float: right;">
-                          <a href="cart.php?delid=<?php echo $row['OrderDetailsID'] ?>" style="color: red;"><i
-                              class="fa fa-trash"></i></a>
+                          <a href="cart.php?delid=<?php echo $row['OrderDetailsID'] ?>" style="color: red;"><i class="fa fa-trash"></i></a>
                         </div>
 
                       </div>
                     </div>
                   </div>
                 </div>
-                <?php
+              <?php
                 $cnt = $cnt + 1;
               }
             } else { ?>
-            <tr>
-              <p style="text-align:center; color:red;" colspan="100">There are no items in your cart.</p>
-            </tr>
+              <tr>
+                <p style="text-align:center; color:red;" colspan="100">There are no items in your cart.</p>
+              </tr>
             <?php } ?>
           </div>
 
@@ -209,7 +221,6 @@ $sum_q = $row_q['total_items'];
                               }
                           })';
             echo '</script>';
-
           } ?>
 
           <?php
@@ -229,8 +240,7 @@ $sum_q = $row_q['total_items'];
               <p></p>
               <p style="float: left; font-size: 18px; font-style: italic; padding-left: 28px;">*Shipping fee is not
                 included</p><br>
-              <a class="btn btn-primary py-3" href="checkout.php?clinicid=<?php echo $clinic_id ?>"
-                style="float: right; width: 18%; border-radius: 15px;">CHECKOUT</a>
+              <a class="btn btn-primary py-3" href="checkout.php?clinicid=<?php echo $clinic_id ?>" style="float: right; width: 18%; border-radius: 15px;">CHECKOUT</a>
             </div>
 
           <?php } ?>
@@ -250,10 +260,8 @@ $sum_q = $row_q['total_items'];
         <div class="col-lg-4 col-md-6">
           <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
           <p class="mb-4">If you have inquiries feel free to contact us below</p>
-          <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
-              class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-          <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
-              class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+          <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+          <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
           <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961 762
             6162</a>
         </div>

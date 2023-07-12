@@ -86,14 +86,28 @@ $sum_q = $row_q['total_items'];
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="index.php" class="nav-item nav-link active">Home</a>
-                <a href="clinics.php" class="nav-item nav-link">Clinics</a>
-                <a href="inventory_management.php" class="nav-item nav-link">Inventory</a>
+                <a href="index.php" class="nav-item nav-link">Home</a>
+                <a href="clinics.php" class="nav-item nav-link active">Clinics</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
-                <a href="logout.php" class="nav-item nav-link">Logout</a>
-                <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
-                    US
-                    <i class="bi bi-arrow-right"></i></a>
+                <a href="about.php" class="nav-item nav-link">About Us</a>
+
+                <?php if ($_SESSION["id"] > 0) { ?>
+                    <a href="userProfile.php" class="nav-item nav-link">Profile</a>
+                    <a href="logout.php" class="nav-item nav-link">Logout
+                        <i class="bi bi-arrow-right"></i>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+
+
+                <?php } else { ?>
+
+                    <a href="login.php" class="nav-item nav-link">Login</a>
+                    <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
+                        US
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                <?php } ?>
             </div>
         </div>
     </nav>
@@ -338,14 +352,18 @@ $sum_q = $row_q['total_items'];
                                             </div>
 
                                             <div class="col-6">
-                                                <label for="proof" style="float:left; padding-bottom:15px; padding-left:23px;">Upload proof of
-                                                    payment</label>
+                                                <label for="proof" style="float:left; padding-bottom:15px; padding-left:23px;">Upload Proof of Payment</label>
                                                 <input type="file" style="border-radius: 15px;" name="proofOfPayment" class="form-control bg-light border-1 px-4 py-3" required>
                                             </div>
 
                                             <div class="col-6" style="padding-top: 15px;">
                                                 <label style="padding-bottom:20px;"></label>
                                                 <input type="text" name="refno" style="border-radius: 15px;" class="form-control bg-light border-1 px-4 py-3" placeholder="Reference No." required>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <label for="proof" style="float:left; padding-bottom:15px; padding-left:23px;">Upload Prescription</label>
+                                                <input type="file" style="border-radius: 15px;" name="orderPrescription" class="form-control bg-light border-1 px-4 py-3" required>
                                             </div>
 
                                             <br />
@@ -395,6 +413,12 @@ $sum_q = $row_q['total_items'];
 
     $reference_no = $_POST['refno'];
 
+    // For proof of payment
+    $file1 = $_FILES['orderPrescription']['name'];
+    $tempfile1 = $_FILES['orderPrescription']['tmp_name'];
+    $folder1 = "image_upload/" . $file1;
+    move_uploaded_file($tempfile1, $folder1);
+
     // For Order Reference No
     $code = 'ODRN';
     $ymd = date('ymd');
@@ -413,7 +437,7 @@ $sum_q = $row_q['total_items'];
             if (isset($_POST['order'])) {
 
                 // Insert to orders table
-                $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no', '$orderStatus', '$clinic_id')");
+                $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderPrescription, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$ship_to_address', '$file', '$reference_no' , '$file1', '$orderStatus', '$clinic_id')");
 
                 // To update stocks
                 $stocks_query = mysqli_query($con, "SELECT SupplyID FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");
@@ -470,7 +494,7 @@ $sum_q = $row_q['total_items'];
                 $a_query = mysqli_query($con, "INSERT INTO address (LotNo_Street, Barangay, City, Province, ZIPCode, UserID) VALUES ('$lotno_street_1', '$province_1', '$city_1', '$barangay_1', '$zipcode_1', '$userID')");
 
                 // Insert to orders table
-                $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$address_1', '$file', '$reference_no', '$orderStatus', '$clinic_id')");
+                $query = mysqli_query($con, "INSERT INTO orders (Order_RefNo, OrderedProducts, UserID, TotalPrice, DateTimeCheckedOut, ShippingTo, ProofOfPayment, Proof_RefNo, OrderPrescription, OrderStatus, ClinicID) VALUES ('$order_refno', '$od_products', $userID, '$totalPrice', '$currentDateTime', '$address_1', '$file', '$reference_no', '$file1', '$orderStatus', '$clinic_id')");
 
                 // To update stocks
                 $stocks_query = mysqli_query($con, "SELECT SupplyID FROM orderdetails WHERE UserID='$userID' AND ClinicID='$clinic_id'");

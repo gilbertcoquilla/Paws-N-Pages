@@ -1,6 +1,7 @@
 <?php
 include('config.php');
 include('connection.php');
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -17,9 +18,7 @@ require 'src/SMTP.php';
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Contact Us</title>
-    <link rel = "icon" href = 
-        "https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" 
-        type = "image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -89,10 +88,10 @@ require 'src/SMTP.php';
     <div class="container-fluid pt-5">
         <div class="container">
             <div class="col-12">
-            <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 100%;">
-                <h6 class="text-primary text-uppercase">Contact Us</h6>
-                <h1 class="display-5 text-uppercase mb-0">Feel Free To Contact Us</h1>
-            </div>
+                <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 100%;">
+                    <h6 class="text-primary text-uppercase">Contact Us</h6>
+                    <h1 class="display-5 text-uppercase mb-0">Feel Free To Contact Us</h1>
+                </div>
             </div>
             <div class="row g-5">
                 <div class="col-lg-7">
@@ -120,7 +119,7 @@ require 'src/SMTP.php';
                             </div>
                         </div>
                     </form>
-                   <?php if (!empty($message)) : ?>
+                    <?php if (!empty($message)) : ?>
                         <br>
                         <?php if (strpos($message, 'Error') !== false) : ?>
                             <div class="alert alert-danger">
@@ -170,7 +169,7 @@ require 'src/SMTP.php';
                 <h6 class="text-primary text-uppercase">Vet clinics</h6>
                 <h1 class="display-5 text-uppercase mb-0">Want to showcase your clinic?</h1><br>
                 <div class="col-6">
-                    <a href="vet-registration.php"><button type="button" name="submit" class="btn btn-primary py-3" style="border-radius: 15px; width: 80%;">Sign Me Up!</button></a>
+                    <a href="clinics_registration.php"><button type="button" name="submit" class="btn btn-primary py-3" style="border-radius: 15px; width: 80%;">Sign Me Up!</button></a>
                 </div>
             </div>
         </div>
@@ -222,8 +221,8 @@ require 'src/SMTP.php';
         </div>
     </div>
     <!-- Footer End -->
-    
-    <?php 
+
+    <?php
     if (isset($_POST['submit'])) {
         $mail = new PHPMailer(true);
         try {
@@ -234,7 +233,7 @@ require 'src/SMTP.php';
             $message = $_POST['message'];
             date_default_timezone_set("Asia/Hong_Kong");
             $dateupdated = date('y-m-d h:i:sa');
-            $datetime = date( 'Y-m-d h:i A' );
+            $datetime = date('Y-m-d h:i A');
 
             //Server settings
             $mail->isSMTP();                                            //Send using SMTP
@@ -259,12 +258,12 @@ require 'src/SMTP.php';
                             <br/><br/>Inquiry Details:
 
                             <br/><b>Name: </b>' . $name .
-                            '<br/> <b>Email: </b>' . $email .
-                            '<br/> <b>Subject: </b>' . $subject .
-                            '<br/> <b>Message: </b>' . $message .
-                            '<br/> <b>Date and Time of Contact: </b>' . $datetime .
+                '<br/> <b>Email: </b>' . $email .
+                '<br/> <b>Subject: </b>' . $subject .
+                '<br/> <b>Message: </b>' . $message .
+                '<br/> <b>Date and Time of Contact: </b>' . $datetime .
 
-                            '<br/><br/>Please retain this information for your reference. If you need to provide any additional details or have further questions, please reply to this email.
+                '<br/><br/>Please retain this information for your reference. If you need to provide any additional details or have further questions, please reply to this email.
 
                             <br/><br/>Our dedicated support team is committed to providing you with the assistance you need. We strive to address all inquiries promptly and with the utmost care.
 
@@ -272,14 +271,14 @@ require 'src/SMTP.php';
 
                             <br/><br/><br/>Best regards,
 
-                            <br/>Paws N Pages';             
-           
+                            <br/>Paws N Pages';
+
 
             $query = mysqli_query($con, "INSERT INTO reports (Sender, Email, Title, Message, DateTimeReported) VALUES ('$name', '$email', '$subject', '$message', '$dateupdated')");
             if ($query) {
                 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                                                echo '<script>';
-                                                echo 'swal({
+                echo '<script>';
+                echo 'swal({
                                                     title: "Success",
                                                     text: "Message has been sent & will get back to you as soon as poosible",
                                                     icon: "success",
@@ -295,15 +294,12 @@ require 'src/SMTP.php';
                 echo '</script>';
                 $mail->send();
             } else {
-                    echo "<script>alert('Something Went Wrong. Please try again');</script>";
+                echo "<script>alert('Something Went Wrong. Please try again');</script>";
             }
-            
-           
         } catch (Exception $e) {
             // Set error message
             $message = "<span style='color: red'>Message could not be sent. Mailer Error: {$mail->ErrorInfo}</span>";
         }
-
     }
     ?>
     <!-- JavaScript Libraries -->

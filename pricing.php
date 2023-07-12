@@ -47,12 +47,13 @@ include('connection.php');
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="index.php" class="nav-item nav-link active">Home</a>
+                <a href="index.php" class="nav-item nav-link">Home</a>
+                <a href="clinics.php" class="nav-item nav-link">Clinics</a>
                 <a href="contact.php" class="nav-item nav-link">Contact Us</a>
-                <a href="about.php" class="nav-item nav-link">About Us</a>
+                <a href="about.php" class="nav-item nav-link active">About Us</a>
 
                 <?php if ($_SESSION["id"] > 0) { ?>
-
+                    <a href="userProfile.php" class="nav-item nav-link">Profile</a>
                     <a href="logout.php" class="nav-item nav-link">Logout
                         <i class="bi bi-arrow-right"></i>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -62,13 +63,12 @@ include('connection.php');
                 <?php } else { ?>
 
                     <a href="login.php" class="nav-item nav-link">Login</a>
-                    <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN US
+                    <a href="vet-or-pet.php" class="nav-item nav-link nav-contact bg-primary text-white px-5 ms-lg-5">JOIN
+                        US
                         <i class="bi bi-arrow-right"></i>
                     </a>
 
                 <?php } ?>
-
-
             </div>
         </div>
     </nav>
@@ -123,7 +123,7 @@ include('connection.php');
                         <h6 class="text-body mb-5">The Best Choice</h6>
                         <div class="text-center bg-dark p-4 mb-2">
                             <h1 class="display-4 text-white mb-0">
-                            <small class="align-top" style="font-size: 22px; line-height: 45px;">₱</small>1,999<small class="align-bottom" style="font-size: 16px; line-height: 40px;">/
+                                <small class="align-top" style="font-size: 22px; line-height: 45px;">₱</small>1,999<small class="align-bottom" style="font-size: 16px; line-height: 40px;">/
                                     year</small>
                             </h1>
                         </div>
