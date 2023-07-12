@@ -137,21 +137,21 @@ require 'src/SMTP.php';
                 </div>
                 <div class="col-lg-5">
                     <div class="bg-light mb-5 p-1" style="border-radius: 15px;">
-                        <div class="d-flex align-items-center mb-2">
+                        <div class="d-flex align-items-center mb-2" style="padding-top: 20px; padding-left: 20px;">
                             <i class="bi bi-geo-alt fs-1 text-primary me-3"></i>
                             <div class="text-start">
                                 <h6 class="text-uppercase mb-1">Our Location</h6>
                                 <span>Manila, Philippines</span>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center mb-2">
+                        <div class="d-flex align-items-center mb-2" style="padding-top: 20px; padding-left: 20px;">
                             <i class="bi bi-envelope-open fs-1 text-primary me-3"></i>
                             <div class="text-start">
                                 <h6 class="text-uppercase mb-1">Email Us</h6>
                                 <span>pawsnpages.site@gmail.com</span>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center mb-4">
+                        <div class="d-flex align-items-center mb-4" style="padding-top: 20px; padding-left: 20px;">
                             <i class="bi bi-phone-vibrate fs-1 text-primary me-3"></i>
                             <div class="text-start">
                                 <h6 class="text-uppercase mb-1">Call Us</h6>
