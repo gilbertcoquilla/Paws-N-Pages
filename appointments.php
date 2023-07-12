@@ -93,7 +93,7 @@ if (isset($_POST['cancel'])) {
 
 <head>
     <meta charset="utf-8">
-    <title>Paws N Pages | User Profile</title>
+    <title>Paws N Pages | Appointments</title>
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
         type="image/x-icon">
 
