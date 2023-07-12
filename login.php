@@ -64,7 +64,8 @@
                 <div class="col-md-4">
                     <form method="post" action="">
                         <div class="row g-3 bg-light" style=" border-radius: 15px; padding:30px 30px;">
-                            <center><a href="index.php"><img src="img/logo_black.png" style="height:150px; width:150px;"></a></center>
+                            <center><a href="index.php"><img src="img/logo_black.png"
+                                        style="height:150px; width:150px;"></a></center>
                             <?php
                             session_start();
                             $message = "";
