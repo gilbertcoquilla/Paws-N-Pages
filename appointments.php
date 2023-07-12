@@ -312,6 +312,14 @@ if (isset($_POST['cancel'])) {
                         } else { ?>
                         <tr>
                             <th style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</th>
+                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
                         </tr>
                         <?php } ?>
 
