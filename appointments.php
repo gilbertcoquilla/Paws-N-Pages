@@ -293,7 +293,7 @@ if (isset($_POST['cancel'])) {
                                         <?php }
                                         if ($status === 'Cancelled') { ?>
                                             <a
-                                                style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#000000;">
+                                                style="color:white; font-size:12px; padding: 5px 7px;  border-radius:10px; background-color:#000000;">
                                                 <?php echo $row1['AppointmentStatus']; ?>
                                             </a>
                                         <?php } ?>
