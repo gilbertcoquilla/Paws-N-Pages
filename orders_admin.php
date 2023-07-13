@@ -23,8 +23,7 @@ $clinicID = $row_ca['ClinicID'];
 <head>
     <meta charset="UTF-8">
     <title>Paws N Pages | Orders</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -216,7 +215,7 @@ $clinicID = $row_ca['ClinicID'];
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function (digits) {
+            Number.prototype.pad = function(digits) {
                 for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
@@ -235,10 +234,10 @@ $clinicID = $row_ca['ClinicID'];
         }
     </script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var table = $('#orders').DataTable({
                 order: [
-                    [2, 'asc']
+                    [3, 'desc']
                 ],
 
             });
@@ -248,21 +247,17 @@ $clinicID = $row_ca['ClinicID'];
 
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png"
-                height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
-                ?>
-                <a href="logout.php"
-                    style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i
-                        class="fa fa-sign-out"></i></a><a
-                    style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
+            ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
                     in as, <i>
                         <?php echo $row['Username'] ?>
                     </i></a>&nbsp;&nbsp;
-            </p>
-        <?php } ?>
+        </p>
+    <?php } ?>
     </div>
     <div class="wrapper">
         <div class="side_bar">
@@ -381,8 +376,7 @@ $clinicID = $row_ca['ClinicID'];
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font"><b>📦 Orders</b></div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px;  text-align:left;"
-                                id="orders">
+                            <table class="table table-striped table-hover" style="border:0px;  text-align:left;" id="orders">
                                 <thead style="border:0px;">
                                     <tr class="table100-head" style="border:0px;">
                                         <th class="column1" style="border:0px; color:#80b434;">Reference No.</th>
@@ -400,25 +394,14 @@ $clinicID = $row_ca['ClinicID'];
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
                                             $date = new DateTime($row['DateTimeCheckedOut']);
-                                            ?>
+                                    ?>
                                             <!--Fetch the Records -->
                                             <tr style="border:0px;">
-                                                <td style="border:0px;"><a href="" orderid="<?php echo $row['OrderID'] ?>"
-                                                        refno="<?php echo $row['Order_RefNo'] ?>"
-                                                        products="<?php $prod = $row['OrderedProducts'];
-                                                        $explodedArray = explode(', ', $prod);
-                                                        foreach ($explodedArray as $element) {
-                                                            echo $element . "\n";
-                                                        } ?>"
-                                                        user="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>"
-                                                        totalprice="<?php echo "₱ " . $row['TotalPrice']; ?>"
-                                                        dtcout="<?php echo $date->format('Y-m-d h:i A'); ?>"
-                                                        address="<?php echo $row['ShippingTo'] ?>"
-                                                        proofpayment="<?php echo $row['ProofOfPayment']; ?>"
-                                                        proofrefno="<?php echo $row['Proof_RefNo']; ?>"
-                                                        orderstatus="<?php echo $row['OrderStatus']; ?>"
-                                                        odremarks="<?php echo $row['OrderRemarks']; ?>" class="edit" title="View"
-                                                        data-toggle="modal" data-target="#view_order"><?php echo $row['Order_RefNo'] ?></a></td>
+                                                <td style="border:0px;"><a href="" orderid="<?php echo $row['OrderID'] ?>" refno="<?php echo $row['Order_RefNo'] ?>" products="<?php $prod = $row['OrderedProducts'];
+                                                                                                                                                                                $explodedArray = explode(', ', $prod);
+                                                                                                                                                                                foreach ($explodedArray as $element) {
+                                                                                                                                                                                    echo $element . "\n";
+                                                                                                                                                                                } ?>" user="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>" totalprice="<?php echo "₱ " . $row['TotalPrice']; ?>" dtcout="<?php echo $date->format('Y-m-d h:i A'); ?>" address="<?php echo $row['ShippingTo'] ?>" proofpayment="<?php echo $row['ProofOfPayment']; ?>" proofrefno="<?php echo $row['Proof_RefNo']; ?>" prescription="<?php echo $row['OrderPrescription'] ?>" orderstatus="<?php echo $row['OrderStatus']; ?>" odremarks="<?php echo $row['OrderRemarks']; ?>" class="edit" title="View" data-toggle="modal" data-target="#view_order"><?php echo $row['Order_RefNo'] ?></a></td>
 
                                                 <td style="border:0px;">₱
                                                     <?php echo $row['TotalPrice'] ?>
@@ -432,47 +415,43 @@ $clinicID = $row_ca['ClinicID'];
                                                 <td style="border:0px;">
                                                     <?php $status = $row['OrderStatus'];
                                                     if ($status === 'Pending') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 25px; border-radius:10px; background-color:#F4BB44;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 25px; border-radius:10px; background-color:#F4BB44;">
                                                             <?php echo $row['OrderStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'To Ship') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 30px; border-radius:10px; background-color:#228B22;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 30px; border-radius:10px; background-color:#228B22;">
                                                             <?php echo $row['OrderStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Denied') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 30px;  border-radius:10px; background-color:#A52A2A;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 30px;  border-radius:10px; background-color:#A52A2A;">
                                                             <?php echo $row['OrderStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Approved') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 22px;  border-radius:10px; background-color:#0096FF;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 22px;  border-radius:10px; background-color:#0096FF;">
                                                             <?php echo $row['OrderStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Completed') { ?>
-                                                        <?php echo $row['OrderStatus'];
+                                                    <?php echo $row['OrderStatus'];
                                                     } ?>
                                                 </td>
                                             </tr>
-                                            <?php
+                                        <?php
                                             $cnt = $cnt + 1;
                                         }
                                     } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found
-                                        </td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                    </tr>
-                                <?php } ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found
+                                            </td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                        </tr>
+                                    <?php } ?>
 
                                 </tbody>
                             </table>
@@ -490,8 +469,7 @@ $clinicID = $row_ca['ClinicID'];
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font"><b>📦 Orders</b></div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px;  text-align:left;"
-                                id="orders">
+                            <table class="table table-striped table-hover" style="border:0px;  text-align:left;" id="orders">
                                 <thead style="border:0px;">
                                     <tr class="table100-head" style="border:0px;">
                                         <th class="column1" style="border:0px; color:#80b434;">Reference No.</th>
@@ -510,26 +488,14 @@ $clinicID = $row_ca['ClinicID'];
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
                                             $date = new DateTime($row['DateTimeCheckedOut']);
-                                            ?>
+                                    ?>
                                             <!--Fetch the Records -->
                                             <tr style="border:0px;">
-                                                <td style="border:0px;"><a href="" aorderid="<?php echo $row['OrderID'] ?>"
-                                                        aclinic="<?php echo $row['ClinicName'] ?>"
-                                                        arefno="<?php echo $row['Order_RefNo'] ?>"
-                                                        aproducts="<?php $prod = $row['OrderedProducts'];
-                                                        $explodedArray = explode(', ', $prod);
-                                                        foreach ($explodedArray as $element) {
-                                                            echo $element . "\n";
-                                                        } ?>"
-                                                        auser="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>"
-                                                        atotalprice="<?php echo "₱ " . $row['TotalPrice']; ?>"
-                                                        adtcout="<?php echo $date->format('Y-m-d h:i A'); ?>"
-                                                        aaddress="<?php echo $row['ShippingTo'] ?>"
-                                                        aproofpayment="<?php echo $row['ProofOfPayment']; ?>"
-                                                        aproofrefno="<?php echo $row['Proof_RefNo']; ?>"
-                                                        aorderstatus="<?php echo $row['OrderStatus']; ?>"
-                                                        aodremarks="<?php echo $row['OrderRemarks']; ?>" class="edit" title="View"
-                                                        data-toggle="modal" data-target="#admin_order"><?php echo $row['Order_RefNo'] ?></a></td>
+                                                <td style="border:0px;"><a href="" aorderid="<?php echo $row['OrderID'] ?>" aclinic="<?php echo $row['ClinicName'] ?>" arefno="<?php echo $row['Order_RefNo'] ?>" aproducts="<?php $prod = $row['OrderedProducts'];
+                                                                                                                                                                                                                                $explodedArray = explode(', ', $prod);
+                                                                                                                                                                                                                                foreach ($explodedArray as $element) {
+                                                                                                                                                                                                                                    echo $element . "\n";
+                                                                                                                                                                                                                                } ?>" auser="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>" atotalprice="<?php echo "₱ " . $row['TotalPrice']; ?>" adtcout="<?php echo $date->format('Y-m-d h:i A'); ?>" aaddress="<?php echo $row['ShippingTo'] ?>" aproofpayment="<?php echo $row['ProofOfPayment']; ?>" aproofrefno="<?php echo $row['Proof_RefNo']; ?>" aprescription="<?php echo $row['OrderPrescription'] ?>" aorderstatus="<?php echo $row['OrderStatus']; ?>" aodremarks="<?php echo $row['OrderRemarks']; ?>" class="edit" title="View" data-toggle="modal" data-target="#admin_order"><?php echo $row['Order_RefNo'] ?></a></td>
 
                                                 <td style="border:0px;">
                                                     <?php echo $row['ClinicName'] ?>
@@ -546,47 +512,43 @@ $clinicID = $row_ca['ClinicID'];
                                                 <td style="border:0px;">
                                                     <?php $status = $row['OrderStatus'];
                                                     if ($status === 'Pending') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 25px; border-radius:10px; background-color:#F4BB44;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 25px; border-radius:10px; background-color:#F4BB44;">
                                                             <?php echo $row['OrderStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'To Ship') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 30px; border-radius:10px; background-color:#228B22;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 30px; border-radius:10px; background-color:#228B22;">
                                                             <?php echo $row['OrderStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Denied') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 30px;  border-radius:10px; background-color:#A52A2A;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 30px;  border-radius:10px; background-color:#A52A2A;">
                                                             <?php echo $row['OrderStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Approved') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 22px;  border-radius:10px; background-color:#0096FF;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 22px;  border-radius:10px; background-color:#0096FF;">
                                                             <?php echo $row['OrderStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Completed') { ?>
-                                                        <?php echo $row['OrderStatus'];
+                                                    <?php echo $row['OrderStatus'];
                                                     } ?>
                                                 </td>
                                             </tr>
-                                            <?php
+                                        <?php
                                             $cnt = $cnt + 1;
                                         }
                                     } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found
-                                        </td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                    </tr>
-                                <?php } ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found
+                                            </td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                        </tr>
+                                    <?php } ?>
 
                                 </tbody>
                             </table>
@@ -620,25 +582,20 @@ $clinicID = $row_ca['ClinicID'];
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Order Reference No.</label>
-                                        <input type="text" name="Order_RefNo" id="Order_RefNo" class="form-control"
-                                            readonly />
+                                        <input type="text" name="Order_RefNo" id="Order_RefNo" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Ordered Products</label>
                                         <!-- <input type="textarea" name="Orders" id="Orders" class="form-control" readonly /> -->
-                                        <textarea name="OrderedProducts" id="OrderedProducts" class="form-control"
-                                            style="width: 100%; height: 150px;" readonly></textarea>
+                                        <textarea name="OrderedProducts" id="OrderedProducts" class="form-control" style="width: 100%; height: 150px;" readonly></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Total Price</label>
-                                        <input type="text" name="TotalPrice" id="TotalPrice" class="form-control"
-                                            readonly />
+                                        <input type="text" name="TotalPrice" id="TotalPrice" class="form-control" readonly />
                                     </div>
                                     <hr />
                                     <div class="form-group">
                                         <label>Proof Of Payment</label>
-                                        <!-- <input type="text" name="ProofOfPayment" id="ProofOfPayment" class="form-control" readonly />
-                                        <img src="" name="ProofOfPayment" id="ProofOfPayment" width="100%" onclick="displayImg()"> -->
                                         <br>
                                         <div class="row" style="width: 100%;">
                                             <div class="col-8">
@@ -653,21 +610,32 @@ $clinicID = $row_ca['ClinicID'];
                                             </div>
 
                                         </div>
-
-                                        <!-- insert download link for proof of payment here -->
                                     </div>
-                                    <br>
+                                    <div class="form-group">
+                                        <label>Prescription</label>
+                                        <br>
+                                        <div class="row" style="width: 100%;">
+                                            <div class="col-8">
+                                                <a href="" id="DL_Presc" target="_blank">
+                                                    <span id="presc"></span>
+                                                </a>
+                                            </div>
+                                            <div class="col-4" style="text-align: right;">
+                                                <a href="" id="DL_Presc" target="_blank" download>
+                                                    Download
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label>Reference No. (For Proof of Payment)</label>
-                                        <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control"
-                                            readonly />
+                                        <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control" readonly />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Customer</label>
-                                        <input type="text" name="Customer" id="Customer" class="form-control"
-                                            readonly />
+                                        <input type="text" name="Customer" id="Customer" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Date & Time Checked Out</label>
@@ -675,21 +643,17 @@ $clinicID = $row_ca['ClinicID'];
                                     </div>
                                     <div class="form-group">
                                         <label>Shipping To</label>
-                                        <textarea name="ShippingTo" id="ShippingTo" class="form-control"
-                                            style=" width: 100%; height: 150px;" readonly></textarea>
+                                        <textarea name="ShippingTo" id="ShippingTo" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
                                     </div>
                                     <hr />
                                     <div class="form-group">
                                         <label>Status</label>
                                         <div class="row">
                                             <div class="col-6">
-                                                <input type="text" name="OrderStatus" id="OrderStatus"
-                                                    class="form-control" style="height: 100%;" readonly />
+                                                <input type="text" name="OrderStatus" id="OrderStatus" class="form-control" style="height: 100%;" readonly />
                                             </div>
                                             <div class="col-6">
-                                                <select name="OrderStatus2" id="OrderStatus2"
-                                                    style="border-radius: 5px; width: 100%;"
-                                                    class="bg-light border-0 px-4 py-3">
+                                                <select name="OrderStatus2" id="OrderStatus2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
                                                     <option selected disabled>-- Update Status --</option>
                                                     <option value="Pending">Pending</option>
                                                     <option value="Denied">Denied</option>
@@ -702,8 +666,7 @@ $clinicID = $row_ca['ClinicID'];
                                     </div>
                                     <div class="form-group">
                                         <label>Remarks</label>
-                                        <textarea name="OrderRemarks" id="OrderRemarks" class="form-control"
-                                            style=" width: 100%; height: 150px;"></textarea>
+                                        <textarea name="OrderRemarks" id="OrderRemarks" class="form-control" style=" width: 100%; height: 150px;"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -713,12 +676,10 @@ $clinicID = $row_ca['ClinicID'];
                     </div>
                     <div style="clear:both;"></div>
                     <div class="modal-footer">
-                        <button name="edit" class="btn btn-primary" style="border-radius: 15px;"><span
-                                class="glyphicon glyphicon-edit"></span>
+                        <button name="edit" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
                             Update
                         </button>
-                        <button class="btn btn-danger" type="button" data-dismiss="modal"
-                            style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
                             Cancel</button>
                     </div>
                 </form>
@@ -746,30 +707,24 @@ $clinicID = $row_ca['ClinicID'];
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Order Reference No.</label>
-                                        <input type="text" name="Order_RefNo" id="Order_RefNo" class="form-control"
-                                            readonly />
+                                        <input type="text" name="Order_RefNo" id="Order_RefNo" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Clinic Name</label>
-                                        <input type="text" name="ClinicName" id="ClinicName" class="form-control"
-                                            readonly />
+                                        <input type="text" name="ClinicName" id="ClinicName" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Ordered Products</label>
                                         <!-- <input type="textarea" name="Orders" id="Orders" class="form-control" readonly /> -->
-                                        <textarea name="OrderedProducts" id="OrderedProducts" class="form-control"
-                                            style="width: 100%; height: 150px;" readonly></textarea>
+                                        <textarea name="OrderedProducts" id="OrderedProducts" class="form-control" style="width: 100%; height: 150px;" readonly></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Total Price</label>
-                                        <input type="text" name="TotalPrice" id="TotalPrice" class="form-control"
-                                            readonly />
+                                        <input type="text" name="TotalPrice" id="TotalPrice" class="form-control" readonly />
                                     </div>
                                     <hr />
                                     <div class="form-group">
                                         <label>Proof Of Payment</label>
-                                        <!-- <input type="text" name="ProofOfPayment" id="ProofOfPayment" class="form-control" readonly />
-                                        <img src="" name="ProofOfPayment" id="ProofOfPayment" width="100%" onclick="displayImg()"> -->
                                         <br>
                                         <div class="row" style="width: 100%;">
                                             <div class="col-8">
@@ -784,21 +739,32 @@ $clinicID = $row_ca['ClinicID'];
                                             </div>
 
                                         </div>
-
-                                        <!-- insert download link for proof of payment here -->
                                     </div>
-                                    <br>
+                                    <div class="form-group">
+                                        <label>Prescription</label>
+                                        <br>
+                                        <div class="row" style="width: 100%;">
+                                            <div class="col-8">
+                                                <a href="" id="DL_Presc" target="_blank">
+                                                    <span id="presc"></span>
+                                                </a>
+                                            </div>
+                                            <div class="col-4" style="text-align: right;">
+                                                <a href="" id="DL_Presc" target="_blank" download>
+                                                    Download
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label>Reference No. (For Proof of Payment)</label>
-                                        <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control"
-                                            readonly />
+                                        <input type="text" name="Proof_RefNo" id="Proof_RefNo" class="form-control" readonly />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Customer</label>
-                                        <input type="text" name="Customer" id="Customer" class="form-control"
-                                            readonly />
+                                        <input type="text" name="Customer" id="Customer" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Date & Time Checked Out</label>
@@ -806,19 +772,16 @@ $clinicID = $row_ca['ClinicID'];
                                     </div>
                                     <div class="form-group">
                                         <label>Shipping To</label>
-                                        <textarea name="ShippingTo" id="ShippingTo" class="form-control"
-                                            style=" width: 100%; height: 150px;" readonly></textarea>
+                                        <textarea name="ShippingTo" id="ShippingTo" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
                                     </div>
                                     <hr />
                                     <div class="form-group">
                                         <label>Status</label>
-                                        <input type="text" name="OrderStatus" id="OrderStatus" class="form-control"
-                                            style="height: 100%;" readonly />
+                                        <input type="text" name="OrderStatus" id="OrderStatus" class="form-control" style="height: 100%;" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Remarks</label>
-                                        <textarea name="OrderRemarks" id="OrderRemarks" class="form-control"
-                                            style=" width: 100%; height: 150px;" readonly></textarea>
+                                        <textarea name="OrderRemarks" id="OrderRemarks" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -828,8 +791,7 @@ $clinicID = $row_ca['ClinicID'];
                     </div>
                     <div style="clear:both;"></div>
                     <div class="modal-footer">
-                        <button class="btn btn-danger" type="button" data-dismiss="modal"
-                            style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Close</button>
                     </div>
                 </form>
             </div>
@@ -939,9 +901,7 @@ $clinicID = $row_ca['ClinicID'];
     <script src="js/main.js"></script>
 
     <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- To show details when editing -->
     <script>
@@ -949,7 +909,7 @@ $clinicID = $row_ca['ClinicID'];
             $(window).off("resize", resizer);
         }
 
-        $('#view_order').on('show.bs.modal', function (e) {
+        $('#view_order').on('show.bs.modal', function(e) {
             var opener = e.relatedTarget;
 
             var orderid = $(opener).attr('orderid');
@@ -959,8 +919,14 @@ $clinicID = $row_ca['ClinicID'];
             var totalprice = $(opener).attr('totalprice');
             var dtcout = $(opener).attr('dtcout');
             var address = $(opener).attr('address');
+
             var proofpayment = $(opener).attr('proofpayment');
+            var proofpaymentName = jQuery.trim(proofpayment).substring(0, 20) + "...";
             var proofrefno = $(opener).attr('proofrefno');
+
+            var prescription = $(opener).attr('prescription');
+            var prescriptionName = jQuery.trim(prescription).substring(0, 20) + "...";
+
             var orderstatus = $(opener).attr('orderstatus');
             var odremarks = $(opener).attr('odremarks');
 
@@ -972,10 +938,11 @@ $clinicID = $row_ca['ClinicID'];
             $('#view_order_form').find('[name="DTimeCO"]').val(dtcout);
             $('#view_order_form').find('[name="ShippingTo"]').val(address);
 
-            $('#view_order_form').find('[name="ProofOfPayment"]').val(proofpayment);
-            $('#view_order_form').find('[id="proofOP"]').html(proofpayment);
-            // $('#view_order_form').find('[name="ProofOfPayment"]').prop('src', 'image_upload/' + proofpayment);
+            $('#view_order_form').find('[id="proofOP"]').html(proofpaymentName);
             $('#view_order_form').find('[id="DL_ProofOfPayment"]').prop('href', 'image_upload/' + proofpayment);
+
+            $('#view_order_form').find('[id="presc"]').html(prescriptionName);
+            $('#view_order_form').find('[id="DL_Presc"]').prop('href', 'image_upload/' + prescription);
 
             $('#view_order_form').find('[name="Proof_RefNo"]').val(proofrefno);
             $('#view_order_form').find('[name="OrderStatus"]').val(orderstatus);
@@ -984,7 +951,7 @@ $clinicID = $row_ca['ClinicID'];
             endResize();
         });
 
-        $('#admin_order').on('show.bs.modal', function (e) {
+        $('#admin_order').on('show.bs.modal', function(e) {
             var opener = e.relatedTarget;
 
             var aorderid = $(opener).attr('aorderid');
@@ -995,8 +962,14 @@ $clinicID = $row_ca['ClinicID'];
             var atotalprice = $(opener).attr('atotalprice');
             var adtcout = $(opener).attr('adtcout');
             var aaddress = $(opener).attr('aaddress');
+
             var aproofpayment = $(opener).attr('aproofpayment');
+            var aproofpaymentName = jQuery.trim(aproofpayment).substring(0, 20) + "...";
             var aproofrefno = $(opener).attr('aproofrefno');
+            a
+            var aprescription = $(opener).attr('aprescription');
+            var aprescriptionName = jQuery.trim(aprescription).substring(0, 20) + "...";
+
             var aorderstatus = $(opener).attr('aorderstatus');
             var aodremarks = $(opener).attr('aodremarks');
 
@@ -1009,9 +982,11 @@ $clinicID = $row_ca['ClinicID'];
             $('#admin_order_form').find('[name="DTimeCO"]').val(adtcout);
             $('#admin_order_form').find('[name="ShippingTo"]').val(aaddress);
 
-            $('#admin_order_form').find('[name="ProofOfPayment"]').val(aproofpayment);
-            $('#admin_order_form').find('[id="proofOP"]').html(aproofpayment);
-            $('#admin_order_form').find('[id="DL_ProofOfPayment"]').prop('href', 'image_upload/' + aproofpayment);
+            $('#view_order_form').find('[id="proofOP"]').html(aproofpaymentName);
+            $('#view_order_form').find('[id="DL_ProofOfPayment"]').prop('href', 'image_upload/' + aproofpayment);
+
+            $('#view_order_form').find('[id="presc"]').html(aprescriptionName);
+            $('#view_order_form').find('[id="DL_Presc"]').prop('href', 'image_upload/' + aprescription);
 
             $('#admin_order_form').find('[name="Proof_RefNo"]').val(aproofrefno);
             $('#admin_order_form').find('[name="OrderStatus"]').val(aorderstatus);

@@ -627,6 +627,7 @@ $row_a = mysqli_fetch_array($ret_a);
         $mname = $_POST['mname'];
         $lname = $_POST['lname'];
         $cnum = $_POST['cnum'];
+        $email = $_POST['email'];
         $username = $_POST['username'];
         $bdate = $_POST['birthdate'];
         $newpass = $_POST['newpass'];
@@ -637,10 +638,12 @@ $row_a = mysqli_fetch_array($ret_a);
         date_default_timezone_set("Asia/Hong_Kong");
         $currentDateTime = date('y-m-d h:i:sa');
 
-        if ($h_pword == null)
-            $h_pword = $_POST['password'];
+        if ($newpass != null)
+            $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Birth_Date='$bdate', Email='$email', Username='$username', DateTimeModified='$currentDateTime', Password='$h_pword' WHERE UserID='$userID'");
+        else
+            $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Birth_Date='$bdate', Email='$email', Username='$username', DateTimeModified='$currentDateTime' WHERE UserID='$userID'");
 
-        $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Birth_Date='$bdate', Username='$username', DateTimeModified='$currentDateTime', Password='$h_pword' WHERE UserID='$userID'");
+
 
         if ($query) {
             echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';

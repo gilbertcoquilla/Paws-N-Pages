@@ -236,7 +236,7 @@ $clinicID = $row_ca['ClinicID'];
         $(document).ready(function () {
             var table = $('#bookings').DataTable({
                 order: [
-                    [2, 'asc']
+                    [5, 'desc']
                 ],
                 lengthMenu: [5, 10, 20, 50],
 
