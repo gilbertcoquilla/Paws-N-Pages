@@ -11,7 +11,8 @@ $cnt_ca = 1;
 $row_ca = mysqli_fetch_array($ret_ca);
 
 $clinicID = $row_ca['ClinicID'];
-
+$subStat = $row_ca['SubscriptionStatus'];
+$subExp = $row_ca['ExpiryDateOfSub'];
 
 ?>
 
@@ -92,6 +93,12 @@ $clinicID = $row_ca['ClinicID'];
             height: 100vh;
         }
 
+        .expired {
+            width: calc(100% - 250px);
+            padding: 30px;
+            height: 100vh;
+            background-image: url("./img/home.png");
+        }
 
 
         .side_bar .side_bar_top .profile_pic {
@@ -406,6 +413,11 @@ $clinicID = $row_ca['ClinicID'];
             background-color: lightgrey;
             border: lightgrey;
         }
+
+        a.disabled {
+            pointer-events: none;
+            color: #ccc;
+        }
     </style>
 
     <!-- FOR DIGITAL TIME AND DATE -->
@@ -490,54 +502,57 @@ $clinicID = $row_ca['ClinicID'];
                         <span class="bottom_curve"></span>
                     </li>
 
-                    <li>
-                        <span class="top_curve"></span>
-                        <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
-                            <span class="item">Profile</span></a>
-                        <span class="bottom_curve"></span>
-                    </li>
+                    <?php if ($subStat != 'Expired' && $subStat != 'Inactive') { ?>
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
+                                <span class="item">Profile</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
 
-                    <li>
-                        <span class="top_curve"></span>
-                        <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
-                            <span class="item">Products</span></a>
-                        <span class="bottom_curve"></span>
-                    </li>
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
+                                <span class="item">Products</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
 
-                    <li>
-                        <span class="top_curve"></span>
-                        <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
-                            <span class="item">Bookings</span></a>
-                        <span class="bottom_curve"></span>
-                    </li>
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
+                                <span class="item">Bookings</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
 
-                    <li>
-                        <span class="top_curve"></span>
-                        <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
-                            <span class="item">Orders</span></a>
-                        <span class="bottom_curve"></span>
-                    </li>
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
+                                <span class="item">Orders</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
 
-                    <li>
-                        <span class="top_curve"></span>
-                        <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
-                            <span class="item">Feedback</span></a>
-                        <span class="bottom_curve"></span>
-                    </li>
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
+                                <span class="item">Feedback</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
 
-                    <li>
-                        <span class="top_curve"></span>
-                        <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
-                            <span class="item">Services</span></a>
-                        <span class="bottom_curve"></span>
-                    </li>
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
+                                <span class="item">Services</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
 
-                    <li>
-                        <span class="top_curve"></span>
-                        <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
-                            <span class="item">Pet Records</span></a>
-                        <span class="bottom_curve"></span>
-                    </li>
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
+                                <span class="item">Pet Records</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                    <?php } ?>
 
                     <?php if ($usertype == 'Administrator') { ?>
                         <li>
@@ -669,7 +684,7 @@ $clinicID = $row_ca['ClinicID'];
                     <div class="row" style="padding-top:20px;">
                         <div class="col-md-8">
                             <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                                <div class="card-header userProfile-font"><b>💰 Sales</b></div>
+                                <div class="card-header userProfile-font"><b>💰 Monthly Sales</b></div>
                                 <div class="card-body text-center">
                                     <canvas id="salesChart" style=" width:100%;"></canvas>
                                 </div>
@@ -771,152 +786,170 @@ $clinicID = $row_ca['ClinicID'];
 
         <!-- START OF CLINIC ADMINISTRATOR -->
         <?php if ($usertype == 'Clinic Administrator') { ?>
-            <div class="main_container">
-                <div class="home-content">
-                    <div class="overview-boxes">
-                        <div class="box" style=" border-left: solid 5px #C0F2D8;">
-                            <div class="right-side">
-                                <div class="box-topic">Products</div>
-                                <?php
-                                $ret = mysqli_query($con, "SELECT COUNT(*) as NoSupplies FROM clinics, petsupplies WHERE petsupplies.ClinicID = clinics.ClinicID AND petsupplies.ClinicID = '$clinicID'");
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-                                        ?>
-                                        <div class="number">
-                                            <?php echo $row['NoSupplies']; ?>
-                                        </div>
-                                    <?php }
-                                } ?>
-                            </div>
-                            <i class='bx bxs-cart-add cart two'><i class="fa fa-tag" style="color:white;"
-                                    style="color:white;"></i></i>
+
+            <?php if ($subStat == 'Expired') { ?>
+                <div class="expired">
+                    <div class="row">
+                        <div class="col-5 text-center" style="padding-top:220px;">
+                            <h1 class="text-uppercase text-primary">Subscription Expired</h1>
+                            <p style="color:gray;">Your subscription has expired on <b>
+                                    <?php echo date('F j, Y', strtotime($subExp)) ?>
+                                </b>. <br>To regain access to the system's functionalities, please renew your subscription by
+                                clicking the button below.</p><br>
+                            <input type="submit" class="btn btn-primary"
+                                style="height:60px; width:300px; font-size: 20px; border-radius:15px;"
+                                value="RENEW SUBSCRIPTION">
                         </div>
-                        <div class="box" style=" border-left: solid 5px #B2A4FF;">
-                            <div class="right-side">
-                                <div class="box-topic">Services</div>
-                                <?php
-                                $ret = mysqli_query($con, "SELECT COUNT(*) as  NoServices FROM clinics, services WHERE services.ClinicID = clinics.ClinicID AND services.ClinicID = '$clinicID'");
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-                                        ?>
-                                        <div class="number">
-                                            <?php echo $row['NoServices']; ?>
-                                        </div>
-                                    <?php }
-                                } ?>
-                            </div>
-                            <i class='bx bx-cart-alt cart' style="background-color:#B2A4FF;"><i class="fa fa-list"
-                                    style="color:white;"></i></i>
-                        </div>
-                        <div class="box" style=" border-left: solid 5px #ffe8b3;">
-                            <div class="right-side">
-                                <div class="box-topic">Orders</div>
-                                <?php
-                                $ret = mysqli_query($con, "SELECT COUNT(*) as NoOrders FROM orders, clinics WHERE orders.ClinicID = clinics.ClinicID AND orders.ClinicID = '$clinicID' AND OrderStatus = 'Completed'");
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-                                        ?>
-                                        <div class="number">
-                                            <?php echo $row['NoOrders']; ?>
-                                        </div>
-                                    <?php }
-                                } ?>
-                            </div>
-                            <i class='bx bx-cart cart three'><i class="fa fa-truck" style="color:white;"
-                                    style="color:white;"></i></i>
-                        </div>
-                        <div class="box" style=" border-left: solid 5px #f7d4d7;">
-                            <div class="right-side">
-                                <div class="box-topic">Bookings</div>
-                                <?php
-                                $ret = mysqli_query($con, "SELECT COUNT(*) as NoBookings FROM appointments, clinics WHERE appointments.ClinicID = clinics.ClinicID AND appointments.ClinicID = '$clinicID' AND AppointmentStatus = 'Completed'");
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-                                        ?>
-                                        <div class="number">
-                                            <?php echo $row['NoBookings']; ?>
-                                        </div>
-                                    <?php }
-                                } ?>
-                            </div>
-                            <i class='bx bxs-cart-download cart four'><i class="fa fa-calendar" style="color:white;"
-                                    style="color:white;"></i></i>
-                        </div>
+                        <div class="col-7"></div>
                     </div>
-                    <div class="row" style="padding-top:20px;">
-                        <div class="col-md-10">
-                            <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                                <div class="card-header userProfile-font"><b>💰 Sales</b></div>
-                                <div class="card-body text-center">
-                                    <canvas id="MSales" style=" width:100%;"></canvas>
+                </div>
+            <?php } else { ?>
+
+                <div class="main_container">
+                    <div class="home-content">
+                        <div class="overview-boxes">
+                            <div class="box" style=" border-left: solid 5px #C0F2D8;">
+                                <div class="right-side">
+                                    <div class="box-topic">Products</div>
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT COUNT(*) as NoSupplies FROM clinics, petsupplies WHERE petsupplies.ClinicID = clinics.ClinicID AND petsupplies.ClinicID = '$clinicID'");
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+                                            ?>
+                                            <div class="number">
+                                                <?php echo $row['NoSupplies']; ?>
+                                            </div>
+                                        <?php }
+                                    } ?>
+                                </div>
+                                <i class='bx bxs-cart-add cart two'><i class="fa fa-tag" style="color:white;"
+                                        style="color:white;"></i></i>
+                            </div>
+                            <div class="box" style=" border-left: solid 5px #B2A4FF;">
+                                <div class="right-side">
+                                    <div class="box-topic">Services</div>
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT COUNT(*) as  NoServices FROM clinics, services WHERE services.ClinicID = clinics.ClinicID AND services.ClinicID = '$clinicID'");
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+                                            ?>
+                                            <div class="number">
+                                                <?php echo $row['NoServices']; ?>
+                                            </div>
+                                        <?php }
+                                    } ?>
+                                </div>
+                                <i class='bx bx-cart-alt cart' style="background-color:#B2A4FF;"><i class="fa fa-list"
+                                        style="color:white;"></i></i>
+                            </div>
+                            <div class="box" style=" border-left: solid 5px #ffe8b3;">
+                                <div class="right-side">
+                                    <div class="box-topic">Orders</div>
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT COUNT(*) as NoOrders FROM orders, clinics WHERE orders.ClinicID = clinics.ClinicID AND orders.ClinicID = '$clinicID' AND OrderStatus = 'Completed'");
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+                                            ?>
+                                            <div class="number">
+                                                <?php echo $row['NoOrders']; ?>
+                                            </div>
+                                        <?php }
+                                    } ?>
+                                </div>
+                                <i class='bx bx-cart cart three'><i class="fa fa-truck" style="color:white;"
+                                        style="color:white;"></i></i>
+                            </div>
+                            <div class="box" style=" border-left: solid 5px #f7d4d7;">
+                                <div class="right-side">
+                                    <div class="box-topic">Bookings</div>
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT COUNT(*) as NoBookings FROM appointments, clinics WHERE appointments.ClinicID = clinics.ClinicID AND appointments.ClinicID = '$clinicID' AND AppointmentStatus = 'Completed'");
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+                                            ?>
+                                            <div class="number">
+                                                <?php echo $row['NoBookings']; ?>
+                                            </div>
+                                        <?php }
+                                    } ?>
+                                </div>
+                                <i class='bx bxs-cart-download cart four'><i class="fa fa-calendar" style="color:white;"
+                                        style="color:white;"></i></i>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-top:20px;">
+                            <div class="col-md-10">
+                                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                                    <div class="card-header userProfile-font"><b>💰 Sales</b></div>
+                                    <div class="card-body text-center">
+                                        <canvas id="MSales" style=" width:100%;"></canvas>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                                <div class="card-header userProfile-font"><b>🔔 Subscription</b></div>
-                                <div class="card-body text-center">
-                                    <table class="table table-bordered" style=" display: block; height: 319px;">
-                                        <tbody>
-                                            <?php
-                                            $ret = mysqli_query($con, "SELECT * FROM clinics WHERE clinicID = '$clinicID'");
-                                            $cnt = 1;
-                                            $row = mysqli_num_rows($ret);
-                                            if ($row > 0) {
-                                                while ($row = mysqli_fetch_array($ret)) {
-                                                    ?>
+                            <div class="col-md-2">
+                                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                                    <div class="card-header userProfile-font"><b>🔔 Subscription</b></div>
+                                    <div class="card-body text-center">
+                                        <table class="table table-bordered" style=" display: block; height: 319px;">
+                                            <tbody>
+                                                <?php
+                                                $ret = mysqli_query($con, "SELECT * FROM clinics WHERE clinicID = '$clinicID'");
+                                                $cnt = 1;
+                                                $row = mysqli_num_rows($ret);
+                                                if ($row > 0) {
+                                                    while ($row = mysqli_fetch_array($ret)) {
+                                                        ?>
 
-                                                    <tr>
-                                                        <td><b>Subscription Type</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <?php echo $row['SubscriptionType'] ?>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>Subsctiption Status</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <?php $status = $row['SubscriptionStatus'];
-                                                            if ($status === 'Inactive') { ?>
-                                                                <a
-                                                                    style="color:white; font-size:12px; padding: 5px 30px;  border-radius:10px; background-color:#A52A2A;">
+                                                        <tr>
+                                                            <td><b>Subscription Type</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <?php echo $row['SubscriptionType'] ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Subsctiption Status</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <?php $status = $row['SubscriptionStatus'];
+                                                                if ($status === 'Inactive') { ?><a
+                                                                    style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#A52A2A;">
                                                                     <?php echo $row['SubscriptionStatus']; ?>
                                                                 </a>
                                                             <?php }
-                                                            if ($status === 'Active') { ?>
-                                                                <a
-                                                                    style="color:white; font-size:12px; padding: 5px 7px;  border-radius:10px; background-color:#228B22;">
-                                                                    <?php echo $row['SubscriptionStatus']; ?>
-                                                                </a>
-                                                            <?php } ?>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>Date of Expiration</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <?php echo $row['ExpiryDateOfSub'] ?>
-                                                        </td>
-                                                    </tr>
-                                                <?php }
-                                            } ?>
-                                        </tbody>
-                                    </table>
+                                                                if ($status === 'Active') { ?><a
+                                                                style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#228B22;">
+                                                                <?php echo $row['SubscriptionStatus']; ?>
+                                                            </a>
+                                                        <?php } ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Date of Expiration</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <?php echo $row['ExpiryDateOfSub'] ?>
+                                                            </td>
+                                                        </tr>
+                                                    <?php }
+                                                } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        <?php } ?>
+            <?php }
+        } ?>
         <!-- END OF CLINIC ADMINISTRATOR -->
 
         <!-- For Clinic Admin -->
