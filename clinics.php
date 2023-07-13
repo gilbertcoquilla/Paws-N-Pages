@@ -57,7 +57,7 @@ include('config.php');
 </head>
 
 <body>
- <!-- Navbar Start -->
+    <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
         <a href="index.php" class="navbar-brand ms-lg-5">
             <img src="https://i.ibb.co/vmrbJ34/logo-black.png" alt="Paws N Pages Logo" width="70" height="70" />
@@ -169,7 +169,7 @@ include('config.php');
 
                                     <div class="col-12 col-sm-5 h-100">
                                         <?php if ($row_s['ClinicImage'] != "") {
-                                            echo '<a href="clinic_profile.php?clinicid=' . $row_s['ClinicID'] . '"><img src=image_upload/' . $row_s['ClinicImage'] . ' class="img-fluid" style="object-fit: cover;width: 100%; height: 100%;"></a>';
+                                            echo '<a href="clinic_profile.php?clinicid=' . $row_s['ClinicID'] . '"><img src="image_upload/' . $row_s['ClinicImage'] . '" class="img-fluid" style="object-fit: cover;width: 100%; height: 100%;"></a>';
                                         }
                                         ?>
                                     </div>
