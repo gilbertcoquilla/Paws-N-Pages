@@ -14,8 +14,7 @@ $clinic_id = $_SESSION['clinic_id'];
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Booking</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -170,12 +169,12 @@ $clinic_id = $_SESSION['clinic_id'];
                         if ($row > 0) {
                             while ($row = mysqli_fetch_array($ret)) {
 
-                                ?>
+                        ?>
                                 <?php if ($row['ClinicImage'] != "") {
                                     echo '<a href="clinic_profile.php?clinicid=' . $row['ClinicID'] . '"><img src=image_upload/' . $row['ClinicImage'] . ' class="img-fluid" style="object-fit: cover;width: 100%; height: 100%;"></a>';
                                 }
                                 ?>
-                                <?php
+                        <?php
                             }
                         } ?>
                     </div>
@@ -191,14 +190,14 @@ $clinic_id = $_SESSION['clinic_id'];
                     if ($row > 0) {
                         while ($row = mysqli_fetch_array($ret)) {
 
-                            ?>
+                    ?>
                             <?php
                             $ret1 = mysqli_query($con, "SELECT address.LotNo_Street, address.Barangay, address.City, users.UserID, users.ContactNo, clinics.OpeningTime, clinics.ClosingTime, clinics.OperatingDays ,clinics.ClinicID FROM address, users, clinics WHERE address.UserID = users.UserID AND users.UserID = clinics.UserID AND clinics.ClinicID = '$clinic_id' LIMIT 1");
                             $cnt1 = 1;
                             $row1 = mysqli_num_rows($ret1);
                             if ($row1 > 0) {
                                 while ($row1 = mysqli_fetch_array($ret1)) {
-                                    ?>
+                            ?>
                                     <p>
                                         <br>
                                         <br>
@@ -210,12 +209,12 @@ $clinic_id = $_SESSION['clinic_id'];
                                     <?php echo '<b>Opening Days: </b>' . $row1['OperatingDays'] ?>
                                     </p>
                                     <br>
-                                    <?php
+                            <?php
                                 }
                             } ?>
 
 
-                        <?php }
+                    <?php }
                     } ?>
 
                 </div>
@@ -242,14 +241,13 @@ $clinic_id = $_SESSION['clinic_id'];
                         $row = mysqli_num_rows($ret);
                         if ($row > 0) {
                             while ($row = mysqli_fetch_array($ret)) {
-                                ?>
+                        ?>
 
-                                <input type="checkbox" id="service" name="service[]"
-                                    value="<?php echo $row['ServiceName'] ?>">&nbsp; <?php echo $row['ServiceName'] ?>
+                                <input type="checkbox" id="service" name="service[]" value="<?php echo $row['ServiceName'] ?>">&nbsp; <?php echo $row['ServiceName'] ?>
                                 &nbsp;
 
 
-                                <?php
+                        <?php
 
                                 $cnt = $cnt + 1;
                             }
@@ -258,49 +256,41 @@ $clinic_id = $_SESSION['clinic_id'];
                     <br />
                     <div class="col-12">
                         <h5>Preferred date:</h5>
-                        <input type="date" class="form-control bg-light border-3 px-4 py-3" style="border-radius: 15px;"
-                            id="datePicker" name="appointmentDate" required>
+                        <input type="date" class="form-control bg-light border-3 px-4 py-3" style="border-radius: 15px;" id="datePicker" name="appointmentDate" required>
                     </div>
                     <br />
                     <div class="col-12">
                         <h5>Preferred time:</h5>
-                        <input type="time" class="form-control bg-light border-3 px-4 py-3" style="border-radius: 15px;"
-                            id="timePicker" name="appointmentTime" required>
+                        <input type="time" class="form-control bg-light border-3 px-4 py-3" style="border-radius: 15px;" id="timePicker" name="appointmentTime" required>
                         <span style="color:red; font-style:italic;">*Please double check the operating days and hours of
                             the clinic</span>
                     </div>
                     <br />
                     <div class="col-12">
                         <h5>Notes:</h5>
-                        <input type="name" name="notes" style="border-radius: 15px;"
-                            class="form-control bg-light border-3 px-4 py-3"
-                            placeholder="For example: my pet has a fever">
+                        <input type="name" name="notes" style="border-radius: 15px;" class="form-control bg-light border-3 px-4 py-3" placeholder="For example: my pet has a fever">
                     </div>
                     <br />
                     <div class="col-12" style="display: none;">
                         <h5>Status:</h5>
-                        <input type="name" name="status" class="form-control  bg-light border-3 px-4 py-3"
-                            value="Processing">
+                        <input type="name" name="status" class="form-control  bg-light border-3 px-4 py-3" value="Processing">
                     </div>
 
                     <div class="col-12" style="display: none;">
                         <h5>User ID:</h5>
-                        <input type="text" name="userID" class="form-control  bg-light border-3 px-4 py-3"
-                            value="<?php echo $userID ?>" required>
+                        <input type="text" name="userID" class="form-control  bg-light border-3 px-4 py-3" value="<?php echo $userID ?>" required>
                     </div>
 
                     <div class="col-12" style="display: none;">
                         <h5>Clinic ID:</h5>
-                        <input type="text" name="clinicID" class="form-control  bg-light border-3 px-4 py-3"
-                            value="<?php echo $clinic_id ?>" required>
+                        <input type="text" name="clinicID" class="form-control  bg-light border-3 px-4 py-3" value="<?php echo $clinic_id ?>" required>
                     </div>
-                    <h5 class="text-primary" class="btn btn-primary" type="button" data-bs-toggle="modal"
-                        data-bs-target="#termsModal"><input type="checkbox" id="acceptTerms" required> I accept the
-                        <u>Terms & Conditions</u></h5>
+                    <h5 class="text-primary" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#termsModal"><input type="checkbox" id="acceptTerms" required> I accept the
+                        <u>Terms & Conditions</u>
+                    </h5>
                     <br>
                     <div class="col-12">
-                        <input type="submit" name="submit" value="Submit" style="border-radius: 15px;"
-                            class="btn btn-primary w-100 py-3" />
+                        <input type="submit" name="submit" value="Submit" style="border-radius: 15px;" class="btn btn-primary w-100 py-3" />
                     </div>
                 </form>
             </div>
@@ -456,7 +446,6 @@ $clinic_id = $_SESSION['clinic_id'];
                                                     }
                                                 })';
                 echo '</script>';
-
             } else {
                 echo "<script>alert('Something went wrong. Please try again');</script>";
             }
@@ -468,7 +457,7 @@ $clinic_id = $_SESSION['clinic_id'];
 
 
 
-    <!-- Testimonial Start -->
+    <!-- Feedback Start -->
     <div class="container-fluid bg-testimonial py-5" style="margin: 90px 0;">
         <div class="border-start border-5 border-primary ps-5 mb-5" style="max-width: 600px;">
             <h1 class="text-dark text-uppercase">Feedbacks</h1>
@@ -477,34 +466,50 @@ $clinic_id = $_SESSION['clinic_id'];
             <div class="row justify-content-center">
                 <div class="col-lg-7">
                     <div class="owl-carousel testimonial-carousel bg-white p-5">
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-4">
+
+                        <?php
+                        $ret = mysqli_query($con, "SELECT * FROM feedback, users WHERE feedback.UserID = users.UserID AND feedback.ClinicID = '$clinic_id'");
+                        $cnt = 1;
+                        $row = mysqli_num_rows($ret);
+                        if ($row > 0) {
+                            while ($row = mysqli_fetch_array($ret)) {
+                        ?>
+
+                                <div class="testimonial-item text-center">
+                                    <div class="position-relative mb-4">
+                                    </div>
+                                    <p><?php echo $row['OverallFeedback'] ?></p>
+                                    <hr class="w-25 mx-auto">
+                                    <h5 class="text-uppercase"><?php echo $row['Rating'] ?>/5</h5>
+                                    <span>- <?php echo $row['FirstName'] ?></span>
+                                </div>
+
+                            <?php
+                            }
+                        } else { ?>
+
+                            <div class="testimonial-item text-center">
+                                <div class="position-relative mb-4">
+                                </div>
+                                <p>No ratings or feedback yet on this veterinary clinic.</p>
+                                <hr class="w-25 mx-auto">
+                                <h5 class="text-uppercase"></h5>
+                                <span></span>
                             </div>
-                            <p>The clinic is very responsive and clean.</p>
-                            <hr class="w-25 mx-auto">
-                            <h5 class="text-uppercase">5/5</h5>
-                            <span>- Joseph</span>
-                        </div>
-                        <div class="testimonial-item text-center">
-                            <div class="position-relative mb-4">
-                            </div>
-                            <p>It was okay</p>
-                            <hr class="w-25 mx-auto">
-                            <h5 class="text-uppercase">4/5</h5>
-                            <span>- Mary</span>
-                        </div>
+
+                        <?php } ?>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Testimonial End -->
+    <!-- Feedback End -->
 
 
 
     <!-- Modal Start -->
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -539,10 +544,8 @@ $clinic_id = $_SESSION['clinic_id'];
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
-                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
-                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
                     <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
                         762 6162</a>
                 </div>
@@ -550,14 +553,10 @@ $clinic_id = $_SESSION['clinic_id'];
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="index.php#services"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="index.php#founders"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="index.php#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="index.php#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
@@ -596,7 +595,7 @@ $clinic_id = $_SESSION['clinic_id'];
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        $(function () {
+        $(function() {
             var dtToday = new Date();
 
             var month = dtToday.getMonth() + 1;
