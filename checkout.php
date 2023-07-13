@@ -219,7 +219,15 @@ $sum_q = $row_q['total_items'];
                                 <h6 class="display-5  text-uppercase mb-0 text-center" style="color:white; background-color:#80b434; font-size:30px; border-radius: 15px; padding-bottom: 5px; padding-top: 5px;">
                                     SCAN TO PAY</h6><BR />
                             </div>
-                            <img src="https://help.gcash.com/hc/article_attachments/9396039095961/3rd.png" alt="Italian Trulli" width=300; height=300;>
+
+                            <?php
+                            $sql_cb = mysqli_query($con, "SELECT * FROM clinic_billing WHERE ClinicID='$clinic_id'");
+                            $row_cb = mysqli_fetch_array($sql_cb);
+                            ?>
+
+                            <?php if ($row_cb['BillingImage'] != "") { ?>
+                                <img src="image_upload/<?php echo $row_cb['BillingImage'] ?>" alt="Italian Trulli" width=300; height=300;>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
