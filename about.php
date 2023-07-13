@@ -35,7 +35,7 @@ include('connection.php');
 </head>
 
 <body>
-<!-- Navbar Start -->
+    <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
         <a href="index.php" class="navbar-brand ms-lg-5">
             <img src="https://i.ibb.co/vmrbJ34/logo-black.png" alt="Paws N Pages Logo" width="70" height="70" />
@@ -266,6 +266,9 @@ include('connection.php');
                             <p>Digitalize your Pet Booklet and never have to lose it again!
                             </p>
                             <img src="https://media.discordapp.net/attachments/1112075552669581332/1121348266773184552/31.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
+                            <br>
+                            <br>
+                            <br>
                             <a class="text-primary text-uppercase" href="userProfile.php">View Profile<i class="bi bi-chevron-right"></i></a>
                         </div>
                     </div>

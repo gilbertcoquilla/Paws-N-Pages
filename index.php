@@ -117,6 +117,8 @@ include('connection.php');
                             <p>Click here to report your concerns
                             </p>
                             <img src="https://i.ibb.co/TgT3HxN/2.png" style="max-width: 100%; height: auto; padding-bottom: 25px;" />
+                            <br>
+                            <br>
                             <a class="text-primary text-uppercase" href="contact.php">Contact Us<i class="bi bi-chevron-right"></i></a>
                         </div>
                     </div>
