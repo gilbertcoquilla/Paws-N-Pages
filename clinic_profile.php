@@ -154,11 +154,16 @@ $_SESSION['clinic_id'] = $clinic_id;
             width: 100%;
             height: 100%;
         }
-        .button4:hover {background-color: #e7e7e7; color: black;}
+
+        .button4:hover {
+            background-color: #e7e7e7;
+            color: black;
+        }
+
         h6.ex1 {
-          padding-left: 1em;
-          padding-right: 1em;
-            }
+            padding-left: 1em;
+            padding-right: 1em;
+        }
     </style>
 </head>
 
@@ -246,20 +251,8 @@ $_SESSION['clinic_id'] = $clinic_id;
                                     }
                                 } ?>
 
-
-                    <?php
-                            $ret2 = mysqli_query($con, "SELECT * FROM services WHERE ClinicID='$clinic_id' LIMIT 4");
-                            $cnt2 = 1;
-                            $row2 = mysqli_num_rows($ret2);
-                            if ($row2 > 0) {
-                                while ($row2 = mysqli_fetch_array($ret2)) {
-                    ?>
-                            <span style="background-color: rgb(102, 176, 50); border-radius: 6px; color:white; padding-top: 2px; padding-bottom: 3px;">
-                                &nbsp; <?php echo ' ' . $row2['ServiceName'] . ' ' ?> &nbsp;
-                            </span>&nbsp;
             <?php
-                                }
-                            }
+
                         }
                     } ?>
             <br />
@@ -302,7 +295,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                                 <br>
                                 <a style="color: black;" href="product.php?productid=<?php echo htmlentities($row['SupplyID']); ?>">
                                     <div class="product-info" style="padding-left: 5px; padding-right: 5px;">
-                                        <h6 class="text-uppercase ex1" >
+                                        <h6 class="text-uppercase ex1">
 
                                             <b>
                                                 <?php echo $row['SupplyName']; ?>
