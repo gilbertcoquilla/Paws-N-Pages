@@ -956,18 +956,22 @@ $row_cb = mysqli_num_rows($ret_cb);
                                     <input type="hidden" name="id_user" value="<?php echo $row['ClinicID'] ?>" />
 
                                     <div class="col-md-12">
-                                        <label style="padding-bottom: 5px;">Clinic Profile Picture (Current)</label><br>
+                                        <label style="padding-bottom: 5px;">Clinic GCash QR (Current)</label><br>
                                         <a href="image_upload/<?php echo $row['BillingImage']; ?>" target="_blank">
-                                            <span name="old" value="<?php echo $row['BillingImage']; ?>">
-                                                <?php echo $row['BillingImage']; ?>
+                                            <span name="old">
+                                                <?php
+                                                $b_image = substr($row['BillingImage'], 0, 15);
+                                                echo $b_image . '...';
+                                                ?>
                                             </span>
                                         </a>&nbsp;<a href="image_upload/<?php echo $row['BillingImage']; ?>" target="_blank" download>(Download)</a></span>
                                     </div>
-                                    <br><br>
+                                    <br>
                                     <div class="col-md-12">
-                                        <label>Update Clinic Profile Picture</label>
+                                        <label>Update Clinic GCash QR</label>
                                         <input type="file" id="uClinicQR" name="uClinicQR" class="form-control" style="width: 100%;" accept="image/*" required="required">
                                     </div>
+                                    <br>
                                 <?php } ?>
                             </div>
                         </div>
