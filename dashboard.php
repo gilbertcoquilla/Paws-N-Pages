@@ -22,7 +22,8 @@ $subExp = $row_ca['ExpiryDateOfSub'];
 <head>
     <meta charset="UTF-8">
     <title>Paws N Pages | Dashboard</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -96,9 +97,15 @@ $subExp = $row_ca['ExpiryDateOfSub'];
             width: calc(100% - 250px);
             padding: 30px;
             height: 100vh;
-            background-image: url("./img/home.png");
+            background-image: url("./img/expired.png");
         }
 
+        .inactive {
+            width: calc(100% - 250px);
+            padding: 30px;
+            height: 100vh;
+            background-image: url("./img/inactive.png");
+        }
 
         .side_bar .side_bar_top .profile_pic {
             display: flex;
@@ -442,7 +449,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function(digits) {
+            Number.prototype.pad = function (digits) {
                 for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
@@ -461,7 +468,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
         }
     </script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var table = $('#orders').DataTable({
                 order: [
                     [2, 'asc']
@@ -474,17 +481,21 @@ $subExp = $row_ca['ExpiryDateOfSub'];
 
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png"
+                height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
-            ?>
-                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
+                ?>
+                <a href="logout.php"
+                    style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i
+                        class="fa fa-sign-out"></i></a><a
+                    style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
                     in as, <i>
                         <?php echo $row['Username'] ?>
                     </i></a>&nbsp;&nbsp;
-        </p>
-    <?php } ?>
+            </p>
+        <?php } ?>
     </div>
     <div class="wrapper">
         <div class="side_bar">
@@ -497,87 +508,146 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         <span class="bottom_curve"></span>
                     </li>
 
-                    <?php if ($subStat != 'Expired' || $subStat != 'Inactive') { ?>
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
-                                <span class="item">Profile</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
+                    <?php if ($usertype == 'Clinic Administrator') { ?>
 
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
-                                <span class="item">Products</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
 
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
-                                <span class="item">Bookings</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
+                        <?php if ($subStat != 'Expired' || $subStat != 'Inactive') { ?>
+                            <div style="display: none;">
+                            <?php } else { ?>
+                                <div>
+                                <?php } ?>
 
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
-                                <span class="item">Orders</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
+                                <li>
+                                    <span class="top_curve"></span>
+                                    <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
+                                        <span class="item">Profile</span></a>
+                                    <span class="bottom_curve"></span>
+                                </li>
 
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
-                                <span class="item">Feedback</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
+                                <li>
+                                    <span class="top_curve"></span>
+                                    <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
+                                        <span class="item">Products</span></a>
+                                    <span class="bottom_curve"></span>
+                                </li>
 
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
-                                <span class="item">Services</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
+                                <li>
+                                    <span class="top_curve"></span>
+                                    <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
+                                        <span class="item">Bookings</span></a>
+                                    <span class="bottom_curve"></span>
+                                </li>
 
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
-                                <span class="item">Pet Records</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
+                                <li>
+                                    <span class="top_curve"></span>
+                                    <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
+                                        <span class="item">Orders</span></a>
+                                    <span class="bottom_curve"></span>
+                                </li>
 
-                    <?php } ?>
+                                <li>
+                                    <span class="top_curve"></span>
+                                    <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
+                                        <span class="item">Feedback</span></a>
+                                    <span class="bottom_curve"></span>
+                                </li>
 
-                    <?php if ($usertype == 'Administrator') { ?>
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
-                                <span class="item">Users</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
+                                <li>
+                                    <span class="top_curve"></span>
+                                    <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
+                                        <span class="item">Services</span></a>
+                                    <span class="bottom_curve"></span>
+                                </li>
 
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
-                                <span class="item">Clinics</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
+                                <li>
+                                    <span class="top_curve"></span>
+                                    <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
+                                        <span class="item">Pet Records</span></a>
+                                    <span class="bottom_curve"></span>
+                                </li>
+                            </div>
 
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
-                                <span class="item">Pet Booklet</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
+                        <?php } ?>
 
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
-                                <span class="item">Reports</span></a>
-                            <span class="bottom_curve"></span>
-                        </li>
-                    <?php } ?>
+
+
+                        <?php if ($usertype == 'Administrator') { ?>
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
+                                    <span class="item">Profile</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
+                                    <span class="item">Products</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
+                                    <span class="item">Bookings</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
+                                    <span class="item">Orders</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
+                                    <span class="item">Feedback</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
+                                    <span class="item">Services</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
+                                    <span class="item">Pet Records</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
+                                    <span class="item">Users</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
+                                    <span class="item">Clinics</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
+                                    <span class="item">Pet Booklet</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+
+                            <li>
+                                <span class="top_curve"></span>
+                                <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
+                                    <span class="item">Reports</span></a>
+                                <span class="bottom_curve"></span>
+                            </li>
+                        <?php } ?>
                 </ul>
                 <!--digital clock start-->
                 <div class="datetime" style="color:white;  text-align:center;">
@@ -611,14 +681,15 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                 $row = mysqli_num_rows($ret);
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
-                                ?>
+                                        ?>
                                         <div class="number">
                                             <?php echo $row['NoUsers']; ?>
                                         </div>
-                                <?php }
+                                    <?php }
                                 } ?>
                             </div>
-                            <i class='bx bx-cart-alt cart' style="background-color:#B2A4FF;"><i class="fa fa-user" style="color:white;"></i></i>
+                            <i class='bx bx-cart-alt cart' style="background-color:#B2A4FF;"><i class="fa fa-user"
+                                    style="color:white;"></i></i>
                         </div>
                         <div class="box" style=" border-left: solid 5px #C0F2D8;">
                             <div class="right-side">
@@ -628,14 +699,15 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                 $row = mysqli_num_rows($ret);
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
-                                ?>
+                                        ?>
                                         <div class="number">
                                             <?php echo $row['NoClinics']; ?>
                                         </div>
-                                <?php }
+                                    <?php }
                                 } ?>
                             </div>
-                            <i class='bx bxs-cart-add cart two'><i class="fa fa-building" style="color:white;" style="color:white;"></i></i>
+                            <i class='bx bxs-cart-add cart two'><i class="fa fa-building" style="color:white;"
+                                    style="color:white;"></i></i>
                         </div>
                         <div class="box" style=" border-left: solid 5px #ffe8b3;">
                             <div class="right-side">
@@ -645,14 +717,15 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                 $row = mysqli_num_rows($ret);
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
-                                ?>
+                                        ?>
                                         <div class="number">
                                             <?php echo $row['NoOrders']; ?>
                                         </div>
-                                <?php }
+                                    <?php }
                                 } ?>
                             </div>
-                            <i class='bx bx-cart cart three'><i class="fa fa-truck" style="color:white;" style="color:white;"></i></i>
+                            <i class='bx bx-cart cart three'><i class="fa fa-truck" style="color:white;"
+                                    style="color:white;"></i></i>
                         </div>
                         <div class="box" style=" border-left: solid 5px #f7d4d7;">
                             <div class="right-side">
@@ -662,20 +735,21 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                 $row = mysqli_num_rows($ret);
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
-                                ?>
+                                        ?>
                                         <div class="number">
                                             <?php echo $row['NoBookings']; ?>
                                         </div>
-                                <?php }
+                                    <?php }
                                 } ?>
                             </div>
-                            <i class='bx bxs-cart-download cart four'><i class="fa fa-calendar" style="color:white;" style="color:white;"></i></i>
+                            <i class='bx bxs-cart-download cart four'><i class="fa fa-calendar" style="color:white;"
+                                    style="color:white;"></i></i>
                         </div>
                     </div>
                     <div class="row" style="padding-top:20px;">
                         <div class="col-md-8">
                             <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                                <div class="card-header userProfile-font"><b>💰 Monthly Sales</b></div>
+                                <div class="card-header userProfile-font"><b>💰 Sales per Clinic</b></div>
                                 <div class="card-body text-center">
                                     <canvas id="salesChart" style=" width:100%;"></canvas>
                                 </div>
@@ -685,7 +759,8 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                             <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                                 <div class="card-header userProfile-font"><b>👤 Users </b></div>
                                 <div class="card-body text-center">
-                                    <table class="table table-bordered" style=" display: block; height: 360px; overflow-y: scroll; width:100%;">
+                                    <table class="table table-bordered"
+                                        style=" display: block; height: 360px; overflow-y: scroll; width:100%;">
                                         <tbody>
                                             <tr>
                                                 <td><b>Name</b></td>
@@ -696,20 +771,20 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                             $row = mysqli_num_rows($ret);
                                             if ($row > 0) {
                                                 while ($row = mysqli_fetch_array($ret)) {
-                                            ?>
+                                                    ?>
                                                     <tr>
                                                         <td>
                                                             <?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>
                                                         </td>
                                                     </tr>
-                                                <?php
+                                                    <?php
                                                     $cnt = $cnt + 1;
                                                 }
                                             } else { ?>
-                                                <tr style="border:0px;">
-                                                    <td style="text-align:center; color:red;">No Record Found</td>
-                                                </tr>
-                                            <?php } ?>
+                                            <tr style="border:0px;">
+                                                <td style="text-align:center; color:red;">No Record Found</td>
+                                            </tr>
+                                        <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -764,7 +839,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         y: {
                             ticks: {
                                 // Include a dollar sign in the ticks
-                                callback: function(value, index, ticks) {
+                                callback: function (value, index, ticks) {
                                     return '₱ ' + Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks]);
                                 }
                             }
@@ -787,13 +862,30 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     <?php echo date('F j, Y', strtotime($subExp)) ?>
                                 </b>. <br>To regain access to the system's functionalities, please renew your subscription by
                                 clicking the button below.</p><br>
-                            <input type="submit" class="btn btn-primary" style="height:60px; width:300px; font-size: 20px; border-radius:15px;" value="RENEW SUBSCRIPTION">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#renew_modal"
+                                style="height:60px; width:300px; font-size: 20px; border-radius:15px;">RENEW SUBSCRIPTION
+                            </button>
                         </div>
                         <div class="col-7"></div>
                     </div>
                 </div>
-            <?php } else { ?>
+            <?php } ?>
 
+            <?php if ($subStat == 'Inactive') { ?>
+                <div class="inactive">
+                    <div class="row">
+                        <div class="col-5 text-center" style="padding-top:220px;">
+                            <h1 class="text-uppercase" style="color: #FF914D;">account is inactive</h1>
+                            <p style="color:gray; padding-top:15px;">Your account is still inactive. Please reach out to <b>
+                                    pawsnpages.site@gmail.com </b> or send a message through <br> the <b> <a href="contact.php"
+                                        style="color: #FF914D;">Contact Us</a> </b> form to process your subscription.</p><br>
+                        </div>
+                        <div class="col-7"></div>
+                    </div>
+                </div>
+            <?php } ?>
+
+            <?php if ($subStat == 'Active') { ?>
                 <div class="main_container">
                     <div class="home-content">
                         <div class="overview-boxes">
@@ -805,14 +897,15 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
+                                            ?>
                                             <div class="number">
                                                 <?php echo $row['NoSupplies']; ?>
                                             </div>
-                                    <?php }
+                                        <?php }
                                     } ?>
                                 </div>
-                                <i class='bx bxs-cart-add cart two'><i class="fa fa-tag" style="color:white;" style="color:white;"></i></i>
+                                <i class='bx bxs-cart-add cart two'><i class="fa fa-tag" style="color:white;"
+                                        style="color:white;"></i></i>
                             </div>
                             <div class="box" style=" border-left: solid 5px #B2A4FF;">
                                 <div class="right-side">
@@ -822,14 +915,15 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
+                                            ?>
                                             <div class="number">
                                                 <?php echo $row['NoServices']; ?>
                                             </div>
-                                    <?php }
+                                        <?php }
                                     } ?>
                                 </div>
-                                <i class='bx bx-cart-alt cart' style="background-color:#B2A4FF;"><i class="fa fa-list" style="color:white;"></i></i>
+                                <i class='bx bx-cart-alt cart' style="background-color:#B2A4FF;"><i class="fa fa-list"
+                                        style="color:white;"></i></i>
                             </div>
                             <div class="box" style=" border-left: solid 5px #ffe8b3;">
                                 <div class="right-side">
@@ -839,14 +933,15 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
+                                            ?>
                                             <div class="number">
                                                 <?php echo $row['NoOrders']; ?>
                                             </div>
-                                    <?php }
+                                        <?php }
                                     } ?>
                                 </div>
-                                <i class='bx bx-cart cart three'><i class="fa fa-truck" style="color:white;" style="color:white;"></i></i>
+                                <i class='bx bx-cart cart three'><i class="fa fa-truck" style="color:white;"
+                                        style="color:white;"></i></i>
                             </div>
                             <div class="box" style=" border-left: solid 5px #f7d4d7;">
                                 <div class="right-side">
@@ -856,20 +951,21 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                    ?>
+                                            ?>
                                             <div class="number">
                                                 <?php echo $row['NoBookings']; ?>
                                             </div>
-                                    <?php }
+                                        <?php }
                                     } ?>
                                 </div>
-                                <i class='bx bxs-cart-download cart four'><i class="fa fa-calendar" style="color:white;" style="color:white;"></i></i>
+                                <i class='bx bxs-cart-download cart four'><i class="fa fa-calendar" style="color:white;"
+                                        style="color:white;"></i></i>
                             </div>
                         </div>
                         <div class="row" style="padding-top:20px;">
                             <div class="col-md-10">
                                 <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                                    <div class="card-header userProfile-font"><b>💰 Sales</b></div>
+                                    <div class="card-header userProfile-font"><b>💰 Monthly Sales</b></div>
                                     <div class="card-body text-center">
                                         <canvas id="MSales" style=" width:100%;"></canvas>
                                     </div>
@@ -887,7 +983,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                                 $row = mysqli_num_rows($ret);
                                                 if ($row > 0) {
                                                     while ($row = mysqli_fetch_array($ret)) {
-                                                ?>
+                                                        ?>
 
                                                         <tr>
                                                             <td><b>Subscription Type</b></td>
@@ -903,14 +999,16 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                                         <tr>
                                                             <td>
                                                                 <?php $status = $row['SubscriptionStatus'];
-                                                                if ($status === 'Inactive') { ?><a style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#A52A2A;">
-                                                                        <?php echo $row['SubscriptionStatus']; ?>
-                                                                    </a>
-                                                                <?php }
-                                                                if ($status === 'Active') { ?><a style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#228B22;">
-                                                                        <?php echo $row['SubscriptionStatus']; ?>
-                                                                    </a>
-                                                                <?php } ?>
+                                                                if ($status === 'Inactive') { ?><a
+                                                                    style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#A52A2A;">
+                                                                    <?php echo $row['SubscriptionStatus']; ?>
+                                                                </a>
+                                                            <?php }
+                                                                if ($status === 'Active') { ?><a
+                                                                style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#228B22;">
+                                                                <?php echo $row['SubscriptionStatus']; ?>
+                                                            </a>
+                                                        <?php } ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -921,7 +1019,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                                                 <?php echo $row['ExpiryDateOfSub'] ?>
                                                             </td>
                                                         </tr>
-                                                <?php }
+                                                    <?php }
                                                 } ?>
                                             </tbody>
                                         </table>
@@ -931,9 +1029,121 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         </div>
                     </div>
                 </div>
-        <?php }
+            <?php }
         } ?>
         <!-- END OF CLINIC ADMINISTRATOR -->
+
+        <!-- START OF MODAL FOR RENEWING SUBSCRIPTION -->
+        <div class="modal fade" id="renew_modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="border-radius: 15px;">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="modal-header modal-header-success" runat="server">
+                            <h3 class="modal-title">Renew Subscription</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-12">
+
+                                <div class="form-group">
+                                    <label>Upload DTI Certificate of Registration</label>
+                                    <input type="file" name="CertReg" style="border-radius:15px;" class="form-control"
+                                        required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Upload Business Permit</label>
+                                    <input type="file" name="BPermit" style="border-radius:15px;" class="form-control"
+                                        required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Upload DTI Registered Business Name</label>
+                                    <input type="file" name="RegName" style="border-radius:15px;" class="form-control"
+                                        required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Subscription Type</label>
+                                    <select name="subtype" id="subtype" class="bg-light border-3 px-4 py-3"
+                                        style="border-radius:15px; border-color:#ced4da; height:40%; width: 100%;"
+                                        required>
+                                        <option disabled selected>-- Select an option --</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Annually">Annually</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <div class="modal-footer">
+                            <button name="update" type="submit" class="btn btn-primary"
+                                style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
+                                Submit</button>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal"
+                                style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
+                                Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END OF MODAL FOR RENEWING SUBSCRIPTION-->
+
+        <!-- FOR SUBMISSION OF SUBSCRIPTION RENEWAL-->
+        <?php
+        if (isset($_POST['update'])) {
+            // DTI Certificate of Registration
+            $file2 = $_FILES['CertReg']['name'];
+            $tempfile2 = $_FILES['CertReg']['tmp_name'];
+            $folder2 = "clinic_verification/" . $file2;
+
+            move_uploaded_file($tempfile2, $folder2);
+
+            // Business Permit
+            $file3 = $_FILES['BPermit']['name'];
+            $tempfile3 = $_FILES['BPermit']['tmp_name'];
+            $folder3 = "clinic_verification/" . $file3;
+
+            move_uploaded_file($tempfile3, $folder3);
+
+            // DTI Registered Business Name
+            $file4 = $_FILES['RegName']['name'];
+            $tempfile4 = $_FILES['RegName']['tmp_name'];
+            $folder4 = "clinic_verification/" . $file4;
+
+            move_uploaded_file($tempfile4, $folder4);
+
+            // For Subscription No
+            $code = 'PNPSUB';
+            $sequence = rand(00000, 99999);
+            $sub_no = $code . $sequence;
+
+            $subType = $_POST['subtype'];
+            $subStatus = 'Inactive';
+
+            $query = mysqli_query($con, "UPDATE clinics SET BusinessPermit='$file3', BusinessNameReg='$file4', CertificateOFReg='$file2', SubscriptionType='$subType', SubscriptionNo='$sub_no', SubscriptionStatus='$subStatus' WHERE ClinicID='$clinicID'");
+
+            if ($query) {
+                echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                echo '<script>';
+                echo 'swal({
+                                                title: "Success",
+                                                text: "You have successfully applied for a renewal of your subscription",
+                                                icon: "success",
+                                                html: true,
+                                                showCancelButton: true,
+                                                })
+                                                    .then((willDelete) => {
+                                                        if (willDelete) {
+                                                        
+                                                            document.location ="dashboard.php";
+                                                        }
+                                                    })';
+                echo '</script>';
+            } else {
+                echo "<script>alert('Something Went Wrong. Please try again');</script>";
+            }
+
+        }
+        ?>
 
         <!-- For Clinic Admin -->
         <?php
@@ -978,7 +1188,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         y: {
                             ticks: {
                                 // Include a dollar sign in the ticks
-                                callback: function(value, index, ticks) {
+                                callback: function (value, index, ticks) {
                                     return '₱ ' + Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks]);
                                 }
                             }
@@ -1004,11 +1214,13 @@ $subExp = $row_ca['ExpiryDateOfSub'];
         <script src="js/main.js"></script>
 
         <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
         <!-- To show details when editing -->
         <script>
-            $('#edit_service').on('show.bs.modal', function(e) {
+            $('#edit_service').on('show.bs.modal', function (e) {
                 var opener = e.relatedTarget;
 
                 var serviceid = $(opener).attr('serviceid');
