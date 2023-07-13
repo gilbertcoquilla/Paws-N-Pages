@@ -509,69 +509,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                     </li>
 
                     <?php if ($usertype == 'Clinic Administrator') { ?>
-
-
-                        <?php if ($subStat != 'Expired' || $subStat != 'Inactive') { ?>
-                            <div style="display: none;">
-                            <?php } else { ?>
-                                <div>
-                                <?php } ?>
-
-                                <li>
-                                    <span class="top_curve"></span>
-                                    <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
-                                        <span class="item">Profile</span></a>
-                                    <span class="bottom_curve"></span>
-                                </li>
-
-                                <li>
-                                    <span class="top_curve"></span>
-                                    <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
-                                        <span class="item">Products</span></a>
-                                    <span class="bottom_curve"></span>
-                                </li>
-
-                                <li>
-                                    <span class="top_curve"></span>
-                                    <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
-                                        <span class="item">Bookings</span></a>
-                                    <span class="bottom_curve"></span>
-                                </li>
-
-                                <li>
-                                    <span class="top_curve"></span>
-                                    <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
-                                        <span class="item">Orders</span></a>
-                                    <span class="bottom_curve"></span>
-                                </li>
-
-                                <li>
-                                    <span class="top_curve"></span>
-                                    <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
-                                        <span class="item">Feedback</span></a>
-                                    <span class="bottom_curve"></span>
-                                </li>
-
-                                <li>
-                                    <span class="top_curve"></span>
-                                    <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
-                                        <span class="item">Services</span></a>
-                                    <span class="bottom_curve"></span>
-                                </li>
-
-                                <li>
-                                    <span class="top_curve"></span>
-                                    <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
-                                        <span class="item">Pet Records</span></a>
-                                    <span class="bottom_curve"></span>
-                                </li>
-                            </div>
-
-                        <?php } ?>
-
-
-
-                        <?php if ($usertype == 'Administrator') { ?>
+                        <?php if ($subStat != 'Expired' && $subStat != 'Inactive') { ?>
                             <li>
                                 <span class="top_curve"></span>
                                 <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
@@ -620,34 +558,89 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     <span class="item">Pet Records</span></a>
                                 <span class="bottom_curve"></span>
                             </li>
-                            <li>
-                                <span class="top_curve"></span>
-                                <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
-                                    <span class="item">Users</span></a>
-                                <span class="bottom_curve"></span>
-                            </li>
 
-                            <li>
-                                <span class="top_curve"></span>
-                                <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
-                                    <span class="item">Clinics</span></a>
-                                <span class="bottom_curve"></span>
-                            </li>
+                        <?php }
+                    } ?>
 
-                            <li>
-                                <span class="top_curve"></span>
-                                <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
-                                    <span class="item">Pet Booklet</span></a>
-                                <span class="bottom_curve"></span>
-                            </li>
+                    <?php if ($usertype == 'Administrator') { ?>
 
-                            <li>
-                                <span class="top_curve"></span>
-                                <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
-                                    <span class="item">Reports</span></a>
-                                <span class="bottom_curve"></span>
-                            </li>
-                        <?php } ?>
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
+                                <span class="item">Profile</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
+                                <span class="item">Products</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
+                                <span class="item">Bookings</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
+                                <span class="item">Orders</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
+                                <span class="item">Feedback</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
+                                <span class="item">Services</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
+                                <span class="item">Pet Records</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
+                                <span class="item">Users</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
+                                <span class="item">Clinics</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
+                                <span class="item">Pet Booklet</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
+                                <span class="item">Reports</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+                    <?php } ?>
                 </ul>
                 <!--digital clock start-->
                 <div class="datetime" style="color:white;  text-align:center;">
@@ -667,7 +660,6 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                 <!--digital clock end-->
             </div>
         </div>
-
         <!-- START OF ADMINISTRATOR -->
         <?php if ($usertype == 'Administrator') { ?>
             <div class="main_container">
@@ -839,7 +831,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         y: {
                             ticks: {
                                 // Include a dollar sign in the ticks
-                                callback: function (value, index, ticks) {
+                                callback: function(value, i ndex, ticks) {
                                     return '₱ ' + Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks]);
                                 }
                             }
@@ -1188,7 +1180,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         y: {
                             ticks: {
                                 // Include a dollar sign in the ticks
-                                callback: function (value, index, ticks) {
+                                callback: function(value, i ndex, ticks) {
                                     return '₱ ' + Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks]);
                                 }
                             }
@@ -1220,8 +1212,8 @@ $subExp = $row_ca['ExpiryDateOfSub'];
 
         <!-- To show details when editing -->
         <script>
-            $('#edit_service').on('show.bs.modal', function (e) {
-                var opener = e.relatedTarget;
+            $('#edit_service').on('show.bs.modal', function(e) {
+                 var opener = e.relatedTarget;
 
                 var serviceid = $(opener).attr('serviceid');
                 var servicename = $(opener).attr('servicename');
