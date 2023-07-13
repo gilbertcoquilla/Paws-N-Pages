@@ -1163,7 +1163,7 @@ $row_cb = mysqli_num_rows($ret_cb);
         // Hashed password
         $ah_pword = password_hash($anewpass, PASSWORD_DEFAULT);
 
-        if (isset($_POST['update_admin']) && $ah_pword != "") {
+        if (isset($_POST['update_admin']) && $anewpass != "") {
 
             $ausername = $_POST['ausername'];
             $aemail = $_POST['aemail'];
@@ -1192,7 +1192,7 @@ $row_cb = mysqli_num_rows($ret_cb);
                 echo "<script>alert('Something Went Wrong. Please try again');</script>";
             }
         }
-        if (isset($_POST['update_admin']) && $ah_pword == "") {
+        if (isset($_POST['update_admin']) && $anewpass == "") {
 
             $username = $_POST['ausername'];
             $aemail = $_POST['aemail'];
@@ -1262,7 +1262,7 @@ $row_cb = mysqli_num_rows($ret_cb);
             }
         }
 
-        if (isset($_POST['update']) && $h_pword == "") {
+        if (isset($_POST['update']) && $newpass == "") {
 
             $userID = $_POST['userID'];
             $fname = $_POST['fname'];
