@@ -15,8 +15,7 @@ require 'src/SMTP.php';
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -76,12 +75,10 @@ require 'src/SMTP.php';
                             </div>
 
                             <div class="col-8">
-                                <input type="text" name="email" id="email" class="form-control  bg-light border-3 px-4"
-                                    style="border-radius: 15px; height: 60px;" placeholder="Email Address" required>
+                                <input type="email" name="email" id="email" class="form-control  bg-light border-3 px-4" style="border-radius: 15px; height: 60px;" placeholder="Email Address" required>
                             </div>
                             <div class="col-4">
-                                <button type="submit" style="border-radius: 15px; height: 60px;" name="reset"
-                                    class="btn btn-primary w-100 ">Reset</button>
+                                <button type="submit" style="border-radius: 15px; height: 60px;" name="reset" class="btn btn-primary w-100 ">Reset</button>
                             </div>
                             <div class="col-12"></div>
                         </div>
@@ -112,7 +109,7 @@ require 'src/SMTP.php';
             $mail->Password = 'zbytxxyfahbtjojr'; // SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port = 465; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-    
+
             //Recipients
             $mail->setFrom('pawsnpages.site@gmail.com', 'Paws N Pages');
             $mail->addAddress($email); // Add a recipient
@@ -135,7 +132,7 @@ require 'src/SMTP.php';
                             <br/><br/><BR/>Best regards,
                             Paws N Pages';
             $conn = mysqli_connect("localhost", "root", "", "pawsnpages_db") or die('Unable to connect');
-            $verifyQuery = $conn->query("SELECT * FROM users WHERE email = '$email'");
+            $verifyQuery = $conn->query("SELECT * FROM users WHERE Email = '$email'");
             if ($verifyQuery->num_rows) {
                 $mail->send();
                 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
@@ -173,7 +170,6 @@ require 'src/SMTP.php';
                 echo '</script>';
             }
             $conn->close();
-
         } catch (Exception $e) {
             echo "<script>alert('Message could not be sent. Mailer Error: {$mail->ErrorInfo}');</script>";
         }
