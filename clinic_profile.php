@@ -154,6 +154,11 @@ $_SESSION['clinic_id'] = $clinic_id;
             width: 100%;
             height: 100%;
         }
+        .button4:hover {background-color: #e7e7e7; color: black;}
+        h6.ex1 {
+          padding-left: 1em;
+          padding-right: 1em;
+            }
     </style>
 </head>
 
@@ -216,7 +221,7 @@ $_SESSION['clinic_id'] = $clinic_id;
                     ?>
                             <div style="padding-bottom: 25px;">
                                 <?php if ($row['ClinicImage'] != "") {
-                                    echo '<a href="clinic_profile.php?clinicid=' . $row['ClinicID'] . '"><img src=image_upload/' . $row['ClinicImage'] . ' style="object-fit: cover; width: 100%; height: 100%;"></a>';
+                                    echo '<a href="clinic_profile.php?clinicid=' . $row['ClinicID'] . '"><img src="image_upload/' . $row['ClinicImage'] . '" style="object-fit: cover; width: 100%; height: 100%;"></a>';
                                 }
                                 ?>
                             </div>
@@ -262,11 +267,11 @@ $_SESSION['clinic_id'] = $clinic_id;
 
             <?php if ($_SESSION["id"] != "") { ?>
                 <br>
-                <a class="btn btn-primary m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:center; border-radius: 15px;">Book an appointment
+                <a class="btn button4 btn-dark m-1" href="booking_form.php?clinicid=<?php echo htmlentities($clinic_id); ?>" style="text-align:center; border-radius: 15px;  width: 95%;">Book an appointment
                 </a>
 
                 <br>
-                <a class="btn btn-primary m-1" data-toggle="modal" data-target="#view_services" style="text-align:center; border-radius: 15px; width: 95%;">View Services
+                <a class="btn   btn-primary m-1" data-toggle="modal" data-target="#view_services" style="text-align:center; border-radius: 15px; width: 95%;">View Services
                 </a>
             <?php } ?>
 
@@ -296,8 +301,8 @@ $_SESSION['clinic_id'] = $clinic_id;
                                 </div>
                                 <br>
                                 <a style="color: black;" href="product.php?productid=<?php echo htmlentities($row['SupplyID']); ?>">
-                                    <div class="product-info">
-                                        <h6 class="text-uppercase">
+                                    <div class="product-info" style="padding-left: 5px; padding-right: 5px;">
+                                        <h6 class="text-uppercase ex1" >
 
                                             <b>
                                                 <?php echo $row['SupplyName']; ?>

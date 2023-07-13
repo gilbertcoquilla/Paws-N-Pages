@@ -326,7 +326,7 @@ include("connection.php");
                                 </div>
                                 <div class="row" style="padding-bottom:20px;">
                                     <div class="col-6">
-                                        <p> Clinic Logo </p>
+                                        <p> Clinic Profile Picture </p>
                                         <!-- <img id="cliniclogo" src="" width="100px" /> -->
                                         <input type="file" name="cliniclogo" class="form-control  bg-light border-3 px-4 py-3" style="border-radius:15px;" />
                                     </div>

@@ -108,7 +108,7 @@ include('config.php');
                 <div class="mb-5">
                     <form method="GET" enctype="multipart/form-data" runat="server">
                         <div class="input-group">
-                            <input type="text" id="searchbar" name="search" class="form-control p-3" placeholder="Search" style="border-radius: 15px 0px 0px 15px;">
+                            <input type="text" id="searchbar" name="search" class="form-control p-3" placeholder="Search for a 'Location', 'Clinic', or 'Service' " style="border-radius: 15px 0px 0px 15px;">
                             <button type="submit" name="btnsearch1" class="btn btn-primary px-4" style="border-radius: 0px 15px 15px 0px;"><i class="bi bi-search"></i></button>
                         </div>
                     </form>

@@ -363,7 +363,7 @@ $sum_q = $row_q['total_items'];
 
                                             <div class="col-12">
                                                 <label for="proof" style="float:left; padding-bottom:15px; padding-left:23px;">Upload Prescription</label>
-                                                <input type="file" style="border-radius: 15px;" name="orderPrescription" class="form-control bg-light border-1 px-4 py-3" required>
+                                                <input type="file" style="border-radius: 15px;" name="orderPrescription" class="form-control bg-light border-1 px-4 py-3">
                                             </div>
 
                                             <br />
