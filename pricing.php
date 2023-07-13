@@ -113,7 +113,7 @@ include('connection.php');
                                 <span>List of Services Available</span>
                                 <i class="bi bi-check2 fs-4 text-primary"></i>
                             </div>
-                            <a href="vet-registration.php" class="btn btn-primary text-uppercase py-2 px-4 my-3" style="border-radius: 15px;">Join Us</a>
+                            <a href="clinics_registration.php" class="btn btn-primary text-uppercase py-2 px-4 my-3" style="border-radius: 15px;">Join Us</a>
                         </div>
                     </div>
                 </div>
@@ -153,7 +153,7 @@ include('connection.php');
                                 <span>List of Services Available</span>
                                 <i class="bi bi-check2 fs-4 text-primary"></i>
                             </div>
-                            <a href="vet-registration.php" class="btn btn-primary text-uppercase py-2 px-4 my-3" style="border-radius: 15px;">Join Us</a>
+                            <a href="clinics_registration.php" class="btn btn-primary text-uppercase py-2 px-4 my-3" style="border-radius: 15px;">Join Us</a>
                         </div>
                     </div>
                 </div>
