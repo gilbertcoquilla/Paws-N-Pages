@@ -959,9 +959,9 @@ $row_cb = mysqli_num_rows($ret_cb);
                                         <label style="padding-bottom: 5px;">Clinic GCash QR (Current)</label><br>
                                         <a href="image_upload/<?php echo $row['BillingImage']; ?>" target="_blank">
                                             <span name="old">
-                                                <?php
-                                                $b_image = substr($row['BillingImage'], 0, 15);
-                                                echo $b_image . '...';
+                                                <?php 
+                                                    $b_image = substr($row['BillingImage'], 0, 15); 
+                                                    echo $b_image . '...';
                                                 ?>
                                             </span>
                                         </a>&nbsp;<a href="image_upload/<?php echo $row['BillingImage']; ?>" target="_blank" download>(Download)</a></span>
@@ -1099,7 +1099,7 @@ $row_cb = mysqli_num_rows($ret_cb);
             // For clinic logo
             $file = $_FILES['cliniclogo']['name'];
             $tempfile = $_FILES['cliniclogo']['tmp_name'];
-            $folder = "clinic_verification/" . $file;
+            $folder = "image_upload/" . $file;
             move_uploaded_file($tempfile, $folder);
 
             // Other details
