@@ -237,7 +237,7 @@ $clinicID = $row_ca['ClinicID'];
         $(document).ready(function() {
             var table = $('#orders').DataTable({
                 order: [
-                    [3, 'desc']
+                    [4, 'desc']
                 ],
 
             });
@@ -966,7 +966,7 @@ $clinicID = $row_ca['ClinicID'];
             var aproofpayment = $(opener).attr('aproofpayment');
             var aproofpaymentName = jQuery.trim(aproofpayment).substring(0, 20) + "...";
             var aproofrefno = $(opener).attr('aproofrefno');
-            a
+
             var aprescription = $(opener).attr('aprescription');
             var aprescriptionName = jQuery.trim(aprescription).substring(0, 20) + "...";
 
