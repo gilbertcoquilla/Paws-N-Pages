@@ -393,7 +393,7 @@ $clinicID = $row_ca['ClinicID'];
                             <b style="padding-top:10px;">💬 Feedbacks</b>
                         </div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" id="afeedbacks" style="border:0px; text-align:left;">
+                            <table class="table table-striped table-hover" id="feedbacks" style="border:0px; text-align:left;">
                                 <thead>
                                     <tr class="table100-head">
                                         <th class="column1" style="border:0px; color:#80b434;">Clinic</th>
