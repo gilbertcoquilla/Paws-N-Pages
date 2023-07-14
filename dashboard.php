@@ -22,8 +22,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
 <head>
     <meta charset="UTF-8">
     <title>Paws N Pages | Dashboard</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -449,7 +448,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function (digits) {
+            Number.prototype.pad = function(digits) {
                 for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
@@ -468,7 +467,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
         }
     </script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var table = $('#orders').DataTable({
                 order: [
                     [2, 'asc']
@@ -481,21 +480,17 @@ $subExp = $row_ca['ExpiryDateOfSub'];
 
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png"
-                height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
-                ?>
-                <a href="logout.php"
-                    style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i
-                        class="fa fa-sign-out"></i></a><a
-                    style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
+            ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
                     in as, <i>
                         <?php echo $row['Username'] ?>
                     </i></a>&nbsp;&nbsp;
-            </p>
-        <?php } ?>
+        </p>
+    <?php } ?>
     </div>
     <div class="wrapper">
         <div class="side_bar">
@@ -559,7 +554,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                 <span class="bottom_curve"></span>
                             </li>
 
-                        <?php }
+                    <?php }
                     } ?>
 
                     <?php if ($usertype == 'Administrator') { ?>
@@ -673,15 +668,14 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                 $row = mysqli_num_rows($ret);
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
-                                        ?>
+                                ?>
                                         <div class="number">
                                             <?php echo $row['NoUsers']; ?>
                                         </div>
-                                    <?php }
+                                <?php }
                                 } ?>
                             </div>
-                            <i class='bx bx-cart-alt cart' style="background-color:#B2A4FF;"><i class="fa fa-user"
-                                    style="color:white;"></i></i>
+                            <i class='bx bx-cart-alt cart' style="background-color:#B2A4FF;"><i class="fa fa-user" style="color:white;"></i></i>
                         </div>
                         <div class="box" style=" border-left: solid 5px #C0F2D8;">
                             <div class="right-side">
@@ -691,15 +685,14 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                 $row = mysqli_num_rows($ret);
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
-                                        ?>
+                                ?>
                                         <div class="number">
                                             <?php echo $row['NoClinics']; ?>
                                         </div>
-                                    <?php }
+                                <?php }
                                 } ?>
                             </div>
-                            <i class='bx bxs-cart-add cart two'><i class="fa fa-building" style="color:white;"
-                                    style="color:white;"></i></i>
+                            <i class='bx bxs-cart-add cart two'><i class="fa fa-building" style="color:white;" style="color:white;"></i></i>
                         </div>
                         <div class="box" style=" border-left: solid 5px #ffe8b3;">
                             <div class="right-side">
@@ -709,15 +702,14 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                 $row = mysqli_num_rows($ret);
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
-                                        ?>
+                                ?>
                                         <div class="number">
                                             <?php echo $row['NoOrders']; ?>
                                         </div>
-                                    <?php }
+                                <?php }
                                 } ?>
                             </div>
-                            <i class='bx bx-cart cart three'><i class="fa fa-truck" style="color:white;"
-                                    style="color:white;"></i></i>
+                            <i class='bx bx-cart cart three'><i class="fa fa-truck" style="color:white;" style="color:white;"></i></i>
                         </div>
                         <div class="box" style=" border-left: solid 5px #f7d4d7;">
                             <div class="right-side">
@@ -727,15 +719,14 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                 $row = mysqli_num_rows($ret);
                                 if ($row > 0) {
                                     while ($row = mysqli_fetch_array($ret)) {
-                                        ?>
+                                ?>
                                         <div class="number">
                                             <?php echo $row['NoBookings']; ?>
                                         </div>
-                                    <?php }
+                                <?php }
                                 } ?>
                             </div>
-                            <i class='bx bxs-cart-download cart four'><i class="fa fa-calendar" style="color:white;"
-                                    style="color:white;"></i></i>
+                            <i class='bx bxs-cart-download cart four'><i class="fa fa-calendar" style="color:white;" style="color:white;"></i></i>
                         </div>
                     </div>
                     <div class="row" style="padding-top:20px;">
@@ -751,8 +742,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                             <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                                 <div class="card-header userProfile-font"><b>👤 Users </b></div>
                                 <div class="card-body text-center">
-                                    <table class="table table-bordered"
-                                        style=" display: block; height: 360px; overflow-y: scroll; width:100%;">
+                                    <table class="table table-bordered" style=" display: block; height: 360px; overflow-y: scroll; width:100%;">
                                         <tbody>
                                             <tr>
                                                 <td><b>Name</b></td>
@@ -763,20 +753,20 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                             $row = mysqli_num_rows($ret);
                                             if ($row > 0) {
                                                 while ($row = mysqli_fetch_array($ret)) {
-                                                    ?>
+                                            ?>
                                                     <tr>
                                                         <td>
                                                             <?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>
                                                         </td>
                                                     </tr>
-                                                    <?php
+                                                <?php
                                                     $cnt = $cnt + 1;
                                                 }
                                             } else { ?>
-                                            <tr style="border:0px;">
-                                                <td style="text-align:center; color:red;">No Record Found</td>
-                                            </tr>
-                                        <?php } ?>
+                                                <tr style="border:0px;">
+                                                    <td style="text-align:center; color:red;">No Record Found</td>
+                                                </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -831,7 +821,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         y: {
                             ticks: {
                                 // Include a dollar sign in the ticks
-                                callback: function(value, i ndex, ticks) {
+                                callback: function(value, index, ticks) {
                                     return '₱ ' + Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks]);
                                 }
                             }
@@ -854,8 +844,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     <?php echo date('F j, Y', strtotime($subExp)) ?>
                                 </b>. <br>To regain access to the system's functionalities, please renew your subscription by
                                 clicking the button below.</p><br>
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#renew_modal"
-                                style="height:60px; width:300px; font-size: 20px; border-radius:15px;">RENEW SUBSCRIPTION
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#renew_modal" style="height:60px; width:300px; font-size: 20px; border-radius:15px;">RENEW SUBSCRIPTION
                             </button>
                         </div>
                         <div class="col-7"></div>
@@ -869,8 +858,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         <div class="col-5 text-center" style="padding-top:220px;">
                             <h1 class="text-uppercase" style="color: #FF914D;">account is inactive</h1>
                             <p style="color:gray; padding-top:15px;">Your account is still inactive. Please reach out to <b>
-                                    pawsnpages.site@gmail.com </b> or send a message through <br> the <b> <a href="contact.php"
-                                        style="color: #FF914D;">Contact Us</a> </b> form to process your subscription.</p><br>
+                                    pawsnpages.site@gmail.com </b> or send a message through <br> the <b> <a href="contact.php" style="color: #FF914D;">Contact Us</a> </b> form to process your subscription.</p><br>
                         </div>
                         <div class="col-7"></div>
                     </div>
@@ -889,15 +877,14 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                            ?>
+                                    ?>
                                             <div class="number">
                                                 <?php echo $row['NoSupplies']; ?>
                                             </div>
-                                        <?php }
+                                    <?php }
                                     } ?>
                                 </div>
-                                <i class='bx bxs-cart-add cart two'><i class="fa fa-tag" style="color:white;"
-                                        style="color:white;"></i></i>
+                                <i class='bx bxs-cart-add cart two'><i class="fa fa-tag" style="color:white;" style="color:white;"></i></i>
                             </div>
                             <div class="box" style=" border-left: solid 5px #B2A4FF;">
                                 <div class="right-side">
@@ -907,15 +894,14 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                            ?>
+                                    ?>
                                             <div class="number">
                                                 <?php echo $row['NoServices']; ?>
                                             </div>
-                                        <?php }
+                                    <?php }
                                     } ?>
                                 </div>
-                                <i class='bx bx-cart-alt cart' style="background-color:#B2A4FF;"><i class="fa fa-list"
-                                        style="color:white;"></i></i>
+                                <i class='bx bx-cart-alt cart' style="background-color:#B2A4FF;"><i class="fa fa-list" style="color:white;"></i></i>
                             </div>
                             <div class="box" style=" border-left: solid 5px #ffe8b3;">
                                 <div class="right-side">
@@ -925,15 +911,14 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                            ?>
+                                    ?>
                                             <div class="number">
                                                 <?php echo $row['NoOrders']; ?>
                                             </div>
-                                        <?php }
+                                    <?php }
                                     } ?>
                                 </div>
-                                <i class='bx bx-cart cart three'><i class="fa fa-truck" style="color:white;"
-                                        style="color:white;"></i></i>
+                                <i class='bx bx-cart cart three'><i class="fa fa-truck" style="color:white;" style="color:white;"></i></i>
                             </div>
                             <div class="box" style=" border-left: solid 5px #f7d4d7;">
                                 <div class="right-side">
@@ -943,15 +928,14 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                            ?>
+                                    ?>
                                             <div class="number">
                                                 <?php echo $row['NoBookings']; ?>
                                             </div>
-                                        <?php }
+                                    <?php }
                                     } ?>
                                 </div>
-                                <i class='bx bxs-cart-download cart four'><i class="fa fa-calendar" style="color:white;"
-                                        style="color:white;"></i></i>
+                                <i class='bx bxs-cart-download cart four'><i class="fa fa-calendar" style="color:white;" style="color:white;"></i></i>
                             </div>
                         </div>
                         <div class="row" style="padding-top:20px;">
@@ -975,7 +959,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                                 $row = mysqli_num_rows($ret);
                                                 if ($row > 0) {
                                                     while ($row = mysqli_fetch_array($ret)) {
-                                                        ?>
+                                                ?>
 
                                                         <tr>
                                                             <td><b>Subscription Type</b></td>
@@ -991,16 +975,14 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                                         <tr>
                                                             <td>
                                                                 <?php $status = $row['SubscriptionStatus'];
-                                                                if ($status === 'Inactive') { ?><a
-                                                                    style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#A52A2A;">
-                                                                    <?php echo $row['SubscriptionStatus']; ?>
-                                                                </a>
-                                                            <?php }
-                                                                if ($status === 'Active') { ?><a
-                                                                style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#228B22;">
-                                                                <?php echo $row['SubscriptionStatus']; ?>
-                                                            </a>
-                                                        <?php } ?>
+                                                                if ($status === 'Inactive') { ?><a style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#A52A2A;">
+                                                                        <?php echo $row['SubscriptionStatus']; ?>
+                                                                    </a>
+                                                                <?php }
+                                                                if ($status === 'Active') { ?><a style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#228B22;">
+                                                                        <?php echo $row['SubscriptionStatus']; ?>
+                                                                    </a>
+                                                                <?php } ?>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -1011,7 +993,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                                                                 <?php echo $row['ExpiryDateOfSub'] ?>
                                                             </td>
                                                         </tr>
-                                                    <?php }
+                                                <?php }
                                                 } ?>
                                             </tbody>
                                         </table>
@@ -1021,7 +1003,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         </div>
                     </div>
                 </div>
-            <?php }
+        <?php }
         } ?>
         <!-- END OF CLINIC ADMINISTRATOR -->
 
@@ -1039,24 +1021,19 @@ $subExp = $row_ca['ExpiryDateOfSub'];
 
                                 <div class="form-group">
                                     <label>Upload DTI Certificate of Registration</label>
-                                    <input type="file" name="CertReg" style="border-radius:15px;" class="form-control"
-                                        required />
+                                    <input type="file" name="CertReg" style="border-radius:15px;" class="form-control" required />
                                 </div>
                                 <div class="form-group">
                                     <label>Upload Business Permit</label>
-                                    <input type="file" name="BPermit" style="border-radius:15px;" class="form-control"
-                                        required />
+                                    <input type="file" name="BPermit" style="border-radius:15px;" class="form-control" required />
                                 </div>
                                 <div class="form-group">
                                     <label>Upload DTI Registered Business Name</label>
-                                    <input type="file" name="RegName" style="border-radius:15px;" class="form-control"
-                                        required />
+                                    <input type="file" name="RegName" style="border-radius:15px;" class="form-control" required />
                                 </div>
                                 <div class="form-group">
                                     <label>Subscription Type</label>
-                                    <select name="subtype" id="subtype" class="bg-light border-3 px-4 py-3"
-                                        style="border-radius:15px; border-color:#ced4da; height:40%; width: 100%;"
-                                        required>
+                                    <select name="subtype" id="subtype" class="bg-light border-3 px-4 py-3" style="border-radius:15px; border-color:#ced4da; height:40%; width: 100%;" required>
                                         <option disabled selected>-- Select an option --</option>
                                         <option value="Monthly">Monthly</option>
                                         <option value="Annually">Annually</option>
@@ -1066,11 +1043,9 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         </div>
                         <div style="clear:both;"></div>
                         <div class="modal-footer">
-                            <button name="update" type="submit" class="btn btn-primary"
-                                style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
+                            <button name="update" type="submit" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-edit"></span>
                                 Submit</button>
-                            <button class="btn btn-danger" type="button" data-dismiss="modal"
-                                style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
                                 Close</button>
                         </div>
                     </form>
@@ -1133,7 +1108,6 @@ $subExp = $row_ca['ExpiryDateOfSub'];
             } else {
                 echo "<script>alert('Something Went Wrong. Please try again');</script>";
             }
-
         }
         ?>
 
@@ -1180,7 +1154,7 @@ $subExp = $row_ca['ExpiryDateOfSub'];
                         y: {
                             ticks: {
                                 // Include a dollar sign in the ticks
-                                callback: function(value, i ndex, ticks) {
+                                callback: function(value, index, ticks) {
                                     return '₱ ' + Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks]);
                                 }
                             }
@@ -1206,14 +1180,12 @@ $subExp = $row_ca['ExpiryDateOfSub'];
         <script src="js/main.js"></script>
 
         <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
         <!-- To show details when editing -->
         <script>
             $('#edit_service').on('show.bs.modal', function(e) {
-                 var opener = e.relatedTarget;
+                var opener = e.relatedTarget;
 
                 var serviceid = $(opener).attr('serviceid');
                 var servicename = $(opener).attr('servicename');

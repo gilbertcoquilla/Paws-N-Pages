@@ -20,7 +20,7 @@ $clinicID = $row_ca['ClinicID'];
 
 <head>
     <meta charset="UTF-8">
-     <title>Paws N Pages | Reports</title>
+    <title>Paws N Pages | Reports</title>
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -58,160 +58,160 @@ $clinicID = $row_ca['ClinicID'];
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-        <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-*{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	outline: none;
-	text-decoration: none;
-	list-style: none;
-	font-family: 'Montserrat', sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            text-decoration: none;
+            list-style: none;
+            font-family: 'Montserrat', sans-serif;
+        }
 
-.wrapper{
-	background: white;
-	display: flex;
-}
+        .wrapper {
+            background: white;
+            display: flex;
+        }
 
-.side_bar{
-	width: 250px;
-}
-
-
-.main_container{
-	width: calc(100% - 250px);
-	padding: 30px;
-}
+        .side_bar {
+            width: 250px;
+        }
 
 
+        .main_container {
+            width: calc(100% - 250px);
+            padding: 30px;
+        }
 
-.side_bar .side_bar_top .profile_pic{
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;	
-}
 
-.side_bar .side_bar_top .profile_pic img{
-	width: 100px;
-	height: 100px;
-	padding: 5px;
-	border: 2px solid white;
-    border-radius: 50%;
-}
 
-.side_bar .side_bar_top .profile_info{
-	text-align: center;
-	color: #fff;
-}
+        .side_bar .side_bar_top .profile_pic {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
 
-.side_bar .side_bar_top .profile_info p{
-	margin-top: 5px;
-	font-size: 12px;	
-}
+        .side_bar .side_bar_top .profile_pic img {
+            width: 100px;
+            height: 100px;
+            padding: 5px;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
 
-.side_bar .side_bar_bottom{
-	background: #80b434;
-	padding: 20px 0;
-	padding-left: 15px;		
-}
+        .side_bar .side_bar_top .profile_info {
+            text-align: center;
+            color: #fff;
+        }
 
-.side_bar .side_bar_bottom ul li{
-	position: relative;
-}
+        .side_bar .side_bar_top .profile_info p {
+            margin-top: 5px;
+            font-size: 12px;
+        }
 
-.side_bar .side_bar_bottom ul li a{
-	display: block;
-	padding: 15px;		
-	font-size: 14px;
-	color: white;
-	margin-bottom: 5px;				
-}
+        .side_bar .side_bar_bottom {
+            background: #80b434;
+            padding: 20px 0;
+            padding-left: 15px;
+        }
 
-.side_bar .side_bar_bottom ul li a .icon{
-	margin-right: 8px;
-}
+        .side_bar .side_bar_bottom ul li {
+            position: relative;
+        }
 
-.side_bar .side_bar_bottom ul li.active a{
-	background: white;
-	color: #80b434;
-	border-top-left-radius: 25px;
-	border-bottom-left-radius: 25px;
-}
+        .side_bar .side_bar_bottom ul li a {
+            display: block;
+            padding: 15px;
+            font-size: 14px;
+            color: white;
+            margin-bottom: 5px;
+        }
 
-.side_bar .side_bar_bottom ul li.active .top_curve,
-.side_bar .side_bar_bottom ul li.active .bottom_curve{
-	position: absolute;
-	left: 0;
-	width: 100%;
-	height: 20px;
-	background: white;
-}
+        .side_bar .side_bar_bottom ul li a .icon {
+            margin-right: 8px;
+        }
 
-.side_bar .side_bar_bottom ul li.active .top_curve{
-	top: -20px;
-}
+        .side_bar .side_bar_bottom ul li.active a {
+            background: white;
+            color: #80b434;
+            border-top-left-radius: 25px;
+            border-bottom-left-radius: 25px;
+        }
 
-.side_bar .side_bar_bottom ul li.active .bottom_curve{
-	bottom: -20px;	
-}
+        .side_bar .side_bar_bottom ul li.active .top_curve,
+        .side_bar .side_bar_bottom ul li.active .bottom_curve {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: white;
+        }
 
-.side_bar .side_bar_bottom ul li.active .top_curve:before,
-.side_bar .side_bar_bottom ul li.active .bottom_curve:before{
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: #80b434;	
-}
+        .side_bar .side_bar_bottom ul li.active .top_curve {
+            top: -20px;
+        }
 
-.side_bar .side_bar_bottom ul li.active .top_curve:before{
-	border-bottom-right-radius: 25px;
-}
+        .side_bar .side_bar_bottom ul li.active .bottom_curve {
+            bottom: -20px;
+        }
 
-.side_bar .side_bar_bottom ul li.active .bottom_curve:before{
-	border-top-right-radius: 25px;
-}
+        .side_bar .side_bar_bottom ul li.active .top_curve:before,
+        .side_bar .side_bar_bottom ul li.active .bottom_curve:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #80b434;
+        }
 
-.side_bar .side_bar_bottom .sidebar-footer{
-height: 50px;
-position: absolute;
-width: 100%;
-bottom: 0;
-list-style-type: none;
-padding-bottom:5.5em;
-}
+        .side_bar .side_bar_bottom ul li.active .top_curve:before {
+            border-bottom-right-radius: 25px;
+        }
+
+        .side_bar .side_bar_bottom ul li.active .bottom_curve:before {
+            border-top-right-radius: 25px;
+        }
+
+        .side_bar .side_bar_bottom .sidebar-footer {
+            height: 50px;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            list-style-type: none;
+            padding-bottom: 5.5em;
+        }
     </style>
 
-            <!-- FOR DIGITAL TIME AND DATE -->
-        <script type="text/javascript">
-        function updateClock(){
-        var now = new Date();
-        var dname = now.getDay(),
-            mo = now.getMonth(),
-            dnum = now.getDate(),
-            yr = now.getFullYear(),
-            hou = now.getHours(),
-            min = now.getMinutes(),
-            sec = now.getSeconds(),
-            pe = "AM";
+    <!-- FOR DIGITAL TIME AND DATE -->
+    <script type="text/javascript">
+        function updateClock() {
+            var now = new Date();
+            var dname = now.getDay(),
+                mo = now.getMonth(),
+                dnum = now.getDate(),
+                yr = now.getFullYear(),
+                hou = now.getHours(),
+                min = now.getMinutes(),
+                sec = now.getSeconds(),
+                pe = "AM";
 
-            if(hou >= 12){
+            if (hou >= 12) {
                 pe = "PM";
             }
-            if(hou == 0){
+            if (hou == 0) {
                 hou = 12;
             }
-            if(hou > 12){
+            if (hou > 12) {
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function(digits){
-                for(var n = this.toString(); n.length < digits; n = 0 + n);
+            Number.prototype.pad = function(digits) {
+                for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
 
@@ -219,94 +219,96 @@ padding-bottom:5.5em;
             var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
             var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
-            for(var i = 0; i < ids.length; i++)
-            document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+            for (var i = 0; i < ids.length; i++)
+                document.getElementById(ids[i]).firstChild.nodeValue = values[i];
         }
 
-        function initClock(){
-        updateClock();
-        window.setInterval("updateClock()", 1);
+        function initClock() {
+            updateClock();
+            window.setInterval("updateClock()", 1);
         }
-        </script>
+    </script>
     <script>
         $(document).ready(function() {
-            var table = $('#orders').DataTable({
+            var table = $('#reports').DataTable({
                 order: [
-                    [2, 'asc']
+                    [4, 'desc']
                 ],
 
             });
         });
     </script>
 </head>
+
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-            <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
             ?>
-                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;</p>
-            <?php } ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;
+        </p>
+    <?php } ?>
     </div>
     <div class="wrapper">
-        <div class="side_bar"  style="height:100%;">
+        <div class="side_bar" style="height:100%;">
 
             <div class="side_bar_bottom">
                 <ul>
                     <li>
                         <span class="top_curve"></span>
                         <a href="dashboard.php"><span class="icon"><i class="fa fa-home"></i></span>
-                        <span class="item">Dashboard</span></a>
+                            <span class="item">Dashboard</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
-                        <span class="item">Profile</span></a>
+                            <span class="item">Profile</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
-                        <span class="item">Products</span></a>
+                            <span class="item">Products</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
-                        <span class="item">Bookings</span></a>
+                            <span class="item">Bookings</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
-                        <span class="item">Orders</span></a>
+                            <span class="item">Orders</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
-                    <li >
+                    <li>
                         <span class="top_curve"></span>
                         <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
-                        <span class="item">Feedback</span></a>
+                            <span class="item">Feedback</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
-                        <span class="item">Services</span></a>
+                            <span class="item">Services</span></a>
                         <span class="bottom_curve"></span>
                     </li>
-                
+
                     <li>
                         <span class="top_curve"></span>
                         <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
-                        <span class="item">Pet Records</span></a>
+                            <span class="item">Pet Records</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
@@ -314,144 +316,144 @@ padding-bottom:5.5em;
                         <li>
                             <span class="top_curve"></span>
                             <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
-                            <span class="item">Users</span></a>
+                                <span class="item">Users</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
-                            <span class="item">Clinics</span></a>
-                            <span class="bottom_curve"></span>
-                        </li> 
-                        
-                        <li>
-                            <span class="top_curve"></span>
-                            <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
-                            <span class="item">Pet Booklet</span></a>
+                                <span class="item">Clinics</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
-                         <li class="active">
+                        <li>
+                            <span class="top_curve"></span>
+                            <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
+                                <span class="item">Pet Booklet</span></a>
+                            <span class="bottom_curve"></span>
+                        </li>
+
+                        <li class="active">
                             <span class="top_curve"></span>
                             <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
-                            <span class="item">Reports</span></a>
+                                <span class="item">Reports</span></a>
                             <span class="bottom_curve"></span>
                         </li>
                     <?php } ?>
                 </ul>
-                    <!--digital clock start-->
-                    <div class="datetime" style="color:white;  text-align:center;">
-                        <div class="date">
-                            <span id="dayname">Day</span>,
-                            <span id="month">Month</span>
-                            <span id="daynum">00</span>,
-                            <span id="year">Year</span>
-                        </div>
-                        <div class="time">
-                            <span id="hour">00</span>:
-                            <span id="minutes">00</span>:
-                            <span id="seconds">00</span>
-                            <span id="period">AM</span>
-                        </div>
+                <!--digital clock start-->
+                <div class="datetime" style="color:white;  text-align:center;">
+                    <div class="date">
+                        <span id="dayname">Day</span>,
+                        <span id="month">Month</span>
+                        <span id="daynum">00</span>,
+                        <span id="year">Year</span>
                     </div>
-                    <!--digital clock end-->
+                    <div class="time">
+                        <span id="hour">00</span>:
+                        <span id="minutes">00</span>:
+                        <span id="seconds">00</span>
+                        <span id="period">AM</span>
+                    </div>
+                </div>
+                <!--digital clock end-->
             </div>
         </div>
 
-        
+
         <!-- START OF ADMINISTRATOR -->
         <?php if ($usertype == 'Administrator') { ?>
-        <div class="main_container">
-            <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
-                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                    <div class="card-header userProfile-font"><b>⚠️ Reports</b></div>
-                    <div class="card-body text-center">
-                        <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="orders">
-                            <thead style="border:0px;">
-                                <tr class="table100-head" style="border:0px;">
-                                    <th class="column1" style="border:0px; color:#80b434;">Name</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Email</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Subject</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Message</th>                   
-                                    <th class="column1" style="border:0px; color:#80b434;">Date & Time Reported</th>                   
-                                </tr>
-                            </thead>
-                            <tbody style="border:0px;">
-                                <?php
-                                $ret = mysqli_query($con, "SELECT * FROM reports");
-                                $cnt = 1;
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-                                        $date = new DateTime($row['DateTimeReported']);
-                                ?>
-                                        <!--Fetch the Records -->
-                                        <tr style="border:0px;">
-                                            <td style="border:0px;"><?php echo $row['Sender'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['Email'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['Title'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['Message']; ?></td>
-                                            <td style="border:0px;"><?php echo $date->format('Y-m-d h:i A'); ?></td>
-                                        </tr>
-                                    <?php
-                                        $cnt = $cnt + 1;
-                                    }
-                                } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
+            <div class="main_container">
+                <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
+                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                        <div class="card-header userProfile-font"><b>⚠️ Reports</b></div>
+                        <div class="card-body text-center">
+                            <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="reports">
+                                <thead style="border:0px;">
+                                    <tr class="table100-head" style="border:0px;">
+                                        <th class="column1" style="border:0px; color:#80b434;">Name</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Email</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Subject</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Message</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Date & Time Reported</th>
                                     </tr>
-                                <?php } ?>
+                                </thead>
+                                <tbody style="border:0px;">
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT * FROM reports");
+                                    $cnt = 1;
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+                                            $date = new DateTime($row['DateTimeReported']);
+                                    ?>
+                                            <!--Fetch the Records -->
+                                            <tr style="border:0px;">
+                                                <td style="border:0px;"><?php echo $row['Sender'] ?></td>
+                                                <td style="border:0px;"><?php echo $row['Email'] ?></td>
+                                                <td style="border:0px;"><?php echo $row['Title'] ?></td>
+                                                <td style="border:0px;"><?php echo $row['Message']; ?></td>
+                                                <td style="border:0px;"><?php echo $date->format('Y-m-d h:i A'); ?></td>
+                                            </tr>
+                                        <?php
+                                            $cnt = $cnt + 1;
+                                        }
+                                    } else { ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="5">No Record Found</td>
+                                            <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                            <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                            <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                            <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                        </tr>
+                                    <?php } ?>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         <?php } ?>
-        <!-- END OF ADMINISTRATOR -->  
+        <!-- END OF ADMINISTRATOR -->
 
         <!-- START OF MODAL FOR ADDING NEW SERVICE -->
-    <div class="modal fade" id="form_modal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style="border-radius: 15px;">
-                <form method="POST" enctype="multipart/form-data" runat="server">
-                    <div class="modal-header">
-                        <h3 class="modal-title">Add New Service</h3>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="name" class="form-control" required="required" />
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="description" class="form-control" style="width: 100%; height: 150px;" required="required" ></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input type="text" name="price" class="form-control" required="required" />
+        <div class="modal fade" id="form_modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="border-radius: 15px;">
+                    <form method="POST" enctype="multipart/form-data" runat="server">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Add New Service</h3>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" name="name" class="form-control" required="required" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea name="description" class="form-control" style="width: 100%; height: 150px;" required="required"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <input type="text" name="price" class="form-control" required="required" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <div class="modal-footer">
-                        <button name="save_service" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-save"></span>
-                            Add</button>
+                        <div style="clear:both;"></div>
+                        <div class="modal-footer">
+                            <button name="save_service" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-save"></span>
+                                Add</button>
 
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- END OF MODAL FOR ADDING NEW SERVICE -->
+        <!-- END OF MODAL FOR ADDING NEW SERVICE -->
 
         <!-- START OF MODAL FOR EDITING SERVICES -->
         <div class="modal fade" id="edit_service" aria-hidden="true" role="dialog">
@@ -470,7 +472,7 @@ padding-bottom:5.5em;
                                 </div>
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" name="ServiceName" id="ServiceName" class="form-control" required/>
+                                    <input type="text" name="ServiceName" id="ServiceName" class="form-control" required />
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>
@@ -478,11 +480,11 @@ padding-bottom:5.5em;
                                 </div>
                                 <div class="form-group">
                                     <label>Price</label>
-                                    <input type="text" name="Price" id="Price" class="form-control" required/>
-                                </div> 
+                                    <input type="text" name="Price" id="Price" class="form-control" required />
+                                </div>
                             </div>
-                         </div>
-                        
+                        </div>
+
 
                         <div class="modal-footer">
                             <button name="update_service" style="border-radius: 15px;" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span>
@@ -505,13 +507,13 @@ padding-bottom:5.5em;
             $price = $_POST['Price'];
             $a_id = $_POST['ServiceID'];
 
-        
-                $query = mysqli_query($con, "UPDATE services SET ServiceName='$name', ServiceDescription='$description', ServicePrice='$price' WHERE ServiceID='$a_id' AND ClinicID='$clinicID'");
 
-                if ($query) {
-                    echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                                        echo '<script>';
-                                        echo 'swal({
+            $query = mysqli_query($con, "UPDATE services SET ServiceName='$name', ServiceDescription='$description', ServicePrice='$price' WHERE ServiceID='$a_id' AND ClinicID='$clinicID'");
+
+            if ($query) {
+                echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                echo '<script>';
+                echo 'swal({
                                             title: "Success",
                                             text: "You have successfully updated a service",
                                             icon: "success",
@@ -524,11 +526,10 @@ padding-bottom:5.5em;
                                                         document.location ="services.php";
                                                     }
                                                 })';
-                                        echo '</script>';
-                } else {
-                    echo "<script>alert('Something Went Wrong. Please try again');</script>";
-                }
-            
+                echo '</script>';
+            } else {
+                echo "<script>alert('Something Went Wrong. Please try again');</script>";
+            }
         }
 
         ///////////////////////// FOR ADDING NEW SERVICE /////////////////////////

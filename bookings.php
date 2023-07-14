@@ -19,8 +19,8 @@ $clinicID = $row_ca['ClinicID'];
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <title>Paws N Pages | Bookings</title>
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -213,7 +213,7 @@ $clinicID = $row_ca['ClinicID'];
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function (digits) {
+            Number.prototype.pad = function(digits) {
                 for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
@@ -233,7 +233,7 @@ $clinicID = $row_ca['ClinicID'];
     </script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var table = $('#bookings').DataTable({
                 order: [
                     [5, 'desc']
@@ -247,21 +247,17 @@ $clinicID = $row_ca['ClinicID'];
 
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png"
-                height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
-                ?>
-                <a href="logout.php"
-                    style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i
-                        class="fa fa-sign-out"></i></a><a
-                    style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
+            ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
                     in as, <i>
                         <?php echo $row['Username'] ?>
                     </i></a>&nbsp;&nbsp;
-            </p>
-        <?php } ?>
+        </p>
+    <?php } ?>
     </div>
     <div class="wrapper">
         <div class="side_bar">
@@ -380,8 +376,7 @@ $clinicID = $row_ca['ClinicID'];
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font"><b>⏳ Appointments</b></div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px; text-align:left;"
-                                id="bookings">
+                            <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="bookings">
                                 <thead style="border:0px;">
                                     <tr class="table100-head" style="border:0px;">
                                         <th class="column1" style="border:0px;">Reference No.</th>
@@ -401,21 +396,10 @@ $clinicID = $row_ca['ClinicID'];
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
                                             $date = new DateTime($row['DateTimeBooked']);
-                                            ?>
+                                    ?>
                                             <!--Fetch the Records -->
                                             <tr style="border:0px;">
-                                                <td style="border:0px;"><a href="" aappid="<?php echo $row['AppointmentID'] ?>"
-                                                        arefno="<?php echo $row['Appointment_RefNo'] ?>"
-                                                        aclinic="<?php echo $row['ClinicName'] ?>"
-                                                        apdate="<?php echo $row['PreferredDate']; ?>"
-                                                        aptime="<?php echo $row['PreferredTime']; ?>"
-                                                        anotes="<?php echo $row['Notes']; ?>"
-                                                        aservices="<?php echo $row['AvailedServices'] ?>"
-                                                        acustomer="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>"
-                                                        aastatus="<?php echo $row['AppointmentStatus']; ?>"
-                                                        aaremarks="<?php echo $row['Remarks']; ?>"
-                                                        aadtboooked="<?php echo $date->format('Y-m-d h:i A'); ?>" class="edit"
-                                                        title="Edit" data-toggle="modal" data-target="#view_modal"><?php echo $row['Appointment_RefNo'] ?></a></td>
+                                                <td style="border:0px;"><a href="" aappid="<?php echo $row['AppointmentID'] ?>" arefno="<?php echo $row['Appointment_RefNo'] ?>" aclinic="<?php echo $row['ClinicName'] ?>" apdate="<?php echo $row['PreferredDate']; ?>" aptime="<?php echo $row['PreferredTime']; ?>" anotes="<?php echo $row['Notes']; ?>" aservices="<?php echo $row['AvailedServices'] ?>" acustomer="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>" aastatus="<?php echo $row['AppointmentStatus']; ?>" aaremarks="<?php echo $row['Remarks']; ?>" aadtboooked="<?php echo $date->format('Y-m-d h:i A'); ?>" class="edit" title="Edit" data-toggle="modal" data-target="#view_modal"><?php echo $row['Appointment_RefNo'] ?></a></td>
                                                 <td style="border:0px;">
                                                     <?php echo $row['ClinicName'] ?>
                                                 </td>
@@ -434,50 +418,46 @@ $clinicID = $row_ca['ClinicID'];
                                                 <td style="border:0px; text-align:center;">
                                                     <?php $status = $row['AppointmentStatus'];
                                                     if ($status === 'Processing') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 5px; border-radius:10px; background-color:#F4BB44;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 5px; border-radius:10px; background-color:#F4BB44;">
                                                             <?php echo $row['AppointmentStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Confirmed') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 7px; border-radius:10px; background-color:#228B22;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 7px; border-radius:10px; background-color:#228B22;">
                                                             <?php echo $row['AppointmentStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Denied') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#A52A2A;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#A52A2A;">
                                                             <?php echo $row['AppointmentStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Cancelled') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#000000;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#000000;">
                                                             <?php echo $row['AppointmentStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Completed') { ?>
-                                                        <?php echo $row['AppointmentStatus'];
+                                                    <?php echo $row['AppointmentStatus'];
                                                     } ?>
                                                 </td>
                                             </tr>
-                                            <?php
+                                        <?php
                                             $cnt = $cnt + 1;
                                         }
                                     } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found
-                                        </td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                    </tr>
-                                <?php } ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found
+                                            </td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                        </tr>
+                                    <?php } ?>
 
                                 </tbody>
                             </table>
@@ -495,8 +475,7 @@ $clinicID = $row_ca['ClinicID'];
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font"><b>⏳ Appointments</b></div>
                         <div class="card-body text-center">
-                            <table class="table table-striped table-hover" style="border:0px; text-align:left;"
-                                id="bookings">
+                            <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="bookings">
                                 <thead style="border:0px;">
                                     <tr class="table100-head" style="border:0px;">
                                         <th class="column1" style="border:0px; color:#80b434;">Reference No.</th>
@@ -518,22 +497,10 @@ $clinicID = $row_ca['ClinicID'];
                                         while ($row = mysqli_fetch_array($ret)) {
                                             $date = new DateTime($row['DateTimeBooked']);
 
-                                            ?>
+                                    ?>
                                             <!--Fetch the Records -->
                                             <tr style="border:0px;">
-                                                <td style="border:0px;"><a href="" appid="<?php echo $row['AppointmentID'] ?>"
-                                                        refno="<?php echo $row['Appointment_RefNo'] ?>"
-                                                        pdate="<?php echo $row['PreferredDate'] ?>"
-                                                        ptime="<?php echo $row['PreferredTime'] ?>"
-                                                        notes="<?php echo $row['Notes'] ?>"
-                                                        services="<?php echo $row['AvailedServices'] ?>"
-                                                        customer="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>"
-                                                        cust_email="<?php echo $row['Email'] ?>"
-                                                        cust_num="<?php echo $row['ContactNo'] ?>"
-                                                        astatus="<?php echo $row['AppointmentStatus'] ?>"
-                                                        aremarks="<?php echo $row['Remarks'] ?>"
-                                                        adtboooked="<?php echo $date->format('Y-m-d h:i A') ?>" class="edit"
-                                                        title="Edit" data-toggle="modal" data-target="#edit_modal"><?php echo $row['Appointment_RefNo'] ?></a></td>
+                                                <td style="border:0px;"><a href="" appid="<?php echo $row['AppointmentID'] ?>" refno="<?php echo $row['Appointment_RefNo'] ?>" pdate="<?php echo $row['PreferredDate'] ?>" ptime="<?php echo $row['PreferredTime'] ?>" notes="<?php echo $row['Notes'] ?>" services="<?php echo $row['AvailedServices'] ?>" customer="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>" cust_email="<?php echo $row['Email'] ?>" cust_num="<?php echo $row['ContactNo'] ?>" astatus="<?php echo $row['AppointmentStatus'] ?>" aremarks="<?php echo $row['Remarks'] ?>" adtboooked="<?php echo $date->format('Y-m-d h:i A') ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_modal"><?php echo $row['Appointment_RefNo'] ?></a></td>
                                                 <td style="border:0px;">
                                                     <?php echo $row['PreferredDate'] ?>
                                                 </td>
@@ -563,50 +530,46 @@ $clinicID = $row_ca['ClinicID'];
                                                 <td style="border:0px; text-align:center;">
                                                     <?php $status = $row['AppointmentStatus'];
                                                     if ($status === 'Processing') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 5px; border-radius:10px; background-color:#F4BB44;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 5px; border-radius:10px; background-color:#F4BB44;">
                                                             <?php echo $row['AppointmentStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Confirmed') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 7px; border-radius:10px; background-color:#228B22;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 7px; border-radius:10px; background-color:#228B22;">
                                                             <?php echo $row['AppointmentStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Denied') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#A52A2A;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#A52A2A;">
                                                             <?php echo $row['AppointmentStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Cancelled') { ?>
-                                                        <a
-                                                            style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#000000;">
+                                                        <a style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#000000;">
                                                             <?php echo $row['AppointmentStatus']; ?>
                                                         </a>
                                                     <?php }
                                                     if ($status === 'Completed') { ?>
-                                                        <?php echo $row['AppointmentStatus'];
+                                                    <?php echo $row['AppointmentStatus'];
                                                     } ?>
                                                 </td>
                                             </tr>
-                                            <?php
+                                        <?php
                                             $cnt = $cnt + 1;
                                         }
                                     } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found
-                                        </td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                        <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
-                                    </tr>
-                                <?php } ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="9">No Record Found
+                                            </td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="0"></td>
+                                        </tr>
+                                    <?php } ?>
 
                                 </tbody>
                             </table>
@@ -636,8 +599,7 @@ $clinicID = $row_ca['ClinicID'];
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Reference Number</label>
-                                            <input type="text" name="ReferenceNo" id="ReferenceNo" class="form-control"
-                                                readonly />
+                                            <input type="text" name="ReferenceNo" id="ReferenceNo" class="form-control" readonly />
                                         </div>
                                         <div class="form-group">
                                             <label>Preferred Date</label>
@@ -649,44 +611,35 @@ $clinicID = $row_ca['ClinicID'];
                                         </div>
                                         <div class="form-group">
                                             <label>Services</label>
-                                            <textarea name="Services" id="Services" class="form-control"
-                                                style=" width: 100%;" rows="3" readonly></textarea>
+                                            <textarea name="Services" id="Services" class="form-control" style=" width: 100%;" rows="3" readonly></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Notes</label>
-                                            <textarea name="Notes" id="Notes" class="form-control" style=" width: 100%;"
-                                                rows="4" readonly></textarea>
+                                            <textarea name="Notes" id="Notes" class="form-control" style=" width: 100%;" rows="4" readonly></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Customer</label>
-                                            <input type="text" name="Customer" id="Customer" class="form-control"
-                                                readonly />
+                                            <input type="text" name="Customer" id="Customer" class="form-control" readonly />
 
                                             <!-- Get customer info -->
-                                            <input type="hidden" name="Email" id="Email" class="form-control"
-                                                readonly />
-                                            <input type="hidden" name="ContactNo" id="ContactNo" class="form-control"
-                                                readonly />
+                                            <input type="hidden" name="Email" id="Email" class="form-control" readonly />
+                                            <input type="hidden" name="ContactNo" id="ContactNo" class="form-control" readonly />
 
                                         </div>
                                         <div class="form-group">
                                             <label>Date & Time Booked</label>
-                                            <input type="text" name="DTBooked" id="DTBooked" class="form-control"
-                                                readonly />
+                                            <input type="text" name="DTBooked" id="DTBooked" class="form-control" readonly />
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <input type="text" name="Status" id="Status" class="form-control"
-                                                        style="height: 100%;" readonly />
+                                                    <input type="text" name="Status" id="Status" class="form-control" style="height: 100%;" readonly />
                                                 </div>
                                                 <div class="col-8">
-                                                    <select name="Status2" id="Status2"
-                                                        style="border-radius: 5px; width: 100%;"
-                                                        class="bg-light border-0 px-4 py-3">
+                                                    <select name="Status2" id="Status2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
                                                         <option selected disabled>-- Update Status --</option>
                                                         <option value="Processing">Processing</option>
                                                         <option value="Confirmed">Confirmed</option>
@@ -700,8 +653,7 @@ $clinicID = $row_ca['ClinicID'];
                                         </div>
                                         <div class="form-group">
                                             <label>Remarks</label>
-                                            <textarea name="Remarks" id="Remarks" class="form-control"
-                                                style=" width: 100%; height: 150px;"></textarea>
+                                            <textarea name="Remarks" id="Remarks" class="form-control" style=" width: 100%; height: 150px;"></textarea>
                                         </div>
 
                                     </div>
@@ -712,12 +664,10 @@ $clinicID = $row_ca['ClinicID'];
                         </div>
 
                         <div class="modal-footer">
-                            <button name="update_booking" style="border-radius: 15px;" class="btn btn-primary"><span
-                                    class="glyphicon glyphicon-edit"></span>
+                            <button name="update_booking" style="border-radius: 15px;" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span>
                                 Update
                             </button>
-                            <button class="btn btn-danger" type="button" data-dismiss="modal"
-                                style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
                                 Cancel</button>
                         </div>
                     </form>
@@ -746,55 +696,45 @@ $clinicID = $row_ca['ClinicID'];
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Reference Number</label>
-                                            <input type="text" name="AReferenceNo" id="AReferenceNo"
-                                                class="form-control" readonly />
+                                            <input type="text" name="AReferenceNo" id="AReferenceNo" class="form-control" readonly />
                                         </div>
                                         <div class="form-group">
                                             <label>Preferred Date</label>
-                                            <input type="date" name="APDate" id="APDate" class="form-control"
-                                                readonly />
+                                            <input type="date" name="APDate" id="APDate" class="form-control" readonly />
                                         </div>
                                         <div class="form-group">
                                             <label>Preferred Time</label>
-                                            <input type="time" name="APTime" id="APTime" class="form-control"
-                                                readonly />
+                                            <input type="time" name="APTime" id="APTime" class="form-control" readonly />
                                         </div>
                                         <div class="form-group">
                                             <label>Services</label>
-                                            <textarea name="AServices" id="AServices" class="form-control"
-                                                style=" width: 100%;" rows="3" readonly></textarea>
+                                            <textarea name="AServices" id="AServices" class="form-control" style=" width: 100%;" rows="3" readonly></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Notes</label>
-                                            <textarea name="ANotes" id="ANotes" class="form-control"
-                                                style=" width: 100%;" rows="4" readonly></textarea>
+                                            <textarea name="ANotes" id="ANotes" class="form-control" style=" width: 100%;" rows="4" readonly></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Customer</label>
-                                            <input type="text" name="ACustomer" id="ACustomer" class="form-control"
-                                                readonly />
+                                            <input type="text" name="ACustomer" id="ACustomer" class="form-control" readonly />
                                         </div>
                                         <div class="form-group">
                                             <label>Clinic Name</label>
-                                            <input type="text" name="AClinicName" id="AClinicName" class="form-control"
-                                                readonly />
+                                            <input type="text" name="AClinicName" id="AClinicName" class="form-control" readonly />
                                         </div>
                                         <div class="form-group">
                                             <label>Date & Time Booked</label>
-                                            <input type="text" name="ADTBooked" id="ADTBooked" class="form-control"
-                                                readonly />
+                                            <input type="text" name="ADTBooked" id="ADTBooked" class="form-control" readonly />
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>
-                                            <input type="text" name="AStatus" id="AStatus" class="form-control"
-                                                style="height: 100%;" readonly />
+                                            <input type="text" name="AStatus" id="AStatus" class="form-control" style="height: 100%;" readonly />
                                         </div>
                                         <div class="form-group">
                                             <label>Remarks</label>
-                                            <textarea name="ARemarks" id="ARemarks" class="form-control"
-                                                style=" width: 100%; height: 150px;" readonly></textarea>
+                                            <textarea name="ARemarks" id="ARemarks" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
                                         </div>
 
                                     </div>
@@ -805,8 +745,7 @@ $clinicID = $row_ca['ClinicID'];
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn btn-danger" type="button" data-dismiss="modal"
-                                style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
                                 Close</button>
                         </div>
                     </form>
@@ -837,7 +776,7 @@ $clinicID = $row_ca['ClinicID'];
             $senderName = "Paws N Pages";
 
             if ($a_status != "") {
-                $query = mysqli_query($con, "UPDATE appointments SET AppointmentStatus='$a_status', Remarks='$a_remarks' WHERE AppointmentID='$a_id' AND UserID='$userID'");
+                $query = mysqli_query($con, "UPDATE appointments SET AppointmentStatus='$a_status', Remarks='$a_remarks' WHERE AppointmentID='$a_id'");
 
                 // Insert sms and email notification here
                 if ($a_status == 'Confirmed') {
@@ -867,7 +806,7 @@ $clinicID = $row_ca['ClinicID'];
                     echo "<script>alert('Something Went Wrong. Please try again');</script>";
                 }
             } else {
-                $query = mysqli_query($con, "UPDATE appointments SET Remarks='$a_remarks' WHERE AppointmentID='$a_id' AND UserID='$userID'");
+                $query = mysqli_query($con, "UPDATE appointments SET Remarks='$a_remarks' WHERE AppointmentID='$a_id'");
 
                 if ($query) {
                     echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
@@ -908,13 +847,11 @@ $clinicID = $row_ca['ClinicID'];
         <script src="js/main.js"></script>
 
         <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
         <!-- To show details when editing -->
         <script>
-            $('#edit_modal').on('show.bs.modal', function (e) {
+            $('#edit_modal').on('show.bs.modal', function(e) {
                 var opener = e.relatedTarget;
 
                 var appid = $(opener).attr('appid');
@@ -946,7 +883,7 @@ $clinicID = $row_ca['ClinicID'];
                 endResize();
             });
 
-            $('#view_modal').on('show.bs.modal', function (e) {
+            $('#view_modal').on('show.bs.modal', function(e) {
                 var opener = e.relatedTarget;
 
                 var aappid = $(opener).attr('aappid');

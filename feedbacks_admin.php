@@ -18,7 +18,7 @@ $clinicID = $row_ca['ClinicID'];
 <html lang="en">
 
 <head>
-     <title>Paws N Pages | Feedbacks</title>
+    <title>Paws N Pages | Feedbacks</title>
     <meta charset="UTF-8">
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -55,7 +55,7 @@ $clinicID = $row_ca['ClinicID'];
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-        <style>
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
         * {
@@ -187,23 +187,12 @@ $clinicID = $row_ca['ClinicID'];
             padding-bottom: 5.5em;
         }
     </style>
-      
+
     <script>
         $(document).ready(function() {
             var table = $('#feedbacks').DataTable({
                 order: [
-                    [2, 'asc']
-                ],
-                lengthMenu: [5, 10, 20, 50],
-
-            });
-        });
-    </script>
-        <script>
-        $(document).ready(function() {
-            var table = $('#afeedbacks').DataTable({
-                order: [
-                    [2, 'asc']
+                    [2, 'desc']
                 ],
                 lengthMenu: [5, 10, 20, 50],
 
@@ -231,31 +220,31 @@ $clinicID = $row_ca['ClinicID'];
         }
     </script>
 
-        <!-- FOR DIGITAL TIME AND DATE -->
-        <script type="text/javascript">
-        function updateClock(){
-        var now = new Date();
-        var dname = now.getDay(),
-            mo = now.getMonth(),
-            dnum = now.getDate(),
-            yr = now.getFullYear(),
-            hou = now.getHours(),
-            min = now.getMinutes(),
-            sec = now.getSeconds(),
-            pe = "AM";
+    <!-- FOR DIGITAL TIME AND DATE -->
+    <script type="text/javascript">
+        function updateClock() {
+            var now = new Date();
+            var dname = now.getDay(),
+                mo = now.getMonth(),
+                dnum = now.getDate(),
+                yr = now.getFullYear(),
+                hou = now.getHours(),
+                min = now.getMinutes(),
+                sec = now.getSeconds(),
+                pe = "AM";
 
-            if(hou >= 12){
+            if (hou >= 12) {
                 pe = "PM";
             }
-            if(hou == 0){
+            if (hou == 0) {
                 hou = 12;
             }
-            if(hou > 12){
+            if (hou > 12) {
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function(digits){
-                for(var n = this.toString(); n.length < digits; n = 0 + n);
+            Number.prototype.pad = function(digits) {
+                for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
 
@@ -263,85 +252,86 @@ $clinicID = $row_ca['ClinicID'];
             var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
             var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
-            for(var i = 0; i < ids.length; i++)
-            document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+            for (var i = 0; i < ids.length; i++)
+                document.getElementById(ids[i]).firstChild.nodeValue = values[i];
         }
 
-        function initClock(){
-        updateClock();
-        window.setInterval("updateClock()", 1);
+        function initClock() {
+            updateClock();
+            window.setInterval("updateClock()", 1);
         }
-        </script>
+    </script>
 </head>
 
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-            <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
             ?>
-                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;</p>
-            <?php } ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;
+        </p>
+    <?php } ?>
     </div>
     <div class="wrapper">
-        <div class="side_bar" >
+        <div class="side_bar">
 
             <div class="side_bar_bottom">
                 <ul>
                     <li>
                         <span class="top_curve"></span>
                         <a href="dashboard.php"><span class="icon"><i class="fa fa-home"></i></span>
-                        <span class="item">Dashboard</span></a>
+                            <span class="item">Dashboard</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
-                        <span class="item">Profile</span></a>
+                            <span class="item">Profile</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
-                        <span class="item">Products</span></a>
+                            <span class="item">Products</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
-                        <span class="item">Bookings</span></a>
+                            <span class="item">Bookings</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
-                        <span class="item">Orders</span></a>
+                            <span class="item">Orders</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
-                    <li  class="active">
+                    <li class="active">
                         <span class="top_curve"></span>
                         <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
-                        <span class="item">Feedback</span></a>
+                            <span class="item">Feedback</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
-                        <span class="item">Services</span></a>
+                            <span class="item">Services</span></a>
                         <span class="bottom_curve"></span>
                     </li>
-                
+
                     <li>
                         <span class="top_curve"></span>
                         <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
-                        <span class="item">Pet Records</span></a>
+                            <span class="item">Pet Records</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
@@ -349,48 +339,48 @@ $clinicID = $row_ca['ClinicID'];
                         <li>
                             <span class="top_curve"></span>
                             <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
-                            <span class="item">Users</span></a>
+                                <span class="item">Users</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
-                            <span class="item">Clinics</span></a>
+                                <span class="item">Clinics</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
-                            <span class="item">Pet Booklet</span></a>
+                                <span class="item">Pet Booklet</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
-                         <li >
+                        <li>
                             <span class="top_curve"></span>
                             <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
-                            <span class="item">Reports</span></a>
+                                <span class="item">Reports</span></a>
                             <span class="bottom_curve"></span>
-                        </li>     
+                        </li>
                     <?php } ?>
                 </ul>
-                    <!--digital clock start-->
-                    <div class="datetime" style="color:white;  text-align:center;">
-                        <div class="date">
-                            <span id="dayname">Day</span>,
-                            <span id="month">Month</span>
-                            <span id="daynum">00</span>,
-                            <span id="year">Year</span>
-                        </div>
-                        <div class="time">
-                            <span id="hour">00</span>:
-                            <span id="minutes">00</span>:
-                            <span id="seconds">00</span>
-                            <span id="period">AM</span>
-                        </div>
+                <!--digital clock start-->
+                <div class="datetime" style="color:white;  text-align:center;">
+                    <div class="date">
+                        <span id="dayname">Day</span>,
+                        <span id="month">Month</span>
+                        <span id="daynum">00</span>,
+                        <span id="year">Year</span>
                     </div>
-                    <!--digital clock end-->
+                    <div class="time">
+                        <span id="hour">00</span>:
+                        <span id="minutes">00</span>:
+                        <span id="seconds">00</span>
+                        <span id="period">AM</span>
+                    </div>
+                </div>
+                <!--digital clock end-->
             </div>
         </div>
 
@@ -414,14 +404,14 @@ $clinicID = $row_ca['ClinicID'];
                                     </tr>
                                 </thead>
 
-                                <tbody style="border:0px;"> 
+                                <tbody style="border:0px;">
                                     <?php
                                     $ret1 = mysqli_query($con, "SELECT * FROM feedback, users, clinics WHERE feedback.clinicID = clinics.ClinicID AND feedback.userID = users.UserID");
                                     $cnt = 1;
                                     $row1 = mysqli_num_rows($ret1);
                                     if ($row1 > 0) {
                                         while ($row1 = mysqli_fetch_array($ret1)) {
-                                        $date = new DateTime($row['DateTimeRated']);
+                                            $date = new DateTime($row['DateTimeRated']);
                                     ?>
                                             <!--Fetch the Records -->
                                             <tr border:0px;>
@@ -455,8 +445,8 @@ $clinicID = $row_ca['ClinicID'];
 
         <?php if ($usertype == 'Clinic Administrator') { ?>
 
-           <div class="main_container">
-<div style="padding-right:30px; padding-left:30px; padding-top:10px;">
+            <div class="main_container">
+                <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font">
                             <b style="padding-top:10px;">💬 Feedbacks</b>
@@ -479,7 +469,7 @@ $clinicID = $row_ca['ClinicID'];
                                     $row = mysqli_num_rows($ret);
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
-                                        $date = new DateTime($row['DateTimeRated']);
+                                            $date = new DateTime($row['DateTimeRated']);
 
                                     ?>
                                             <!--Fetch the Records -->
@@ -511,23 +501,23 @@ $clinicID = $row_ca['ClinicID'];
         <?php } ?>
     </div>
 
-   
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-        <!-- For Datatable -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
-        <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
+    <!-- For Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
-        <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </body>
 

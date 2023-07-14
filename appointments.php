@@ -6,85 +6,6 @@ include('connection.php');
 
 $userID = $_SESSION["id"];
 
-include('connection.php');
-
-
-///////////////////// FOR UPDATING PET OWNER PROFILE ////////////////////////////
-
-if (isset($_POST['update'])) {
-
-    $userID = $_POST['userID'];
-    $fname = $_POST['fname'];
-    $mname = $_POST['mname'];
-    $lname = $_POST['lname'];
-    $cnum = $_POST['cnum'];
-    $username = $_POST['username'];
-
-    $query = mysqli_query($con, "UPDATE users SET FirstName='$fname', MiddleName='$mname', LastName='$lname', ContactNo='$cnum', Username='$username' WHERE UserID='$userID'");
-
-    if ($query) {
-        echo "<script>alert('You have successfully your information.');</script>";
-        echo "<script> document.location ='userprofile.php'; </script>";
-    } else {
-        echo "<script>alert('Something Went Wrong. Please try again');</script>";
-    }
-}
-
-///////////////////// FOR ADDING NEW PET ////////////////////////////  
-
-if (isset($_POST['save_pet'])) {
-
-    $file = $_FILES['image']['name'];
-    $tempfile = $_FILES['image']['tmp_name'];
-    $folder = "image_upload/" . $file;
-
-    move_uploaded_file($tempfile, $folder);
-
-    $userID = $_POST['userID'];
-    $petname = $_POST['petname'];
-    $species = $_POST['species'];
-    $breed = $_POST['breed'];
-    $age = $_POST['age'];
-    $color = $_POST['color'];
-
-    $query = mysqli_query($con, "INSERT INTO pets (PetImage, PetName, Species, Breed, Age, Color, UserID) VALUES ('$file', '$petname', '$species', '$breed', '$age', '$color', '$userID')");
-
-    if ($query) {
-        echo "<script>alert('You have successfully added a new Pet');</script>";
-        echo "<script> document.location ='userprofile.php'; </script>";
-    } else {
-        echo "<script>alert('Error adding new pet.');</script>";
-    }
-}
-
-///////////////////// FOR DELETING PET ////////////////////////////  
-if (isset($_GET['delid'])) {
-    $rid = intval($_GET['delid']);
-    $sql = mysqli_query($con, "DELETE FROM pets WHERE PetID=$rid");
-    echo "<script>alert('You have successfully deleted a record.');</script>";
-    echo "<script>window.location.href = 'userprofile.php'</script>";
-}
-
-
-if (isset($_POST['cancel'])) {
-    $app_ID = $_POST['AppointmentID'];
-    $pref_date = $_POST['PDate'];
-
-    date_default_timezone_set("Asia/Hong_Kong");
-    $now = date('Y-m-d');
-
-    $dateDifference = (new DateTime($now))->diff(new DateTime($pref_date))->days;
-
-    if ($dateDifference >= 3) {
-        $query = mysqli_query($con, "UPDATE appointments SET AppointmentStatus='Cancelled' WHERE AppointmentID='$app_ID'");
-        echo "<script>alert('You have successfully cancelled an appointment');</script>";
-        echo "<script> window.location.href ='appointments.php'; </script>";
-    } else {
-        echo "<script>alert('Please review the terms and conditions for the cancellation of appointments');</script>";
-        echo "<script> window.location.href ='appointments.php'; </script>";
-    }
-}
-
 ?>
 
 
@@ -94,8 +15,7 @@ if (isset($_POST['cancel'])) {
 <head>
     <meta charset="utf-8">
     <title>Paws N Pages | Appointments</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -144,7 +64,7 @@ if (isset($_POST['cancel'])) {
             if (file) {
                 var reader = new FileReader();
 
-                reader.onload = function () {
+                reader.onload = function() {
                     $("#image").attr("src", reader.result);
                 }
 
@@ -154,7 +74,7 @@ if (isset($_POST['cancel'])) {
     </script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var table = $('#appointments').DataTable({
                 order: [
                     [2, 'asc']
@@ -213,9 +133,8 @@ if (isset($_POST['cancel'])) {
     <div style="padding-right:30px; padding-left:30px;">
         <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
             <div class="card-header userProfile-font"><b>⏳ Appointments</b></div>
-            <div class="card-body text-center">
-                <table class="table table-striped table-hover" name="appointments" id="appointments"
-                    style="border:0px;">
+            <div class="card-body">
+                <table class="table table-striped table-hover" name="appointments" id="appointments" style="border:0px;">
                     <thead>
                         <tr class="table100-head">
                             <th class="column1" style="border:0px;">Reference No.</th>
@@ -239,20 +158,11 @@ if (isset($_POST['cancel'])) {
                         $row1 = mysqli_num_rows($ret1);
                         if ($row1 > 0) {
                             while ($row1 = mysqli_fetch_array($ret1)) {
-
-                                ?>
+                                $date = new DateTime($row['DateTimeBooked']);
+                        ?>
                                 <!--Fetch the Records -->
                                 <tr>
-                                    <td style="border:0px;"><a href="" appid="<?php echo $row1['AppointmentID'] ?>"
-                                            refno="<?php echo $row1['Appointment_RefNo'] ?>"
-                                            pdate="<?php echo $row1['PreferredDate'] ?>"
-                                            ptime="<?php echo $row1['PreferredTime'] ?>" notes="<?php echo $row1['Notes']; ?>"
-                                            services="<?php echo $row1['AvailedServices'] ?>"
-                                            customer="<?php echo $row1['FirstName'] . ' ' . $row1['MiddleName'] . ' ' . $row1['LastName'] ?>"
-                                            astatus="<?php echo $row1['AppointmentStatus']; ?>"
-                                            aremarks="<?php echo $row1['Remarks']; ?>"
-                                            adtboooked="<?php echo $row1['DateTimeBooked'] ?>" class="edit" title="Edit"
-                                            data-toggle="modal" data-target="#edit_modal"><?php echo $row1['Appointment_RefNo'] ?></a></td>
+                                    <td style="border:0px;"><a href="" appid="<?php echo $row1['AppointmentID'] ?>" refno="<?php echo $row1['Appointment_RefNo'] ?>" pdate="<?php echo $row1['PreferredDate'] ?>" ptime="<?php echo $row1['PreferredTime'] ?>" notes="<?php echo $row1['Notes']; ?>" services="<?php echo $row1['AvailedServices'] ?>" customer="<?php echo $row1['FirstName'] . ' ' . $row1['MiddleName'] . ' ' . $row1['LastName'] ?>" astatus="<?php echo $row1['AppointmentStatus']; ?>" aremarks="<?php echo $row1['Remarks']; ?>" adtboooked="<?php echo $date->format('Y-m-d h:i A'); ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_modal"><?php echo $row1['Appointment_RefNo'] ?></a></td>
                                     <td style="border:0px;">
                                         <?php echo $row1['PreferredDate'] ?>
                                     </td>
@@ -271,20 +181,17 @@ if (isset($_POST['cancel'])) {
                                     <td style="border:0px;">
                                         <?php $status = $row1['AppointmentStatus'];
                                         if ($status === 'Processing') { ?>
-                                            <a
-                                                style="color:white; font-size:12px; padding: 5px 5px; border-radius:10px; background-color:#F4BB44;">
+                                            <a style="color:white; font-size:12px; padding: 5px 5px; border-radius:10px; background-color:#F4BB44;">
                                                 <?php echo $row1['AppointmentStatus']; ?>
                                             </a>
                                         <?php }
                                         if ($status === 'Confirmed') { ?>
-                                            <a
-                                                style="color:white; font-size:12px; padding: 5px 7px; border-radius:10px; background-color:#228B22;">
+                                            <a style="color:white; font-size:12px; padding: 5px 7px; border-radius:10px; background-color:#228B22;">
                                                 <?php echo $row1['AppointmentStatus']; ?>
                                             </a>
                                         <?php }
                                         if ($status === 'Denied') { ?>
-                                            <a
-                                                style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#A52A2A;">
+                                            <a style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#A52A2A;">
                                                 <?php echo $row1['AppointmentStatus']; ?>
                                             </a>
                                         <?php }
@@ -292,8 +199,7 @@ if (isset($_POST['cancel'])) {
                                             <?php echo $row1['AppointmentStatus']; ?>
                                         <?php }
                                         if ($status === 'Cancelled') { ?>
-                                            <a
-                                                style="color:white; font-size:12px; padding: 5px 7px;  border-radius:10px; background-color:#000000;">
+                                            <a style="color:white; font-size:12px; padding: 5px 7px;  border-radius:10px; background-color:#000000;">
                                                 <?php echo $row1['AppointmentStatus']; ?>
                                             </a>
                                         <?php } ?>
@@ -303,24 +209,24 @@ if (isset($_POST['cancel'])) {
                                         <?php echo $row1['Remarks']; ?>
                                     </td>
                                     <td style="border:0px;">
-                                        <?php echo $row1['DateTimeBooked']; ?>
+                                        <?php echo $date->format('Y-m-d h:i A'); ?>
                                     </td>
                                 </tr>
-                                <?php
+                            <?php
                                 $cnt = $cnt + 1;
                             }
                         } else { ?>
-                        <tr>
-                            <th style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</th>
-                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
-                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
-                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
-                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
-                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
-                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
-                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
-                            <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
-                        </tr>
+                            <tr>
+                                <th style="text-align:center; color:red; border:0px;" colspan="9">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                                <th style="text-align:center; color:red; border:0px; display:none;">No Record Found</th>
+                            </tr>
                         <?php } ?>
 
                     </tbody>
@@ -344,10 +250,8 @@ if (isset($_POST['cancel'])) {
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Get In Touch</h5>
                     <p class="mb-4">If you have inquiries feel free to contact us below</p>
-                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i
-                            class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
-                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i
-                            class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
+                    <a class="mb-2" href="https://goo.gl/maps/nGdbiDamK7MP9L5z5"><i class="bi bi-geo-alt text-primary me-2"></i>Manila, PH</br></a>
+                    <a class="mb-2" href="mailto:pawsnpages.site@gmail.com"><i class="bi bi-envelope-open text-primary me-2"></i>pawsnpages.site@gmail.com</a>
                     <a class="mb-0" href="tel:+6396176261"></br><i class="bi bi-telephone text-primary me-2"></i>+63 961
                         762 6162</a>
                 </div>
@@ -355,14 +259,10 @@ if (isset($_POST['cancel'])) {
                     <h5 class="text-uppercase border-start border-5 border-primary ps-3 mb-4">Quick Links</h5>
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-body mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-body mb-2" href="clinics.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
-                        <a class="text-body mb-2" href="#services"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                        <a class="text-body mb-2" href="#founders"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
-                        <a class="text-body" href="contact.php"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+                        <a class="text-body mb-2" href="clinics.php"><i class="bi bi-arrow-right text-primary me-2"></i>Vet Clinics</a>
+                        <a class="text-body mb-2" href="#services"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
+                        <a class="text-body mb-2" href="#founders"><i class="bi bi-arrow-right text-primary me-2"></i>Meet The Team</a>
+                        <a class="text-body" href="contact.php"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
                     </div>
                 </div>
 
@@ -410,8 +310,7 @@ if (isset($_POST['cancel'])) {
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Reference Number</label>
-                                        <input type="text" name="ReferenceNo" id="ReferenceNo" class="form-control"
-                                            readonly />
+                                        <input type="text" name="ReferenceNo" id="ReferenceNo" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Preferred Date</label>
@@ -423,35 +322,29 @@ if (isset($_POST['cancel'])) {
                                     </div>
                                     <div class="form-group">
                                         <label>Services</label>
-                                        <textarea name="Services" id="Services" class="form-control"
-                                            style=" width: 100%;" rows="3" readonly></textarea>
+                                        <textarea name="Services" id="Services" class="form-control" style=" width: 100%;" rows="3" readonly></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>Notes</label>
-                                        <textarea name="Notes" id="Notes" class="form-control" style=" width: 100%;"
-                                            rows="4" readonly></textarea>
+                                        <textarea name="Notes" id="Notes" class="form-control" style=" width: 100%;" rows="4" readonly></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Customer</label>
-                                        <input type="text" name="Customer" id="Customer" class="form-control"
-                                            readonly />
+                                        <input type="text" name="Customer" id="Customer" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Date & Time Booked</label>
-                                        <input type="text" name="DTBooked" id="DTBooked" class="form-control"
-                                            readonly />
+                                        <input type="text" name="DTBooked" id="DTBooked" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Status</label>
-                                        <input type="text" name="Status" id="Status" class="form-control"
-                                            style="height: 100%;" readonly />
+                                        <input type="text" name="Status" id="Status" class="form-control" style="height: 100%;" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Remarks</label>
-                                        <textarea name="Remarks" id="Remarks" class="form-control"
-                                            style=" width: 100%; height: 150px;" readonly></textarea>
+                                        <textarea name="Remarks" id="Remarks" class="form-control" style=" width: 100%; height: 150px;" readonly></textarea>
                                     </div>
 
                                 </div>
@@ -462,9 +355,9 @@ if (isset($_POST['cancel'])) {
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" name="cancel" class="btn btn-danger" style="border-radius: 15px;"
-                            data-toggle="tooltip" onclick="return confirm('Cancel appointment?');"><span
-                                class="glyphicon glyphicon-remove"></span> Cancel Booking</a>
+                        <a class="btn btn-danger" style="border-radius: 15px; color: white;" data-toggle="modal" data-target="#confirm_cancel" data-dismiss="modal">
+                            Cancel Booking
+                        </a>
                     </div>
                 </form>
             </div>
@@ -472,6 +365,45 @@ if (isset($_POST['cancel'])) {
         </div>
     </div>
     <!-- END OF MODAL FOR EDIT BOOKING -->
+
+    <!-- START OF MODAL FOR CONFIRM CANCELLATION -->
+    <div class="modal fade" id="confirm_cancel" aria-hidden="true" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="border-radius: 15px;">
+                <form method="POST" runat="server" id="form_cancel_booking">
+                    <div class="modal-header modal-header-success">
+                        <!-- <h3 class="modal-title">Appointment Details</h3>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button> -->
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group" style="display: none;">
+                            <label>ID</label>
+                            <input type="text" name="AppointmentID_2" id="AppointmentID" class="form-control" />
+                        </div>
+                        <div class="form-group" style="display: none;">
+                            <label>Preferred Date</label>
+                            <input type="date" name="PDate_2" id="PDate" class="form-control" readonly />
+                        </div>
+
+                        <div class="col-md-12">
+                            <h5>Are you sure you want to cancel this booking?</h5>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" name="cancel" class="btn btn-primary" style="border-radius: 15px; color: white; width: 10%;">
+                            OK
+                        </button>
+                        <a class="btn btn-danger" style="border-radius: 15px; color: white;" data-dismiss="modal">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- END OF MODAL FOR CONFIRM CANCELLATION -->
 
 
     <!-- Back to Top -->
@@ -493,13 +425,11 @@ if (isset($_POST['cancel'])) {
     <script src="js/main.js"></script>
 
     <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- To show details when editing -->
     <script>
-        $('#edit_modal').on('show.bs.modal', function (e) {
+        $('#edit_modal').on('show.bs.modal', function(e) {
             var opener = e.relatedTarget;
 
             var appid = $(opener).attr('appid');
@@ -524,6 +454,10 @@ if (isset($_POST['cancel'])) {
             $('#form_edit_booking').find('[name="Remarks"]').val(aremarks);
             $('#form_edit_booking').find('[name="DTBooked"]').val(adtboooked);
 
+            $('#confirm_cancel').on('show.bs.modal', function(e) {
+                $('#form_cancel_booking').find('[name="AppointmentID_2"]').val(appid);
+                $('#form_cancel_booking').find('[name="PDate_2"]').val(pdate);
+            });
 
             // $('#form_edit_booking').find('[name="cancel"]').prop('href', 'appointments.php?appid=' + appid);
 
@@ -535,7 +469,61 @@ if (isset($_POST['cancel'])) {
         }
     </script>
 
+    <?php
 
+    if (isset($_POST['cancel'])) {
+        $app_ID = $_POST['AppointmentID_2'];
+        $pref_date = $_POST['PDate_2'];
+
+        date_default_timezone_set("Asia/Hong_Kong");
+        $now = date('Y-m-d');
+
+        $dateDifference = (new DateTime($now))->diff(new DateTime($pref_date))->days;
+
+        if ($dateDifference >= 3) {
+            $query = mysqli_query($con, "UPDATE appointments SET AppointmentStatus='Cancelled' WHERE AppointmentID='$app_ID'");
+
+            if ($query) {
+                echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                echo '<script>';
+                echo 'swal({
+                                                title: "Success",
+                                                text: "You have successfully cancelled your appointment",
+                                                icon: "success",
+                                                html: true,
+                                                showCancelButton: true,
+                                                })
+                                                    .then((willDelete) => {
+                                                        if (willDelete) {
+
+                                                            document.location ="appointments.php";
+                                                        }
+                                                    })';
+                echo '</script>';
+            } else {
+                echo "<script>alert('Something Went Wrong. Please try again');</script>";
+            }
+        } else {
+            echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+            echo '<script>';
+            echo 'swal({
+                                                title: "Warning",
+                                                text: "Please review terms & conditions for cancellations",
+                                                icon: "warning",
+                                                html: true,
+                                                showCancelButton: true,
+                                                })
+                                                    .then((willDelete) => {
+                                                        if (willDelete) {
+
+                                                            document.location ="appointments.php";
+                                                        }
+                                                    })';
+            echo '</script>';
+        }
+    }
+
+    ?>
 
 </body>
 

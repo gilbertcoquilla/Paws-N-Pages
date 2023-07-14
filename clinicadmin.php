@@ -1036,7 +1036,7 @@ $row_cb = mysqli_num_rows($ret_cb);
 
             if ($ufile_cb != "") {
 
-                $uquery_cb = mysqli_query($con, "UPDATE clinic_billing set BillingImage='$ufile_cb', ClinicID='$clinicID'");
+                $uquery_cb = mysqli_query($con, "UPDATE clinic_billing set BillingImage='$ufile_cb' WHERE ClinicID='$clinicID'");
 
                 if ($uquery_cb) {
                     echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
