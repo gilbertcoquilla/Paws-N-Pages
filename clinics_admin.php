@@ -255,7 +255,7 @@ $clinicID = $row_ca['ClinicID'];
     <div class="wrapper">
         <div class="side_bar">
 
-            <div class="side_bar_bottom">
+            <div class="side_bar_bottom" style="height:100%;">
                 <ul>
                     <li>
                         <span class="top_curve"></span>

@@ -255,7 +255,7 @@ $clinicID = $row_ca['ClinicID'];
     <div class="wrapper">
         <div class="side_bar">
 
-            <div class="side_bar_bottom">
+            <div class="side_bar_bottom" style="height:100%;">
                 <ul>
                     <li>
                         <span class="top_curve"></span>
@@ -378,7 +378,7 @@ $clinicID = $row_ca['ClinicID'];
                                         <th class="column1" style="border:0px; color:#80b434;">No. of Pets</th>
                                         <th class="column1" style="border:0px; color:#80b434; display: none;">Proof of Payment</th>
                                         <th class="column1" style="border:0px; color:#80b434;">Total Amount</th>
-                                        <th class="column1" style="border:0px; color:#80b434;">Payment Status</th>
+                                        <th class="column1" style="border:0px; color:#80b434; text-align: center;">Payment Status</th>
                                         <th class="column1" style="border:0px; color:#80b434; text-align: center;">Action</th>
                                     </tr>
                                 </thead>
@@ -397,7 +397,7 @@ $clinicID = $row_ca['ClinicID'];
                                                 <td style="border:0px;"><?php echo $row['NoOfPets'] ?></td>
                                                 <td style="border:0px; display: none;"><a href="image_upload/<?php echo $row['Payment_Proof'] ?>" id="POPayment" target="_blank"><?php echo $row['Payment_Proof'] ?></a></td>
                                                 <td style="border:0px;"><?php echo $row['AmountToPay']; ?></td>
-                                                <td style="border:0px;">
+                                                <td style="border:0px; text-align: center;">
                                                     <?php $status = $row['PaymentStatus'];
                                                     if ($status === 'Pending') { ?>
                                                         <a style="color:white; font-size:12px; padding: 5px 10px; border-radius:10px; background-color:#F4BB44;"><?php echo $row['PaymentStatus']; ?></a>
