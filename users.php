@@ -18,7 +18,7 @@ $clinicID = $row_ca['ClinicID'];
 <html lang="en">
 
 <head>
-     <title>Paws N Pages | Users</title>
+    <title>Paws N Pages | Users</title>
     <meta charset="UTF-8">
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -56,133 +56,136 @@ $clinicID = $row_ca['ClinicID'];
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-*{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	outline: none;
-	text-decoration: none;
-	list-style: none;
-	font-family: 'Montserrat', sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            text-decoration: none;
+            list-style: none;
+            font-family: 'Montserrat', sans-serif;
+        }
 
-.wrapper{
-	background: white;
-	display: flex;
-}
+        .wrapper {
+            background: white;
+            display: flex;
+        }
 
-.side_bar{
-	width: 250px;
-}
-
-
-.main_container{
-	width: calc(100% - 250px);
-	padding: 30px;
-}
+        .side_bar {
+            width: 250px;
+            height: 100vh;
+        }
 
 
+        .main_container {
+            width: calc(100% - 250px);
+            padding: 30px;
+            height: 100vh;
+        }
 
-.side_bar .side_bar_top .profile_pic{
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;	
-}
 
-.side_bar .side_bar_top .profile_pic img{
-	width: 100px;
-	height: 100px;
-	padding: 5px;
-	border: 2px solid white;
-    border-radius: 50%;
-}
 
-.side_bar .side_bar_top .profile_info{
-	text-align: center;
-	color: #fff;
-}
+        .side_bar .side_bar_top .profile_pic {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
 
-.side_bar .side_bar_top .profile_info p{
-	margin-top: 5px;
-	font-size: 12px;	
-}
+        .side_bar .side_bar_top .profile_pic img {
+            width: 100px;
+            height: 100px;
+            padding: 5px;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
 
-.side_bar .side_bar_bottom{
-	background: #80b434;
-	padding: 20px 0;
-	padding-left: 15px;		
-}
+        .side_bar .side_bar_top .profile_info {
+            text-align: center;
+            color: #fff;
+        }
 
-.side_bar .side_bar_bottom ul li{
-	position: relative;
-}
+        .side_bar .side_bar_top .profile_info p {
+            margin-top: 5px;
+            font-size: 12px;
+        }
 
-.side_bar .side_bar_bottom ul li a{
-	display: block;
-	padding: 15px;		
-	font-size: 14px;
-	color: white;
-	margin-bottom: 5px;				
-}
+        .side_bar .side_bar_bottom {
+            background: #80b434;
+            padding: 20px 0;
+            padding-left: 15px;
+        }
 
-.side_bar .side_bar_bottom ul li a .icon{
-	margin-right: 8px;
-}
+        .side_bar .side_bar_bottom ul li {
+            position: relative;
+        }
 
-.side_bar .side_bar_bottom ul li.active a{
-	background: white;
-	color: #80b434;
-	border-top-left-radius: 25px;
-	border-bottom-left-radius: 25px;
-}
+        .side_bar .side_bar_bottom ul li a {
+            display: block;
+            padding: 15px;
+            font-size: 14px;
+            color: white;
+            margin-bottom: 5px;
+        }
 
-.side_bar .side_bar_bottom ul li.active .top_curve,
-.side_bar .side_bar_bottom ul li.active .bottom_curve{
-	position: absolute;
-	left: 0;
-	width: 100%;
-	height: 20px;
-	background: white;
-}
+        .side_bar .side_bar_bottom ul li a .icon {
+            margin-right: 8px;
+        }
 
-.side_bar .side_bar_bottom ul li.active .top_curve{
-	top: -20px;
-}
+        .side_bar .side_bar_bottom ul li.active a {
+            background: white;
+            color: #80b434;
+            border-top-left-radius: 25px;
+            border-bottom-left-radius: 25px;
+        }
 
-.side_bar .side_bar_bottom ul li.active .bottom_curve{
-	bottom: -20px;	
-}
+        .side_bar .side_bar_bottom ul li.active .top_curve,
+        .side_bar .side_bar_bottom ul li.active .bottom_curve {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: white;
+        }
 
-.side_bar .side_bar_bottom ul li.active .top_curve:before,
-.side_bar .side_bar_bottom ul li.active .bottom_curve:before{
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: #80b434;	
-}
+        .side_bar .side_bar_bottom ul li.active .top_curve {
+            top: -20px;
+        }
 
-.side_bar .side_bar_bottom ul li.active .top_curve:before{
-	border-bottom-right-radius: 25px;
-}
+        .side_bar .side_bar_bottom ul li.active .bottom_curve {
+            bottom: -20px;
+        }
 
-.side_bar .side_bar_bottom ul li.active .bottom_curve:before{
-	border-top-right-radius: 25px;
-}
+        .side_bar .side_bar_bottom ul li.active .top_curve:before,
+        .side_bar .side_bar_bottom ul li.active .bottom_curve:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #80b434;
+        }
 
-.side_bar .side_bar_bottom .sidebar-footer{
-height: 50px;
-position: absolute;
-width: 100%;
-bottom: 0;
-list-style-type: none;
-padding-bottom:5.5em;
-}
- /* Style the tab */
+        .side_bar .side_bar_bottom ul li.active .top_curve:before {
+            border-bottom-right-radius: 25px;
+        }
+
+        .side_bar .side_bar_bottom ul li.active .bottom_curve:before {
+            border-top-right-radius: 25px;
+        }
+
+        .side_bar .side_bar_bottom .sidebar-footer {
+            height: 50px;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            list-style-type: none;
+            padding-bottom: 5.5em;
+        }
+
+        /* Style the tab */
         .tab {
             overflow: auto;
             border: 1px solid #ccc;
@@ -220,7 +223,8 @@ padding-bottom:5.5em;
             border: 1px solid #ccc;
             border-top: none;
         }
-          .card-body {
+
+        .card-body {
             display: none;
         }
     </style>
@@ -285,30 +289,30 @@ padding-bottom:5.5em;
     </script>
 
     <!-- FOR DIGITAL TIME AND DATE -->
-        <script type="text/javascript">
-        function updateClock(){
-        var now = new Date();
-        var dname = now.getDay(),
-            mo = now.getMonth(),
-            dnum = now.getDate(),
-            yr = now.getFullYear(),
-            hou = now.getHours(),
-            min = now.getMinutes(),
-            sec = now.getSeconds(),
-            pe = "AM";
+    <script type="text/javascript">
+        function updateClock() {
+            var now = new Date();
+            var dname = now.getDay(),
+                mo = now.getMonth(),
+                dnum = now.getDate(),
+                yr = now.getFullYear(),
+                hou = now.getHours(),
+                min = now.getMinutes(),
+                sec = now.getSeconds(),
+                pe = "AM";
 
-            if(hou >= 12){
+            if (hou >= 12) {
                 pe = "PM";
             }
-            if(hou == 0){
+            if (hou == 0) {
                 hou = 12;
             }
-            if(hou > 12){
+            if (hou > 12) {
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function(digits){
-                for(var n = this.toString(); n.length < digits; n = 0 + n);
+            Number.prototype.pad = function(digits) {
+                for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
 
@@ -316,86 +320,87 @@ padding-bottom:5.5em;
             var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
             var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
-            for(var i = 0; i < ids.length; i++)
-            document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+            for (var i = 0; i < ids.length; i++)
+                document.getElementById(ids[i]).firstChild.nodeValue = values[i];
         }
 
-        function initClock(){
-        updateClock();
-        window.setInterval("updateClock()", 1);
+        function initClock() {
+            updateClock();
+            window.setInterval("updateClock()", 1);
         }
-        </script>
-    
+    </script>
+
 </head>
 
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-            <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
             ?>
-                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;</p>
-            <?php } ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;
+        </p>
+    <?php } ?>
     </div>
     <div class="wrapper">
-        <div class="side_bar" >
+        <div class="side_bar">
 
             <div class="side_bar_bottom" style="height:100%;">
                 <ul>
                     <li>
                         <span class="top_curve"></span>
                         <a href="dashboard.php"><span class="icon"><i class="fa fa-home"></i></span>
-                        <span class="item">Dashboard</span></a>
+                            <span class="item">Dashboard</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
-                        <span class="item">Profile</span></a>
+                            <span class="item">Profile</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
-                        <span class="item">Products</span></a>
+                            <span class="item">Products</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
-                        <span class="item">Bookings</span></a>
+                            <span class="item">Bookings</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
-                        <span class="item">Orders</span></a>
+                            <span class="item">Orders</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
-                        <span class="item">Feedback</span></a>
+                            <span class="item">Feedback</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
-                        <span class="item">Services</span></a>
+                            <span class="item">Services</span></a>
                         <span class="bottom_curve"></span>
                     </li>
-                
+
                     <li>
                         <span class="top_curve"></span>
                         <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
-                        <span class="item">Pet Records</span></a>
+                            <span class="item">Pet Records</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
@@ -403,54 +408,54 @@ padding-bottom:5.5em;
                         <li class="active">
                             <span class="top_curve"></span>
                             <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
-                            <span class="item">Users</span></a>
+                                <span class="item">Users</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
-                            <span class="item">Clinics</span></a>
+                                <span class="item">Clinics</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
-                            <span class="item">Pet Booklet</span></a>
+                                <span class="item">Pet Booklet</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
-                         <li >
+                        <li>
                             <span class="top_curve"></span>
                             <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
-                            <span class="item">Reports</span></a>
+                                <span class="item">Reports</span></a>
                             <span class="bottom_curve"></span>
-                        </li>     
+                        </li>
                     <?php } ?>
                 </ul>
-                    <!--digital clock start-->
-                    <div class="datetime" style="color:white;  text-align:center;">
-                        <div class="date">
-                            <span id="dayname">Day</span>,
-                            <span id="month">Month</span>
-                            <span id="daynum">00</span>,
-                            <span id="year">Year</span>
-                        </div>
-                        <div class="time">
-                            <span id="hour">00</span>:
-                            <span id="minutes">00</span>:
-                            <span id="seconds">00</span>
-                            <span id="period">AM</span>
-                        </div>
+                <!--digital clock start-->
+                <div class="datetime" style="color:white;  text-align:center;">
+                    <div class="date">
+                        <span id="dayname">Day</span>,
+                        <span id="month">Month</span>
+                        <span id="daynum">00</span>,
+                        <span id="year">Year</span>
                     </div>
-                    <!--digital clock end-->
+                    <div class="time">
+                        <span id="hour">00</span>:
+                        <span id="minutes">00</span>:
+                        <span id="seconds">00</span>
+                        <span id="period">AM</span>
+                    </div>
+                </div>
+                <!--digital clock end-->
             </div>
         </div>
-        
+
         <div class="main_container">
-            <div style="padding-right:30px; padding-left:30px; padding-top:10px;">                
-            <div class="row">
+            <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
+                <div class="row">
                     <div class="col-xl-12">
 
                         <!-- START OF VACCINE RECORD -->
@@ -478,60 +483,60 @@ padding-bottom:5.5em;
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php
-                                $ret = mysqli_query($con, "SELECT * FROM users WHERE userType != 'Administrator'");
-                                $cnt = 1;
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-                                    $date = new DateTime($row['DateTimeModified']);
-                                ?>
-
-
                                         <?php
-                                        $user_id = $row['UserID'];
-                                        $ret1 = mysqli_query($con, "SELECT * FROM address WHERE UserID='$user_id'");
-                                        $row1 = mysqli_fetch_array($ret1);
+                                        $ret = mysqli_query($con, "SELECT * FROM users WHERE userType != 'Administrator'");
+                                        $cnt = 1;
+                                        $row = mysqli_num_rows($ret);
+                                        if ($row > 0) {
+                                            while ($row = mysqli_fetch_array($ret)) {
+                                                $date = new DateTime($row['DateTimeModified']);
                                         ?>
 
-                                        <!--Fetch the Records -->
-                                        <tr border:0px;>
 
-                                            <td style="border:0px;"> <?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['Username']; ?></td>
+                                                <?php
+                                                $user_id = $row['UserID'];
+                                                $ret1 = mysqli_query($con, "SELECT * FROM address WHERE UserID='$user_id'");
+                                                $row1 = mysqli_fetch_array($ret1);
+                                                ?>
 
-                                            <?php if ($row1 > 0) { ?>
-                                                <td style="border:0px; display: none;"><?php echo $row1['LotNo_Street'] . ', Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City']  . ',  ' . $row1['ZIPCode'] ?><br /></td>
-                                            <?php } else { ?>
-                                                <td style="border:0px; display: none;"></td>
-                                            <?php } ?>
+                                                <!--Fetch the Records -->
+                                                <tr border:0px;>
 
-                                            <td style="border:0px; display: none;"><?php echo $row['Birth_Date']; ?></td>
-                                            <td style="border:0px;"><?php echo $row['UserType']; ?></td>
-                                            <td style="border:0px; display: none;"><?php echo $row['Email']; ?></td>
-                                            <td style="border:0px; display: none;"><?php echo $row['ContactNo']; ?></td>
-                                            <td style="border:0px;"><?php echo $date->format('Y-m-d h:i A');; ?></td>
-                                            <td style="text-align: center; border:0px;">
-                                                <a href="" user-id="<?php echo $row['UserID'] ?>" user-fname="<?php echo $row['FirstName'] ?>" user-mname="<?php echo $row['MiddleName'] ?>" user-lname="<?php echo $row['LastName'] ?>" user-lotnostreet="<?php echo $row1['LotNo_Street'] ?>" user-province="<?php echo $row1['Province'] ?>" user-barangay="<?php echo $row1['Barangay'] ?>" user-city="<?php echo $row1['City'] ?>" user-zipcode="<?php echo $row1['ZIPCode'] ?>" user-cnum="<?php echo $row['ContactNo'] ?>" user-bdate="<?php echo $row['Birth_Date'] ?>" user-utype="<?php echo $row['UserType'] ?>" user-email="<?php echo $row['Email'] ?>" user-username="<?php echo $row['Username'] ?>" user-password="<?php echo $row['Password'] ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
-                                                <a href="users.php?delid=<?php echo ($row['UserID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red; display: none;"></i></a>
-                                            </td>
-                                        </tr>
+                                                    <td style="border:0px;"> <?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
+                                                    <td style="border:0px;"><?php echo $row['Username']; ?></td>
 
-                                    <?php
-                                        $cnt = $cnt + 1;
-                                    }
-                                } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found</td>
-                                    </tr>
-                                <?php } ?>
+                                                    <?php if ($row1 > 0) { ?>
+                                                        <td style="border:0px; display: none;"><?php echo $row1['LotNo_Street'] . ', Brgy. ' . $row1['Barangay'] . ',  ' . $row1['City']  . ',  ' . $row1['ZIPCode'] ?><br /></td>
+                                                    <?php } else { ?>
+                                                        <td style="border:0px; display: none;"></td>
+                                                    <?php } ?>
+
+                                                    <td style="border:0px; display: none;"><?php echo $row['Birth_Date']; ?></td>
+                                                    <td style="border:0px;"><?php echo $row['UserType']; ?></td>
+                                                    <td style="border:0px; display: none;"><?php echo $row['Email']; ?></td>
+                                                    <td style="border:0px; display: none;"><?php echo $row['ContactNo']; ?></td>
+                                                    <td style="border:0px;"><?php echo $date->format('Y-m-d h:i A');; ?></td>
+                                                    <td style="text-align: center; border:0px;">
+                                                        <a href="" user-id="<?php echo $row['UserID'] ?>" user-fname="<?php echo $row['FirstName'] ?>" user-mname="<?php echo $row['MiddleName'] ?>" user-lname="<?php echo $row['LastName'] ?>" user-lotnostreet="<?php echo $row1['LotNo_Street'] ?>" user-province="<?php echo $row1['Province'] ?>" user-barangay="<?php echo $row1['Barangay'] ?>" user-city="<?php echo $row1['City'] ?>" user-zipcode="<?php echo $row1['ZIPCode'] ?>" user-cnum="<?php echo $row['ContactNo'] ?>" user-bdate="<?php echo $row['Birth_Date'] ?>" user-utype="<?php echo $row['UserType'] ?>" user-email="<?php echo $row['Email'] ?>" user-username="<?php echo $row['Username'] ?>" user-password="<?php echo $row['Password'] ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
+                                                        <a href="users.php?delid=<?php echo ($row['UserID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red; display: none;"></i></a>
+                                                    </td>
+                                                </tr>
+
+                                            <?php
+                                                $cnt = $cnt + 1;
+                                            }
+                                        } else { ?>
+                                            <tr style="border:0px;">
+                                                <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found</td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
                             <!-- END OF CLIENTS -->
 
                             <!-- START OF ADMINISTRATOR -->
-                        <div class="card-body text-center" id="content2">
+                            <div class="card-body text-center" id="content2">
                                 <table class="table table-striped table-hover" id="admins" style="text-align: left; border: 0px;">
                                     <thead>
                                         <tr class="table100-head">
@@ -551,7 +556,7 @@ padding-bottom:5.5em;
                                         $row = mysqli_num_rows($ret);
                                         if ($row > 0) {
                                             while ($row = mysqli_fetch_array($ret)) {
-                                            $date = new DateTime($row['DateTimeModified']);
+                                                $date = new DateTime($row['DateTimeModified']);
                                         ?>
                                                 <!--Fetch the Records -->
                                                 <tr>
@@ -560,8 +565,8 @@ padding-bottom:5.5em;
                                                     <td style="border:0px;"><?php echo $row['Email']; ?></td>
                                                     <td style="border:0px;"><?php echo $row['ContactNo']; ?></td>
                                                     <td style="border:0px;"><?php echo $date->format('Y-m-d h:i A'); ?></td>
-                                                    <td style="border:0px;">
-                                                        <a href="" auser-id="<?php echo $row['UserID'] ?>" auser-fname="<?php echo $row['FirstName'] ?>" auser-mname="<?php echo $row['MiddleName'] ?>" auser-lname="<?php echo $row['LastName'] ?>"  auser-cnum="<?php echo $row['ContactNo'] ?>" auser-bdate="<?php echo $row['Birth_Date'] ?>" auser-utype="<?php echo $row['UserType'] ?>" auser-email="<?php echo $row['Email'] ?>" auser-username="<?php echo $row['Username'] ?>" auser-password="<?php echo $row['Password'] ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_admin"><i class="fa fa-edit"></i></a>
+                                                    <td style="text-align: center; border:0px;">
+                                                        <a href="" auser-id="<?php echo $row['UserID'] ?>" auser-fname="<?php echo $row['FirstName'] ?>" auser-mname="<?php echo $row['MiddleName'] ?>" auser-lname="<?php echo $row['LastName'] ?>" auser-cnum="<?php echo $row['ContactNo'] ?>" auser-bdate="<?php echo $row['Birth_Date'] ?>" auser-utype="<?php echo $row['UserType'] ?>" auser-email="<?php echo $row['Email'] ?>" auser-username="<?php echo $row['Username'] ?>" auser-password="<?php echo $row['Password'] ?>" class="edit" title="Edit" data-toggle="modal" data-target="#edit_admin"><i class="fa fa-edit"></i></a>
                                                         <a href="users.php?delid=<?php echo ($row['UserID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red; display: none;"></i></a>
                                                     </td>
                                                 </tr>
@@ -582,10 +587,10 @@ padding-bottom:5.5em;
                                     </tbody>
                                 </table>
                             </div>
-                        <!-- END OF ADMINISTRATOR -->
+                            <!-- END OF ADMINISTRATOR -->
 
                         </div>
-                        
+
 
                     </div>
                 </div>
@@ -872,7 +877,7 @@ padding-bottom:5.5em;
                                     <input type="password" name="Password" id="Password" class="form-control" /><br>
                                 </div>
                             </div>
-                                                        <div class="row gx-3 mb-3">
+                            <div class="row gx-3 mb-3">
                                 <div class="col-md-12">
                                     <label>Address</label>
                                 </div>
@@ -947,8 +952,8 @@ padding-bottom:5.5em;
 
         if ($query) {
             echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                                        echo '<script>';
-                                        echo 'swal({
+            echo '<script>';
+            echo 'swal({
                                             title: "Success",
                                             text: "You have successfully added a user",
                                             icon: "success",
@@ -961,7 +966,7 @@ padding-bottom:5.5em;
                                                         document.location ="users.php";
                                                     }
                                                 })';
-                                        echo '</script>';
+            echo '</script>';
         } else {
             echo "<script> alert('Error adding a user.'); </script>";
         }
@@ -996,8 +1001,8 @@ padding-bottom:5.5em;
 
         if ($query && $address_query) {
             echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                                        echo '<script>';
-                                        echo 'swal({
+            echo '<script>';
+            echo 'swal({
                                             title: "Success",
                                             text: "You have successfully updated a user",
                                             icon: "success",
@@ -1010,7 +1015,7 @@ padding-bottom:5.5em;
                                                         document.location ="users.php";
                                                     }
                                                 })';
-                                        echo '</script>';
+            echo '</script>';
         } else {
             echo "<script> alert('Error updating a user.'); </script>";
         }
@@ -1037,8 +1042,8 @@ padding-bottom:5.5em;
 
         if ($query) {
             echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                                        echo '<script>';
-                                        echo 'swal({
+            echo '<script>';
+            echo 'swal({
                                             title: "Success",
                                             text: "You have successfully updated a user",
                                             icon: "success",
@@ -1051,7 +1056,7 @@ padding-bottom:5.5em;
                                                         document.location ="users.php";
                                                     }
                                                 })';
-                                        echo '</script>';
+            echo '</script>';
         } else {
             echo "<script> alert('Error updating a user.'); </script>";
         }
@@ -1166,33 +1171,32 @@ padding-bottom:5.5em;
         }
     </script>
 
-        <script>
-
-    // FOR TAB LINKS
-    function showContent(contentId) {
-        // Hide all content elements
-        var contentElements = document.getElementsByClassName('card-body');
-        for (var i = 0; i < contentElements.length; i++) {
-        contentElements[i].style.display = 'none';
+    <script>
+        // FOR TAB LINKS
+        function showContent(contentId) {
+            // Hide all content elements
+            var contentElements = document.getElementsByClassName('card-body');
+            for (var i = 0; i < contentElements.length; i++) {
+                contentElements[i].style.display = 'none';
+            }
+            // Show the selected content element
+            var selectedContent = document.getElementById(contentId);
+            if (selectedContent) {
+                selectedContent.style.display = 'block';
+                selectedContent.add('active');
+            }
+            // Add active class to the clicked tab
+            tabElement.classList.add('active');
         }
-        // Show the selected content element
-        var selectedContent = document.getElementById(contentId);
-        if (selectedContent) {
-        selectedContent.style.display = 'block';
-        selectedContent.add('active');
-        }
-        // Add active class to the clicked tab
-        tabElement.classList.add('active');
-    }
 
-    document.getElementById('content1').style.display = 'block';
+        document.getElementById('content1').style.display = 'block';
 
-    $(document).ready(function(){
-        $('.tablinks').on('click', function(){
-            $('.tablinks').removeClass('active');
-            $(this).addClass('active');
-        })
-    });
+        $(document).ready(function() {
+            $('.tablinks').on('click', function() {
+                $('.tablinks').removeClass('active');
+                $(this).addClass('active');
+            })
+        });
     </script>
 
 </body>

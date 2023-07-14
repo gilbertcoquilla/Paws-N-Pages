@@ -78,12 +78,14 @@ $clinicID = $row_ca['ClinicID'];
 
         .side_bar {
             width: 250px;
+            height: 100vh;
         }
 
 
         .main_container {
             width: calc(100% - 250px);
             padding: 30px;
+            height: 100vh;
         }
 
 
@@ -343,7 +345,7 @@ $clinicID = $row_ca['ClinicID'];
                     <?php } ?>
                 </ul>
                 <!--digital clock start-->
-                <div class="datetime" style="color:white;  text-align:center;">
+                <div class="datetime" style="color:white; text-align:center;">
                     <div class="date">
                         <span id="dayname">Day</span>,
                         <span id="month">Month</span>

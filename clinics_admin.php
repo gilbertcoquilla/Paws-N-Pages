@@ -18,7 +18,7 @@ $clinicID = $row_ca['ClinicID'];
 <html lang="en">
 
 <head>
-     <title>Paws N Pages | Clinics</title>
+    <title>Paws N Pages | Clinics</title>
     <meta charset="UTF-8">
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
@@ -58,174 +58,176 @@ $clinicID = $row_ca['ClinicID'];
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        outline: none;
-        text-decoration: none;
-        list-style: none;
-        font-family: 'Montserrat', sans-serif;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            text-decoration: none;
+            list-style: none;
+            font-family: 'Montserrat', sans-serif;
+        }
 
-    .wrapper{
-        background: white;
-        display: flex;
-    }
+        .wrapper {
+            background: white;
+            display: flex;
+        }
 
-    .side_bar{
-        width: 250px;
-    }
-
-
-    .main_container{
-        width: calc(100% - 250px);
-        padding: 30px;
-    }
+        .side_bar {
+            width: 250px;
+            height: 100vh;
+        }
 
 
+        .main_container {
+            width: calc(100% - 250px);
+            padding: 30px;
+            height: 100vh;
+        }
 
-    .side_bar .side_bar_top .profile_pic{
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;	
-    }
 
-    .side_bar .side_bar_top .profile_pic img{
-        width: 100px;
-        height: 100px;
-        padding: 5px;
-        border: 2px solid white;
-        border-radius: 50%;
-    }
 
-    .side_bar .side_bar_top .profile_info{
-        text-align: center;
-        color: #fff;
-    }
+        .side_bar .side_bar_top .profile_pic {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
 
-    .side_bar .side_bar_top .profile_info p{
-        margin-top: 5px;
-        font-size: 12px;	
-    }
+        .side_bar .side_bar_top .profile_pic img {
+            width: 100px;
+            height: 100px;
+            padding: 5px;
+            border: 2px solid white;
+            border-radius: 50%;
+        }
 
-    .side_bar .side_bar_bottom{
-        background: #80b434;
-        padding: 20px 0;
-        padding-left: 15px;		
-    }
+        .side_bar .side_bar_top .profile_info {
+            text-align: center;
+            color: #fff;
+        }
 
-    .side_bar .side_bar_bottom ul li{
-        position: relative;
-    }
+        .side_bar .side_bar_top .profile_info p {
+            margin-top: 5px;
+            font-size: 12px;
+        }
 
-    .side_bar .side_bar_bottom ul li a{
-        display: block;
-        padding: 15px;		
-        font-size: 14px;
-        color: white;
-        margin-bottom: 5px;				
-    }
+        .side_bar .side_bar_bottom {
+            background: #80b434;
+            padding: 20px 0;
+            padding-left: 15px;
+        }
 
-    .side_bar .side_bar_bottom ul li a .icon{
-        margin-right: 8px;
-    }
+        .side_bar .side_bar_bottom ul li {
+            position: relative;
+        }
 
-    .side_bar .side_bar_bottom ul li.active a{
-        background: white;
-        color: #80b434;
-        border-top-left-radius: 25px;
-        border-bottom-left-radius: 25px;
-    }
+        .side_bar .side_bar_bottom ul li a {
+            display: block;
+            padding: 15px;
+            font-size: 14px;
+            color: white;
+            margin-bottom: 5px;
+        }
 
-    .side_bar .side_bar_bottom ul li.active .top_curve,
-    .side_bar .side_bar_bottom ul li.active .bottom_curve{
-        position: absolute;
-        left: 0;
-        width: 100%;
-        height: 20px;
-        background: white;
-    }
+        .side_bar .side_bar_bottom ul li a .icon {
+            margin-right: 8px;
+        }
 
-    .side_bar .side_bar_bottom ul li.active .top_curve{
-        top: -20px;
-    }
+        .side_bar .side_bar_bottom ul li.active a {
+            background: white;
+            color: #80b434;
+            border-top-left-radius: 25px;
+            border-bottom-left-radius: 25px;
+        }
 
-    .side_bar .side_bar_bottom ul li.active .bottom_curve{
-        bottom: -20px;	
-    }
+        .side_bar .side_bar_bottom ul li.active .top_curve,
+        .side_bar .side_bar_bottom ul li.active .bottom_curve {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: white;
+        }
 
-    .side_bar .side_bar_bottom ul li.active .top_curve:before,
-    .side_bar .side_bar_bottom ul li.active .bottom_curve:before{
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #80b434;	
-    }
+        .side_bar .side_bar_bottom ul li.active .top_curve {
+            top: -20px;
+        }
 
-    .side_bar .side_bar_bottom ul li.active .top_curve:before{
-        border-bottom-right-radius: 25px;
-    }
+        .side_bar .side_bar_bottom ul li.active .bottom_curve {
+            bottom: -20px;
+        }
 
-    .side_bar .side_bar_bottom ul li.active .bottom_curve:before{
-        border-top-right-radius: 25px;
-    }
+        .side_bar .side_bar_bottom ul li.active .top_curve:before,
+        .side_bar .side_bar_bottom ul li.active .bottom_curve:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #80b434;
+        }
 
-    .side_bar .side_bar_bottom .sidebar-footer{
-    height: 50px;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    list-style-type: none;
-    padding-bottom:5.5em;
-    }
+        .side_bar .side_bar_bottom ul li.active .top_curve:before {
+            border-bottom-right-radius: 25px;
+        }
+
+        .side_bar .side_bar_bottom ul li.active .bottom_curve:before {
+            border-top-right-radius: 25px;
+        }
+
+        .side_bar .side_bar_bottom .sidebar-footer {
+            height: 50px;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            list-style-type: none;
+            padding-bottom: 5.5em;
+        }
     </style>
 
     <!-- FOR DIGITAL TIME AND DATE -->
     <script type="text/javascript">
-    function updateClock(){
-    var now = new Date();
-    var dname = now.getDay(),
-        mo = now.getMonth(),
-        dnum = now.getDate(),
-        yr = now.getFullYear(),
-        hou = now.getHours(),
-        min = now.getMinutes(),
-        sec = now.getSeconds(),
-        pe = "AM";
+        function updateClock() {
+            var now = new Date();
+            var dname = now.getDay(),
+                mo = now.getMonth(),
+                dnum = now.getDate(),
+                yr = now.getFullYear(),
+                hou = now.getHours(),
+                min = now.getMinutes(),
+                sec = now.getSeconds(),
+                pe = "AM";
 
-        if(hou >= 12){
-            pe = "PM";
-        }
-        if(hou == 0){
-            hou = 12;
-        }
-        if(hou > 12){
-            hou = hou - 12;
+            if (hou >= 12) {
+                pe = "PM";
+            }
+            if (hou == 0) {
+                hou = 12;
+            }
+            if (hou > 12) {
+                hou = hou - 12;
+            }
+
+            Number.prototype.pad = function(digits) {
+                for (var n = this.toString(); n.length < digits; n = 0 + n);
+                return n;
+            }
+
+            var months = ["January", "February", "March", "April", "May", "June", "July", "Augest", "September", "October", "November", "December"];
+            var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
+            var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
+            for (var i = 0; i < ids.length; i++)
+                document.getElementById(ids[i]).firstChild.nodeValue = values[i];
         }
 
-        Number.prototype.pad = function(digits){
-            for(var n = this.toString(); n.length < digits; n = 0 + n);
-            return n;
+        function initClock() {
+            updateClock();
+            window.setInterval("updateClock()", 1);
         }
-
-        var months = ["January", "February", "March", "April", "May", "June", "July", "Augest", "September", "October", "November", "December"];
-        var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
-        var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
-        for(var i = 0; i < ids.length; i++)
-        document.getElementById(ids[i]).firstChild.nodeValue = values[i];
-    }
-
-    function initClock(){
-    updateClock();
-    window.setInterval("updateClock()", 1);
-    }
     </script>
     <script>
         $(document).ready(function() {
@@ -241,72 +243,73 @@ $clinicID = $row_ca['ClinicID'];
 
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-            <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
             ?>
-                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;</p>
-            <?php } ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;
+        </p>
+    <?php } ?>
     </div>
     <div class="wrapper">
-        <div class="side_bar" >
+        <div class="side_bar">
 
             <div class="side_bar_bottom">
                 <ul>
                     <li>
                         <span class="top_curve"></span>
                         <a href="dashboard.php"><span class="icon"><i class="fa fa-home"></i></span>
-                        <span class="item">Dashboard</span></a>
+                            <span class="item">Dashboard</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
-                        <span class="item">Profile</span></a>
+                            <span class="item">Profile</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
-                        <span class="item">Products</span></a>
+                            <span class="item">Products</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
-                        <span class="item">Bookings</span></a>
+                            <span class="item">Bookings</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
-                        <span class="item">Orders</span></a>
+                            <span class="item">Orders</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
-                    <li >
+                    <li>
                         <span class="top_curve"></span>
                         <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
-                        <span class="item">Feedback</span></a>
+                            <span class="item">Feedback</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
-                        <span class="item">Services</span></a>
+                            <span class="item">Services</span></a>
                         <span class="bottom_curve"></span>
                     </li>
-                
+
                     <li>
                         <span class="top_curve"></span>
                         <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
-                        <span class="item">Pet Records</span></a>
+                            <span class="item">Pet Records</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
@@ -314,48 +317,48 @@ $clinicID = $row_ca['ClinicID'];
                         <li>
                             <span class="top_curve"></span>
                             <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
-                            <span class="item">Users</span></a>
+                                <span class="item">Users</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li class="active">
                             <span class="top_curve"></span>
                             <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
-                            <span class="item">Clinics</span></a>
+                                <span class="item">Clinics</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
-                            <span class="item">Pet Booklet</span></a>
+                                <span class="item">Pet Booklet</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
-                         <li >
+                        <li>
                             <span class="top_curve"></span>
                             <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
-                            <span class="item">Reports</span></a>
+                                <span class="item">Reports</span></a>
                             <span class="bottom_curve"></span>
-                        </li>     
+                        </li>
                     <?php } ?>
                 </ul>
-                    <!--digital clock start-->
-                    <div class="datetime" style="color:white;  text-align:center;">
-                        <div class="date">
-                            <span id="dayname">Day</span>,
-                            <span id="month">Month</span>
-                            <span id="daynum">00</span>,
-                            <span id="year">Year</span>
-                        </div>
-                        <div class="time">
-                            <span id="hour">00</span>:
-                            <span id="minutes">00</span>:
-                            <span id="seconds">00</span>
-                            <span id="period">AM</span>
-                        </div>
+                <!--digital clock start-->
+                <div class="datetime" style="color:white;  text-align:center;">
+                    <div class="date">
+                        <span id="dayname">Day</span>,
+                        <span id="month">Month</span>
+                        <span id="daynum">00</span>,
+                        <span id="year">Year</span>
                     </div>
-                    <!--digital clock end-->
+                    <div class="time">
+                        <span id="hour">00</span>:
+                        <span id="minutes">00</span>:
+                        <span id="seconds">00</span>
+                        <span id="period">AM</span>
+                    </div>
+                </div>
+                <!--digital clock end-->
             </div>
         </div>
 
@@ -364,7 +367,7 @@ $clinicID = $row_ca['ClinicID'];
         <!-- START OF ADMINISTRATOR -->
         <?php if ($usertype == 'Administrator') { ?>
             <div class="main_container">
-            <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
+                <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font"><b>🏥 Clinics</b></div>
                         <div class="card-body text-center">
@@ -375,7 +378,7 @@ $clinicID = $row_ca['ClinicID'];
                                         <th class="column1" style="border:0px; color:#80b434;">Clinic Name</th>
                                         <th class="column1" style="border:0px; color:#80b434;">Owner</th>
                                         <th class="column1" style="border:0px; color:#80b434;">Subscription Type</th>
-                                        <th class="column1" style="border:0px; color:#80b434;">Subscription Status</th>
+                                        <th class="column1" style="border:0px; color:#80b434; text-align: center;">Subscription Status</th>
                                     </tr>
                                 </thead>
                                 <tbody style="border:0px;">
@@ -395,10 +398,11 @@ $clinicID = $row_ca['ClinicID'];
                                                 <td style="border:0px;"><?php echo $row['ClinicName'] ?></td>
                                                 <td style="border:0px;"><?php echo $row['FirstName'] . ' ' .  $row['MiddleName'] . ' ' . $row['LastName'] ?></td>
                                                 <td style="border:0px;"><?php echo $row['SubscriptionType']; ?></td>
-                                                <td style="border:0px;">
+                                                <td style="border:0px; text-align: center;">
                                                     <?php $status = $row['SubscriptionStatus'];
-                                                            if ($status === 'Inactive') { ?><a style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#A52A2A;"><?php echo $row['SubscriptionStatus']; ?></a>
-                                                    <?php } if ($status === 'Active') { ?><a style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#228B22;"><?php echo $row['SubscriptionStatus']; ?></a>
+                                                    if ($status === 'Inactive') { ?><a style="color:white; font-size:12px; padding: 5px 10px;  border-radius:10px; background-color:#A52A2A;"><?php echo $row['SubscriptionStatus']; ?></a>
+                                                    <?php }
+                                                    if ($status === 'Active') { ?><a style="color:white; font-size:12px; padding: 5px 15px;  border-radius:10px; background-color:#228B22;"><?php echo $row['SubscriptionStatus']; ?></a>
                                                     <?php } ?>
                                                 </td>
 
@@ -533,7 +537,7 @@ $clinicID = $row_ca['ClinicID'];
                                                 </div>
                                                 <div class="col-8">
                                                     <select name="SubType2" id="SubType2" style="border-radius: 5px; width: 100%; height: 48px;" class="bg-light border-0">
-                                                        <option selected disabled>&nbsp;&nbsp;&nbsp;-- Update Subscription Type --</option>
+                                                        <option selected disabled>&nbsp;&nbsp;&nbsp;-- Subscription Type --</option>
                                                         <option value="Monthly">&nbsp;&nbsp;&nbsp;Monthly</option>
                                                         <option value="Annually">&nbsp;&nbsp;&nbsp;Annually</option>
                                                     </select>
@@ -557,7 +561,7 @@ $clinicID = $row_ca['ClinicID'];
                                                 </div>
                                                 <div class="col-6">
                                                     <select name="SubStatus2" id="SubStatus2" style="border-radius: 5px; width: 100%;" class="bg-light border-0 px-4 py-3">
-                                                        <option selected disabled>-- Update Status --</option>
+                                                        <option selected disabled>-- Status --</option>
                                                         <option value="Inactive">Inactive</option>
                                                         <option value="Active">Active</option>
                                                     </select>
@@ -602,9 +606,9 @@ $clinicID = $row_ca['ClinicID'];
             $query = mysqli_query($con, "UPDATE clinics SET SubscriptionType='$subType', DateOfSubscription='$dateSub', ExpiryDateOfSub='$expirySub', SubscriptionStatus='$subStatus' WHERE ClinicID='$clinic_ID'");
 
             if ($query) {
-                  echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                                        echo '<script>';
-                                        echo 'swal({
+                echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                echo '<script>';
+                echo 'swal({
                                             title: "Success",
                                             text: "You have successfully updated a clinic subscription",
                                             icon: "success",
@@ -617,7 +621,7 @@ $clinicID = $row_ca['ClinicID'];
                                                         document.location ="clinics_admin.php";
                                                     }
                                                 })';
-                                        echo '</script>';
+                echo '</script>';
             } else {
                 echo "<script> alert('Error updating a clinic subscription.'); </script>";
             }
