@@ -225,9 +225,10 @@ $sum_q = $row_q['total_items'];
                             $row_cb = mysqli_fetch_array($sql_cb);
                             ?>
 
-                            <?php if ($row_cb['BillingImage'] != "") { ?>
-                                <img src="image_upload/<?php echo $row_cb['BillingImage'] ?>" alt="Italian Trulli" width=300; height=300;>
-                            <?php } ?>
+<?php if ($row_cb['BillingImage'] != "") { ?>
+    <img src="image_upload/<?php echo $row_cb['BillingImage'] ?>" alt="Italian Trulli" style="max-width: 300px; ">
+<?php } ?>
+
                         </div>
                     </div>
                 </div>
