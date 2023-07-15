@@ -503,8 +503,7 @@ $clinicID = $row_ca['ClinicID'];
                                                 <td style="border:0px;"><?php echo $row['NeedPrescription']; ?></td>
                                                 <td style="text-align: center; border:0px;">
                                                     <a href="" supply-id="<?php echo $row['SupplyID'] ?>" supply-image="<?php echo $row['SupplyImage'] ?>" supply-name="<?php echo $row['SupplyName'] ?>" supply-desc="<?php echo $row['SupplyDescription'] ?>" supply-price="<?php echo $row['SupplyPrice'] ?>" stocks="<?php echo $row['Stocks'] ?>" need-presc="<?php echo $row['NeedPrescription'] ?>" class="edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
-                                                    <?php $delid = $row['SupplyID'] ?>
-                                                    <button class="delete" value="<?php echo $row['SupplyID']?>" style="border:0px; background-color:inherit;"><i class="fa fa-trash" style="color:red;"></i></button>
+                                                    <button class="delete_product" name="delete_product" value="<?php echo $row['SupplyID']?>" style="border:0px; background-color:inherit;"><i class="fa fa-trash" style="color:red;"></i></button>
                                                 </td>
                                             </tr>
                                         <?php
@@ -512,10 +511,7 @@ $clinicID = $row_ca['ClinicID'];
                                         }
                                     } else { ?>
                                         <tr style="border:0px;">
-                                            <td style="text-align:center; color:red; border:0px;" colspan="8">No Record Found</td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                            <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
+                                            <td style="text-align:center; color:red; border:0px;" colspan="6">No Record Found</td>
                                             <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
                                             <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
                                             <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
@@ -840,9 +836,6 @@ $clinicID = $row_ca['ClinicID'];
         }
     }
 ?>
-        <!-- SWAL -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -913,38 +906,44 @@ $clinicID = $row_ca['ClinicID'];
         function endResize() {
             $(window).off("resize", resizer);
         }
+    </script>
 
-        $(document).ready(function (){
-            $('.delete').click(function(e){
-                var SupplyID = $(this).val();
-                alert(SupplyID);
-                    swal({
-                    title: "Warning",
-                    text: "Are you sure you want to delete this item?",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                    if (willDelete) {
-                       $.ajax({
-                        method: "POST",
-                        url:"delete.php",
-                        data:{
-                            'SupplyID':SupplyID,
-                            'delete':true
-                        },
-                        success: function(response){
-                            console.log(response);
-                            if(response == 200){
-                                swal("Success", "You have successfully deleted a product", "success");
-                            }
+    <!-- SWAL -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    $(document).ready(function (){
+        $('.delete_product').click(function(e){
+            var id = $(this).val();
+            e.preventDefault();
+                swal({
+                title: "Warning",
+                text: "Are you sure you want to delete this item?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                if (willDelete) {
+                   $.ajax({
+                    method: "POST",
+                    url:"action.php",
+                    data:{
+                        'Supply_ID':id,
+                        'delete_product':true
+                    },
+                    success: function(response){
+                        console.log(response);
+                        if(response == 200){
+                            swal("Success", "You have successfully deleted a product", "success").then(function(){
+                                location.reload();
+                            });
                         }
-                       })
-                    } 
-                });
-            })
+                    }
+                   })
+                } 
+            });
         })
+    })
     </script>
 
 </body>
