@@ -20,8 +20,9 @@ $clinicID = $row_ca['ClinicID'];
 
 <head>
     <meta charset="UTF-8">
-     <title>Paws N Pages | Services</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
+    <title>Paws N Pages | Services</title>
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
+        type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -58,7 +59,7 @@ $clinicID = $row_ca['ClinicID'];
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-        <style>
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
         * {
@@ -191,31 +192,31 @@ $clinicID = $row_ca['ClinicID'];
         }
     </style>
 
-            <!-- FOR DIGITAL TIME AND DATE -->
-        <script type="text/javascript">
-        function updateClock(){
-        var now = new Date();
-        var dname = now.getDay(),
-            mo = now.getMonth(),
-            dnum = now.getDate(),
-            yr = now.getFullYear(),
-            hou = now.getHours(),
-            min = now.getMinutes(),
-            sec = now.getSeconds(),
-            pe = "AM";
+    <!-- FOR DIGITAL TIME AND DATE -->
+    <script type="text/javascript">
+        function updateClock() {
+            var now = new Date();
+            var dname = now.getDay(),
+                mo = now.getMonth(),
+                dnum = now.getDate(),
+                yr = now.getFullYear(),
+                hou = now.getHours(),
+                min = now.getMinutes(),
+                sec = now.getSeconds(),
+                pe = "AM";
 
-            if(hou >= 12){
+            if (hou >= 12) {
                 pe = "PM";
             }
-            if(hou == 0){
+            if (hou == 0) {
                 hou = 12;
             }
-            if(hou > 12){
+            if (hou > 12) {
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function(digits){
-                for(var n = this.toString(); n.length < digits; n = 0 + n);
+            Number.prototype.pad = function (digits) {
+                for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
 
@@ -223,17 +224,17 @@ $clinicID = $row_ca['ClinicID'];
             var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
             var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
-            for(var i = 0; i < ids.length; i++)
-            document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+            for (var i = 0; i < ids.length; i++)
+                document.getElementById(ids[i]).firstChild.nodeValue = values[i];
         }
 
-        function initClock(){
-        updateClock();
-        window.setInterval("updateClock()", 1);
+        function initClock() {
+            updateClock();
+            window.setInterval("updateClock()", 1);
         }
-        </script>
+    </script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var table = $('#orders').DataTable({
                 order: [
                     [2, 'asc']
@@ -243,74 +244,83 @@ $clinicID = $row_ca['ClinicID'];
         });
     </script>
 </head>
+
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-            <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png"
+                height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
-            ?>
-                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;</p>
-            <?php } ?>
+                ?>
+                <a href="logout.php"
+                    style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i
+                        class="fa fa-sign-out"></i></a><a
+                    style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
+                    in as, <i>
+                        <?php echo $row['Username'] ?>
+                    </i></a>&nbsp;&nbsp;
+            </p>
+        <?php } ?>
     </div>
     <div class="wrapper">
-        <div class="side_bar" >
+        <div class="side_bar">
 
             <div class="side_bar_bottom">
                 <ul>
                     <li>
                         <span class="top_curve"></span>
                         <a href="dashboard.php"><span class="icon"><i class="fa fa-home"></i></span>
-                        <span class="item">Dashboard</span></a>
+                            <span class="item">Dashboard</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
-                        <span class="item">Profile</span></a>
+                            <span class="item">Profile</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
-                        <span class="item">Products</span></a>
+                            <span class="item">Products</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
-                        <span class="item">Bookings</span></a>
+                            <span class="item">Bookings</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
-                        <span class="item">Orders</span></a>
+                            <span class="item">Orders</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
-                    <li >
+                    <li>
                         <span class="top_curve"></span>
                         <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
-                        <span class="item">Feedback</span></a>
+                            <span class="item">Feedback</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
-                    <li  class="active">
+                    <li class="active">
                         <span class="top_curve"></span>
                         <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
-                        <span class="item">Services</span></a>
+                            <span class="item">Services</span></a>
                         <span class="bottom_curve"></span>
                     </li>
-                
+
                     <li>
                         <span class="top_curve"></span>
                         <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
-                        <span class="item">Pet Records</span></a>
+                            <span class="item">Pet Records</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
@@ -318,204 +328,229 @@ $clinicID = $row_ca['ClinicID'];
                         <li>
                             <span class="top_curve"></span>
                             <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
-                            <span class="item">Users</span></a>
+                                <span class="item">Users</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
-                            <span class="item">Clinics</span></a>
+                                <span class="item">Clinics</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
-                            <span class="item">Pet Booklet</span></a>
+                                <span class="item">Pet Booklet</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
-                         <li >
+                        <li>
                             <span class="top_curve"></span>
                             <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
-                            <span class="item">Reports</span></a>
+                                <span class="item">Reports</span></a>
                             <span class="bottom_curve"></span>
-                        </li>     
+                        </li>
                     <?php } ?>
                 </ul>
-                    <!--digital clock start-->
-                    <div class="datetime" style="color:white;  text-align:center;">
-                        <div class="date">
-                            <span id="dayname">Day</span>,
-                            <span id="month">Month</span>
-                            <span id="daynum">00</span>,
-                            <span id="year">Year</span>
-                        </div>
-                        <div class="time">
-                            <span id="hour">00</span>:
-                            <span id="minutes">00</span>:
-                            <span id="seconds">00</span>
-                            <span id="period">AM</span>
-                        </div>
+                <!--digital clock start-->
+                <div class="datetime" style="color:white;  text-align:center;">
+                    <div class="date">
+                        <span id="dayname">Day</span>,
+                        <span id="month">Month</span>
+                        <span id="daynum">00</span>,
+                        <span id="year">Year</span>
                     </div>
-                    <!--digital clock end-->
+                    <div class="time">
+                        <span id="hour">00</span>:
+                        <span id="minutes">00</span>:
+                        <span id="seconds">00</span>
+                        <span id="period">AM</span>
+                    </div>
+                </div>
+                <!--digital clock end-->
             </div>
         </div>
 
 
         <!-- START OF CLINIC ADMINISTRATOR -->
         <?php if ($usertype == 'Clinic Administrator') { ?>
-        <div class="main_container">
-            <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
-                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                    <div class="card-header userProfile-font"><b>🛎️ Services</b>
-                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button></div>
-                    <div class="card-body text-center">
+            <div class="main_container">
+                <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
+                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                        <div class="card-header userProfile-font"><b>🛎️ Services</b>
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal"
+                                style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
+                        </div>
+                        <div class="card-body text-center">
 
-                        <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="orders">
-                            <thead style="border:0px;">
-                                <tr class="table100-head" style="border:0px;">
-                                    <th class="column1" style="border:0px; color:#80b434;">Name</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Description</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Price</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Action</th>                    
-                                </tr>
-                            </thead>
-                            <tbody style="border:0px;">
-                                <?php
-                                $ret = mysqli_query($con, "SELECT * FROM services, clinics WHERE services.ClinicID = clinics.ClinicID AND services.ClinicID = '$clinicID'");
-                                $cnt = 1;
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-
-                                ?>
-                                        <!--Fetch the Records -->
-                                        <tr style="border:0px;">
-                                            <td style="border:0px;"><?php echo $row['ServiceName'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['ServiceDescription'] ?></td>
-                                            <td style="border:0px;">₱ <?php echo $row['ServicePrice']; ?></td>
-                                            <td style="border:0px;">
-                                                <a href="" serviceid="<?php echo $row['ServiceID'] ?>" 
-                                                servicename="<?php echo $row['ServiceName'] ?>" 
-                                                servicedescription ="<?php echo $row['ServiceDescription'] ?>" 
-                                                serviceprice="<?php echo $row['ServicePrice']; ?>" class="edit" title="edit" data-toggle="modal" data-target="#edit_service"><i class="fa fa-edit"></i></a>                                                
-                                                <a href="services.php?delid=<?php echo ($row['ServiceID']); ?>" class="delete" title="Delete" data-toggle="tooltip" onclick="return confirm('Delete item?');"><i class="fa fa-trash" style="color:red;"></i></a>
-                                            </td>
-
-                                            
-                                        </tr>
+                            <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="orders">
+                                <thead style="border:0px;">
+                                    <tr class="table100-head" style="border:0px;">
+                                        <th class="column1" style="border:0px; color:#80b434;">Name</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Description</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Price</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="border:0px;">
                                     <?php
-                                        $cnt = $cnt + 1;
-                                    }
-                                } else { ?>
+                                    $ret = mysqli_query($con, "SELECT * FROM services, clinics WHERE services.ClinicID = clinics.ClinicID AND services.ClinicID = '$clinicID'");
+                                    $cnt = 1;
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+
+                                            ?>
+                                            <!--Fetch the Records -->
+                                            <tr style="border:0px;">
+                                                <td style="border:0px;">
+                                                    <?php echo $row['ServiceName'] ?>
+                                                </td>
+                                                <td style="border:0px;">
+                                                    <?php echo $row['ServiceDescription'] ?>
+                                                </td>
+                                                <td style="border:0px;">₱
+                                                    <?php echo $row['ServicePrice']; ?>
+                                                </td>
+                                                <td style="border:0px;">
+                                                    <a href="" serviceid="<?php echo $row['ServiceID'] ?>"
+                                                        servicename="<?php echo $row['ServiceName'] ?>"
+                                                        servicedescription="<?php echo $row['ServiceDescription'] ?>"
+                                                        serviceprice="<?php echo $row['ServicePrice']; ?>" class="edit" title="edit"
+                                                        data-toggle="modal" data-target="#edit_service"><i
+                                                            class="fa fa-edit"></i></a>
+                                                    <button class="delete_service" name="delete_service"
+                                                        value="<?php echo $row['ServiceID'] ?>"
+                                                        style="border:0px; background-color:inherit;"><i class="fa fa-trash"
+                                                            style="color:red;"></i></button>
+                                                </td>
+
+
+                                            </tr>
+                                            <?php
+                                            $cnt = $cnt + 1;
+                                        }
+                                    } else { ?>
                                     <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="4">No Record Found</td>
+                                        <td style="text-align:center; color:red; border:0px;" colspan="4">No Record Found
+                                        </td>
                                         <td style="text-align:center; color:red; display:none;">No Record Found</td>
                                         <td style="text-align:center; color:red; display:none;">No Record Found</td>
                                         <td style="text-align:center; color:red; display:none;">No Record Found</td>
                                     </tr>
                                 <?php } ?>
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php } ?>
-        <!-- END OF CLINIC ADMINISTRATOR -->     
-        
-        <!-- START OF ADMINISTRATOR -->
-        <?php if ($usertype == 'Administrator') { ?>
-        <div class="main_container">
-            <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
-                <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
-                    <div class="card-header userProfile-font"><b>🛎️ Services</b></div>
-                    <div class="card-body text-center">
-                        <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="orders">
-                            <thead style="border:0px;">
-                                <tr class="table100-head" style="border:0px;">
-                                    <th class="column1" style="border:0px; color:#80b434;">Clinic</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Name</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Description</th>
-                                    <th class="column1" style="border:0px; color:#80b434;">Price</th>                   
-                                </tr>
-                            </thead>
-                            <tbody style="border:0px;">
-                                <?php
-                                $ret = mysqli_query($con, "SELECT * FROM services, clinics WHERE services.ClinicID = clinics.ClinicID AND services.ClinicID = clinics.clinicID");
-                                $cnt = 1;
-                                $row = mysqli_num_rows($ret);
-                                if ($row > 0) {
-                                    while ($row = mysqli_fetch_array($ret)) {
-
-                                ?>
-                                        <!--Fetch the Records -->
-                                        <tr style="border:0px;">
-                                            <td style="border:0px;"><?php echo $row['ClinicName'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['ServiceName'] ?></td>
-                                            <td style="border:0px;"><?php echo $row['ServiceDescription'] ?></td>
-                                            <td style="border:0px;">₱ <?php echo $row['ServicePrice']; ?></td>
-                                        </tr>
-                                    <?php
-                                        $cnt = $cnt + 1;
-                                    }
-                                } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="4">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                    </tr>
-                                <?php } ?>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php } ?>
-        <!-- END OF ADMINISTRATOR -->  
-
-        <!-- START OF MODAL FOR ADDING NEW SERVICE -->
-    <div class="modal fade" id="form_modal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style="border-radius: 15px;">
-                <form method="POST" enctype="multipart/form-data" runat="server">
-                    <div class="modal-header">
-                        <h3 class="modal-title">Add New Service</h3>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="name" class="form-control" required="required" />
-                            </div>
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="description" class="form-control" style="width: 100%; height: 150px;" required="required" ></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Price</label>
-                                <input type="text" name="price" class="form-control" required="required" />
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div style="clear:both;"></div>
-                    <div class="modal-footer">
-                        <button name="save_service" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-save"></span>
-                            Add</button>
+                </div>
+            </div>
+        <?php } ?>
+        <!-- END OF CLINIC ADMINISTRATOR -->
 
+        <!-- START OF ADMINISTRATOR -->
+        <?php if ($usertype == 'Administrator') { ?>
+            <div class="main_container">
+                <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
+                    <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
+                        <div class="card-header userProfile-font"><b>🛎️ Services</b></div>
+                        <div class="card-body text-center">
+                            <table class="table table-striped table-hover" style="border:0px; text-align:left;" id="orders">
+                                <thead style="border:0px;">
+                                    <tr class="table100-head" style="border:0px;">
+                                        <th class="column1" style="border:0px; color:#80b434;">Clinic</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Name</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Description</th>
+                                        <th class="column1" style="border:0px; color:#80b434;">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="border:0px;">
+                                    <?php
+                                    $ret = mysqli_query($con, "SELECT * FROM services, clinics WHERE services.ClinicID = clinics.ClinicID AND services.ClinicID = clinics.clinicID");
+                                    $cnt = 1;
+                                    $row = mysqli_num_rows($ret);
+                                    if ($row > 0) {
+                                        while ($row = mysqli_fetch_array($ret)) {
+
+                                            ?>
+                                            <!--Fetch the Records -->
+                                            <tr style="border:0px;">
+                                                <td style="border:0px;">
+                                                    <?php echo $row['ClinicName'] ?>
+                                                </td>
+                                                <td style="border:0px;">
+                                                    <?php echo $row['ServiceName'] ?>
+                                                </td>
+                                                <td style="border:0px;">
+                                                    <?php echo $row['ServiceDescription'] ?>
+                                                </td>
+                                                <td style="border:0px;">₱
+                                                    <?php echo $row['ServicePrice']; ?>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            $cnt = $cnt + 1;
+                                        }
+                                    } else { ?>
+                                    <tr style="border:0px;">
+                                        <td style="text-align:center; color:red; border:0px;" colspan="4">No Record Found
+                                        </td>
+                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                    </tr>
+                                <?php } ?>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </form>
+                </div>
+            </div>
+        <?php } ?>
+        <!-- END OF ADMINISTRATOR -->
+
+        <!-- START OF MODAL FOR ADDING NEW SERVICE -->
+        <div class="modal fade" id="form_modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="border-radius: 15px;">
+                    <form method="POST" enctype="multipart/form-data" runat="server">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Add New Service</h3>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" name="name" class="form-control" required="required" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea name="description" class="form-control"
+                                        style="width: 100%; height: 150px;" required="required"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <input type="text" name="price" class="form-control" required="required" />
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        <div class="modal-footer">
+                            <button name="save_service" class="btn btn-primary" style="border-radius: 15px;"><span
+                                    class="glyphicon glyphicon-save"></span>
+                                Add</button>
+
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- END OF MODAL FOR ADDING NEW SERVICE -->
+        <!-- END OF MODAL FOR ADDING NEW SERVICE -->
 
         <!-- START OF MODAL FOR EDITING SERVICES -->
         <div class="modal fade" id="edit_service" aria-hidden="true" role="dialog">
@@ -534,25 +569,30 @@ $clinicID = $row_ca['ClinicID'];
                                 </div>
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" name="ServiceName" id="ServiceName" class="form-control" required/>
+                                    <input type="text" name="ServiceName" id="ServiceName" class="form-control"
+                                        required />
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea name="ServiceDescription" id="ServiceDescription" class="form-control" style=" width: 100%; height: 150px;" required></textarea>
+                                    <textarea name="ServiceDescription" id="ServiceDescription" class="form-control"
+                                        style=" width: 100%; height: 150px;" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Price</label>
-                                    <input type="text" name="Price" id="Price" class="form-control" required/>
-                                </div> 
+                                    <input type="text" name="Price" id="Price" class="form-control" required />
+                                </div>
                             </div>
-                         </div>
-                        
+                        </div>
+
 
                         <div class="modal-footer">
-                            <button name="update_service" style="border-radius: 15px;" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span>
+                            <button name="update_service" style="border-radius: 15px;" class="btn btn-primary"><span
+                                    class="glyphicon glyphicon-edit"></span>
                                 Update
                             </button>
-                            <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal"
+                                style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
+                                Cancel</button>
                         </div>
                     </form>
                 </div>
@@ -569,13 +609,13 @@ $clinicID = $row_ca['ClinicID'];
             $price = $_POST['Price'];
             $a_id = $_POST['ServiceID'];
 
-        
-                $query = mysqli_query($con, "UPDATE services SET ServiceName='$name', ServiceDescription='$description', ServicePrice='$price' WHERE ServiceID='$a_id' AND ClinicID='$clinicID'");
 
-                if ($query) {
-                    echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                                        echo '<script>';
-                                        echo 'swal({
+            $query = mysqli_query($con, "UPDATE services SET ServiceName='$name', ServiceDescription='$description', ServicePrice='$price' WHERE ServiceID='$a_id' AND ClinicID='$clinicID'");
+
+            if ($query) {
+                echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+                echo '<script>';
+                echo 'swal({
                                             title: "Success",
                                             text: "You have successfully updated a service",
                                             icon: "success",
@@ -588,11 +628,11 @@ $clinicID = $row_ca['ClinicID'];
                                                         document.location ="services.php";
                                                     }
                                                 })';
-                                        echo '</script>';
-                } else {
-                    echo "<script>alert('Something Went Wrong. Please try again');</script>";
-                }
-            
+                echo '</script>';
+            } else {
+                echo "<script>alert('Something Went Wrong. Please try again');</script>";
+            }
+
         }
 
         ///////////////////////// FOR ADDING NEW SERVICE /////////////////////////
@@ -650,11 +690,13 @@ $clinicID = $row_ca['ClinicID'];
         <script src="js/main.js"></script>
 
         <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
         <!-- To show details when editing -->
         <script>
-            $('#edit_service').on('show.bs.modal', function(e) {
+            $('#edit_service').on('show.bs.modal', function (e) {
                 var opener = e.relatedTarget;
 
                 var serviceid = $(opener).attr('serviceid');
@@ -673,6 +715,43 @@ $clinicID = $row_ca['ClinicID'];
             function endResize() {
                 $(window).off("resize", resizer);
             }
+        </script>
+
+        <!-- SWAL -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.delete_service').click(function (e) {
+                    var id = $(this).val();
+                    swal({
+                        title: "Warning",
+                        text: "Are you sure you want to delete this service?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                $.ajax({
+                                    method: "POST",
+                                    url: "action.php",
+                                    data: {
+                                        'Service_ID': id,
+                                        'delete_service': true
+                                    },
+                                    success: function (response) {
+                                        console.log(response);
+                                        if (response == 200) {
+                                            swal("Success", "You have successfully deleted a service", "success").then(function () {
+                                                location.reload();
+                                            });
+                                        }
+                                    }
+                                })
+                            }
+                        });
+                })
+            })
         </script>
 
 </body>
