@@ -17,7 +17,7 @@ $clinicID = $row_ca['ClinicID'];
 <!DOCTYPE html>
 <html lang="en">
 
-<head> 
+<head>
     <title>Paws N Pages | Pet Record</title>
     <meta charset="UTF-8">
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
@@ -189,31 +189,31 @@ $clinicID = $row_ca['ClinicID'];
         }
     </style>
 
-            <!-- FOR DIGITAL TIME AND DATE -->
-        <script type="text/javascript">
-        function updateClock(){
-        var now = new Date();
-        var dname = now.getDay(),
-            mo = now.getMonth(),
-            dnum = now.getDate(),
-            yr = now.getFullYear(),
-            hou = now.getHours(),
-            min = now.getMinutes(),
-            sec = now.getSeconds(),
-            pe = "AM";
+    <!-- FOR DIGITAL TIME AND DATE -->
+    <script type="text/javascript">
+        function updateClock() {
+            var now = new Date();
+            var dname = now.getDay(),
+                mo = now.getMonth(),
+                dnum = now.getDate(),
+                yr = now.getFullYear(),
+                hou = now.getHours(),
+                min = now.getMinutes(),
+                sec = now.getSeconds(),
+                pe = "AM";
 
-            if(hou >= 12){
+            if (hou >= 12) {
                 pe = "PM";
             }
-            if(hou == 0){
+            if (hou == 0) {
                 hou = 12;
             }
-            if(hou > 12){
+            if (hou > 12) {
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function(digits){
-                for(var n = this.toString(); n.length < digits; n = 0 + n);
+            Number.prototype.pad = function(digits) {
+                for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
 
@@ -221,15 +221,15 @@ $clinicID = $row_ca['ClinicID'];
             var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
             var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
-            for(var i = 0; i < ids.length; i++)
-            document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+            for (var i = 0; i < ids.length; i++)
+                document.getElementById(ids[i]).firstChild.nodeValue = values[i];
         }
 
-        function initClock(){
-        updateClock();
-        window.setInterval("updateClock()", 1);
+        function initClock() {
+            updateClock();
+            window.setInterval("updateClock()", 1);
         }
-        </script>
+    </script>
     <script>
         $(document).ready(function() {
             var table = $('#pets').DataTable({
@@ -286,74 +286,75 @@ $clinicID = $row_ca['ClinicID'];
     </script>
 </head>
 
-<body onload="initClock()" >
+<body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-            <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
             ?>
-                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;</p>
-            <?php } ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;
+        </p>
+    <?php } ?>
     </div>
     <div class="wrapper">
-        <div class="side_bar" >
+        <div class="side_bar">
 
             <div class="side_bar_bottom">
                 <ul>
                     <li>
                         <span class="top_curve"></span>
                         <a href="dashboard.php"><span class="icon"><i class="fa fa-home"></i></span>
-                        <span class="item">Dashboard</span></a>
+                            <span class="item">Dashboard</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
-                        <span class="item">Profile</span></a>
+                            <span class="item">Profile</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
-                        <span class="item">Products</span></a>
+                            <span class="item">Products</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
-                        <span class="item">Bookings</span></a>
+                            <span class="item">Bookings</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
-                        <span class="item">Orders</span></a>
+                            <span class="item">Orders</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
-                    <li >
+                    <li>
                         <span class="top_curve"></span>
                         <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
-                        <span class="item">Feedback</span></a>
+                            <span class="item">Feedback</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
-                        <span class="item">Services</span></a>
+                            <span class="item">Services</span></a>
                         <span class="bottom_curve"></span>
                     </li>
-                
+
                     <li class="active">
                         <span class="top_curve"></span>
                         <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
-                        <span class="item">Pet Records</span></a>
+                            <span class="item">Pet Records</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
@@ -361,48 +362,48 @@ $clinicID = $row_ca['ClinicID'];
                         <li>
                             <span class="top_curve"></span>
                             <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
-                            <span class="item">Users</span></a>
+                                <span class="item">Users</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
-                            <span class="item">Clinics</span></a>
+                                <span class="item">Clinics</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
-                            <span class="item">Pet Booklet</span></a>
+                                <span class="item">Pet Booklet</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
-                         <li >
+                        <li>
                             <span class="top_curve"></span>
                             <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
-                            <span class="item">Reports</span></a>
+                                <span class="item">Reports</span></a>
                             <span class="bottom_curve"></span>
-                        </li>            
+                        </li>
                     <?php } ?>
                 </ul>
-                    <!--digital clock start-->
-                    <div class="datetime" style="color:white;  text-align:center;">
-                        <div class="date">
-                            <span id="dayname">Day</span>,
-                            <span id="month">Month</span>
-                            <span id="daynum">00</span>,
-                            <span id="year">Year</span>
-                        </div>
-                        <div class="time">
-                            <span id="hour">00</span>:
-                            <span id="minutes">00</span>:
-                            <span id="seconds">00</span>
-                            <span id="period">AM</span>
-                        </div>
+                <!--digital clock start-->
+                <div class="datetime" style="color:white;  text-align:center;">
+                    <div class="date">
+                        <span id="dayname">Day</span>,
+                        <span id="month">Month</span>
+                        <span id="daynum">00</span>,
+                        <span id="year">Year</span>
                     </div>
-                    <!--digital clock end-->
+                    <div class="time">
+                        <span id="hour">00</span>:
+                        <span id="minutes">00</span>:
+                        <span id="seconds">00</span>
+                        <span id="period">AM</span>
+                    </div>
+                </div>
+                <!--digital clock end-->
             </div>
         </div>
 
@@ -494,7 +495,7 @@ $clinicID = $row_ca['ClinicID'];
                                             </button>
                                         </div>
                                         <div class="col-6">
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -506,7 +507,7 @@ $clinicID = $row_ca['ClinicID'];
                             <?php
                             if (isset($_POST['search_pet'])) {
                                 $petid = $_POST['petid'];
-                                $query = mysqli_query($con, "SELECT * FROM pets WHERE PetUniqueID='$petid'");
+                                $query = mysqli_query($con, "SELECT * FROM pets, users WHERE pets.UserID = users.UserID AND PetUniqueID='$petid'");
                                 $row = mysqli_fetch_array($query);
 
                                 if ($row > 0) {
@@ -519,6 +520,7 @@ $clinicID = $row_ca['ClinicID'];
                                                 <th class="column1" style="border:0px;">Species</th>
                                                 <th class="column1" style="border:0px;">Breed</th>
                                                 <th class="column1" style="border:0px;">Birthdate</th>
+                                                <th class="column1" style="border:0px;">Owner</th>
                                                 <th class="column1" style="border:0px; text-align: center;">Action</th>
                                             </tr>
                                         </thead>
@@ -529,6 +531,7 @@ $clinicID = $row_ca['ClinicID'];
                                                 <td style="border:0px;"><?php echo $row['Species'] ?></td>
                                                 <td style="border:0px;"><?php echo $row['Breed'] ?></td>
                                                 <td style="border:0px;"><?php echo $row['BirthDate'] ?></td>
+                                                <td style="border:0px;"><a href="" data-toggle="modal" data-target="#pet_owner" owner="<?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?>" contactno="<?php echo $row['ContactNo'] ?>" bdate="<?php echo $row['Birth_Date'] ?>" email="<?php echo $row['Email'] ?>"><?php echo $row['FirstName'] . ' ' . $row['MiddleName'] . ' ' . $row['LastName'] ?></a></td>
                                                 <td style="border:0px; text-align: center;"><a href="petHealthRecord_admin.php?petid=<?php echo $row['PetID'] ?>">View Health Record</a></td>
                                             </tr>
                                         </tbody>
@@ -568,9 +571,53 @@ $clinicID = $row_ca['ClinicID'];
 
         <?php } ?>
 
-
-
     </div>
+
+
+    <!-- Start of Modal for Display User Profile -->
+    <div class="modal fade" id="pet_owner" aria-hidden="true" role="dialog">
+        <div class="modal-dialog modal-m">
+            <div class="modal-content" style="border-radius: 15px;">
+                <form method="POST" runat="server" id="view_owner">
+                    <div class="modal-header modal-header-success">
+                        <h3 class="modal-title">Pet Owner</h3>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="form-group" style="display: none;">
+                                <label>ID</label>
+                                <input type="text" name="UserID" id="UserID" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" name="FullName" id="FullName" class="form-control" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label>Birthdate</label>
+                                <input type="text" name="BirthDate" id="BirthDate" class="form-control" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Number</label>
+                                <input type="text" name="ContactNo" id="ContactNo" class="form-control" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" name="Email" id="Email" class="form-control" readonly />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
+                            Close</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- End of Modal for Display User Profile -->
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -591,24 +638,18 @@ $clinicID = $row_ca['ClinicID'];
 
     <!-- To show details when editing -->
     <script>
-        $('#edit_modal').on('show.bs.modal', function(e) {
+        $('#pet_owner').on('show.bs.modal', function(e) {
             var opener = e.relatedTarget;
 
-            var supply_id = $(opener).attr('supply-id');
-            var supply_image = $(opener).attr('supply-image');
-            var supply_name = $(opener).attr('supply-name');
-            var supply_desc = $(opener).attr('supply-desc');
-            var supply_price = $(opener).attr('supply-price');
-            var stocks = $(opener).attr('stocks');
-            var need_presc = $(opener).attr('need-presc');
+            var owner = $(opener).attr('owner');
+            var bdate = $(opener).attr('bdate');
+            var contactno = $(opener).attr('contactno');
+            var email = $(opener).attr('email');
 
-            $('#form_edit_supply').find('[name="SupplyID"]').val(supply_id);
-            $('#form_edit_supply').find('[name="SupplyImage_c"]').prop('src', 'image_upload/' + supply_image);
-            $('#form_edit_supply').find('[name="SupplyName"]').val(supply_name);
-            $('#form_edit_supply').find('[name="SupplyDescription"]').val(supply_desc);
-            $('#form_edit_supply').find('[name="SupplyPrice"]').val(supply_price);
-            $('#form_edit_supply').find('[name="Stocks"]').val(stocks);
-            $('#form_edit_supply').find('[name="NeedPrescription"]').val(need_presc);
+            $('#view_owner').find('[name="FullName"]').val(owner);
+            $('#view_owner').find('[name="BirthDate"]').val(bdate);
+            $('#view_owner').find('[name="ContactNo"]').val(contactno);
+            $('#view_owner').find('[name="Email"]').val(email);
 
             endResize();
         });

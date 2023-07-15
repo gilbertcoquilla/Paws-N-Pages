@@ -21,8 +21,7 @@ $clinicID = $row_ca['ClinicID'];
 <head>
     <meta charset="UTF-8">
     <title>Paws N Pages | Services</title>
-    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png"
-        type="image/x-icon">
+    <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -215,7 +214,7 @@ $clinicID = $row_ca['ClinicID'];
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function (digits) {
+            Number.prototype.pad = function(digits) {
                 for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
@@ -234,11 +233,22 @@ $clinicID = $row_ca['ClinicID'];
         }
     </script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var table = $('#orders').DataTable({
                 order: [
                     [2, 'asc']
                 ],
+
+                "columns": [
+                    null,
+                    {
+                        "width": "50%"
+                    },
+                    null,
+                    null
+                ],
+
+                lengthMenu: [5, 10, 20, 50],
 
             });
         });
@@ -247,21 +257,17 @@ $clinicID = $row_ca['ClinicID'];
 
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png"
-                height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
-                ?>
-                <a href="logout.php"
-                    style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i
-                        class="fa fa-sign-out"></i></a><a
-                    style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
+            ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged
                     in as, <i>
                         <?php echo $row['Username'] ?>
                     </i></a>&nbsp;&nbsp;
-            </p>
-        <?php } ?>
+        </p>
+    <?php } ?>
     </div>
     <div class="wrapper">
         <div class="side_bar">
@@ -380,8 +386,7 @@ $clinicID = $row_ca['ClinicID'];
                 <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font"><b>🛎️ Services</b>
-                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal"
-                                style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
+                            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_modal" style="float:right; width:5%; height: 35px; border-radius: 15px; padding: 0;">ADD</button>
                         </div>
                         <div class="card-body text-center">
 
@@ -402,7 +407,7 @@ $clinicID = $row_ca['ClinicID'];
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
 
-                                            ?>
+                                    ?>
                                             <!--Fetch the Records -->
                                             <tr style="border:0px;">
                                                 <td style="border:0px;">
@@ -415,32 +420,24 @@ $clinicID = $row_ca['ClinicID'];
                                                     <?php echo $row['ServicePrice']; ?>
                                                 </td>
                                                 <td style="border:0px;">
-                                                    <a href="" serviceid="<?php echo $row['ServiceID'] ?>"
-                                                        servicename="<?php echo $row['ServiceName'] ?>"
-                                                        servicedescription="<?php echo $row['ServiceDescription'] ?>"
-                                                        serviceprice="<?php echo $row['ServicePrice']; ?>" class="edit" title="edit"
-                                                        data-toggle="modal" data-target="#edit_service"><i
-                                                            class="fa fa-edit"></i></a>
-                                                    <button class="delete_service" name="delete_service"
-                                                        value="<?php echo $row['ServiceID'] ?>"
-                                                        style="border:0px; background-color:inherit;"><i class="fa fa-trash"
-                                                            style="color:red;"></i></button>
+                                                    <a href="" serviceid="<?php echo $row['ServiceID'] ?>" servicename="<?php echo $row['ServiceName'] ?>" servicedescription="<?php echo $row['ServiceDescription'] ?>" serviceprice="<?php echo $row['ServicePrice']; ?>" class="edit" title="edit" data-toggle="modal" data-target="#edit_service"><i class="fa fa-edit"></i></a>
+                                                    <button class="delete_service" name="delete_service" value="<?php echo $row['ServiceID'] ?>" style="border:0px; background-color:inherit;"><i class="fa fa-trash" style="color:red;"></i></button>
                                                 </td>
 
 
                                             </tr>
-                                            <?php
+                                        <?php
                                             $cnt = $cnt + 1;
                                         }
                                     } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="4">No Record Found
-                                        </td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                    </tr>
-                                <?php } ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="4">No Record Found
+                                            </td>
+                                            <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                            <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                            <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                        </tr>
+                                    <?php } ?>
 
                                 </tbody>
                             </table>
@@ -475,7 +472,7 @@ $clinicID = $row_ca['ClinicID'];
                                     if ($row > 0) {
                                         while ($row = mysqli_fetch_array($ret)) {
 
-                                            ?>
+                                    ?>
                                             <!--Fetch the Records -->
                                             <tr style="border:0px;">
                                                 <td style="border:0px;">
@@ -491,18 +488,18 @@ $clinicID = $row_ca['ClinicID'];
                                                     <?php echo $row['ServicePrice']; ?>
                                                 </td>
                                             </tr>
-                                            <?php
+                                        <?php
                                             $cnt = $cnt + 1;
                                         }
                                     } else { ?>
-                                    <tr style="border:0px;">
-                                        <td style="text-align:center; color:red; border:0px;" colspan="4">No Record Found
-                                        </td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                        <td style="text-align:center; color:red; display:none;">No Record Found</td>
-                                    </tr>
-                                <?php } ?>
+                                        <tr style="border:0px;">
+                                            <td style="text-align:center; color:red; border:0px;" colspan="4">No Record Found
+                                            </td>
+                                            <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                            <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                            <td style="text-align:center; color:red; display:none;">No Record Found</td>
+                                        </tr>
+                                    <?php } ?>
 
                                 </tbody>
                             </table>
@@ -530,8 +527,7 @@ $clinicID = $row_ca['ClinicID'];
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea name="description" class="form-control"
-                                        style="width: 100%; height: 150px;" required="required"></textarea>
+                                    <textarea name="description" class="form-control" style="width: 100%; height: 150px;" required="required"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Price</label>
@@ -541,8 +537,7 @@ $clinicID = $row_ca['ClinicID'];
                         </div>
                         <div style="clear:both;"></div>
                         <div class="modal-footer">
-                            <button name="save_service" class="btn btn-primary" style="border-radius: 15px;"><span
-                                    class="glyphicon glyphicon-save"></span>
+                            <button name="save_service" class="btn btn-primary" style="border-radius: 15px;"><span class="glyphicon glyphicon-save"></span>
                                 Add</button>
 
                         </div>
@@ -569,13 +564,11 @@ $clinicID = $row_ca['ClinicID'];
                                 </div>
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" name="ServiceName" id="ServiceName" class="form-control"
-                                        required />
+                                    <input type="text" name="ServiceName" id="ServiceName" class="form-control" required />
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>
-                                    <textarea name="ServiceDescription" id="ServiceDescription" class="form-control"
-                                        style=" width: 100%; height: 150px;" required></textarea>
+                                    <textarea name="ServiceDescription" id="ServiceDescription" class="form-control" style=" width: 100%; height: 150px;" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Price</label>
@@ -586,12 +579,10 @@ $clinicID = $row_ca['ClinicID'];
 
 
                         <div class="modal-footer">
-                            <button name="update_service" style="border-radius: 15px;" class="btn btn-primary"><span
-                                    class="glyphicon glyphicon-edit"></span>
+                            <button name="update_service" style="border-radius: 15px;" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span>
                                 Update
                             </button>
-                            <button class="btn btn-danger" type="button" data-dismiss="modal"
-                                style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal" style="border-radius: 15px;"><span class="glyphicon glyphicon-remove"></span>
                                 Cancel</button>
                         </div>
                     </form>
@@ -632,7 +623,6 @@ $clinicID = $row_ca['ClinicID'];
             } else {
                 echo "<script>alert('Something Went Wrong. Please try again');</script>";
             }
-
         }
 
         ///////////////////////// FOR ADDING NEW SERVICE /////////////////////////
@@ -690,13 +680,11 @@ $clinicID = $row_ca['ClinicID'];
         <script src="js/main.js"></script>
 
         <!-- Latest compiled and minified JavaScript (needed for editing details on a tabled list of data) -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
         <!-- To show details when editing -->
         <script>
-            $('#edit_service').on('show.bs.modal', function (e) {
+            $('#edit_service').on('show.bs.modal', function(e) {
                 var opener = e.relatedTarget;
 
                 var serviceid = $(opener).attr('serviceid');
@@ -712,6 +700,10 @@ $clinicID = $row_ca['ClinicID'];
                 endResize();
             });
 
+            $('#form_modal').on('show.bs.modal', function(e) {
+                endResize();
+            });
+
             function endResize() {
                 $(window).off("resize", resizer);
             }
@@ -720,16 +712,16 @@ $clinicID = $row_ca['ClinicID'];
         <!-- SWAL -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script>
-            $(document).ready(function () {
-                $('.delete_service').click(function (e) {
+            $(document).ready(function() {
+                $('.delete_service').click(function(e) {
                     var id = $(this).val();
                     swal({
-                        title: "Warning",
-                        text: "Are you sure you want to delete this service?",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
+                            title: "Warning",
+                            text: "Are you sure you want to delete this service?",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
                         .then((willDelete) => {
                             if (willDelete) {
                                 $.ajax({
@@ -739,10 +731,10 @@ $clinicID = $row_ca['ClinicID'];
                                         'Service_ID': id,
                                         'delete_service': true
                                     },
-                                    success: function (response) {
+                                    success: function(response) {
                                         console.log(response);
                                         if (response == 200) {
-                                            swal("Success", "You have successfully deleted a service", "success").then(function () {
+                                            swal("Success", "You have successfully deleted a service", "success").then(function() {
                                                 location.reload();
                                             });
                                         }

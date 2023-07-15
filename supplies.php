@@ -17,7 +17,7 @@ $clinicID = $row_ca['ClinicID'];
 <html lang="en">
 
 <head>
-     <title>Paws N Pages | Products</title>
+    <title>Paws N Pages | Products</title>
     <meta charset="UTF-8">
     <link rel="icon" href="https://media.discordapp.net/attachments/1112075552669581332/1113455947420024832/icon.png" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -185,33 +185,33 @@ $clinicID = $row_ca['ClinicID'];
             list-style-type: none;
             padding-bottom: 5.5em;
         }
-        </style>
+    </style>
 
-            <!-- FOR DIGITAL TIME AND DATE -->
-        <script type="text/javascript">
-        function updateClock(){
-        var now = new Date();
-        var dname = now.getDay(),
-            mo = now.getMonth(),
-            dnum = now.getDate(),
-            yr = now.getFullYear(),
-            hou = now.getHours(),
-            min = now.getMinutes(),
-            sec = now.getSeconds(),
-            pe = "AM";
+    <!-- FOR DIGITAL TIME AND DATE -->
+    <script type="text/javascript">
+        function updateClock() {
+            var now = new Date();
+            var dname = now.getDay(),
+                mo = now.getMonth(),
+                dnum = now.getDate(),
+                yr = now.getFullYear(),
+                hou = now.getHours(),
+                min = now.getMinutes(),
+                sec = now.getSeconds(),
+                pe = "AM";
 
-            if(hou >= 12){
+            if (hou >= 12) {
                 pe = "PM";
             }
-            if(hou == 0){
+            if (hou == 0) {
                 hou = 12;
             }
-            if(hou > 12){
+            if (hou > 12) {
                 hou = hou - 12;
             }
 
-            Number.prototype.pad = function(digits){
-                for(var n = this.toString(); n.length < digits; n = 0 + n);
+            Number.prototype.pad = function(digits) {
+                for (var n = this.toString(); n.length < digits; n = 0 + n);
                 return n;
             }
 
@@ -219,15 +219,15 @@ $clinicID = $row_ca['ClinicID'];
             var week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             var ids = ["dayname", "month", "daynum", "year", "hour", "minutes", "seconds", "period"];
             var values = [week[dname], months[mo], dnum.pad(2), yr, hou.pad(2), min.pad(2), sec.pad(2), pe];
-            for(var i = 0; i < ids.length; i++)
-            document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+            for (var i = 0; i < ids.length; i++)
+                document.getElementById(ids[i]).firstChild.nodeValue = values[i];
         }
 
-        function initClock(){
-        updateClock();
-        window.setInterval("updateClock()", 1);
+        function initClock() {
+            updateClock();
+            window.setInterval("updateClock()", 1);
         }
-        </script>
+    </script>
     <script>
         $(document).ready(function() {
             var table = $('#supplies').DataTable({
@@ -286,72 +286,73 @@ $clinicID = $row_ca['ClinicID'];
 
 <body onload="initClock()">
     <div style="width:100%; height:50px; background-color:#73a22e;">
-            <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
+        <p style="color:white; font-size:23px; padding-left:10px;"><img src="img/logo_white.png" height="50px">&nbsp;PawsNPages
             <?php
             $ret = mysqli_query($con, "SELECT * FROM users WHERE UserID='$userID'");
             while ($row = mysqli_fetch_array($ret)) {
             ?>
-                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;</p>
-            <?php } ?>
+                <a href="logout.php" style="color:white; font-size:20px; padding-top:10px; float:right; padding-right:15px;"><i class="fa fa-sign-out"></i></a><a style="color:white; font-size:15px; padding-top:13px; float:right; padding-left:10px; padding-right:10px;">Logged in as, <i><?php echo $row['Username'] ?></i></a>&nbsp;&nbsp;
+        </p>
+    <?php } ?>
     </div>
     <div class="wrapper">
-        <div class="side_bar" >
+        <div class="side_bar">
 
             <div class="side_bar_bottom">
                 <ul>
                     <li>
                         <span class="top_curve"></span>
                         <a href="dashboard.php"><span class="icon"><i class="fa fa-home"></i></span>
-                        <span class="item">Dashboard</span></a>
+                            <span class="item">Dashboard</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="clinicadmin.php"><span class="icon"><i class="fa fa-user"></i></span>
-                        <span class="item">Profile</span></a>
+                            <span class="item">Profile</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li class="active">
                         <span class="top_curve"></span>
                         <a href="supplies.php"><span class="icon"><i class="fa fa-tags"></i></span>
-                        <span class="item">Products</span></a>
+                            <span class="item">Products</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="bookings.php"><span class="icon"><i class="fa fa-calendar"></i></span>
-                        <span class="item">Bookings</span></a>
+                            <span class="item">Bookings</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="orders_admin.php"><span class="icon"><i class="fa fa-truck"></i></span>
-                        <span class="item">Orders</span></a>
+                            <span class="item">Orders</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
-                    <li >
+                    <li>
                         <span class="top_curve"></span>
                         <a href="feedbacks_admin.php"><span class="icon"><i class="fa fa-envelope"></i></span>
-                        <span class="item">Feedback</span></a>
+                            <span class="item">Feedback</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
                     <li>
                         <span class="top_curve"></span>
                         <a href="services.php"><span class="icon"><i class="fa fa-list"></i></span>
-                        <span class="item">Services</span></a>
+                            <span class="item">Services</span></a>
                         <span class="bottom_curve"></span>
                     </li>
-                
+
                     <li>
                         <span class="top_curve"></span>
                         <a href="petsearch.php"><span class="icon"><i class="fa fa-paw"></i></span>
-                        <span class="item">Pet Records</span></a>
+                            <span class="item">Pet Records</span></a>
                         <span class="bottom_curve"></span>
                     </li>
 
@@ -359,59 +360,59 @@ $clinicID = $row_ca['ClinicID'];
                         <li>
                             <span class="top_curve"></span>
                             <a href="users.php"><span class="icon"><i class="fa fa-users"></i></span>
-                            <span class="item">Users</span></a>
+                                <span class="item">Users</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="clinics_admin.php"><span class="icon"><i class="fa fa-building"></i></span>
-                            <span class="item">Clinics</span></a>
+                                <span class="item">Clinics</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
                         <li>
                             <span class="top_curve"></span>
                             <a href="petbooklet.php"><span class="icon"><i class="fa fa-book"></i></span>
-                            <span class="item">Pet Booklet</span></a>
+                                <span class="item">Pet Booklet</span></a>
                             <span class="bottom_curve"></span>
                         </li>
 
-                         <li >
+                        <li>
                             <span class="top_curve"></span>
                             <a href="reports.php"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
-                            <span class="item">Reports</span></a>
+                                <span class="item">Reports</span></a>
                             <span class="bottom_curve"></span>
-                        </li>     
+                        </li>
                     <?php } ?>
                 </ul>
-                    <!--digital clock start-->
-                    <div class="datetime" style="color:white;  text-align:center;">
-                        <div class="date">
-                            <span id="dayname">Day</span>,
-                            <span id="month">Month</span>
-                            <span id="daynum">00</span>,
-                            <span id="year">Year</span>
-                        </div>
-                        <div class="time">
-                            <span id="hour">00</span>:
-                            <span id="minutes">00</span>:
-                            <span id="seconds">00</span>
-                            <span id="period">AM</span>
-                        </div>
+                <!--digital clock start-->
+                <div class="datetime" style="color:white;  text-align:center;">
+                    <div class="date">
+                        <span id="dayname">Day</span>,
+                        <span id="month">Month</span>
+                        <span id="daynum">00</span>,
+                        <span id="year">Year</span>
                     </div>
-                    <!--digital clock end-->
+                    <div class="time">
+                        <span id="hour">00</span>:
+                        <span id="minutes">00</span>:
+                        <span id="seconds">00</span>
+                        <span id="period">AM</span>
+                    </div>
+                </div>
+                <!--digital clock end-->
             </div>
         </div>
 
         <?php if ($usertype == 'Administrator') { ?>
 
-        <div class="main_container">
+            <div class="main_container">
                 <div style="padding-right:30px; padding-left:30px; padding-top:10px;">
                     <div class="card mb-4 mb-xl-0" style="border-radius: 15px;">
                         <div class="card-header userProfile-font">
                             <b style="padding-top:10px;">🏷️ Products</b>
-                       </div>
+                        </div>
                         <div class="card-body text-center">
                             <table class="table table-striped table-hover" style="border: 0px; text-align: left;" id="supplies">
                                 <thead>
@@ -451,7 +452,7 @@ $clinicID = $row_ca['ClinicID'];
                                             <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
                                             <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
                                             <td style="text-align:center; color:red; border:0px; display:none;" colspan="0"></td>
-                                       </tr>
+                                        </tr>
                                     <?php } ?>
 
                                 </tbody>
@@ -503,7 +504,7 @@ $clinicID = $row_ca['ClinicID'];
                                                 <td style="border:0px;"><?php echo $row['NeedPrescription']; ?></td>
                                                 <td style="text-align: center; border:0px;">
                                                     <a href="" supply-id="<?php echo $row['SupplyID'] ?>" supply-image="<?php echo $row['SupplyImage'] ?>" supply-name="<?php echo $row['SupplyName'] ?>" supply-desc="<?php echo $row['SupplyDescription'] ?>" supply-price="<?php echo $row['SupplyPrice'] ?>" stocks="<?php echo $row['Stocks'] ?>" need-presc="<?php echo $row['NeedPrescription'] ?>" class="edit" data-toggle="modal" data-target="#edit_modal"><i class="fa fa-edit"></i></a>
-                                                    <button class="delete_product" name="delete_product" value="<?php echo $row['SupplyID']?>" style="border:0px; background-color:inherit;"><i class="fa fa-trash" style="color:red;"></i></button>
+                                                    <button class="delete_product" name="delete_product" value="<?php echo $row['SupplyID'] ?>" style="border:0px; background-color:inherit;"><i class="fa fa-trash" style="color:red;"></i></button>
                                                 </td>
                                             </tr>
                                         <?php
@@ -527,7 +528,7 @@ $clinicID = $row_ca['ClinicID'];
                 </div>
             </div>
 
-        <?php } ?> 
+        <?php } ?>
 
 
 
@@ -548,7 +549,7 @@ $clinicID = $row_ca['ClinicID'];
 
                             <div class="form-group">
                                 <label>Product Image</label>
-                                <input type="file" class="form-control" name="image" onchange="previewFile(this);" accept="image/*"  required="required"/>
+                                <input type="file" class="form-control" name="image" onchange="previewFile(this);" accept="image/*" required="required" />
                             </div>
 
                             <div class="form-group">
@@ -557,7 +558,7 @@ $clinicID = $row_ca['ClinicID'];
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea name="description" class="form-control" style="width: 100%; height: 150px;" required="required" ></textarea>
+                                <textarea name="description" class="form-control" style="width: 100%; height: 150px;" required="required"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>Price</label>
@@ -688,11 +689,11 @@ $clinicID = $row_ca['ClinicID'];
                                     </div>
                                     <div class="form-group">
                                         <label>Product Name</label>
-                                        <input type="text" name="aClinicName" id="aClinicName" class="form-control" readonly/>
+                                        <input type="text" name="aClinicName" id="aClinicName" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Product Name</label>
-                                        <input type="text" name="aSupplyName" id="aSupplyName" class="form-control" readonly/>
+                                        <input type="text" name="aSupplyName" id="aSupplyName" class="form-control" readonly />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -702,15 +703,15 @@ $clinicID = $row_ca['ClinicID'];
                                     </div>
                                     <div class="form-group">
                                         <label>Price</label>
-                                        <input type="text" name="aSupplyPrice" id="aSupplyPrice" class="form-control" readonly/>
+                                        <input type="text" name="aSupplyPrice" id="aSupplyPrice" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Stocks</label>
-                                        <input type="number" name="aStocks" id="aStocks" class="form-control" readonly/>
+                                        <input type="number" name="aStocks" id="aStocks" class="form-control" readonly />
                                     </div>
                                     <div class="form-group">
                                         <label>Needs Prescription</label>
-                                        <input type="text" name="aNeedPrescription" id="aNeedPrescription" class="form-control" readonly/>
+                                        <input type="text" name="aNeedPrescription" id="aNeedPrescription" class="form-control" readonly />
                                     </div>
                                 </div>
 
@@ -732,27 +733,27 @@ $clinicID = $row_ca['ClinicID'];
     </div>
     <!-- END OF MODAL FOR VIEWING PRODUCT -->
 
-    <?php 
+    <?php
     if (isset($_POST['save_product'])) {
 
-    $file = $_FILES['image']['name'];
-    $tempfile = $_FILES['image']['tmp_name'];
-    $folder = "image_upload/" . $file;
+        $file = $_FILES['image']['name'];
+        $tempfile = $_FILES['image']['tmp_name'];
+        $folder = "image_upload/" . $file;
 
-    move_uploaded_file($tempfile, $folder);
+        move_uploaded_file($tempfile, $folder);
 
-    $name = $_POST['name'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-    $stocks = $_POST['stocks'];
-    $prescription = $_POST['prescription'];
+        $name = $_POST['name'];
+        $description = $_POST['description'];
+        $price = $_POST['price'];
+        $stocks = $_POST['stocks'];
+        $prescription = $_POST['prescription'];
 
-    $query = mysqli_query($con, "INSERT INTO petsupplies (SupplyImage, SupplyName, SupplyDescription, SupplyPrice, Stocks, NeedPrescription, ClinicID) VALUES ('$file', '$name', '$description', '$price', '$stocks', '$prescription', '$clinicID')");
+        $query = mysqli_query($con, "INSERT INTO petsupplies (SupplyImage, SupplyName, SupplyDescription, SupplyPrice, Stocks, NeedPrescription, ClinicID) VALUES ('$file', '$name', '$description', '$price', '$stocks', '$prescription', '$clinicID')");
 
-    if ($query) {
-        echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                                        echo '<script>';
-                                        echo 'swal({
+        if ($query) {
+            echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
+            echo '<script>';
+            echo 'swal({
                                             title: "Success",
                                             text: "You have successfully added a new product",
                                             icon: "success",
@@ -765,10 +766,10 @@ $clinicID = $row_ca['ClinicID'];
                                                         document.location ="supplies.php";
                                                     }
                                                 })';
-                                        echo '</script>';
-    } else {
-        echo "<script>alert('Error adding new product.');</script>";
-    }
+            echo '</script>';
+        } else {
+            echo "<script>alert('Error adding new product.');</script>";
+        }
     }
 
     if (isset($_POST['update'])) {
@@ -792,8 +793,8 @@ $clinicID = $row_ca['ClinicID'];
 
             if ($query) {
                 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                                        echo '<script>';
-                                        echo 'swal({
+                echo '<script>';
+                echo 'swal({
                                             title: "Success",
                                             text: "You have successfully updated a product",
                                             icon: "success",
@@ -806,7 +807,7 @@ $clinicID = $row_ca['ClinicID'];
                                                         document.location ="supplies.php";
                                                     }
                                                 })';
-                                        echo '</script>';
+                echo '</script>';
             } else {
                 echo "<script>alert('Error updating data.');</script>";
             }
@@ -815,8 +816,8 @@ $clinicID = $row_ca['ClinicID'];
 
             if ($e_query) {
                 echo '<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>';
-                                        echo '<script>';
-                                        echo 'swal({
+                echo '<script>';
+                echo 'swal({
                                             title: "Success",
                                             text: "You have successfully updated a product",
                                             icon: "success",
@@ -829,13 +830,13 @@ $clinicID = $row_ca['ClinicID'];
                                                         document.location ="supplies.php";
                                                     }
                                                 })';
-                                        echo '</script>';
+                echo '</script>';
             } else {
                 echo "<script>alert('Error updating data.');</script>";
             }
         }
     }
-?>
+    ?>
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -854,9 +855,7 @@ $clinicID = $row_ca['ClinicID'];
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- To show details when editing -->
-    <script>                                               
-                                                        
-
+    <script>
         $('#edit_modal').on('show.bs.modal', function(e) {
             var opener = e.relatedTarget;
 
@@ -903,6 +902,10 @@ $clinicID = $row_ca['ClinicID'];
             endResize();
         });
 
+        $('#form_modal').on('show.bs.modal', function(e) {
+            endResize();
+        });
+
         function endResize() {
             $(window).off("resize", resizer);
         }
@@ -911,39 +914,39 @@ $clinicID = $row_ca['ClinicID'];
     <!-- SWAL -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-    $(document).ready(function (){
-        $('.delete_product').click(function(e){
-            var id = $(this).val();
-            e.preventDefault();
+        $(document).ready(function() {
+            $('.delete_product').click(function(e) {
+                var id = $(this).val();
+                e.preventDefault();
                 swal({
-                title: "Warning",
-                text: "Are you sure you want to delete this item?",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-                })
-                .then((willDelete) => {
-                if (willDelete) {
-                   $.ajax({
-                    method: "POST",
-                    url:"action.php",
-                    data:{
-                        'Supply_ID':id,
-                        'delete_product':true
-                    },
-                    success: function(response){
-                        console.log(response);
-                        if(response == 200){
-                            swal("Success", "You have successfully deleted a product", "success").then(function(){
-                                location.reload();
-                            });
+                        title: "Warning",
+                        text: "Are you sure you want to delete this item?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                method: "POST",
+                                url: "action.php",
+                                data: {
+                                    'Supply_ID': id,
+                                    'delete_product': true
+                                },
+                                success: function(response) {
+                                    console.log(response);
+                                    if (response == 200) {
+                                        swal("Success", "You have successfully deleted a product", "success").then(function() {
+                                            location.reload();
+                                        });
+                                    }
+                                }
+                            })
                         }
-                    }
-                   })
-                } 
-            });
+                    });
+            })
         })
-    })
     </script>
 
 </body>
